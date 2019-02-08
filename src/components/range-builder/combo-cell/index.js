@@ -2,22 +2,32 @@ import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 
+import './combo-cell.scss'
+
 class ComboCell extends Component {
   static propTypes = {
     combo: PropTypes.shape({
       suited: PropTypes.bool,
       value: PropTypes.string
     }),
+    onSelect: PropTypes.func,
     selected: PropTypes.bool
   }
 
 
   render() {
     return (
-      <td className={this.getClass()}>
+      <td {...this.getProps()}>
         {this.props.combo.value}
       </td> 
     ) 
+  }
+
+  getProps() {
+    return {
+      className: this.getClass(),
+      onClick: this.props.onSelect
+    } 
   }
 
   getClass() {

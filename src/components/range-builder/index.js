@@ -1,7 +1,7 @@
 import ComboCell from './combo-cell'
 import React, { Component } from 'react'
 
-import './range-builder.css'
+import './range-builder.scss'
 
 class RangeBuilder extends Component {
 
@@ -29,7 +29,12 @@ class RangeBuilder extends Component {
         if (i < j) {
           combo = {
             suited: true,
-            value: `${ranks[i]}${ranks[j]}`
+            value: `${ranks[i]}${ranks[j]}s`
+          }
+        } else if (i > j) {
+          combo = {
+            suited: false,
+            value: `${ranks[j]}${ranks[i]}o`
           }
         } else {
           combo = {
@@ -51,17 +56,44 @@ class RangeBuilder extends Component {
         <h1>Range Builder</h1> 
         <table>
           <tbody>
-            {this.combos.map((comboRow, index) => {
-              return (<tr key={index}>
-                {comboRow.map(combo => {
-                  return <ComboCell key={combo.value} combo={combo} />
-                })}
-              </tr>)
-            })}
+            {this.renderCombos()}
           </tbody>
         </table>
       </div>
     ) 
+  }
+
+  renderCombos() {
+    return this.combos.map((comboRow, index) => {
+        return (
+          <tr key={index}>
+            {comboRow.map(combo => {
+              return <ComboCell {...this.getComboProps(combo)} />
+            })}
+          </tr>
+        )
+      })
+  }
+
+  getComboProps(combo) {
+    return {
+      combo: combo,
+      key: combo.value,
+      onSelect: this.handleSelect.bind(this, combo),
+      selected: this.state.selected.includes(combo)
+    }
+  }
+
+  handleSelect(selectedCombo) {
+    if (this.state.selected.includes(selectedCombo)) {
+      this.setState({
+        selected: this.state.selected.filter(combo => combo !== selectedCombo)
+      })
+    } else {
+      this.setState({
+        selected: this.state.selected.concat([selectedCombo])
+      })
+    }
   }
 }
 
