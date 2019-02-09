@@ -29,12 +29,12 @@ class RangeBuilder extends Component {
         if (i < j) {
           combo = {
             suited: true,
-            value: `${ranks[i]}${ranks[j]}s`
+            value: `${ranks[i]}${ranks[j]}`
           }
         } else if (i > j) {
           combo = {
             suited: false,
-            value: `${ranks[j]}${ranks[i]}o`
+            value: `${ranks[j]}${ranks[i]}`
           }
         } else {
           combo = {
