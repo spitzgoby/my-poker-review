@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import RangeBuilder from '../range-builder'
+import RangeBuilder from 'components/range-builder'
 
 import './home.css'
 

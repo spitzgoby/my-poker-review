@@ -264,6 +264,7 @@ module.exports = function(webpackEnv) {
       alias: {
         components: path.resolve(__dirname, '../src/components'),
         containers: path.resolve(__dirname, '../src/containers'),
+        modules: path.resolve(__dirname, '../src/modules'),
         styles: path.resolve(__dirname, '../src/styles')
       },
       plugins: [
