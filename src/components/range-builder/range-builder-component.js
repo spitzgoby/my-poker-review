@@ -18,6 +18,11 @@ class RangeBuilder extends Component {
             {this.renderCombos()}
           </tbody>
         </table>
+
+        <div className="range-builder--text-output">
+          <span className="range-builder--text-output-label">Range</span>:
+          <input value="AQ+,QQ+"></input>
+        </div>
       </div>
     ) 
   }

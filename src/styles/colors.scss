@@ -1,8 +1,9 @@
 // TEXT COLORS
-$mpr-dark-text-color: rgba(5, 5, 5, 5);
+$mpr-dark-text-color: rgba(5, 5, 5, 1);
 
 // SITE COLORS
 $mpr-primary-color: rgba(27, 154, 170, 1);
+$mpr-complementary-color: rgba(170, 44, 27, 1);
 $mpr-primary-color-darker: darken($mpr-primary-color, 10%);
 $mpr-secondary-color: rgba(221, 219, 203, 1);
 $mpr-tertiary-color: rgba(245, 241, 227, 1);

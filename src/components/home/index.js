@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import RangeBuilder from 'components/range-builder'
 
-import './home.css'
+import './home.scss'
 
 class Home extends Component {
   render() {
