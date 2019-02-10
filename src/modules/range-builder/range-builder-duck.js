@@ -1,5 +1,7 @@
 import {actionCreator} from 'redux-action-creator'
 import {buildCombos} from 'modules/range-builder/combo-builder'
+import {createSelector} from 'reselect'
+import {rangeFromCombos} from 'modules/range-builder/range-output-builder'
 
 /*-------------*
  *** ACTIONS ***
@@ -21,7 +23,7 @@ let {
 const initialState = {
   comboIds,
   entities,
-  selected: []
+  selectedComboIds: []
 }
 
 export default function(state = initialState, action = {}) {
@@ -31,9 +33,9 @@ export default function(state = initialState, action = {}) {
     case types.SELECT_COMBO:
       nextState = {
         ...state,
-        selected: state.selected.includes(action.payload.id)
-          ? state.selected.filter(id => id !== action.payload.id)
-          : state.selected.concat([action.payload.id])
+        selectedComboIds: state.selectedComboIds.includes(action.payload.id)
+          ? state.selectedComboIds.filter(id => id !== action.payload.id)
+          : state.selectedComboIds.concat([action.payload.id])
       }
 
       break
@@ -49,7 +51,13 @@ export default function(state = initialState, action = {}) {
  *** SELECTORS ***
  *---------------*/
 export const getCombo = (state, id) => state.entities[id]
-
+export const getCombos = (state) => state.entities
 export const getComboIds = (state) => state.comboIds
-
-export const getIsComboSelected = (state, id) => state.selected.includes(id)
+export const getIsComboSelected = (state, id) => state.selectedComboIds.includes(id)
+export const getSelectedComboIds = (state) => state.selectedComboIds
+export const getSelectedCombos = createSelector(
+  getCombos,
+  getSelectedComboIds,
+  (combos, selectedComboIds) => selectedComboIds.map(id => combos[id])
+)
+export const getRangeOutput = (state) => rangeFromCombos(getSelectedCombos(state))

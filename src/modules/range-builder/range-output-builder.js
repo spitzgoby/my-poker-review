@@ -1,0 +1,1 @@
+export const rangeFromCombos = (combos) => 'AQ+, QQ+'

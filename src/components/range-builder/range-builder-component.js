@@ -6,7 +6,8 @@ import './range-builder.scss'
 
 class RangeBuilder extends Component {
   static propTypes = {
-    comboIds: PropTypes.arrayOf(PropTypes.string)
+    comboIds: PropTypes.arrayOf(PropTypes.string),
+    rangeOutput: PropTypes.string
   }
 
   render() {
@@ -21,7 +22,7 @@ class RangeBuilder extends Component {
 
         <div className="range-builder--text-output">
           <span className="range-builder--text-output-label">Range</span>:
-          <input value="AQ+,QQ+"></input>
+          <input value={this.props.rangeOutput}></input>
         </div>
       </div>
     ) 
