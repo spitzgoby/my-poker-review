@@ -1,14 +1,22 @@
+@import 'styles/globals.scss';
+
 .range-builder {
   align-content: center;
   display: flex;
   flex-direction: column;
   width: 100%;
 
-  &--text-output {
+  &--range-output {
     font-size: 1.5rem;
     margin-top: 1rem;
+
     &-label {
       font-weight: bold;
+    }
+
+    &-clear-button {
+      background-color: $mpr-complementary-color;
+      color: white;
     }
   }
 }

@@ -4,6 +4,7 @@ import reducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-
 export default reducer
 
 // Actions
+export const clearSelectedComboIds = fromRangeBuilder.clearSelectedComboIds
 export const selectCombo = fromRangeBuilder.selectCombo
 
 // Selectors

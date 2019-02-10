@@ -1,5 +1,7 @@
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import {
+  clearSelectedComboIds,
   getComboIds,
   getRangeOutput
 } from 'modules/range-builder'
@@ -10,4 +12,10 @@ const mapStateToProps = (state) => ({
   rangeOutput: getRangeOutput(state)
 })
 
-export default connect(mapStateToProps)(RangeBuilder)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    clearSelectedComboIds
+  }, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RangeBuilder)

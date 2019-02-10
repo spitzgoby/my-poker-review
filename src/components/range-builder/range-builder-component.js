@@ -5,7 +5,16 @@ import React, { Component } from 'react'
 import './range-builder.scss'
 
 class RangeBuilder extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
+  }
+
   static propTypes = {
+    actions: PropTypes.shape({
+      clearSelectedComboIds: PropTypes.func
+    }).isRequired,
     comboIds: PropTypes.arrayOf(PropTypes.string),
     rangeOutput: PropTypes.string
   }
@@ -14,18 +23,30 @@ class RangeBuilder extends Component {
     return (
       <div className="range-builder">
         <h1>Range Builder</h1> 
-        <table>
-          <tbody>
-            {this.renderCombos()}
-          </tbody>
-        </table>
-
-        <div className="range-builder--text-output">
-          <span className="range-builder--text-output-label">Range</span>:
-          <input value={this.props.rangeOutput}></input>
-        </div>
+        {this.renderRangeTable()}
+        {this.renderRangeOutput()}
       </div>
     ) 
+  }
+
+  renderRangeTable() {
+    return (
+      <table>
+        <tbody>
+          {this.renderCombos()}
+        </tbody>
+      </table>
+    )
+  }
+
+  renderRangeOutput() {
+    return (
+      <div className="range-builder--range-output">
+        <span className="range-builder--range-output-label">Range</span>:
+        <input value={this.props.rangeOutput}></input>
+        <button {...this.getClearButtonProps()}>Clear</button>
+      </div>
+    )
   }
 
   renderCombos() {
@@ -42,8 +63,19 @@ class RangeBuilder extends Component {
     )
   }
 
-  handleSelect(combo) {
-    this.props.actions.selectCombo(combo)
+  getClearButtonProps() {
+    return {
+      className: 'range-builder--range-output-clear-button',
+      onClick: this.handleClearButtonClick
+    }
+  }
+
+  handleClearButtonClick() {
+    const {clearSelectedComboIds} = this.props.actions
+
+    if (clearSelectedComboIds) {
+      clearSelectedComboIds()
+    }
   }
 
   buildComboRows() {

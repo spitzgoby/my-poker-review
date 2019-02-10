@@ -7,9 +7,11 @@ import {rangeFromCombos} from 'modules/range-builder/range-output-builder'
  *** ACTIONS ***
  *-------------*/
 const types = {
+  CLEAR_SELECTED_COMBO_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_IDS',
   SELECT_COMBO: '@my-poker-review/range-builder/SELECT_COMBO'
 }
 
+export const clearSelectedComboIds = actionCreator(types.CLEAR_SELECTED_COMBO_IDS)
 export const selectCombo = actionCreator(types.SELECT_COMBO, 'id')
 
 /*-------------*
@@ -37,7 +39,13 @@ export default function(state = initialState, action = {}) {
           ? state.selectedComboIds.filter(id => id !== action.payload.id)
           : state.selectedComboIds.concat([action.payload.id])
       }
+      break
 
+    case types.CLEAR_SELECTED_COMBO_IDS:
+      nextState = {
+        ...state,
+        selectedComboIds: []
+      }
       break
 
     default:

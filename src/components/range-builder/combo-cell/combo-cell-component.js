@@ -5,6 +5,12 @@ import React, { Component } from 'react'
 import './combo-cell.scss'
 
 class ComboCell extends Component {
+  constructor(props) {
+    super(props)
+
+    this.handleSelect = this.handleSelect.bind(this)
+  }
+
   static propTypes = {
     actions: PropTypes.shape({
       onSelect: PropTypes.func
@@ -15,13 +21,6 @@ class ComboCell extends Component {
     }),
     selected: PropTypes.bool
   }
-
-  constructor(props) {
-    super(props)
-
-    this.handleSelect = this.handleSelect.bind(this)
-  }
-
 
   render() {
     return (
