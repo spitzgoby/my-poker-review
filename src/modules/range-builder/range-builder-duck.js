@@ -1,7 +1,7 @@
 import {actionCreator} from 'redux-action-creator'
-import {buildCombos} from 'modules/range-builder/combo-builder'
+import {buildCombos} from 'util/combo-builder'
 import {createSelector} from 'reselect'
-import {rangeFromCombos} from 'modules/range-builder/range-output-builder'
+import {rangeFromCombos} from 'util/range-output-builder'
 
 /*-------------*
  *** ACTIONS ***
