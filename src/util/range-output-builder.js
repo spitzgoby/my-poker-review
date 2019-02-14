@@ -25,36 +25,43 @@ const RANK_VALUES = {
 export const rangeFromCombos = (combos) => {
   let {
     pairs,
-    nonPairs
+    suited,
+    offsuit,
   } = groupCombos(combos)
 
   let combinedPairs = combinePairs(pairs) 
-  let combinedNonPairs = combineNonPairs(nonPairs)
+  let combinedSuited = combineNonPairs(suited)
+  let combinedOffsuit = combineNonPairs(offsuit)
 
-  console.log(combinedPairs)
-  console.log(combinedNonPairs)
-
-  return combinedPairs.concat(combinedNonPairs).join(',')
+  return combinedPairs
+    .concat(combinedSuited)
+    .concat(combinedOffsuit)
+    .join(',')
 }
 
 const groupCombos = (combos) => {
   let pairs = []
-  let nonPairs = []
+  let suited = []
+  let offsuit = []
 
   combos.forEach(combo => {
     if (combo.pair) {
       pairs.push(combo)
+    } else if (combo.suited) {
+      suited.push(combo)
     } else {
-      nonPairs.push(combo)
+      offsuit.push(combo)
     }
   })
 
   pairs.sort(compareCombos)
-  nonPairs.sort(compareCombos)
+  suited.sort(compareCombos)
+  offsuit.sort(compareCombos)
 
   return {
     pairs,
-    nonPairs
+    suited,
+    offsuit,
   }
 }
 
@@ -78,40 +85,79 @@ const compareComboCard = (combo1, combo2, index) => {
 const getCard = (combo, index) => combo.text.charAt(index)
 
 const combinePairs = (combos) => {
-  // AA,KK,QQ => QQ+,
-  // QQ,JJ,TT => QQ-TT
-  // QQ,TT,88 => QQ,TT,88
-  let result = []  
+  let combinedCombos = combineCombos(combos, (combo1, combo2) => {
+    return compareCombos(combo1, combo2) >= -1
+  })
+
+  return combinedCombos.map((combined) => {
+    let firstCombo = combined[0]
+    let result = firstCombo.text
+
+    if (combined.length > 1) {
+      let lastCombo = combined[combined.length - 1]
+
+      if (firstCombo.text === 'AA') {
+        result = `${lastCombo.text}+`
+      } else {
+        result = `${combined[0].text}-${lastCombo.text}`
+      }
+    }
+    return result
+  })
+}
+
+const combineNonPairs = (combos) => {
+  let combinedCombos = combineCombos(combos, (combo1, combo2) => {
+    let result = false
+
+    if (compareComboCard(combo1, combo2, FIRST_CARD_INDEX) === 0) {
+      result = compareComboCard(combo1, combo2, SECOND_CARD_INDEX) === -1
+    }
+
+    return result
+  })
+
+  return combinedCombos.map((combined) => {
+    let firstCombo = combined[0]
+    let result = firstCombo.id
+
+    if (combined.length > 1) {
+      let firstCardValue = RANK_VALUES[getCard(firstCombo, FIRST_CARD_INDEX)]
+      let secondCardValue = RANK_VALUES[getCard(firstCombo, SECOND_CARD_INDEX)]
+      let lastCombo = combined[combined.length - 1]
+
+      if (firstCardValue - secondCardValue === 1) {
+        result = `${lastCombo.id}+`
+      } else {
+        result = `${firstCombo.id}-${lastCombo.id}`
+      }
+    }
+
+    return result
+  })
+}
+
+const combineCombos = (combos, shouldCombine) => {
+  let result = []
 
   let startIndex = 0
   while (startIndex < combos.length) {
-    const startCombo = combos[startIndex]
 
     let lastIndex = startIndex
-    let currentIndex = startIndex
-    while (currentIndex < combos.length && compareCombos(combos[lastIndex], combos[currentIndex]) >= -1) {
+    let currentIndex = startIndex+1
+    while (currentIndex < combos.length && shouldCombine(combos[lastIndex], combos[currentIndex])) {
       lastIndex = currentIndex
       currentIndex++ 
     }
 
     if (startIndex !== lastIndex) {
-      const lastCombo = combos[lastIndex]
-
-      if (startCombo.text === 'AA') {
-        result.push(`${lastCombo.text}+`)
-      } else {
-        result.push(`${startCombo.text}-${lastCombo.text}`)
-      }
+      result.push(combos.slice(startIndex, lastIndex+1))
     } else {
-      result.push(`${startCombo.text}`)
+      result.push([combos[startIndex]])
     }
 
     startIndex = lastIndex + 1
   }
 
   return result
-}
-
-const combineNonPairs = (combos) => {
-  return []
 }
