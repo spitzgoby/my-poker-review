@@ -1,4 +1,5 @@
 import RangeBuilder from 'components/range-builder'
+import RangeEquities from 'components/range-equities'
 import RangeInput from 'components/range-input'
 import RangeOutput from 'components/range-output'
 import React, { Component } from 'react'
@@ -41,7 +42,7 @@ class Home extends Component {
     return (
       <div className="home--range-equities">
         <h2>Equity</h2>
-        TODO: build this
+        <RangeEquities />
       </div>
     )
   }
