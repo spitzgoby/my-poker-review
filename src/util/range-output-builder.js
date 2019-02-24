@@ -8,7 +8,6 @@ import {
 } from 'util/compare-combos'
 import { groupCombos } from 'util/group-combos'
 
-
 export const rangeFromCombos = (combos) => {
   let {
     pairs,
@@ -25,7 +24,6 @@ export const rangeFromCombos = (combos) => {
     .concat(combinedOffsuit)
     .join(',')
 }
-
 
 const combinePairs = (combos) => {
   let combinedCombos = combineCombos(combos, (combo1, combo2) => {
