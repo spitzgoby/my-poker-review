@@ -1,15 +1,17 @@
+@import 'styles/globals.scss';
+
 .home {
   display: flex;
   flex-direction: row;
-  margin-top: 2rem;
+  margin-top: $gutter-width;
 
   &--range-builder {
-    margin-left: 2rem;
+    margin-left: $gutter-width;
     width: calc(50% - 3rem);
   }
 
-  &--range-output {
-    margin-left: 2rem;
+  &--range-info {
+    margin-left: $gutter-width;
     width: calc(50% - 3rem);
   }
 }

@@ -1,8 +1,14 @@
 import React, {Component} from 'react'
 
-class RangeInput extends component {
+import 'components/range-input/range-input.scss'
+
+class RangeInput extends Component {
   render() {
-    return null
+    return (
+      <div className="range-input">
+        <input></input>
+      </div>
+    )
   }
 }
 

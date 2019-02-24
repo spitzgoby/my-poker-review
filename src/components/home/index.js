@@ -1,4 +1,5 @@
 import RangeBuilder from 'components/range-builder'
+import RangeInput from 'components/range-input'
 import RangeOutput from 'components/range-output'
 import React, { Component } from 'react'
 
@@ -9,7 +10,10 @@ class Home extends Component {
     return (
       <div className="home">
         <RangeBuilder className="home--range-builder" />
-        <RangeOutput className="home--range-output" />
+        <div className="home--range-info"> 
+          <RangeOutput />
+          <RangeInput />
+        </div>
       </div>
     )
   }

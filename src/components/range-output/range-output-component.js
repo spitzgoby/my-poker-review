@@ -23,7 +23,6 @@ class RangeOutput extends Component {
   render() {
     return (
       <div className={this.getClass()}>
-        <div className="range-output--label">Range</div>
         <div className="range-output--text"> 
           {this.renderOutput()}
         </div>
