@@ -13,5 +13,19 @@
   &--range-info {
     margin-left: $gutter-width;
     width: calc(50% - 3rem);
+
+    /* TODO: Remove this and replace with a reset */
+    h2 {
+      margin: 0;
+    }
+    
+  }
+
+  &--range-input {
+    margin-top: $gutter-width;   
+  }
+
+  &--range-equities {
+    margin-top: $gutter-width;
   }
 }
