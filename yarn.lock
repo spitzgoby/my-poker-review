@@ -6571,9 +6571,22 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+pec@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/pec/-/pec-0.7.0.tgz#365ab169bc8d689564924cd4a5ba69abf462ca26"
+  integrity sha1-NlqxabyNaJVkkkzUpbppq/RiyiY=
+  dependencies:
+    phe "~0.4.1"
+    webworkify "~1.4.0"
+
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
+
+phe@~0.4.1:
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/phe/-/phe-0.4.1.tgz#a53ec6f0adbabcf767328ecb5ed2ca8d2b52633a"
+  integrity sha1-pT7G8K26vPdnMo7LXtLKjStSYzo=
 
 pify@^2.0.0:
   version "2.3.0"
@@ -9270,6 +9283,11 @@ websocket-driver@>=0.5.1:
 websocket-extensions@>=0.1.1:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/websocket-extensions/-/websocket-extensions-0.1.3.tgz#5d2ff22977003ec687a4b87073dfbbac146ccf29"
+
+webworkify@~1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/webworkify/-/webworkify-1.4.0.tgz#71245d1e34cacf54e426bd955f8cc6ee12d024c2"
+  integrity sha1-cSRdHjTKz1TkJr2VX4zG7hLQJMI=
 
 whatwg-encoding@^1.0.1:
   version "1.0.3"
