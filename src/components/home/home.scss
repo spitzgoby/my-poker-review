@@ -1,7 +1,15 @@
 .home {
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  margin: auto;
-  width: 50%;
+  margin-top: 2rem;
+
+  &--range-builder {
+    margin-left: 2rem;
+    width: calc(50% - 3rem);
+  }
+
+  &--range-output {
+    margin-left: 2rem;
+    width: calc(50% - 3rem);
+  }
 }
