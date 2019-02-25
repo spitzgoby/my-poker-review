@@ -1,5 +1,6 @@
 import {actionCreator} from 'redux-action-creator'
 import {buildCombos} from 'util/combo-builder'
+import {buildEquities} from 'util/equity-builder'
 import {createSelector} from 'reselect'
 import {handsFromCombos} from 'util/hands-output-builder'
 import {rangeFromCombos} from 'util/range-output-builder'
@@ -8,12 +9,13 @@ import {rangeFromCombos} from 'util/range-output-builder'
  *** ACTIONS ***
  *-------------*/
 const types = {
-  BUILD_EQUITIES: '@my-poker-review/range-builder/BUILD_EQUITIES',
+  CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
   CLEAR_SELECTED_COMBO_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_IDS',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
   SELECT_COMBO: '@my-poker-review/range-builder/SELECT_COMBO'
 }
 
+export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
 export const clearSelectedComboIds = actionCreator(types.CLEAR_SELECTED_COMBO_IDS)
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const selectCombo = actionCreator(types.SELECT_COMBO, 'id')
@@ -29,7 +31,7 @@ let {
 const initialState = {
   comboIds,
   entities,
-  equities: [],
+  equities: {},
   playerHand: '',
   selectedComboIds: []
 }
@@ -38,19 +40,10 @@ export default function(state = initialState, action = {}) {
   let nextState;
 
   switch(action.type) {
-    case types.SELECT_COMBO:
+    case types.CALCULATE_EQUITIES:
       nextState = {
         ...state,
-        selectedComboIds: state.selectedComboIds.includes(action.payload.id)
-          ? state.selectedComboIds.filter(id => id !== action.payload.id)
-          : state.selectedComboIds.concat([action.payload.id])
-      }
-      break
-
-    case types.BUILD_EQUITIES:
-      nextState = {
-        ...state,
-        equities: [.5, .5]
+        equities: buildEquities(state.playerHand, getSelectedHands(state))
       }
       break
 
@@ -58,6 +51,15 @@ export default function(state = initialState, action = {}) {
       nextState = {
         ...state,
         selectedComboIds: []
+      }
+      break
+
+    case types.SELECT_COMBO:
+      nextState = {
+        ...state,
+        selectedComboIds: state.selectedComboIds.includes(action.payload.id)
+          ? state.selectedComboIds.filter(id => id !== action.payload.id)
+          : state.selectedComboIds.concat([action.payload.id])
       }
       break
 
@@ -81,6 +83,7 @@ export default function(state = initialState, action = {}) {
 export const getCombo = (state, id) => state.entities[id]
 export const getCombos = (state) => state.entities
 export const getComboIds = (state) => state.comboIds
+export const getEquities = (state) => state.equities
 export const getIsComboSelected = (state, id) => state.selectedComboIds.includes(id)
 export const getPlayerHand = (state) => state.playerHand
 export const getSelectedComboIds = (state) => state.selectedComboIds
@@ -93,5 +96,5 @@ export const getSelectedCombos = createSelector(
   getSelectedComboIds,
   (combos, selectedComboIds) => selectedComboIds.map(id => combos[id])
 )
-export const getHands = (state) => handsFromCombos(getSelectedCombos(state))
+export const getSelectedHands = (state) => handsFromCombos(getSelectedCombos(state))
 export const getRangeOutput = (state) => rangeFromCombos(getSelectedCombos(state))

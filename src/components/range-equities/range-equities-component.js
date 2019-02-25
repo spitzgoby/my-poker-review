@@ -6,33 +6,81 @@ import "components/range-equities/range-equities.scss"
 
 class RangeEquities extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.handleCalculateButtonClick = this.handleCalculateButtonClick.bind(this)
+  }
+
   static propTypes = {
+    actions: PropTypes.shape({
+      calculateEquities: PropTypes.func
+    }).isRequired,
     className: PropTypes.string,
     equities: PropTypes.arrayOf(PropTypes.number)
   }
 
   static defaultProps = {
-    equities: [.5, .5]
+    equities: {
+      win: 0.5,
+      lose: 0.5,
+      tie: 0.0,
+    }
   }
 
   render() {
     return (
       <div className={this.getClass()}>
+        <button onClick={this.handleCalculateButtonClick}>Calculate</button>
         {this.renderEquities()}
       </div>
     )
   }
 
   renderEquities() {
-    return this.props.equities.map((equity, index) => {
-      return <div key={index} className="range-equities--equity">
-        {equity * 100 + '%'}
+    const equities = this.props.equities
+
+    return (
+      <div>
+        {this.renderEquity(equities, 'win')}
+        {this.renderEquity(equities, 'lose')}
+        {this.renderEquity(equities, 'tie')}
       </div>
-    })
+    )
+  }
+
+  renderEquity(equities, name) {
+    return (
+      <div className="range-equities--equity">
+        {name}: {this.renderEquityPercentage(equities[name])}
+      </div>
+    )
+  }
+
+  renderEquityPercentage(equity) {
+    let result = null
+
+    if (equity) {
+      result = equity + '%'
+    }
+
+    return result
   }
 
   getClass() {
     return classnames('range-equities', this.props.className)
+  }
+
+  handleCalculateButtonClick() {
+    const {
+      actions: {
+        calculateEquities
+      }
+    } = this.props
+
+    if (calculateEquities) {
+      calculateEquities()
+    }
   }
 }
 

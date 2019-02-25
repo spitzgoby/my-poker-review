@@ -6,7 +6,7 @@ import {
 } from 'util/poker-constants'
 
 export const handsFromCombos = (combos) => {
-  return combos.map((combo) => {
+  return combos.reduce((result, combo) => {
     let suits = OFFSUIT_HANDS
 
     if (combo.suited) {
@@ -15,12 +15,14 @@ export const handsFromCombos = (combos) => {
       suits = PAIR_HANDS
     } 
 
-    return buildHands(combo, suits)
-  })
+    return result.concat(buildHands(combo, suits))
+  }, [])
 }
 
 const buildHands = (combo, suits) => {
-  return suits.map((suit, index) => {
-    return getCard(index) + suit
+  return suits.map((suitPair, index) => {
+    return suitPair.map((suit, index) => {
+      return getCard(combo, index) + suit
+    })
   })
 }
