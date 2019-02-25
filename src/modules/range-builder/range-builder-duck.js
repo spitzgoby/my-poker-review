@@ -8,11 +8,14 @@ import {rangeFromCombos} from 'util/range-output-builder'
  *** ACTIONS ***
  *-------------*/
 const types = {
+  BUILD_EQUITIES: '@my-poker-review/range-builder/BUILD_EQUITIES',
   CLEAR_SELECTED_COMBO_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_IDS',
+  SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
   SELECT_COMBO: '@my-poker-review/range-builder/SELECT_COMBO'
 }
 
 export const clearSelectedComboIds = actionCreator(types.CLEAR_SELECTED_COMBO_IDS)
+export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const selectCombo = actionCreator(types.SELECT_COMBO, 'id')
 
 /*-------------*
@@ -26,6 +29,8 @@ let {
 const initialState = {
   comboIds,
   entities,
+  equities: [],
+  playerHand: '',
   selectedComboIds: []
 }
 
@@ -42,10 +47,24 @@ export default function(state = initialState, action = {}) {
       }
       break
 
+    case types.BUILD_EQUITIES:
+      nextState = {
+        ...state,
+        equities: [.5, .5]
+      }
+      break
+
     case types.CLEAR_SELECTED_COMBO_IDS:
       nextState = {
         ...state,
         selectedComboIds: []
+      }
+      break
+
+    case types.SET_PLAYER_HAND:
+      nextState = {
+        ...state,
+        playerHand: action.payload.value
       }
       break
 
@@ -63,6 +82,7 @@ export const getCombo = (state, id) => state.entities[id]
 export const getCombos = (state) => state.entities
 export const getComboIds = (state) => state.comboIds
 export const getIsComboSelected = (state, id) => state.selectedComboIds.includes(id)
+export const getPlayerHand = (state) => state.playerHand
 export const getSelectedComboIds = (state) => state.selectedComboIds
 
 /*------------------------*
