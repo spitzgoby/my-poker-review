@@ -8,7 +8,7 @@ class RangeEquities extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    equities: PropTypes.arrayOf(PropTypes.string)
+    equities: PropTypes.arrayOf(PropTypes.number)
   }
 
   static defaultProps = {
@@ -24,8 +24,8 @@ class RangeEquities extends Component {
   }
 
   renderEquities() {
-    return this.props.equities.map((equity) => {
-      return <div className="range-equities--equity">
+    return this.props.equities.map((equity, index) => {
+      return <div key={index} className="range-equities--equity">
         {equity * 100 + '%'}
       </div>
     })
