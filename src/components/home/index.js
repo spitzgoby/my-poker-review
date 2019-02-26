@@ -1,3 +1,4 @@
+import BoardInput from 'components/board-input'
 import RangeBuilder from 'components/range-builder'
 import RangeEquities from 'components/range-equities'
 import RangeInput from 'components/range-input'
@@ -14,6 +15,7 @@ class Home extends Component {
         <div className="home--range-info"> 
           {this.renderRangeOuput()}
           {this.renderRangeInput()}
+          {this.renderBoardInput()}
           {this.renderRangeEquities()}
         </div>
       </div>
@@ -34,6 +36,15 @@ class Home extends Component {
       <div className="home--range-input">
         <h2>My Hand</h2>
         <RangeInput />
+      </div>
+    )
+  }
+
+  renderBoardInput() {
+    return (
+      <div className="home--board-input">
+        <h2>Board</h2>
+        <BoardInput />
       </div>
     )
   }
