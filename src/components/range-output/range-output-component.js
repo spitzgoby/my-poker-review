@@ -1,3 +1,4 @@
+import Button, {buttonTypes} from 'components/common/button'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -27,7 +28,7 @@ class RangeOutput extends Component {
           {this.renderOutput()}
         </div>
         <div>
-          <button {...this.getClearButtonProps()}>Clear</button>
+          <Button {...this.getClearButtonProps()}>Clear</Button>
         </div>
       </div>
     )
@@ -46,7 +47,8 @@ class RangeOutput extends Component {
   getClearButtonProps() {
     return {
       className: 'range-output--clear-button',
-      onClick: this.handleClearButtonClick
+      onClick: this.handleClearButtonClick,
+      type: buttonTypes.DESTRUCTIVE
     }
   }
 

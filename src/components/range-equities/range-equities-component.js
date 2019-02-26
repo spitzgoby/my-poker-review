@@ -1,3 +1,4 @@
+import Button from 'components/common/button'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -31,7 +32,7 @@ class RangeEquities extends Component {
   render() {
     return (
       <div className={this.getClass()}>
-        <button onClick={this.handleCalculateButtonClick}>Calculate</button>
+        <Button onClick={this.handleCalculateButtonClick}>Calculate</Button>
         {this.renderEquities()}
       </div>
     )

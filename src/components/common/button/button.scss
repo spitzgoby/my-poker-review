@@ -1,0 +1,40 @@
+@import 'styles/globals.scss';
+
+@mixin button-border($color) {
+  border: 2px solid $color;
+}
+
+.button {
+  border-radius: 4px;
+  font: 1.5rem arial;
+  padding: 4px 8px;
+
+  &--destructive {
+    @include button-border($mpr-destructive-color);
+
+    background-color: $mpr-destructive-color;
+    color: white;
+
+    &:hover {
+      background-color: $mpr-destructive-color-darker;
+    }
+  }
+
+  &--primary {
+    @include button-border($mpr-primary-color);
+
+    background-color: $mpr-primary-color;
+    color: white;
+
+    &:hover {
+      background-color: $mpr-primary-color-darker;
+    }
+  }
+
+  &--secondary {
+    @include button-border($mpr-primary-color);
+
+    background-color: white;
+    color: $mpr-primary-color;
+  }
+}
