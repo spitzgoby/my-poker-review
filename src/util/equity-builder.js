@@ -5,10 +5,18 @@ import {
 
 const DEFAULT_TIMES = 1E4
 
-export const buildEquities = (playerHand, villainHands, times = DEFAULT_TIMES) => {
+export const buildEquities = (options) => {
+  const {
+    board,
+    playerHand,
+    times = DEFAULT_TIMES,
+    villainHands
+  } = options
+  const boardCards = getCards(board)
   const playerCards = getCards(playerHand)
-  const remainingVillainHands = filterPlayerHand(playerCards, villainHands)
-  const raceResults = raceRange(playerCards, remainingVillainHands, times)
+  const deadCards = boardCards.concat(playerCards)
+  const remainingVillainHands = filterHands(deadCards, villainHands)
+  const raceResults = raceRange(playerCards, remainingVillainHands, times, board)
   const results = rates(raceResults)
 
   return {
@@ -18,23 +26,22 @@ export const buildEquities = (playerHand, villainHands, times = DEFAULT_TIMES) =
   }
 }
 
-const filterPlayerHand = (playerCards, villainHands) => {
-  const playerCardsDict = playerCards.reduce((result, card) => {
+const filterHands = (deadCards, hands) => {
+  const deadCardsDict = deadCards.reduce((result, card) => {
     result[card] = true
 
     return result
   }, {})
 
-  return villainHands.filter((hand) => {
-    return !(playerCardsDict[hand[0]] || playerCardsDict[hand[1]])
+  return hands.filter((hand) => {
+    return !(deadCardsDict[hand[0]] || deadCardsDict[hand[1]])
   })
 }
 
-const getCards = (hand) => {
-  const card1 = hand.slice(0, 2)
-  const card2 = hand.slice(2)
+const getCards = (input) => {
+  const cardRegex = /[A,K,Q,J,T,2-9][c,d,h,s]/g
 
-  return [card1, card2]
+  return input.match(cardRegex)
 }
 
 export default buildEquities

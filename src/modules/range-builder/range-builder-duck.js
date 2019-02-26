@@ -18,7 +18,7 @@ const types = {
 
 export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
 export const clearSelectedComboIds = actionCreator(types.CLEAR_SELECTED_COMBO_IDS)
-export const setBoard = actionCreator(types.SET_BOARD)
+export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const selectCombo = actionCreator(types.SELECT_COMBO, 'id')
 
@@ -46,7 +46,11 @@ export default function(state = initialState, action = {}) {
     case types.CALCULATE_EQUITIES:
       nextState = {
         ...state,
-        equities: buildEquities(state.playerHand, getSelectedHands(state))
+        equities: buildEquities({
+          board: state.board,
+          playerHand: state.playerHand, 
+          villainHands: getSelectedHands(state)
+        })
       }
       break
 
