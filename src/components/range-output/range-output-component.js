@@ -1,4 +1,4 @@
-import Button, {buttonTypes} from 'components/common/button'
+import Button from '@material-ui/core/Button'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -46,9 +46,9 @@ class RangeOutput extends Component {
 
   getClearButtonProps() {
     return {
-      className: 'range-output--clear-button',
+      color: 'secondary',
       onClick: this.handleClearButtonClick,
-      type: buttonTypes.DESTRUCTIVE
+      variant: 'outlined'
     }
   }
 

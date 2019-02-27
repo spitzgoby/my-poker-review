@@ -1,4 +1,9 @@
 import BoardInput from 'components/board-input'
+import { 
+  createMuiTheme,
+  MuiThemeProvider
+} from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline'
 import RangeBuilder from 'components/range-builder'
 import RangeEquities from 'components/range-equities'
 import RangeInput from 'components/range-input'
@@ -6,19 +11,40 @@ import RangeOutput from 'components/range-output'
 import React, { Component } from 'react'
 
 import './home.scss'
+import 'typeface-roboto'
+
+const theme = createMuiTheme({
+  palette: {
+    error: {
+      main: '#f34213'  
+    },
+    primary: {
+      main: '#136f63'
+    },
+    secondary: {
+      main: '#3e2f5b'
+    }
+  },
+  typography: {
+    useNextVariants: true
+  }
+})
 
 class Home extends Component {
   render() {
     return (
-      <div className="home">
-        <RangeBuilder className="home--range-builder" />
-        <div className="home--range-info"> 
-          {this.renderRangeOuput()}
-          {this.renderRangeInput()}
-          {this.renderBoardInput()}
-          {this.renderRangeEquities()}
+      <MuiThemeProvider theme={theme}>
+        <div className="home">
+          <CssBaseline />
+          <RangeBuilder className="home--range-builder" />
+          <div className="home--range-info"> 
+            {this.renderRangeOuput()}
+            {this.renderRangeInput()}
+            {this.renderBoardInput()}
+            {this.renderRangeEquities()}
+          </div>
         </div>
-      </div>
+      </MuiThemeProvider>
     )
   }
 

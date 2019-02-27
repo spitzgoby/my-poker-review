@@ -1,4 +1,4 @@
-import Button from 'components/common/button'
+import Button from '@material-ui/core/Button'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -32,7 +32,7 @@ class RangeEquities extends Component {
   render() {
     return (
       <div className={this.getClass()}>
-        <Button onClick={this.handleCalculateButtonClick}>Calculate</Button>
+        <Button {...this.getCalculateButtonProps()}>Calculate</Button>
         {this.renderEquities()}
       </div>
     )
@@ -66,6 +66,14 @@ class RangeEquities extends Component {
     }
 
     return result
+  }
+
+  getCalculateButtonProps() {
+    return {
+      color: 'primary',
+      onClick: this.handleCalculateButtonClick,
+      variant: 'contained'
+    }
   }
 
   getClass() {
