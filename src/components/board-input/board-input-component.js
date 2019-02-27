@@ -1,6 +1,7 @@
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import TextField from '@material-ui/core/TextField'
 
 class BoardInput extends Component {
 
@@ -20,7 +21,7 @@ class BoardInput extends Component {
   render() {
     return (
       <div className={this.getClass()}> 
-        <input {...this.getInputProps()}></input>
+        <TextField {...this.getInputProps()}></TextField>
       </div>
     ) 
   }
@@ -29,8 +30,10 @@ class BoardInput extends Component {
     const board = this.props.board
 
     return {
+      label: 'Board',
       onChange: this.handleBoardChange,
-      value: board
+      value: board,
+      variant: 'outlined'
     }
   }
 

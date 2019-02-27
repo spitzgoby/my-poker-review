@@ -12,7 +12,7 @@
   text-align: center;
 
   &:hover {
-    background-color: $mpr-primary-color;
+    background-color: $mpr-range-blue-color;
     color: white;
   } 
 
@@ -25,11 +25,11 @@
   }
 
   &.combo-cell--selected {
-    background-color: $mpr-primary-color;
+    background-color: $mpr-range-blue-color;
     color: white;
 
     &:hover {
-      background-color: $mpr-primary-color-darker;
+      background-color: $mpr-range-blue-color-darker;
     }
   }
 }
