@@ -3,33 +3,27 @@
 .home {
   display: flex;
   flex-direction: row;
-  margin-top: $gutter-width;
+  margin-top: $mpr-gutter-width;
 
   &--range-builder {
-    margin-left: $gutter-width;
+    margin-left: $mpr-gutter-width;
     width: calc(50% - 3rem);
   }
 
   &--range-info {
-    margin-left: $gutter-width;
+    margin-left: $mpr-gutter-width;
     width: calc(50% - 3rem);
-
-    /* TODO: Remove this and replace with a reset */
-    h2 {
-      margin: 0;
-    }
-    
   }
 
   &--range-input {
-    margin-top: $gutter-width;   
+    margin-top: $mpr-gutter-width;   
   }
 
   &--board-input {
-    margin-top: $gutter-width;
+    margin-top: $mpr-gutter-width;
   }
 
   &--range-equities {
-    margin-top: $gutter-width;
+    margin-top: $mpr-gutter-width;
   }
 }
