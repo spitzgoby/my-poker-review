@@ -1,3 +1,4 @@
+import {CARD_REGEX} from 'util/poker-constants'
 import {
   raceRange,
   rates
@@ -39,9 +40,7 @@ const filterHands = (deadCards, hands) => {
 }
 
 const getCards = (input) => {
-  const cardRegex = /[A,K,Q,J,T,2-9][c,d,h,s]/g
-
-  return input.match(cardRegex)
+  return input.match(CARD_REGEX)
 }
 
 export default buildEquities

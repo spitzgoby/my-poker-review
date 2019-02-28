@@ -1,3 +1,4 @@
+export const CARD_REGEX = /[A,K,Q,J,T,2-9][c,d,h,s]/g
 export const OFFSUIT_HANDS = [
   ['c','d'],
   ['c','h'],
