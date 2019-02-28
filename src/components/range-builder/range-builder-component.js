@@ -1,3 +1,4 @@
+import Button from '@material-ui/core/Button'
 import classnames from 'classnames'
 import ComboCell from './combo-cell'
 import PropTypes from 'prop-types'
@@ -12,6 +13,19 @@ class RangeBuilder extends Component {
     comboIds: PropTypes.arrayOf(PropTypes.string),
   }
 
+  constructor(props) {
+    super(props)
+
+    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
+    this.comboRows = this.buildComboRows(props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.combos !== nextProps.combos) {
+      this.buildComboRows(nextProps)
+    }
+  }
+
   render() {
     return (
       <div className={this.getClass()}>
@@ -22,18 +36,21 @@ class RangeBuilder extends Component {
 
   renderRangeTable() {
     return (
-      <table>
-        <tbody>
-          {this.renderCombos()}
-        </tbody>
-      </table>
+      <div className="range-builder">
+        <div className="range-builder--toolbar">
+          <Button {...this.getClearButtonProps()}>Clear</Button>
+        </div>
+        <table> 
+          <tbody>
+            {this.renderCombos()}
+          </tbody>
+        </table>
+      </div>
     )
   }
 
   renderCombos() {
-    const comboRows = this.buildComboRows()
-
-    return comboRows.map(this.renderRow)
+    return this.comboRows.map(this.renderRow)
   }
 
   renderRow(row, index) {
@@ -44,12 +61,21 @@ class RangeBuilder extends Component {
     )
   }
 
+  getClearButtonProps() {
+    return {
+      color: 'secondary',
+      onClick: this.handleClearButtonClick,
+      style: {marginRight: "1rem"},
+      variant: 'outlined'
+    }
+  }
+
   getClass() {
     return classnames("range-builder", this.props.className)
   }
 
-  buildComboRows() {
-    let comboIds = this.props.comboIds
+  buildComboRows(props) {
+    let comboIds = props.comboIds
     let currentRow = 0
     let index = 0
     let rows = []
@@ -65,6 +91,14 @@ class RangeBuilder extends Component {
     }
 
     return rows
+  }
+
+  handleClearButtonClick() {
+    const {clearSelectedComboIds} = this.props.actions
+
+    if (clearSelectedComboIds) {
+      clearSelectedComboIds()
+    }
   }
 }
 

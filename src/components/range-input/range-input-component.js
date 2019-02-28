@@ -22,9 +22,7 @@ class RangeInput extends Component {
 
   render() {
     return (
-      <div className={this.getClass()}>
-        <TextField {...this.getInputProps()}></TextField>
-      </div>
+      <TextField {...this.getInputProps()}></TextField>
     )
   }
 

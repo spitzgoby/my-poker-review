@@ -1,4 +1,3 @@
-import Button from '@material-ui/core/Button'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
@@ -6,12 +5,6 @@ import React, { Component } from 'react'
 import 'components/range-output/range-output.scss'
 
 class RangeOutput extends Component {
-
-  constructor(props) {
-    super(props)
-
-    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
-  }
 
   static propTypes = {
     actions: PropTypes.shape({
@@ -27,9 +20,6 @@ class RangeOutput extends Component {
         <div className="range-output--text"> 
           {this.renderOutput()}
         </div>
-        <div>
-          <Button {...this.getClearButtonProps()}>Clear</Button>
-        </div>
       </div>
     )
   }
@@ -44,24 +34,8 @@ class RangeOutput extends Component {
     return output
   }
 
-  getClearButtonProps() {
-    return {
-      color: 'secondary',
-      onClick: this.handleClearButtonClick,
-      variant: 'outlined'
-    }
-  }
-
   getClass() {
     return classnames("range-output", this.props.className)
-  }
-
-  handleClearButtonClick() {
-    const {clearSelectedComboIds} = this.props.actions
-
-    if (clearSelectedComboIds) {
-      clearSelectedComboIds()
-    }
   }
 }
 
