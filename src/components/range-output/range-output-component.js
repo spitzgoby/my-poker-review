@@ -1,26 +1,32 @@
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
 import classnames from 'classnames'
 import PropTypes from 'prop-types'
+import rangeOutputStyles from 'components/range-output/range-output-styles'
 import React, { Component } from 'react'
+import {withStyles} from '@material-ui/core/styles'
 
 import 'components/range-output/range-output.scss'
 
 class RangeOutput extends Component {
 
   static propTypes = {
-    actions: PropTypes.shape({
-      clearSelectedComboIds: PropTypes.func
-    }).isRequired,
     className: PropTypes.string,
+    color: PropTypes.string,
     rangeOutput: PropTypes.string
+  }
+
+  static defaultProps = {
+    color: 'red'
   }
 
   render() {
     return (
-      <div className={this.getClass()}>
-        <div className="range-output--text"> 
+      <Card className={this.props.classes.card}>
+        <CardContent className={this.getCardContentClasses()}>
           {this.renderOutput()}
-        </div>
-      </div>
+        </CardContent>
+      </Card>
     )
   }
 
@@ -37,6 +43,15 @@ class RangeOutput extends Component {
   getClass() {
     return classnames("range-output", this.props.className)
   }
+
+  getCardContentClasses() {
+    const {
+      classes,
+      color
+    } = this.props
+
+    return classnames(classes.cardcontent, classes[color])
+  }
 }
 
-export default RangeOutput
+export default withStyles(rangeOutputStyles)(RangeOutput)

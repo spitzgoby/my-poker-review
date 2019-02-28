@@ -15,20 +15,15 @@ class Home extends Component {
       <div className="home">
         <RangeBuilder className="home--range-builder" />
         <div className="home--range-info"> 
-          {this.renderRangeOuput()}
+          <RangeOutput color="red" />
+          <RangeOutput color="purple" />
+          <RangeOutput color="green" />
+          <RangeOutput color="yellow" />
+          <RangeOutput color="blue" />
           <RangeInput className="home--range-input"/>
           <BoardInput className="home--board-input"/>
           {this.renderRangeEquities()}
         </div>
-      </div>
-    )
-  }
-
-  renderRangeOuput() {
-    return (
-      <div>
-        <h2>Opponent's Range</h2>
-        <RangeOutput />
       </div>
     )
   }

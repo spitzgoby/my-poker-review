@@ -37,9 +37,7 @@ class RangeBuilder extends Component {
   renderRangeTable() {
     return (
       <div className="range-builder">
-        <div className="range-builder--toolbar">
-          <Button {...this.getClearButtonProps()}>Clear</Button>
-        </div>
+        {/*<Button {...this.getClearButtonProps()}>Clear</Button>*/}
         <table> 
           <tbody>
             {this.renderCombos()}

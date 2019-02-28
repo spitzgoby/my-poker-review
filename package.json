@@ -26,6 +26,7 @@
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",
     "classnames": "^2.2.6",
+    "color": "^3.1.0",
     "connected-react-router": "4.5.0",
     "css-loader": "1.0.0",
     "dotenv": "6.0.0",
