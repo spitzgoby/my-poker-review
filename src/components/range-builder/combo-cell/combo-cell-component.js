@@ -3,8 +3,6 @@ import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import {styles} from 'components/range-builder/combo-cell/styles'
 
-import './combo-cell.scss'
-
 class ComboCell extends Component {
   constructor(props) {
     super(props)

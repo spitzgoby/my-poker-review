@@ -1,9 +1,13 @@
 import {
-  darkTextColor,
-  lightTextColor,
-  rangeBuilderColors,
-  rangeColors
+  rangeColors,
+  themeColors
 } from 'styles/colors'
+
+const comboCellColors = {
+  unsuited: 'rgb(255, 255, 255)',
+  pair: 'rgb(221, 219, 203)',
+  suited: 'rgb(245, 241, 227)'
+}
 
 const getBackgroundColor = (props) => {
   let color = 'white'
@@ -11,13 +15,13 @@ const getBackgroundColor = (props) => {
 
   if (props.selected) {
     console.log(props)
-    color = rangeColors[props.color].primary
+    color = rangeColors[props.color]
   } else if (combo.suited) {
-    color = rangeBuilderColors.suited
+    color = comboCellColors.suited
   } else if (combo.pair) {
-    color = rangeBuilderColors.pair
+    color = comboCellColors.pair
   } else {
-    color = rangeBuilderColors.unsuited
+    color = comboCellColors.unsuited
   }
 
   return color
@@ -27,9 +31,9 @@ export const styles = {
   combocell: {
     backgroundColor: props => getBackgroundColor(props),
     color: props => props.selected 
-      ? lightTextColor 
-      : darkTextColor,
-    border: `1px solid ${darkTextColor}`,
+      ? themeColors.lightTextColor 
+      : themeColors.darkTextColor,
+    border: `1px solid ${themeColors.darkTextColor}`,
     fontSize: '1.5rem',
     fontFamily: 'sans-serif',
     fontWeight: 'lighter',
@@ -39,9 +43,9 @@ export const styles = {
 
     '&:hover': {
       backgroundColor: props => props.selected 
-        ? rangeColors[props.color].dark
-        : rangeColors[props.color].primary,
-      color: lightTextColor
+        ? rangeColors['dark' + props.color]
+        : rangeColors[props.color],
+      color: themeColors.lightTextColor
     }
   }
 }

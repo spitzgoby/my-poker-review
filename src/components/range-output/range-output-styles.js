@@ -1,5 +1,4 @@
 import {
-  lightTextColor,
   rangeColors,
   themeColors
 } from 'styles/colors'
@@ -9,11 +8,11 @@ const getBackgroundColor = (props, hover = false) => {
 
   if (hover) {
     color = props.selected
-      ? rangeColors[props.color].dark
+      ? rangeColors['dark'+props.color]
       : themeColors.neutralGray
   } else {
     color = props.selected
-      ? rangeColors[props.color].primary
+      ? rangeColors[props.color]
       : 'white'
   }
 
@@ -24,9 +23,9 @@ const getBorderColor = (props, hover) => {
   let color
 
   if (props.selected || hover) {
-    color = rangeColors[props.color].dark
+    color = rangeColors['dark'+props.color]
   } else {
-    color = rangeColors[props.color].primary
+    color = rangeColors[props.color]
   }
 
   return color
@@ -41,12 +40,12 @@ const getColor = (props, hover) => {
 
   if (hover) {
     color = props.selected
-      ? lightTextColor
-      : rangeColors[props.color].dark
+      ? themeColors.lightTextColor
+      : rangeColors['dark'+props.color]
   } else {
     color = props.selected
-      ? lightTextColor
-      : rangeColors[props.color].primary
+      ? themeColors.lightTextColor
+      : rangeColors[props.color]
   }
 
   return color
