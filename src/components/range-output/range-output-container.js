@@ -1,13 +1,15 @@
 import {bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import { 
-  getRangeOutput,
+  getIsRangeSelected,
+  makeGetRangeOutput,
   selectRange
 } from 'modules/range-builder'
 import RangeOutput from 'components/range-output/range-output-component' 
 
-const mapStateToProps = (state) => ({
-  rangeOutput: getRangeOutput(state)
+const mapStateToProps = (state, ownProps) => ({
+  rangeOutput: makeGetRangeOutput()(state, ownProps.name),
+  selected: getIsRangeSelected(state, ownProps.name)
 })
 
 const mapDispatchToProps = (dispatch) => ({

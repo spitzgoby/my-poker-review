@@ -5,7 +5,8 @@ export const themeColors = {
   error: 'rgb(243, 66, 19)',
   primary: 'rgb(19, 111, 99)',
   secondary: 'rgb(62, 47, 91)',
-  tertiary: 'rgb(245, 241, 227)'
+  tertiary: 'rgb(245, 241, 227)',
+  neutralGray: 'rgb(250, 250, 250)'
 }
 
 // TEXT
@@ -31,13 +32,14 @@ const rangeColorInfo = [{
 }]
 
 const generateColors = (colorInfo) => {
-  const DARKEN_PERCENTAGE = 0.10
   const color = Color(colorInfo.rgb)
-  const darkerColor = color.darken(DARKEN_PERCENTAGE)
+  const darkenAmount = 0.10
 
   return {
-    [colorInfo.name]: color.string(),
-    [colorInfo.name+'Dark']: darkerColor.rgb().string()
+    [colorInfo.name]: {
+      primary: color.string(),
+      dark: color.darken(darkenAmount).string()
+    }
   }
 }
 

@@ -1,10 +1,10 @@
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import classnames from 'classnames'
+import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import rangeOutputStyles from 'components/range-output/range-output-styles'
 import React, { Component } from 'react'
-import {withStyles} from '@material-ui/core/styles'
 
 import 'components/range-output/range-output.scss'
 
@@ -22,7 +22,8 @@ class RangeOutput extends Component {
     }).isRequired,
     className: PropTypes.string,
     color: PropTypes.string,
-    rangeOutput: PropTypes.string
+    rangeOutput: PropTypes.string,
+    selected: PropTypes.bool
   }
 
   static defaultProps = {
@@ -43,7 +44,7 @@ class RangeOutput extends Component {
     let output = this.props.rangeOutput
 
     if (!output) {
-      output = "Select combos to build a range"
+      output = "No combos selected"
     }
 
     return output
@@ -58,11 +59,10 @@ class RangeOutput extends Component {
 
   getCardClasses() {
     const {
-      classes,
-      color
+      classes
     } = this.props
 
-    return classnames(classes.card, classes[color])
+    return classnames(classes.card)
   }
 
   getCardContentClasses() {
@@ -80,4 +80,4 @@ class RangeOutput extends Component {
   }
 }
 
-export default withStyles(rangeOutputStyles)(RangeOutput)
+export default injectSheet(rangeOutputStyles)(RangeOutput)

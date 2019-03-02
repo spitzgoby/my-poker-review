@@ -11,7 +11,7 @@ const getBackgroundColor = (props) => {
 
   if (props.selected) {
     console.log(props)
-    color = rangeColors[props.color]
+    color = rangeColors[props.color].primary
   } else if (combo.suited) {
     color = rangeBuilderColors.suited
   } else if (combo.pair) {
@@ -39,8 +39,8 @@ export const styles = {
 
     '&:hover': {
       backgroundColor: props => props.selected 
-        ? rangeColors[props.color+'Dark']
-        : rangeColors[props.color],
+        ? rangeColors[props.color].dark
+        : rangeColors[props.color].primary,
       color: lightTextColor
     }
   }

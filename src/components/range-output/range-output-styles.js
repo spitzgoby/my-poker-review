@@ -1,53 +1,87 @@
 import {
-  darkTextColor,
   lightTextColor,
-  rangeColors} from 'styles/colors'
+  rangeColors,
+  themeColors
+} from 'styles/colors'
 
-const generateStyleForRange = (rangeName, textColor = lightTextColor) => {
-  const color = rangeColors[rangeName]
-  const darkColor = rangeColors[rangeName + 'Dark']
+const getBackgroundColor = (props, hover = false) => {
+  let color
 
-  return {
-    borderColor: color,
-    color: color,
-
-    '&:hover': {
-      backgroundColor: '#fafafa',
-      borderColor: darkColor,
-      color: darkColor,
-    },
-
-    '&--selected': {
-      backgroundColor: color,
-      borderColor: darkColor,
-      textColor: textColor,
-
-      '&:hover': {
-        backgroundColor: darkColor
-      }
-    }
+  if (hover) {
+    color = props.selected
+      ? rangeColors[props.color].dark
+      : themeColors.neutralGray
+  } else {
+    color = props.selected
+      ? rangeColors[props.color].primary
+      : 'white'
   }
+
+  return color
+}
+
+const getBorderColor = (props, hover) => {
+  let color
+
+  if (props.selected || hover) {
+    color = rangeColors[props.color].dark
+  } else {
+    color = rangeColors[props.color].primary
+  }
+
+  return color
+}
+
+const getBorder = (props, hover) => {
+  return `1px solid ${getBorderColor(props, hover)}`
+}
+
+const getColor = (props, hover) => {
+  let color
+
+  if (hover) {
+    color = props.selected
+      ? lightTextColor
+      : rangeColors[props.color].dark
+  } else {
+    color = props.selected
+      ? lightTextColor
+      : rangeColors[props.color].primary
+  }
+
+  return color
+}
+
+const getFontWeight = (props) => {
+  return props.rangeOutput
+    ? 900
+    : 600
 }
 
 export const styles = {
   card: {
-    borderStyle: 'solid',
-    borderWidth: '1px',
+    backgroundColor: props => getBackgroundColor(props, false),
+    border: props => getBorder(props, false),
     boxShadow: 'none',
-    fontWeight: 600,
+    color: props => getColor(props, false),
+    fontWeight: props => getFontWeight(props),
+    height: '56px',
     marginBottom: '0.5rem',
+
+    '&:hover': {
+      backgroundColor: props => getBackgroundColor(props, true),
+      border: props => getBorder(props, true),
+      color: props => getColor(props)
+    }
   },
   
   cardcontent: {
+    paddingBottom: props => props.combos ? '14px' : '16px',
+    paddingTop: props => props.combos ? '14px' : '16px',
     '&:last-child': {
-      paddingBottom: '16px'
+      paddingBottom: props => props.combos ? '14px' : '16px',
     },
-  },
-  red: generateStyleForRange('red'),
-  purple: generateStyleForRange('purple'),
-  yellow: generateStyleForRange('yellow', darkTextColor),
-  blue: generateStyleForRange('blue'),
-  green: generateStyleForRange('green')
+  }
 }
 
 export default styles

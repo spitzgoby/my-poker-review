@@ -3,7 +3,6 @@ import {buildCombos} from 'util/combo-builder'
 import {buildEquities} from 'util/equity-builder'
 import {createSelector} from 'reselect'
 import {handsFromCombos} from 'util/hands-output-builder'
-import {rangeFromCombos} from 'util/range-output-builder'
 import {ranges} from 'modules/range-builder/ranges'
 
 /*-------------*
@@ -126,19 +125,24 @@ export const getComboIds = (state) => state.comboIds
 export const getEquities = (state) => state.equities
 export const getIsComboSelected = (state, id) => getSelectedComboIds(state).includes(id)
 export const getPlayerHand = (state) => state.playerHand
+export const getRange = (state, name) => state.ranges[name]
 export const getRanges = (state) => Object.entries(state.ranges).map((range) => range[1])
 export const getSelectedRangeName = (state) => state.selectedRangeName
+export const getIsRangeSelected = (state, name) => getSelectedRangeName(state) === name
 export const getSelectedRange = (state) => state.ranges[getSelectedRangeName(state)]
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
 export const getSelectedComboIds = (state) => getSelectedRange(state).selectedComboIds
+export const getSelectedComboIdsForRange = (state, name) => getRange(state, name).selectedComboIds
 
 /*------------------------*
  *** COMBINED SELECTORS ***
  *------------------------*/
+
 export const getSelectedCombos = createSelector(
   getCombos,
   getSelectedComboIds,
   (combos, selectedComboIds) => selectedComboIds.map(id => combos[id])
 )
+
 export const getSelectedHands = (state) => handsFromCombos(getSelectedCombos(state))
-export const getRangeOutput = (state) => rangeFromCombos(getSelectedCombos(state))
+
