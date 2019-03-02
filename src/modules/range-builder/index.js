@@ -7,6 +7,7 @@ export default reducer
 export const calculateEquities = fromRangeBuilder.calculateEquities
 export const clearSelectedComboIds = fromRangeBuilder.clearSelectedComboIds
 export const selectCombo = fromRangeBuilder.selectCombo
+export const selectRange = fromRangeBuilder.selectRange
 export const setBoard = fromRangeBuilder.setBoard
 export const setPlayerHand = fromRangeBuilder.setPlayerHand
 
@@ -19,3 +20,5 @@ export const getEquities = (state) => fromRangeBuilder.getEquities(getRangeBuild
 export const getIsComboSelected = (state, id) => fromRangeBuilder.getIsComboSelected(getRangeBuilderState(state), id)
 export const getPlayerHand = (state) => fromRangeBuilder.getPlayerHand(getRangeBuilderState(state))
 export const getRangeOutput = (state) => fromRangeBuilder.getRangeOutput(getRangeBuilderState(state))
+export const getRanges = (state) => fromRangeBuilder.getRanges(getRangeBuilderState(state))
+export const getSelectedRangeColor = (state) => fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))

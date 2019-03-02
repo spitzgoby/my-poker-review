@@ -1,15 +1,16 @@
+import {themeColors} from 'styles/colors'
 import {createMuiTheme} from '@material-ui/core/styles';
 
 export const theme = createMuiTheme({
   palette: {
     error: {
-      main: '#f34213'  
+      main: themeColors.error
     },
     primary: {
-      main: '#136f63'
+      main: themeColors.primary
     },
     secondary: {
-      main: '#3e2f5b'
+      main: themeColors.secondary
     }
   },
   typography: {

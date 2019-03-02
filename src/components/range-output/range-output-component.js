@@ -10,7 +10,16 @@ import 'components/range-output/range-output.scss'
 
 class RangeOutput extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.handleCardClick = this.handleCardClick.bind(this)
+  }
+
   static propTypes = {
+    actions: PropTypes.shape({
+      selectRange: PropTypes.func
+    }).isRequired,
     className: PropTypes.string,
     color: PropTypes.string,
     rangeOutput: PropTypes.string
@@ -22,7 +31,7 @@ class RangeOutput extends Component {
 
   render() {
     return (
-      <Card className={this.props.classes.card}>
+      <Card {...this.getCardProps()}>
         <CardContent className={this.getCardContentClasses()}>
           {this.renderOutput()}
         </CardContent>
@@ -40,17 +49,34 @@ class RangeOutput extends Component {
     return output
   }
 
-  getClass() {
-    return classnames("range-output", this.props.className)
+  getCardProps() {
+    return {
+      className: this.getCardClasses(),
+      onClick: this.handleCardClick
+    }
   }
 
-  getCardContentClasses() {
+  getCardClasses() {
     const {
       classes,
       color
     } = this.props
 
-    return classnames(classes.cardcontent, classes[color])
+    return classnames(classes.card, classes[color])
+  }
+
+  getCardContentClasses() {
+    return this.props.classes.cardcontent
+  }
+
+  handleCardClick() {
+    const selectRange = this.props.actions.selectRange
+
+    if (selectRange) {
+      selectRange({
+        name: this.props.name
+      })
+    }
   }
 }
 

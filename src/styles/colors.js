@@ -1,6 +1,14 @@
 import Color from 'color'
 
 // THEME
+export const themeColors = {
+  error: 'rgb(243, 66, 19)',
+  primary: 'rgb(19, 111, 99)',
+  secondary: 'rgb(62, 47, 91)',
+  tertiary: 'rgb(245, 241, 227)'
+}
+
+// TEXT
 export const darkTextColor = 'rgb(0, 15, 8)'
 export const lightTextColor = 'rgb(255, 255, 255)'
 
@@ -37,5 +45,12 @@ export const rangeColors = rangeColorInfo.reduce((acc, colorInfo) => ({
     ...acc,
     ...generateColors(colorInfo)
 }), {})
+
+// RANGE BUILDER
+export const rangeBuilderColors = {
+  unsuited: 'rgb(255, 255, 255)',
+  pair: 'rgb(221, 219, 203)',
+  suited: 'rgb(245, 241, 227)'
+}
 
 

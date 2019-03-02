@@ -18,7 +18,11 @@ class RangeEquities extends Component {
       calculateEquities: PropTypes.func
     }).isRequired,
     className: PropTypes.string,
-    equities: PropTypes.arrayOf(PropTypes.number)
+    equities: PropTypes.shape({
+      win: PropTypes.number,
+      lose: PropTypes.number,
+      tie: PropTypes.number
+    })
   }
 
   static defaultProps = {

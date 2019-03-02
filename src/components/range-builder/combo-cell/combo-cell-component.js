@@ -1,6 +1,7 @@
-import classnames from 'classnames'
+import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, { Component } from 'react'
+import {styles} from 'components/range-builder/combo-cell/styles'
 
 import './combo-cell.scss'
 
@@ -15,6 +16,7 @@ class ComboCell extends Component {
     actions: PropTypes.shape({
       onSelect: PropTypes.func
     }).isRequired,
+    color: PropTypes.string,
     combo: PropTypes.shape({
       suited: PropTypes.bool,
       value: PropTypes.string
@@ -38,26 +40,12 @@ class ComboCell extends Component {
   }
 
   getClass() {
-    let {
-      selected,
-      combo: {
-        suited,
-        pair
-      }
-    } = this.props
-
-    let classes = {
-      'combo-cell': true,
-      'combo-cell--selected': selected,
-      'combo-cell--suited': suited,
-      'combo-cell--pair': pair
-    }
-
-    return classnames(classes)
+    return this.props.classes.combocell
   }
 
   handleSelect() {
-    let { 
+    console.log(this.props)
+    const { 
       actions :{
         selectCombo 
       },
@@ -70,4 +58,4 @@ class ComboCell extends Component {
   }
 }
 
-export default ComboCell
+export default injectSheet(styles)(ComboCell)
