@@ -1,3 +1,4 @@
+import {analyzeRanges} from 'util/range-analyzer'
 import {createSelector} from 'reselect'
 import {rangeFromCombos} from 'util/range-output-builder'
 import reducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
@@ -48,3 +49,17 @@ export const makeGetRangeOutput = () => createSelector(
     return rangeFromCombos(selectedCombos)
   }
 )
+
+export const getRangesAnalysis = createSelector(
+  getRanges,
+  (ranges) => {
+    const analysis = analyzeRanges(ranges)
+    console.log(analysis)
+    return analysis
+  }
+)
+
+export const getRangeAnalysisForRangeNamed = (state, name) => {
+  console.log('got their asses')
+  return getRangesAnalysis(state)[name]
+}

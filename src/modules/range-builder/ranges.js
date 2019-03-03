@@ -1,10 +1,19 @@
-const buildRanges = () => {
-  const names = ['red', 'blue', 'green', 'yellow', 'purple']
+const rangeInfo = [{
+  name: 'Bet',
+  color: 'blue'
+},{
+  name: 'Call',
+  color: 'green'
+},{
+  name: 'Raise',
+  color: 'purple'
+}]
 
-  return names.reduce((acc, name) => {
-    acc[name] = {
-      name,
-      color: name,
+const buildRanges = () => {
+  return rangeInfo.reduce((acc, info) => {
+    acc[info.name] = {
+      name: info.name,
+      color: info.color,
       selectedComboIds: []
     }
 

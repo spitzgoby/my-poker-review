@@ -39,7 +39,7 @@ const initialState = {
   equities: {},
   playerHand: '',
   ranges,
-  selectedRangeName: 'red'
+  selectedRangeName: 'Bet'
 }
 
 const updateRangeBySelectingCombo = (state, action) => {

@@ -1,5 +1,6 @@
 import BoardInput from 'components/board-input'
 import PropTypes from 'prop-types'
+import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import RangeEquities from 'components/range-equities'
 import RangeInput from 'components/range-input'
@@ -30,6 +31,7 @@ class Home extends Component {
       <div className="home">
         <RangeBuilder className="home--range-builder" />
         <div className="home--range-info"> 
+          <RangeAnalyzer />
           {this.renderRanges()}
           <RangeInput className="home--range-input"/>
           <BoardInput />
