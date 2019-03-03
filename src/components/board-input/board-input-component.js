@@ -1,6 +1,5 @@
-import classnames from 'classnames'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import TextField from '@material-ui/core/TextField'
 
 class BoardInput extends Component {
@@ -14,8 +13,7 @@ class BoardInput extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       setBoard: PropTypes.func
-    }),
-    className: PropTypes.string
+    })
   }
 
   render() {
@@ -33,10 +31,6 @@ class BoardInput extends Component {
       value: board,
       variant: 'outlined'
     }
-  }
-
-  getClass() {
-    return classnames('board-input', this.props.className)
   }
 
   handleBoardChange(event) {

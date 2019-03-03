@@ -1,9 +1,9 @@
 import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
 import {
   calculateEquities,
   getEquities
 } from 'modules/range-builder'
+import {connect} from 'react-redux'
 import RangeEquities from 'components/range-equities/range-equities-component'
 
 const mapStateToProps = (state) => ({

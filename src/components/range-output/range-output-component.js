@@ -4,9 +4,7 @@ import classnames from 'classnames'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import rangeOutputStyles from 'components/range-output/range-output-styles'
-import React, { Component } from 'react'
-
-import 'components/range-output/range-output.scss'
+import React, {Component} from 'react'
 
 class RangeOutput extends Component {
 

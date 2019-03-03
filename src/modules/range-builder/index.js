@@ -34,7 +34,7 @@ export const getRanges = (state) =>
 export const getSelectedRangeColor = (state) => 
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
-// Make Selectors
+// Variable Selectors
 const getCombos = (state) => fromRangeBuilder.getCombos(getRangeBuilderState(state))
 const getSelectedComboIdsForRange = (state, name) => 
   fromRangeBuilder.getSelectedComboIdsForRange(getRangeBuilderState(state), name)

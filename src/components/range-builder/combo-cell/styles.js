@@ -9,43 +9,54 @@ const comboCellColors = {
   suited: 'rgb(245, 241, 227)'
 }
 
-const getBackgroundColor = (props) => {
-  let color = 'white'
-  const combo = props.combo
+const getBackgroundColor = (props, hover = false) => {
+  let backgroundColor
+  const {
+    color,
+    combo,
+    selected
+  } = props
 
-  if (props.selected) {
-    console.log(props)
-    color = rangeColors[props.color]
-  } else if (combo.suited) {
-    color = comboCellColors.suited
-  } else if (combo.pair) {
-    color = comboCellColors.pair
+  if (hover) {
+    backgroundColor = selected 
+      ? rangeColors['dark' + color]
+      : rangeColors[color]
   } else {
-    color = comboCellColors.unsuited
+    if (selected) {
+      backgroundColor = rangeColors[color]
+    } else if (combo.suited) {
+      backgroundColor = comboCellColors.suited
+    } else if (combo.pair) {
+      backgroundColor = comboCellColors.pair
+    } else {
+      backgroundColor = comboCellColors.unsuited
+    }
   }
 
-  return color
+  return backgroundColor
+}
+
+const getColor = (props, hover = false) => {
+  return props.selected || hover
+    ? themeColors.lightTextColor 
+    : themeColors.darkTextColor
 }
 
 export const styles = {
   combocell: {
-    backgroundColor: props => getBackgroundColor(props),
-    color: props => props.selected 
-      ? themeColors.lightTextColor 
-      : themeColors.darkTextColor,
+    backgroundColor: props => getBackgroundColor(props, false),
     border: `1px solid ${themeColors.darkTextColor}`,
-    fontSize: '1.5rem',
+    color: props => getColor(props, false),
     fontFamily: 'sans-serif',
-    fontWeight: 'lighter',
+    fontWeight: '300',
+    fontSize: '1.5rem',
     height: '64px',
-    width: '64px',
     textAlign: 'center',
+    width: '64px',
 
     '&:hover': {
-      backgroundColor: props => props.selected 
-        ? rangeColors['dark' + props.color]
-        : rangeColors[props.color],
-      color: themeColors.lightTextColor
+      backgroundColor: props => getBackgroundColor(props, true),
+      color: props => getColor(props, true)
     }
   }
 }

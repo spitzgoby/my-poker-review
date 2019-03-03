@@ -4,7 +4,7 @@ import RangeBuilder from 'components/range-builder'
 import RangeEquities from 'components/range-equities'
 import RangeInput from 'components/range-input'
 import RangeOutput from 'components/range-output'
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 import './home.scss'
 import 'typeface-roboto'
@@ -32,7 +32,7 @@ class Home extends Component {
         <div className="home--range-info"> 
           {this.renderRanges()}
           <RangeInput className="home--range-input"/>
-          <BoardInput className="home--board-input"/>
+          <BoardInput />
           {this.renderRangeEquities()}
         </div>
       </div>

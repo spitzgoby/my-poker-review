@@ -1,9 +1,10 @@
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {styles} from 'components/range-builder/combo-cell/styles'
 
 class ComboCell extends Component {
+
   constructor(props) {
     super(props)
 
@@ -18,7 +19,7 @@ class ComboCell extends Component {
     combo: PropTypes.shape({
       suited: PropTypes.bool,
       value: PropTypes.string
-    }),
+    }).isRequired,
     selected: PropTypes.bool
   }
 
@@ -32,13 +33,9 @@ class ComboCell extends Component {
 
   getProps() {
     return {
-      className: this.getClass(),
+      className: this.props.classes.combocell,
       onClick: this.handleSelect
     } 
-  }
-
-  getClass() {
-    return this.props.classes.combocell
   }
 
   handleSelect() {

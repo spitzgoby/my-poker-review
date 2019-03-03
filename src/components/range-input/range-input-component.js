@@ -1,7 +1,6 @@
-import classnames from 'classnames'
-import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
+import TextField from '@material-ui/core/TextField'
 
 import 'components/range-input/range-input.scss'
 
@@ -33,10 +32,6 @@ class RangeInput extends Component {
       value: this.props.playerHand,
       variant: 'outlined'
     }
-  }
-
-  getClass() {
-    return classnames('range-input', this.props.className)
   }
 
   handleInputChange(event) {

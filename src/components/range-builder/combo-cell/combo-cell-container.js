@@ -1,6 +1,6 @@
 import {bindActionCreators} from 'redux'
-import {connect} from 'react-redux'
 import ComboCell from 'components/range-builder/combo-cell/combo-cell-component'
+import {connect} from 'react-redux'
 import {
   getCombo, 
   getIsComboSelected, 

@@ -1,22 +1,21 @@
 import classnames from 'classnames'
 import ComboCell from './combo-cell'
 import PropTypes from 'prop-types'
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 
 import 'components/range-builder/range-builder.scss'
 
 class RangeBuilder extends Component {
 
-  static propTypes = {
-    className: PropTypes.string,
-    comboIds: PropTypes.arrayOf(PropTypes.string),
-  }
-
   constructor(props) {
     super(props)
 
-    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
     this.comboRows = this.buildComboRows(props)
+  }
+
+  static propTypes = {
+    className: PropTypes.string,
+    comboIds: PropTypes.arrayOf(PropTypes.string),
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,7 +35,6 @@ class RangeBuilder extends Component {
   renderRangeTable() {
     return (
       <div className="range-builder">
-        {/*<Button {...this.getClearButtonProps()}>Clear</Button>*/}
         <table> 
           <tbody>
             {this.renderCombos()}
@@ -47,7 +45,7 @@ class RangeBuilder extends Component {
   }
 
   renderCombos() {
-    return this.comboRows.map(this.renderRow)
+    return this.comboRows.map((comboRow) => this.renderRow(comboRow))
   }
 
   renderRow(row, index) {
@@ -56,15 +54,6 @@ class RangeBuilder extends Component {
         {row.map(comboId => <ComboCell key={comboId} comboId={comboId} />)}
       </tr>
     )
-  }
-
-  getClearButtonProps() {
-    return {
-      color: 'secondary',
-      onClick: this.handleClearButtonClick,
-      style: {marginRight: "1rem"},
-      variant: 'outlined'
-    }
   }
 
   getClass() {
@@ -88,14 +77,6 @@ class RangeBuilder extends Component {
     }
 
     return rows
-  }
-
-  handleClearButtonClick() {
-    const {clearSelectedComboIds} = this.props.actions
-
-    if (clearSelectedComboIds) {
-      clearSelectedComboIds()
-    }
   }
 }
 
