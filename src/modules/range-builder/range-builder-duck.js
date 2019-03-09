@@ -1,6 +1,6 @@
 import {actionCreator} from 'redux-action-creator'
-import {buildCombos} from 'util/combo-builder'
 import {buildEquities} from 'util/equity-builder'
+import comboGroups from 'lib/combo-groups'
 import {createSelector} from 'reselect'
 import {handsFromCombos} from 'util/hands-output-builder'
 import {ranges} from 'modules/range-builder/ranges'
@@ -27,15 +27,8 @@ export const selectRange = actionCreator(types.SELECT_RANGE, 'name')
 /*-------------*
  *** REDUCER ***
  *-------------*/
-let {
-  comboIds,
-  entities
-} = buildCombos()
-
 const initialState = {
   board: '',
-  comboIds,
-  entities,
   equities: {},
   playerHand: '',
   ranges,
@@ -119,9 +112,6 @@ export default function(state = initialState, action = {}) {
  *** BASIC SELECTORS ***
  *---------------------*/
 export const getBoard = (state) => state.board
-export const getCombo = (state, id) => state.entities[id]
-export const getCombos = (state) => state.entities
-export const getComboIds = (state) => state.comboIds
 export const getEquities = (state) => state.equities
 export const getIsComboSelected = (state, id) => getSelectedComboIds(state).includes(id)
 export const getPlayerHand = (state) => state.playerHand
@@ -139,9 +129,8 @@ export const getSelectedComboIdsForRange = (state, name) => getRange(state, name
  *------------------------*/
 
 export const getSelectedCombos = createSelector(
-  getCombos,
   getSelectedComboIds,
-  (combos, selectedComboIds) => selectedComboIds.map(id => combos[id])
+  (selectedComboIds) => selectedComboIds.map(id => comboGroups[id])
 )
 
 export const getSelectedHands = (state) => handsFromCombos(getSelectedCombos(state))

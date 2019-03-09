@@ -1,5 +1,7 @@
 import {analyzeRanges} from 'util/range-analyzer'
+import comboGroups from 'lib/combo-groups'
 import {createSelector} from 'reselect'
+import {handsFromCombos} from 'util/hands-output-builder'
 import {rangeFromCombos} from 'util/range-output-builder'
 import reducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 
@@ -18,10 +20,6 @@ export const setPlayerHand = fromRangeBuilder.setPlayerHand
 const getRangeBuilderState = (state) => state.rangeBuilder
 export const getBoard = (state) => 
   fromRangeBuilder.getBoard(getRangeBuilderState(state))
-export const getCombo = (state, id) => 
-  fromRangeBuilder.getCombo(getRangeBuilderState(state), id)
-export const getComboIds = (state) => 
-  fromRangeBuilder.getComboIds(getRangeBuilderState(state))
 export const getEquities = (state) => 
   fromRangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsComboSelected = (state, id) => 
@@ -36,30 +34,30 @@ export const getSelectedRangeColor = (state) =>
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
 // Variable Selectors
-const getCombos = (state) => fromRangeBuilder.getCombos(getRangeBuilderState(state))
 const getSelectedComboIdsForRange = (state, name) => 
   fromRangeBuilder.getSelectedComboIdsForRange(getRangeBuilderState(state), name)
 
-export const makeGetRangeOutput = () => createSelector(
-  getCombos,
-  getSelectedComboIdsForRange,
-  (combos, selectedComboIds) => {
-    const selectedCombos = selectedComboIds.map(id => combos[id])
+const getSelectedCombosForRange = createSelector(
+  getSelectedComboIdsForRange, 
+  (selectedComboIds) => selectedComboIds.map((id) => comboGroups[id])
+)
 
-    return rangeFromCombos(selectedCombos)
-  }
+export const makeGetHandsForRange = () => createSelector(
+  getSelectedCombosForRange,
+  getBoard,
+  (combos, board) => handsFromCombos(combos, board)
+)
+
+export const makeGetRangeOutput = () => createSelector(
+  getSelectedCombosForRange,
+  (selectedCombos) => rangeFromCombos(selectedCombos)
 )
 
 export const getRangesAnalysis = createSelector(
+  getBoard,
   getRanges,
-  (ranges) => {
-    const analysis = analyzeRanges(ranges)
-    console.log(analysis)
-    return analysis
-  }
+  (board, ranges) => analyzeRanges(ranges, board)
 )
 
-export const getRangeAnalysisForRangeNamed = (state, name) => {
-  console.log('got their asses')
-  return getRangesAnalysis(state)[name]
-}
+export const getRangeAnalysisForRangeNamed = (state, name) => 
+  getRangesAnalysis(state)[name]

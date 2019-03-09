@@ -39,7 +39,6 @@ class ComboCell extends Component {
   }
 
   handleSelect() {
-    console.log(this.props)
     const { 
       actions :{
         selectCombo 
