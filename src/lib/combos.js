@@ -3,8 +3,8 @@ import {cards} from 'lib/cards'
 /*---------*
  * HELPERS *
  *---------*/
- 
-const calculateGroup = (combo) => {
+
+const calculateComboGroupId = (combo) => {
   const base = combo.cards[0].rank + combo.cards[1].rank
   let modifier = ''
 
@@ -44,7 +44,7 @@ export const combos = cards.reduce((acc, card1, i) => {
         combo = buildCombo(card2, card1)
       }
 
-      combo.comboGroup = calculateGroup(combo)
+      combo.comboGroupId = calculateComboGroupId(combo)
       acc[combo.id] = combo
     }
   })
