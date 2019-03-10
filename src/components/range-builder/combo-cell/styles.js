@@ -5,7 +5,7 @@ import {
 import {types} from 'lib/combos'
 
 const comboCellColors = {
-  [types.UNSUITED]: 'rgb(255, 255, 255)',
+  [types.OFFSUIT]: 'rgb(255, 255, 255)',
   [types.PAIR]: 'rgb(221, 219, 203)',
   [types.SUITED]: 'rgb(245, 241, 227)'
 }
