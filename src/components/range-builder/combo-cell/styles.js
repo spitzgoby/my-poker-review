@@ -14,7 +14,7 @@ const getBackgroundColor = (props, hover = false) => {
   let backgroundColor
   const {
     color,
-    combo,
+    comboGroup,
     selected
   } = props
 
@@ -25,7 +25,7 @@ const getBackgroundColor = (props, hover = false) => {
   } else {
     backgroundColor = selected 
       ? rangeColors[color]
-      : comboCellColors[combo.type]
+      : comboCellColors[comboGroup.type]
   }
 
   return backgroundColor

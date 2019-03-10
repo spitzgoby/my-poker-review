@@ -16,9 +16,10 @@ class ComboCell extends Component {
       onSelect: PropTypes.func
     }).isRequired,
     color: PropTypes.string,
-    combo: PropTypes.shape({
-      type: PropTypes.string,
-      text: PropTypes.string
+    comboGroup: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string,
+      type: PropTypes.string
     }).isRequired,
     selected: PropTypes.bool
   }
@@ -26,7 +27,7 @@ class ComboCell extends Component {
   render() {
     return (
       <td {...this.getProps()}>
-        {this.props.combo.text}
+        {this.props.comboGroup.text}
       </td> 
     ) 
   }
@@ -41,13 +42,13 @@ class ComboCell extends Component {
   handleSelect() {
     const { 
       actions :{
-        selectCombo 
+        onSelect
       },
-      combo
+      comboGroup
     } = this.props
 
-    if (selectCombo) {
-      selectCombo({id: combo.id})
+    if (onSelect) {
+      onSelect({id: comboGroup.id})
     } 
   }
 }

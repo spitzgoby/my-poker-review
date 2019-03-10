@@ -26,22 +26,22 @@ class RangeBuilder extends Component {
       <div className="range-builder">
         <table> 
           <tbody>
-            {this.renderCombos()}
+            {this.renderComboGroups()}
           </tbody>
         </table>
       </div>
     )
   }
 
-  renderCombos() {
+  renderComboGroups() {
     return comboRows.map((comboRow) => this.renderRow(comboRow))
   }
 
   renderRow(row, index) {
     return (
       <tr key={index}>
-        {row.map(comboId => 
-          <ComboCell key={comboId} combo={comboGroups[comboId]} />
+        {row.map(comboGroupId => 
+          <ComboCell key={comboGroupId} comboGroup={comboGroups[comboGroupId]} />
         )}
       </tr>
     )

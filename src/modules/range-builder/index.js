@@ -10,8 +10,8 @@ export default reducer
 
 // Actions
 export const calculateEquities = fromRangeBuilder.calculateEquities
-export const clearSelectedComboIds = fromRangeBuilder.clearSelectedComboIds
-export const selectCombo = fromRangeBuilder.selectCombo
+export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
+export const selectComboGroup = fromRangeBuilder.selectComboGroup
 export const selectRange = fromRangeBuilder.selectRange
 export const setBoard = fromRangeBuilder.setBoard
 export const setPlayerHand = fromRangeBuilder.setPlayerHand
@@ -22,8 +22,8 @@ export const getBoard = (state) =>
   fromRangeBuilder.getBoard(getRangeBuilderState(state))
 export const getEquities = (state) => 
   fromRangeBuilder.getEquities(getRangeBuilderState(state))
-export const getIsComboSelected = (state, id) => 
-  fromRangeBuilder.getIsComboSelected(getRangeBuilderState(state), id)
+export const getIsComboGroupSelected = (state, id) => 
+  fromRangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, name) => 
   fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), name)
 export const getPlayerHand = (state) => 
@@ -34,23 +34,23 @@ export const getSelectedRangeColor = (state) =>
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
 // Variable Selectors
-const getSelectedComboIdsForRange = (state, name) => 
-  fromRangeBuilder.getSelectedComboIdsForRange(getRangeBuilderState(state), name)
+const getSelectedComboGroupIdsForRange = (state, name) => 
+  fromRangeBuilder.getSelectedComboGroupIdsForRange(getRangeBuilderState(state), name)
 
-const getSelectedCombosForRange = createSelector(
-  getSelectedComboIdsForRange, 
-  (selectedComboIds) => selectedComboIds.map((id) => comboGroups[id])
+const getSelectedComboGroupsForRange = createSelector(
+  getSelectedComboGroupIdsForRange, 
+  (selectedComboGroupIds) => selectedComboGroupIds.map((id) => comboGroups[id])
 )
 
 export const makeGetHandsForRange = () => createSelector(
-  getSelectedCombosForRange,
+  getSelectedComboGroupsForRange,
   getBoard,
-  (combos, board) => handsFromCombos(combos, board)
+  (comboGroups, board) => handsFromCombos(comboGroups, board)
 )
 
 export const makeGetRangeOutput = () => createSelector(
-  getSelectedCombosForRange,
-  (selectedCombos) => rangeFromCombos(selectedCombos)
+  getSelectedComboGroupsForRange,
+  (selectedComboGroups) => rangeFromCombos(selectedComboGroups)
 )
 
 export const getRangesAnalysis = createSelector(

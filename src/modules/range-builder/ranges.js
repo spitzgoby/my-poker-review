@@ -14,7 +14,8 @@ const buildRanges = () => {
     acc[info.name] = {
       name: info.name,
       color: info.color,
-      selectedComboIds: []
+      selectedComboGroupIds: [],
+      selectedHands: new Set()
     }
 
     return acc

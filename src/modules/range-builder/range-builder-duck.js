@@ -1,3 +1,4 @@
+import {map} from 'lodash'
 import {actionCreator} from 'redux-action-creator'
 import {buildEquities} from 'util/equity-builder'
 import comboGroups from 'lib/combo-groups'
@@ -10,18 +11,18 @@ import {ranges} from 'modules/range-builder/ranges'
  *-------------*/
 const types = {
   CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
-  CLEAR_SELECTED_COMBO_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_IDS',
+  CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
-  SELECT_COMBO: '@my-poker-review/range-builder/SELECT_COMBO',
+  SELECT_COMBO_GROUP: '@my-poker-review/range-builder/SELECT_COMBO_GROUP',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE'
 }
 
 export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
-export const clearSelectedComboIds = actionCreator(types.CLEAR_SELECTED_COMBO_IDS)
+export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
-export const selectCombo = actionCreator(types.SELECT_COMBO, 'id')
+export const selectComboGroup = actionCreator(types.SELECT_COMBO_GROUP, 'id')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'name')
 
 /*-------------*
@@ -35,16 +36,16 @@ const initialState = {
   selectedRangeName: 'Bet'
 }
 
-const updateRangeBySelectingCombo = (state, action) => {
+const updateRangeBySelectingComboGroup = (state, action) => {
   const id = action.payload.id
   const range = state.ranges[state.selectedRangeName]
-  const selectedComboIds = range.selectedComboIds
+  const selectedComboGroupIds = range.selectedComboGroupIds
 
   return {
     ...range,
-    selectedComboIds: selectedComboIds.includes(id)
-      ? selectedComboIds.filter((comboId) => comboId !== id)
-      : selectedComboIds.concat([id])
+    selectedComboGroupIds: selectedComboGroupIds.includes(id)
+      ? selectedComboGroupIds.filter((comboGroupId) => comboGroupId !== id)
+      : selectedComboGroupIds.concat([id])
   }
 }
 
@@ -63,19 +64,19 @@ export default function(state = initialState, action = {}) {
       }
       break
 
-    case types.CLEAR_SELECTED_COMBO_IDS:
+    case types.CLEAR_SELECTED_COMBO_GROUP_IDS:
       nextState = {
         ...state,
         selectedComboIds: []
       }
       break
 
-    case types.SELECT_COMBO:
+    case types.SELECT_COMBO_GROUP:
       nextState = {
         ...state,
         ranges: {
           ...state.ranges,
-          [state.selectedRangeName]: updateRangeBySelectingCombo(state, action)
+          [state.selectedRangeName]: updateRangeBySelectingComboGroup(state, action)
         }
       }
       break
@@ -113,25 +114,25 @@ export default function(state = initialState, action = {}) {
  *---------------------*/
 export const getBoard = (state) => state.board
 export const getEquities = (state) => state.equities
-export const getIsComboSelected = (state, id) => getSelectedComboIds(state).includes(id)
+export const getIsComboGroupSelected = (state, id) => getSelectedComboGroupIds(state).includes(id)
 export const getPlayerHand = (state) => state.playerHand
 export const getRange = (state, name) => state.ranges[name]
-export const getRanges = (state) => Object.entries(state.ranges).map((range) => range[1])
+export const getRanges = (state) => map(state.ranges, (range) => range)
 export const getSelectedRangeName = (state) => state.selectedRangeName
 export const getIsRangeSelected = (state, name) => getSelectedRangeName(state) === name
 export const getSelectedRange = (state) => state.ranges[getSelectedRangeName(state)]
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
-export const getSelectedComboIds = (state) => getSelectedRange(state).selectedComboIds
-export const getSelectedComboIdsForRange = (state, name) => getRange(state, name).selectedComboIds
+export const getSelectedComboGroupIds = (state) => getSelectedRange(state).selectedComboGroupIds
+export const getSelectedComboGroupIdsForRange = (state, name) => getRange(state, name).selectedComboGroupIds
 
 /*------------------------*
  *** COMBINED SELECTORS ***
  *------------------------*/
 
-export const getSelectedCombos = createSelector(
-  getSelectedComboIds,
-  (selectedComboIds) => selectedComboIds.map(id => comboGroups[id])
+export const getSelectedComboGroups = createSelector(
+  getSelectedComboGroupIds,
+  (selectedComboGroupIds) => selectedComboGroupIds.map(id => comboGroups[id])
 )
 
-export const getSelectedHands = (state) => handsFromCombos(getSelectedCombos(state))
+export const getSelectedHands = (state) => handsFromCombos(getSelectedComboGroups(state))
 
