@@ -1,28 +1,50 @@
 import {cards} from 'lib/cards'
 
+/*-----------*
+ * CONSTANTS *
+ *----------=*/
+
+export const types = {
+  OFFSUIT: 'offsuit',
+  PAIR: 'pair',
+  SUITED: 'suited'
+}
+
 /*---------*
  * HELPERS *
  *---------*/
 
 const calculateComboGroupId = (combo) => {
   const base = combo.cards[0].rank + combo.cards[1].rank
+  const type = combo.type
   let modifier = ''
 
-  if (combo.suited) {
+  if (type === types.SUITED) {
     modifier = 's'
-  } else if (!combo.pair) {
+  } else if (type === types.OFFSUIT ) {
     modifier = 'o'
   }
 
   return base + modifier
 }
 
+const calculateType = (firstCard, secondCard) => {
+  let type = types.OFFSUIT
+
+  if (firstCard.rank === secondCard.rank) {
+    type = types.PAIR
+  } else if (firstCard.suit === secondCard.suit) {
+    type = types.SUITED
+  }
+
+  return type
+}
+
 const buildCombo = (firstCard, secondCard) => {
   return {
     cards: [firstCard, secondCard],
     id: firstCard.id + secondCard.id,
-    pair: firstCard.rank === secondCard.rank,
-    suited: firstCard.suit === secondCard.suit,
+    type: calculateType(firstCard, secondCard),
     text: firstCard.text + secondCard.text
   }
 }

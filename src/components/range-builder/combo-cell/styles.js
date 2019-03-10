@@ -2,11 +2,12 @@ import {
   rangeColors,
   themeColors
 } from 'styles/colors'
+import {types} from 'lib/combos'
 
 const comboCellColors = {
-  unsuited: 'rgb(255, 255, 255)',
-  pair: 'rgb(221, 219, 203)',
-  suited: 'rgb(245, 241, 227)'
+  [types.UNSUITED]: 'rgb(255, 255, 255)',
+  [types.PAIR]: 'rgb(221, 219, 203)',
+  [types.SUITED]: 'rgb(245, 241, 227)'
 }
 
 const getBackgroundColor = (props, hover = false) => {
@@ -22,15 +23,9 @@ const getBackgroundColor = (props, hover = false) => {
       ? rangeColors['dark' + color]
       : rangeColors[color]
   } else {
-    if (selected) {
-      backgroundColor = rangeColors[color]
-    } else if (combo.suited) {
-      backgroundColor = comboCellColors.suited
-    } else if (combo.pair) {
-      backgroundColor = comboCellColors.pair
-    } else {
-      backgroundColor = comboCellColors.unsuited
-    }
+    backgroundColor = selected 
+      ? rangeColors[color]
+      : comboCellColors[combo.type]
   }
 
   return backgroundColor

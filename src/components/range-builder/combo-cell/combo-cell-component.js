@@ -17,8 +17,8 @@ class ComboCell extends Component {
     }).isRequired,
     color: PropTypes.string,
     combo: PropTypes.shape({
-      suited: PropTypes.bool,
-      value: PropTypes.string
+      type: PropTypes.string,
+      text: PropTypes.string
     }).isRequired,
     selected: PropTypes.bool
   }
