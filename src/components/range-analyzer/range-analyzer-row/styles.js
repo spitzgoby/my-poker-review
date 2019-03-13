@@ -9,5 +9,14 @@ export const styles = {
   },
   cell: {
     color: themeColors.lightTextColor
+  },
+  name: {
+    fontWeight: 600 
+  },
+  editable: {
+    color: themeColors.lightTextColor,
+    '&:after': {
+      borderBottom: `2px solid ${themeColors.lightTextColor}`
+    }
   }
 }

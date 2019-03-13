@@ -122,7 +122,7 @@ class RangeAnalyzer extends Component {
 
   renderRangeRows() {
     return this.props.ranges.map(range => (
-      <RangeAnalyzerRow range={range} key={range.name} />
+      <RangeAnalyzerRow range={range} key={range.id} />
     ))
   }
 

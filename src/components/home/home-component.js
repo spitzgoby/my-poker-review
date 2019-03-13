@@ -61,8 +61,8 @@ class Home extends Component {
   getRangeOutputProps(range) {
     return {
       color: range.color,
-      name: range.name,
-      key: range.name
+      id: range.id,
+      key: range.id
     }
   }
 }

@@ -72,7 +72,7 @@ class RangeOutput extends Component {
 
     if (selectRange) {
       selectRange({
-        name: this.props.name
+        id: this.props.id
       })
     }
   }

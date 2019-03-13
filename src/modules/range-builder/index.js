@@ -15,6 +15,7 @@ export const selectComboGroup = fromRangeBuilder.selectComboGroup
 export const selectRange = fromRangeBuilder.selectRange
 export const setBoard = fromRangeBuilder.setBoard
 export const setPlayerHand = fromRangeBuilder.setPlayerHand
+export const setRangeName = fromRangeBuilder.setRangeName
 
 // Selectors
 const getRangeBuilderState = (state) => state.rangeBuilder
@@ -24,8 +25,8 @@ export const getEquities = (state) =>
   fromRangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsComboGroupSelected = (state, id) => 
   fromRangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
-export const getIsRangeSelected = (state, name) => 
-  fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), name)
+export const getIsRangeSelected = (state, id) => 
+  fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), id)
 export const getPlayerHand = (state) => 
   fromRangeBuilder.getPlayerHand(getRangeBuilderState(state))
 export const getRanges = (state) => 
@@ -34,8 +35,8 @@ export const getSelectedRangeColor = (state) =>
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
 // Variable Selectors
-const getSelectedComboGroupIdsForRange = (state, name) => 
-  fromRangeBuilder.getSelectedComboGroupIdsForRange(getRangeBuilderState(state), name)
+const getSelectedComboGroupIdsForRange = (state, id) => 
+  fromRangeBuilder.getSelectedComboGroupIdsForRange(getRangeBuilderState(state), id)
 
 const getSelectedComboGroupsForRange = createSelector(
   getSelectedComboGroupIdsForRange, 
@@ -59,5 +60,5 @@ export const getRangesAnalysis = createSelector(
   (board, ranges) => analyzeRanges(ranges, board)
 )
 
-export const getRangeAnalysisForRangeNamed = (state, name) => 
-  getRangesAnalysis(state)[name]
+export const getRangeAnalysisForRange = (state, id) => 
+  getRangesAnalysis(state)[id]

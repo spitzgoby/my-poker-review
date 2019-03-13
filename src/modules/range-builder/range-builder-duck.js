@@ -12,18 +12,20 @@ import {ranges} from 'modules/range-builder/ranges'
 const types = {
   CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
+  SELECT_COMBO_GROUP: '@my-poker-review/range-builder/SELECT_COMBO_GROUP',
+  SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
-  SELECT_COMBO_GROUP: '@my-poker-review/range-builder/SELECT_COMBO_GROUP',
-  SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE'
+  SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME'
 }
 
 export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
+export const selectComboGroup = actionCreator(types.SELECT_COMBO_GROUP, 'id')
+export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
-export const selectComboGroup = actionCreator(types.SELECT_COMBO_GROUP, 'id')
-export const selectRange = actionCreator(types.SELECT_RANGE, 'name')
+export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
 
 /*-------------*
  *** REDUCER ***
@@ -33,12 +35,12 @@ const initialState = {
   equities: {},
   playerHand: '',
   ranges,
-  selectedRangeName: 'Bet'
+  selectedRangeId: ranges[0].id
 }
 
 const updateRangeBySelectingComboGroup = (state, action) => {
   const id = action.payload.id
-  const range = state.ranges[state.selectedRangeName]
+  const range = state.ranges[state.selectedRangeId]
   const selectedComboGroupIds = range.selectedComboGroupIds
 
   return {
@@ -76,7 +78,7 @@ export default function(state = initialState, action = {}) {
         ...state,
         ranges: {
           ...state.ranges,
-          [state.selectedRangeName]: updateRangeBySelectingComboGroup(state, action)
+          [state.selectedRangeId]: updateRangeBySelectingComboGroup(state, action)
         }
       }
       break
@@ -84,7 +86,7 @@ export default function(state = initialState, action = {}) {
     case types.SELECT_RANGE:
       nextState = {
         ...state,
-        selectedRangeName: action.payload.name
+        selectedRangeId: action.payload.id
       }
       break
 
@@ -102,6 +104,19 @@ export default function(state = initialState, action = {}) {
       }
       break
 
+    case types.SET_RANGE_NAME:
+      nextState = {
+        ...state,
+        ranges: {
+          ...state.ranges,
+          [action.payload.id]: {
+            ...state.ranges[action.payload.id],
+            name: action.payload.name
+          }
+        }
+      }
+      break
+
     default:
       nextState = state
   }
@@ -116,14 +131,14 @@ export const getBoard = (state) => state.board
 export const getEquities = (state) => state.equities
 export const getIsComboGroupSelected = (state, id) => getSelectedComboGroupIds(state).includes(id)
 export const getPlayerHand = (state) => state.playerHand
-export const getRange = (state, name) => state.ranges[name]
+export const getRange = (state, id) => state.ranges[id]
 export const getRanges = (state) => map(state.ranges, (range) => range)
-export const getSelectedRangeName = (state) => state.selectedRangeName
-export const getIsRangeSelected = (state, name) => getSelectedRangeName(state) === name
-export const getSelectedRange = (state) => state.ranges[getSelectedRangeName(state)]
+export const getSelectedRangeId = (state) => state.selectedRangeId
+export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id
+export const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)]
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
 export const getSelectedComboGroupIds = (state) => getSelectedRange(state).selectedComboGroupIds
-export const getSelectedComboGroupIdsForRange = (state, name) => getRange(state, name).selectedComboGroupIds
+export const getSelectedComboGroupIdsForRange = (state, id) => getRange(state, id).selectedComboGroupIds
 
 /*------------------------*
  *** COMBINED SELECTORS ***

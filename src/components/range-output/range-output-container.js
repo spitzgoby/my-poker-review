@@ -8,8 +8,8 @@ import {
 import RangeOutput from 'components/range-output/range-output-component' 
 
 const mapStateToProps = (state, ownProps) => ({
-  rangeOutput: makeGetRangeOutput()(state, ownProps.name),
-  selected: getIsRangeSelected(state, ownProps.name)
+  rangeOutput: makeGetRangeOutput()(state, ownProps.id),
+  selected: getIsRangeSelected(state, ownProps.id)
 })
 
 const mapDispatchToProps = (dispatch) => ({

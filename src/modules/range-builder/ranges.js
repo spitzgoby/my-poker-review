@@ -10,10 +10,11 @@ const rangeInfo = [{
 }]
 
 const buildRanges = () => {
-  return rangeInfo.reduce((acc, info) => {
-    acc[info.name] = {
-      name: info.name,
+  return rangeInfo.reduce((acc, info, index) => {
+    acc[index] = {
+      id: index,
       color: info.color,
+      name: info.name,
       selectedComboGroupIds: [],
       selectedHands: new Set()
     }
