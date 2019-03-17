@@ -48,7 +48,7 @@ class ComboCell extends Component {
     } = this.props
 
     if (onSelect) {
-      onSelect({id: comboGroup.id})
+      onSelect({combos: comboGroup.combos})
     } 
   }
 }

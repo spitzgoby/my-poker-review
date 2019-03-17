@@ -12,6 +12,7 @@ export default reducer
 export const calculateEquities = fromRangeBuilder.calculateEquities
 export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
 export const selectComboGroup = fromRangeBuilder.selectComboGroup
+export const selectCombos = fromRangeBuilder.selectCombos
 export const selectRange = fromRangeBuilder.selectRange
 export const setBoard = fromRangeBuilder.setBoard
 export const setPlayerHand = fromRangeBuilder.setPlayerHand

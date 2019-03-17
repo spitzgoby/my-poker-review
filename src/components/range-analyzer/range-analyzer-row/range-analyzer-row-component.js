@@ -38,7 +38,6 @@ class RangeAnalyzerRow extends Component {
     const {
       classes,
       rangeAnalysis = {},
-      rangeOutput
     } = this.props
 
     return (
@@ -47,7 +46,6 @@ class RangeAnalyzerRow extends Component {
           <Checkbox className={classes.cell}/>
         </TableCell>
         {this.renderNameCell()}
-        {this.renderCell(rangeOutput, 'left')}
         {this.renderPercentageCell('handsRatio')}
         {this.renderCell(rangeAnalysis.combosCount)}
         {this.renderPercentageCell('rangeRatio')}

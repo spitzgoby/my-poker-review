@@ -34,7 +34,7 @@ class RangeBuilder extends Component {
   }
 
   renderComboGroups() {
-    return comboRows.map((comboRow) => this.renderRow(comboRow))
+    return comboRows.map((comboRow, index) => this.renderRow(comboRow, index))
   }
 
   renderRow(row, index) {

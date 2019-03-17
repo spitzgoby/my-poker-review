@@ -68,15 +68,14 @@ class RangeAnalyzer extends Component {
                 <Checkbox />
               </TableCell>
               <TableCell>Name</TableCell>
-              <TableCell></TableCell>
               <TableCell align="right">
-                % Hands 
+                Hands (%)
               </TableCell>
               <TableCell align="right">
-                # Combos 
+                Combos (#)
               </TableCell>
               <TableCell align="right">
-                % Range
+                Range (%)
               </TableCell>
               <TableCell align="right">
                 <Button >
@@ -87,29 +86,6 @@ class RangeAnalyzer extends Component {
           </TableHead>
           <TableBody>
             {this.renderRangeRows()}
-            <TableRow className={classes.rangerow2}>
-              <TableCell className={classes.rangecell} padding="checkbox">
-                <Checkbox className={classes.rangecell}/>
-              </TableCell>
-              <TableCell>Fold</TableCell>
-              <TableCell className={classes.rangecell}>
-                KK+,AQs+
-              </TableCell>
-              <TableCell className={classes.rangecell} align="right">
-                1.2%
-              </TableCell>
-              <TableCell className={classes.rangecell} align="right">
-                20
-              </TableCell>
-              <TableCell className={classes.rangecell} align="right">
-                100%
-              </TableCell>
-              <TableCell align="right">
-                <Button className={classes.rangeclear}>
-                  Clear
-                </Button>
-              </TableCell>
-            </TableRow>
           </TableBody>
         </Table>
         <div className={classes.boardinput}>
@@ -139,7 +115,6 @@ class RangeAnalyzer extends Component {
   }
 
   handleMenuItemClick(color) {
-    console.log(color + ' clicked')
     this.handleMenuClose()
   }
 }

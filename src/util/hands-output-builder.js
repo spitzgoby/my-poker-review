@@ -1,4 +1,5 @@
 import {getCard} from 'util/compare-combos'
+import {getCards} from 'util/card-input-parser'
 import {
   OFFSUIT_HANDS,
   PAIR_HANDS,
@@ -13,8 +14,30 @@ const buildHands = (combo, suits) => {
   })
 }
 
-export const handsFromCombos = (combos) => {
-  return combos.reduce((result, combo) => {
+export const filterDeadCards = (hands = [], deadCards) => {
+  let result = hands
+
+  if (deadCards) {
+    deadCards = typeof deadCards === 'string'
+      ? getCards(deadCards)
+      : deadCards
+
+    const deadCardsDict = deadCards.reduce((result, card) => {
+      result[card] = true
+
+      return result
+    }, {})
+
+    return hands.filter((hand) => {
+      return !(deadCardsDict[hand[0]] || deadCardsDict[hand[1]])
+    })
+  }
+
+  return result
+}
+
+export const handsFromCombos = (combos, deadCards) => {
+  const allComboHands = combos.reduce((result, combo) => {
     let suits = OFFSUIT_HANDS
 
     if (combo.suited) {
@@ -25,4 +48,6 @@ export const handsFromCombos = (combos) => {
 
     return result.concat(buildHands(combo, suits))
   }, [])
+
+  return filterDeadCards(allComboHands, deadCards)
 }

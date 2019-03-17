@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import {
   getIsComboGroupSelected, 
   getSelectedRangeColor,
-  selectComboGroup
+  selectCombos
 } from 'modules/range-builder'
 
 const mapStateToProps = (state, ownProps) => ({
@@ -14,7 +14,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onSelect: selectComboGroup
+    onSelect: selectCombos
   }, dispatch)
 })
 
