@@ -65,9 +65,16 @@ export const styles = {
       color: props => getColor(props)
     }
   },
+
+  cell: {
+    color: (props) => getColor(props, false),
+    fontWeight: 600
+  },
+
   name: {
     fontWeight: 600 
   },
+
   editable: {
     color: (props) => getColor(props, false),
     '&:after': {
