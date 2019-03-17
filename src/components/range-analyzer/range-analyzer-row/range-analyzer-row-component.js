@@ -41,7 +41,7 @@ class RangeAnalyzerRow extends Component {
     } = this.props
 
     return (
-      <TableRow className={classes.row}>
+      <TableRow className={classes.row} onClick={this.handleClick}>
         {this.renderNameCell()}
         {this.renderPercentageCell('handsRatio')}
         {this.renderCell(rangeAnalysis.combosCount)}
@@ -70,7 +70,7 @@ class RangeAnalyzerRow extends Component {
     const classes = classnames(this.props.classes.cell, additionalClasses)
 
     return (
-      <TableCell className={classes} align={align} onClick={this.handleClick}>
+      <TableCell className={classes} align={align}>
         {content}
       </TableCell>
     )
