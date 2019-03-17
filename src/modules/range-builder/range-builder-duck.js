@@ -1,16 +1,18 @@
 import {actionCreator} from 'redux-action-creator'
 import {buildEquities} from 'util/equity-builder'
 import comboGroups from 'lib/combo-groups'
+import {createRange, ranges} from 'modules/range-builder/ranges'
 import {createSelector} from 'reselect'
 import {
   difference, 
   forEach, 
+  find,
   map, 
   without
 } from 'lodash'
 import {groupComboIds} from 'util/group-combos'
 import {handsFromCombos} from 'util/hands-output-builder'
-import {createRange, ranges} from 'modules/range-builder/ranges'
+import uuid from 'uuid/v4'
 
 /*-------------*
  *** ACTIONS ***
@@ -45,7 +47,7 @@ const initialState = {
   equities: {},
   playerHand: '',
   ranges,
-  selectedRangeId: ranges[0].id
+  selectedRangeId: find(ranges, { 'name': 'Bet' }).id
 }
 
 const updateRangeBySelectingComboGroup = (state, action) => {
@@ -89,14 +91,16 @@ export default function(state = initialState, action = {}) {
 
   switch(action.type) {
     case types.ADD_RANGE:
+      const rangeId = uuid()
+
       nextState = {
         ...state,
         ranges: {
           ...state.ranges,
-          [Object.keys(state.ranges).length]: createRange({
+          [rangeId]: createRange({
             color: action.payload.color,
             name: action.payload.color,
-          }, Object.keys(state.ranges).length)
+          }, rangeId)
         }
       }
       break

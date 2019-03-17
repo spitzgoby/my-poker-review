@@ -1,3 +1,5 @@
+import uuid from 'uuid/v4'
+
 const rangeInfo = [{
   name: 'Bet',
   color: 'blue'
@@ -12,8 +14,10 @@ const rangeInfo = [{
 
 
 export const createRange = (info, id) => {
+  const rangeId = id || uuid() 
+
   return {
-    id,
+    id: rangeId,
     color: info.color,
     name: info.name,
     selectedComboGroupIds: [],
@@ -22,8 +26,9 @@ export const createRange = (info, id) => {
 }
 
 const buildRanges = () => {
-  return rangeInfo.reduce((acc, info, index) => {
-    acc[index] = createRange(info, index)
+  return rangeInfo.reduce((acc, info) => {
+    const range = createRange(info)
+    acc[range.id] = range
 
     return acc
   }, {})
