@@ -1,9 +1,19 @@
+import {
+  addRange,
+  getRanges,
+} from 'modules/range-builder'
+import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
-import {getRanges} from 'modules/range-builder'
 import RangeAnalyzer from 'components/range-analyzer/range-analyzer-component'
 
 const mapStateToProps = (state) => ({
   ranges: getRanges(state)
 })
 
-export default connect(mapStateToProps)(RangeAnalyzer)
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    onAddRange: addRange
+  }, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RangeAnalyzer)

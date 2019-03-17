@@ -9,15 +9,21 @@ const rangeInfo = [{
   color: 'purple'
 }]
 
+
+
+export const createRange = (info, id) => {
+  return {
+    id,
+    color: info.color,
+    name: info.name,
+    selectedComboGroupIds: [],
+    selectedCombos: {}
+  }
+}
+
 const buildRanges = () => {
   return rangeInfo.reduce((acc, info, index) => {
-    acc[index] = {
-      id: index,
-      color: info.color,
-      name: info.name,
-      selectedComboGroupIds: [],
-      selectedCombos: {}
-    }
+    acc[index] = createRange(info, index)
 
     return acc
   }, {})

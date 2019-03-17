@@ -10,12 +10,13 @@ import {
 } from 'lodash'
 import {groupComboIds} from 'util/group-combos'
 import {handsFromCombos} from 'util/hands-output-builder'
-import {ranges} from 'modules/range-builder/ranges'
+import {createRange, ranges} from 'modules/range-builder/ranges'
 
 /*-------------*
  *** ACTIONS ***
  *-------------*/
 const types = {
+  ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
   CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
@@ -26,6 +27,7 @@ const types = {
   SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME'
 }
 
+export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
@@ -86,6 +88,19 @@ export default function(state = initialState, action = {}) {
   let nextState;
 
   switch(action.type) {
+    case types.ADD_RANGE:
+      nextState = {
+        ...state,
+        ranges: {
+          ...state.ranges,
+          [Object.keys(state.ranges).length]: createRange({
+            color: action.payload.color,
+            name: action.payload.color,
+          }, Object.keys(state.ranges).length)
+        }
+      }
+      break
+
     case types.CALCULATE_EQUITIES:
       nextState = {
         ...state,

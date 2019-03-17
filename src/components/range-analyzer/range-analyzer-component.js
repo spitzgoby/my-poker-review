@@ -29,7 +29,13 @@ class RangeAnalyzer extends Component {
   }
 
   static propTypes = {
-    className: PropTypes.string
+    actions: PropTypes.shape({
+      onAddRange: PropTypes.func
+    }).isRequired,
+    className: PropTypes.string,
+    ranges: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.oneOf([PropTypes.number, PropTypes.string])
+    }))
   }
 
   static defaultProps = {
@@ -52,11 +58,11 @@ class RangeAnalyzer extends Component {
             <AddIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => this.handleMenuClose()}>
-            <MenuItem onClick={() => this.handleMenuItemClick('Yellow')}>
+            <MenuItem onClick={() => this.handleMenuItemClick('yellow')}>
               Yellow
             </MenuItem>
-            <MenuItem onClick={() => this.handleMenuItemClick('Green')}>
-              Green
+            <MenuItem onClick={() => this.handleMenuItemClick('red')}>
+              Red
             </MenuItem>
           </Menu>
         </Toolbar>
@@ -111,7 +117,13 @@ class RangeAnalyzer extends Component {
   }
 
   handleMenuItemClick(color) {
+    const onAddRange = this.props.actions.onAddRange
+
     this.handleMenuClose()
+
+    if (onAddRange) {
+      onAddRange({color})
+    }
   }
 }
 

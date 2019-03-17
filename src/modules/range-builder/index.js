@@ -9,6 +9,7 @@ import reducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-
 export default reducer
 
 // Actions
+export const addRange = fromRangeBuilder.addRange
 export const calculateEquities = fromRangeBuilder.calculateEquities
 export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
 export const selectComboGroup = fromRangeBuilder.selectComboGroup
