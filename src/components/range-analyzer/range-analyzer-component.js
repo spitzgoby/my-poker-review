@@ -1,7 +1,6 @@
 import AddIcon from '@material-ui/icons/Add'
 import BoardInput from 'components/board-input'
 import Button from '@material-ui/core/Button'
-import Checkbox from '@material-ui/core/Checkbox'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
 import Menu from '@material-ui/core/Menu'
@@ -64,9 +63,6 @@ class RangeAnalyzer extends Component {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell padding="checkbox">
-                <Checkbox />
-              </TableCell>
               <TableCell>Name</TableCell>
               <TableCell align="right">
                 Hands (%)

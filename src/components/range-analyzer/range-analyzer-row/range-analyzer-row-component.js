@@ -1,5 +1,4 @@
 import Button from '@material-ui/core/Button'
-import Checkbox from '@material-ui/core/Checkbox'
 import classnames from 'classnames'
 import injectSheet from 'react-jss'
 import Input from '@material-ui/core/Input'
@@ -14,6 +13,7 @@ class RangeAnalyzerRow extends Component {
   constructor(props) {
     super(props)
 
+    this.handleClick = this.handleClick.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
   }
 
@@ -31,7 +31,7 @@ class RangeAnalyzerRow extends Component {
       handsRatio: PropTypes.number,
       rangeRation: PropTypes.number
     }),
-    rangeOutput: PropTypes.string
+    selected: PropTypes.bool
   }
 
   render() {
@@ -42,15 +42,12 @@ class RangeAnalyzerRow extends Component {
 
     return (
       <TableRow className={classes.row}>
-        <TableCell className={classes.cell} padding="checkbox">
-          <Checkbox className={classes.cell}/>
-        </TableCell>
         {this.renderNameCell()}
         {this.renderPercentageCell('handsRatio')}
         {this.renderCell(rangeAnalysis.combosCount)}
         {this.renderPercentageCell('rangeRatio')}
         <TableCell align="right">
-          <Button className={classes.rangeclear}>
+          <Button className={classes.clear}>
             Clear
           </Button>
         </TableCell>
@@ -73,7 +70,7 @@ class RangeAnalyzerRow extends Component {
     const classes = classnames(this.props.classes.cell, additionalClasses)
 
     return (
-      <TableCell className={classes} align={align}>
+      <TableCell className={classes} align={align} onClick={this.handleClick}>
         {content}
       </TableCell>
     )
@@ -100,6 +97,19 @@ class RangeAnalyzerRow extends Component {
       className: classes.editable,
       onChange: this.handleNameChange,
       value: range.name
+    }
+  }
+
+  handleClick() {
+    const {
+      actions: {
+        onSelect
+      },
+      range
+    } = this.props
+
+    if (onSelect) {
+      onSelect({id: range.id})
     }
   }
 
