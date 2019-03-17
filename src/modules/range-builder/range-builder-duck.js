@@ -20,6 +20,7 @@ import uuid from 'uuid/v4'
 const types = {
   ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
   CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
+  CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
   SELECT_COMBO_GROUP: '@my-poker-review/range-builder/SELECT_COMBO_GROUP',
@@ -31,6 +32,7 @@ const types = {
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
+export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
 export const selectComboGroup = actionCreator(types.SELECT_COMBO_GROUP, 'id')
@@ -113,6 +115,19 @@ export default function(state = initialState, action = {}) {
           playerHand: state.playerHand, 
           villainHands: getSelectedHands(state)
         })
+      }
+      break
+
+    case types.CLEAR_SELECTED_COMBOS_FROM_RANGE:
+      nextState = {
+        ...state,
+        ranges: {
+          ...state.ranges,
+          [action.payload.id]: {
+            ...state.ranges[action.payload.id],
+            selectedCombos: {}
+          }
+        }
       }
       break
 

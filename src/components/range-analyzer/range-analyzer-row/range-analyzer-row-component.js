@@ -13,6 +13,7 @@ class RangeAnalyzerRow extends Component {
   constructor(props) {
     super(props)
 
+    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
   }
@@ -47,7 +48,7 @@ class RangeAnalyzerRow extends Component {
         {this.renderCell(rangeAnalysis.combosCount)}
         {this.renderPercentageCell('rangeRatio')}
         <TableCell align="right">
-          <Button className={classes.clear}>
+          <Button className={classes.clear} onClick={this.handleClearButtonClick}>
             Clear
           </Button>
         </TableCell>
@@ -123,6 +124,19 @@ class RangeAnalyzerRow extends Component {
 
     if (onNameChange) {
       onNameChange({id: range.id, name: event.target.value})
+    }
+  }
+
+  handleClearButtonClick() {
+    const {
+      actions: {
+        onClearButtonClick
+      },
+      range
+    } = this.props
+
+    if (onClearButtonClick) {
+      onClearButtonClick({id: range.id})
     }
   }
 }
