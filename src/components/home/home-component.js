@@ -1,9 +1,10 @@
+import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import React, {Component} from 'react'
+import styles from 'components/home/styles'
 
-import './home.scss'
 import 'typeface-roboto'
 
 
@@ -18,10 +19,12 @@ class Home extends Component {
   }
 
   render() {
+    const classes = this.props.classes
+
     return (
-      <div className="home">
-        <RangeBuilder className="home--range-builder" />
-        <div className="home--range-info"> 
+      <div className={classes.home}>
+        <RangeBuilder className={classes.builder}/>
+        <div className={classes.info}> 
           <RangeAnalyzer />
         </div>
       </div>
@@ -29,4 +32,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default injectSheet(styles)(Home)
