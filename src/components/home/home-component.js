@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
-import RangeEquities from 'components/range-equities'
-import RangeOutput from 'components/range-output'
 import React, {Component} from 'react'
 
 import './home.scss'
