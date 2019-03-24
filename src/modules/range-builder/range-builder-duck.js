@@ -8,6 +8,7 @@ import {
   forEach, 
   find,
   map, 
+  reduce,
   without
 } from 'lodash'
 import {groupComboIds} from 'util/group-combos'
@@ -20,10 +21,10 @@ import uuid from 'uuid/v4'
 const types = {
   ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
   CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
+  CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
   CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
-  SELECT_COMBO_GROUP: '@my-poker-review/range-builder/SELECT_COMBO_GROUP',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
@@ -32,10 +33,10 @@ const types = {
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
+export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COMBOS)
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
-export const selectComboGroup = actionCreator(types.SELECT_COMBO_GROUP, 'id')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
@@ -52,30 +53,27 @@ const initialState = {
   selectedRangeId: find(ranges, { 'name': 'Bet' }).id
 }
 
-const updateRangeBySelectingComboGroup = (state, action) => {
-  const id = action.payload.id
-  const range = state.ranges[state.selectedRangeId]
-  const selectedComboGroupIds = range.selectedComboGroupIds
+const updateRangesByClearingAllSelectedCombos = (state) => {
+  return reduce(state.ranges, (acc, range) => {
+    acc[range.id] = {
+      ...range,
+      selectedCombos: {}
+    }
 
-  return {
-    ...range,
-    selectedComboGroupIds: selectedComboGroupIds.includes(id)
-      ? selectedComboGroupIds.filter((comboGroupId) => comboGroupId !== id)
-      : selectedComboGroupIds.concat([id])
-  }
+    return acc
+  }, {})
 }
 
-const updateRangeBySelectingCombos = (state, action) => {
-  const range = state.ranges[state.selectedRangeId]
+const updateRangeBySelectingCombos = (range, combos, selected) => {
   const selectedCombos = range.selectedCombos
   let newSelectedCombos = {...selectedCombos}
-  let newSelectedCombosMap = groupComboIds(action.payload.combos)
+  let newSelectedCombosMap = groupComboIds(combos)
 
   forEach(newSelectedCombosMap, (selectedCombosList, comboGroupId) => {
     const selectedComboGroup = selectedCombos[comboGroupId] || []
     const diff = difference(selectedCombosList, selectedComboGroup) 
 
-    if (diff.length === 0) {
+    if (diff.length === 0 || !selected) {
       newSelectedCombos[comboGroupId] = without(selectedComboGroup, ...selectedCombosList)
     } else {
       newSelectedCombos[comboGroupId] = selectedComboGroup.concat(diff)
@@ -86,6 +84,31 @@ const updateRangeBySelectingCombos = (state, action) => {
     ...range,
     selectedCombos: newSelectedCombos
   }
+}
+
+const updateRangesBySelectingCombos = (state, action) => {
+  return reduce(state.ranges, (acc, range) => {
+    acc[range.id] = updateRangeBySelectingCombos(range, action.payload.combos, range.id === state.selectedRangeId)
+
+    return acc
+  }, {})
+}
+
+const findRangeContainingComboGroup = (ranges, comboGroupId) => {
+  let index = 0
+  let range
+
+  while (!range && index < ranges.length) {
+    const selectedCombos = ranges[index].selectedCombos[comboGroupId]
+
+    if (selectedCombos && selectedCombos.length) {
+      range = ranges[index]  
+    }
+
+    index++
+  }
+
+  return range
 }
 
 export default function(state = initialState, action = {}) {
@@ -118,6 +141,13 @@ export default function(state = initialState, action = {}) {
       }
       break
 
+    case types.CLEAR_ALL_SELECTED_COMBOS:
+      nextState = {
+        ...state,
+        ranges: updateRangesByClearingAllSelectedCombos(state)
+      }
+      break
+
     case types.CLEAR_SELECTED_COMBOS_FROM_RANGE:
       nextState = {
         ...state,
@@ -138,23 +168,10 @@ export default function(state = initialState, action = {}) {
       }
       break
 
-    case types.SELECT_COMBO_GROUP:
-      nextState = {
-        ...state,
-        ranges: {
-          ...state.ranges,
-          [state.selectedRangeId]: updateRangeBySelectingComboGroup(state, action)
-        }
-      }
-      break
-
     case types.SELECT_COMBOS:
       nextState = {
         ...state,
-        ranges: {
-          ...state.ranges,
-          [state.selectedRangeId]: updateRangeBySelectingCombos(state, action)
-        } 
+        ranges: updateRangesBySelectingCombos(state, action)
       }
       break
 
@@ -214,6 +231,7 @@ export const getRanges = (state) => map(state.ranges, (range) => range)
 export const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 export const getSelectedRangeId = (state) => state.selectedRangeId
 export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id
+export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
 export const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)]
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
 export const getSelectedComboGroupIds = (state) => getSelectedRange(state).selectedComboGroupIds

@@ -23,6 +23,8 @@ class RangeAnalyzer extends Component {
   constructor(props) {
     super(props)
 
+    this.handleClearCombosButtonClick = this.handleClearCombosButtonClick.bind(this)
+
     this.state = {
       anchorEl: null
     }
@@ -30,7 +32,8 @@ class RangeAnalyzer extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({
-      onAddRange: PropTypes.func
+      onAddRange: PropTypes.func,
+      onClearCombos: PropTypes.func
     }).isRequired,
     className: PropTypes.string,
     ranges: PropTypes.arrayOf(PropTypes.shape({
@@ -80,7 +83,7 @@ class RangeAnalyzer extends Component {
                 Range (%)
               </TableCell>
               <TableCell align="right">
-                <Button >
+                <Button onClick={this.handleClearCombosButtonClick}>
                   Clear
                 </Button>
               </TableCell>
@@ -92,7 +95,7 @@ class RangeAnalyzer extends Component {
         </Table>
         <div className={classes.boardinput}>
           <BoardInput />
-          <Button>Clear All</Button>
+          <Button >Clear All</Button>
         </div>
       </Paper>
     ) 
@@ -108,6 +111,14 @@ class RangeAnalyzer extends Component {
     this.setState({
       anchorEl: e.currentTarget
     })
+  }
+
+  handleClearCombosButtonClick() {
+    const onClearCombos = this.props.actions.onClearCombos
+
+    if (onClearCombos) {
+      onClearCombos()
+    }
   }
 
   handleMenuClose() {

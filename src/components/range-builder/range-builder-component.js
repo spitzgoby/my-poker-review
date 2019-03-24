@@ -11,6 +11,7 @@ class RangeBuilder extends Component {
 
   static propTypes = {
     className: PropTypes.string,
+    selectedColor: PropTypes.string
   }
 
   render() {
@@ -41,10 +42,18 @@ class RangeBuilder extends Component {
     return (
       <tr key={index}>
         {row.map(comboGroupId => 
-          <ComboCell key={comboGroupId} comboGroup={comboGroups[comboGroupId]} />
+          <ComboCell {...this.getComboCellProps(comboGroupId)} />
         )}
       </tr>
     )
+  }
+
+  getComboCellProps(comboGroupId) {
+    return {
+      comboGroup: comboGroups[comboGroupId],
+      key: comboGroupId,
+      selectedColor: this.props.selectedColor
+    }
   }
 
   getClass() {

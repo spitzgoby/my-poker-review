@@ -20,7 +20,6 @@ export const createRange = (info, id) => {
     id: rangeId,
     color: info.color,
     name: info.name,
-    selectedComboGroupIds: [],
     selectedCombos: {}
   }
 }

@@ -1,6 +1,7 @@
 import {
   addRange,
-  getRanges,
+  clearAllSelectedCombos,
+  getRanges
 } from 'modules/range-builder'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -12,7 +13,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onAddRange: addRange
+    onAddRange: addRange,
+    onClearCombos: clearAllSelectedCombos
   }, dispatch)
 })
 
