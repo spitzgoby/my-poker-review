@@ -1,23 +1,9 @@
 import {reduce} from 'lodash'
-import {handsFromCombos} from 'util/hands-output-builder'
 
 const countCombos = (ranges) => {
   return reduce(ranges, (count, range) => {
     return count + reduce(range.selectedCombos, (count, comboGroup) => count + comboGroup.length, 0)
   }, 0)
-}
-
-const buildRangeHands = (ranges) => {
-  return ranges.reduce((acc, range) => {
-    const id = range.id
-
-    acc[id] = {
-      id,
-      hands: handsFromCombos()
-    }
-
-    return acc
-  }, {})
 }
 
 export const analyzeRanges = (ranges, deadCards) => {

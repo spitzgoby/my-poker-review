@@ -6,14 +6,14 @@ import {
   getSecondCard,
   getCardValueDifference
 } from 'util/compare-combos'
-import { groupCombos } from 'util/group-combos'
+import { splitComboGroups } from 'util/group-combos'
 
 export const rangeFromCombos = (combos) => {
   let {
     pairs,
     suited,
     offsuit,
-  } = groupCombos(combos)
+  } = splitComboGroups(combos)
 
   let combinedPairs = combinePairs(pairs) 
   let combinedSuited = combineNonPairs(suited)
