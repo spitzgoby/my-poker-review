@@ -1,8 +1,5 @@
 import {actionCreator} from 'redux-action-creator'
-import {buildEquities} from 'util/equity-builder'
-import comboGroups from 'lib/combo-groups'
 import {createRange, ranges} from 'modules/range-builder/ranges'
-import {createSelector} from 'reselect'
 import {
   difference, 
   forEach, 
@@ -12,7 +9,6 @@ import {
   without
 } from 'lodash'
 import {groupComboIds} from 'util/group-combos'
-import {handsFromCombos} from 'util/hands-output-builder'
 import uuid from 'uuid/v4'
 
 /*-------------*
@@ -20,7 +16,6 @@ import uuid from 'uuid/v4'
  *-------------*/
 const types = {
   ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
-  CALCULATE_EQUITIES: '@my-poker-review/range-builder/CALCULATE_EQUITIES',
   CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
   CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
@@ -32,7 +27,6 @@ const types = {
 }
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
-export const calculateEquities = actionCreator(types.CALCULATE_EQUITIES)
 export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COMBOS)
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
@@ -130,17 +124,6 @@ export default function(state = initialState, action = {}) {
       }
       break
 
-    case types.CALCULATE_EQUITIES:
-      nextState = {
-        ...state,
-        equities: buildEquities({
-          board: state.board,
-          playerHand: state.playerHand, 
-          villainHands: getSelectedHands(state)
-        })
-      }
-      break
-
     case types.CLEAR_ALL_SELECTED_COMBOS:
       nextState = {
         ...state,
@@ -219,6 +202,9 @@ export default function(state = initialState, action = {}) {
 /*---------------------*
  *** BASIC SELECTORS ***
  *---------------------*/
+const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
+const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)]
+
 export const getBoard = (state) => state.board
 export const getEquities = (state) => state.equities
 export const getIsComboGroupSelected = (state, id) => { 
@@ -226,24 +212,9 @@ export const getIsComboGroupSelected = (state, id) => {
   return selectedComboGroup && selectedComboGroup.length > 0
 }
 export const getPlayerHand = (state) => state.playerHand
-export const getRange = (state, id) => state.ranges[id]
 export const getRanges = (state) => map(state.ranges, (range) => range)
-export const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 export const getSelectedRangeId = (state) => state.selectedRangeId
 export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id
 export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
-export const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)]
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
-export const getSelectedComboGroupIds = (state) => getSelectedRange(state).selectedComboGroupIds
-export const getSelectedComboGroupIdsForRange = (state, id) => getRange(state, id).selectedComboGroupIds
-
-/*------------------------*
- *** COMBINED SELECTORS ***
- *------------------------*/
-export const getSelectedComboGroups = createSelector(
-  getSelectedComboGroupIds,
-  (selectedComboGroupIds) => selectedComboGroupIds.map(id => comboGroups[id])
-)
-
-export const getSelectedHands = (state) => handsFromCombos(getSelectedComboGroups(state))
 

@@ -1,8 +1,5 @@
 import {analyzeRanges} from 'util/range-analyzer'
-import comboGroups from 'lib/combo-groups'
 import {createSelector} from 'reselect'
-import {handsFromCombos} from 'util/hands-output-builder'
-import {rangeFromCombos} from 'util/range-output-builder'
 import reducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 
 // Reducer
@@ -10,7 +7,6 @@ export default reducer
 
 // Actions
 export const addRange = fromRangeBuilder.addRange
-export const calculateEquities = fromRangeBuilder.calculateEquities
 export const clearAllSelectedCombos = fromRangeBuilder.clearAllSelectedCombos
 export const clearSelectedCombosFromRange = fromRangeBuilder.clearSelectedCombosFromRange
 export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
@@ -40,30 +36,11 @@ export const getSelectedRangeColor = (state) =>
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
 // Variable Selectors
-const getSelectedComboGroupIdsForRange = (state, id) => 
-  fromRangeBuilder.getSelectedComboGroupIdsForRange(getRangeBuilderState(state), id)
-
-const getSelectedComboGroupsForRange = createSelector(
-  getSelectedComboGroupIdsForRange, 
-  (selectedComboGroupIds) => selectedComboGroupIds.map((id) => comboGroups[id])
-)
-
-export const makeGetHandsForRange = () => createSelector(
-  getSelectedComboGroupsForRange,
-  getBoard,
-  (comboGroups, board) => handsFromCombos(comboGroups, board)
-)
-
 export const makeGetRangeColorForComboGroup = () => createSelector(
   getRangeForComboGroup,
   (range) => range 
     ? range.color 
     : ''
-)
-
-export const makeGetRangeOutput = () => createSelector(
-  getSelectedComboGroupsForRange,
-  (selectedComboGroups) => rangeFromCombos(selectedComboGroups)
 )
 
 export const getRangesAnalysis = createSelector(
