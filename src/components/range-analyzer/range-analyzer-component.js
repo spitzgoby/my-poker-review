@@ -37,7 +37,7 @@ class RangeAnalyzer extends Component {
     }).isRequired,
     className: PropTypes.string,
     ranges: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.oneOf([PropTypes.number, PropTypes.string])
+      id: PropTypes.string
     }))
   }
 
