@@ -22,11 +22,20 @@ export const suits = {
   list: ['c','d','h','s'] 
 }
 
+export const createCard = (rank, suit) => {
+  const text = rank + suit
+
+  return {
+    id: text, 
+    rank, 
+    suit, 
+    text
+  }
+}
+
 export const cards = ranks.list.reduce((acc, rank) => {
   suits.list.forEach((suit) => {
-    const text = rank + suit
-
-    acc.push({id: text, rank, suit, text})
+    acc.push(createCard(rank, suit))
   })
 
   return acc
