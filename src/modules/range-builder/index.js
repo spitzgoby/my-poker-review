@@ -1,5 +1,6 @@
 import {analyzeRanges} from 'util/range-analyzer'
 import {createSelector} from 'reselect'
+import {getCardsFromInput} from 'util/card-input-parser'
 import reducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 
 // Reducer
@@ -46,7 +47,7 @@ export const makeGetRangeColorForComboGroup = () => createSelector(
 export const getRangesAnalysis = createSelector(
   getBoard,
   getRanges,
-  (board, ranges) => analyzeRanges(ranges, board)
+  (board, ranges) => analyzeRanges(ranges, getCardsFromInput(board))
 )
 
 export const getRangeAnalysisForRange = (state, id) => 

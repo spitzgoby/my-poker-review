@@ -1,5 +1,30 @@
 import {reduce} from 'lodash'
 
+const filterSelectedCombos = (comboGroups, deadCards) => {
+  return reduce(comboGroups, (acc, comboGroup, id) => {
+    acc[id] = comboGroup.filter((combo) => !deadCards.test(combo))
+
+    return acc
+  }, {})
+}
+
+const filterRanges = (ranges, deadCards) => {
+  let filteredRanges = ranges
+
+  if (deadCards.length) {
+    const deadCardsRegex = new RegExp(deadCards.map((deadCard) => deadCard.text).join('|'))
+
+    filteredRanges = ranges.map(range => {
+      return {
+        id: range.id,
+        selectedCombos: filterSelectedCombos(range.selectedCombos, deadCardsRegex)
+      }
+    })
+  }
+
+  return filteredRanges
+}
+
 const countCombos = (ranges) => {
   return reduce(ranges, (count, range) => {
     return count + reduce(range.selectedCombos, (count, comboGroup) => count + comboGroup.length, 0)
@@ -7,9 +32,10 @@ const countCombos = (ranges) => {
 }
 
 export const analyzeRanges = (ranges, deadCards) => {
-  const totalCombosCount = countCombos(ranges)
+  const filteredRanges = filterRanges(ranges, deadCards)
+  const totalCombosCount = countCombos(filteredRanges)
 
-  return ranges.reduce((acc, range) => {
+  return filteredRanges.reduce((acc, range) => {
     const combosCount = countCombos([range])
     if (combosCount > 0) {
       acc[range.id] = {
