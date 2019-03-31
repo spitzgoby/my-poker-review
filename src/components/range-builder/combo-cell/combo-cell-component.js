@@ -1,4 +1,5 @@
 import classnames from 'classnames'
+import {createSelectable} from 'react-selectable-fast'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -27,8 +28,6 @@ class ComboCell extends Component {
   }
 
   render() {
-
-
     return (
       <div {...this.getProps()}>
         {this.props.comboGroup.text}
@@ -39,6 +38,7 @@ class ComboCell extends Component {
   getProps() {
     return {
       className: this.getClass(),
+      ref: this.props.selectableRef,
       onClick: this.handleSelect
     } 
   }
@@ -66,4 +66,4 @@ class ComboCell extends Component {
   }
 }
 
-export default injectSheet(styles)(ComboCell)
+export default createSelectable(injectSheet(styles)(ComboCell))

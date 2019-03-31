@@ -1,5 +1,3 @@
-import {themeColors} from 'styles/colors'
-
 export const styles = {
   rangebuilder: {
     display: 'flex',
