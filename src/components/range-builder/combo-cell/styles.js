@@ -10,17 +10,16 @@ const comboCellColors = {
   [types.SUITED]: 'rgb(245, 241, 227)'
 }
 
-const border = `1px solid ${themeColors.darkTextColor}`
-
 const getBackgroundColor = (props, hover = false) => {
   let backgroundColor
   const {
     color,
     comboGroup,
-    selectedColor
+    selectedColor,
+    selecting,
   } = props
 
-  if (hover) {
+  if (hover || selecting) {
     backgroundColor = color
       ? rangeColors['dark' + selectedColor]
       : rangeColors[selectedColor]
@@ -33,8 +32,16 @@ const getBackgroundColor = (props, hover = false) => {
   return backgroundColor
 }
 
+const getBorderWidth = (props) => {
+  const bottom = props.lastRow ? '1px' : '0'
+  const right = props.lastColumn ? '1px' : '0'
+
+  return `1px ${right} ${bottom} 1px`
+}
+
+
 const getColor = (props, hover = false) => {
-  return props.color || hover
+  return props.color || hover || props.selecting
     ? themeColors.lightTextColor 
     : themeColors.darkTextColor
 }
@@ -42,8 +49,9 @@ const getColor = (props, hover = false) => {
 export const styles = {
   combocell: {
     backgroundColor: props => getBackgroundColor(props, false),
-    borderTop: border,
-    borderLeft: border,
+    borderColor: themeColors.darkTextColor,
+    borderStyle: 'solid',
+    borderWidth: props => getBorderWidth(props),
     color: props => getColor(props, false),
     display: 'flex',
     alignItems: 'center',
@@ -58,13 +66,5 @@ export const styles = {
       backgroundColor: props => getBackgroundColor(props, true),
       color: props => getColor(props, true)
     },
-
-    '&:last-child': {
-      borderRight: border
-    }
-  },
-
-  lastrow: {
-    borderBottom: border
   }
 }

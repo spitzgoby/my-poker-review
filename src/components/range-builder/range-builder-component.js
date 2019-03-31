@@ -14,7 +14,7 @@ class RangeBuilder extends Component {
   constructor(props) {
     super(props)
 
-    this.handleSelectionFinish = this.handleSelectionFinish.bind(this)
+    this.handleSelection = this.handleSelection.bind(this)
   }
 
   static propTypes = {
@@ -22,12 +22,13 @@ class RangeBuilder extends Component {
     selectedColor: PropTypes.string
   }
 
+  static lastColumnIndex = 12
   static lastRowIndex = 12
 
   render() {
     return (
       <div className={this.getClass()}>
-        <SelectableGroup onSelectionFinish={this.handleSelectionFinish}>
+        <SelectableGroup {...this.getSelectableGroupProps()}>
           {this.renderComboGroups()}
         </SelectableGroup>
       </div>
@@ -35,23 +36,31 @@ class RangeBuilder extends Component {
   }
 
   renderComboGroups() {
-    return comboRows.map((comboRow, index) => this.renderRow(comboRow, index))
+    return comboRows.map((comboRow, row) => this.renderRow(comboRow, row))
   }
 
-  renderRow(row, index) {
+  renderRow(comboRow, row) {
     return (
-      <div className={this.props.classes.comborow} key={index}>
-        {row.map(comboGroupId => 
-          <ComboCell {...this.getComboCellProps(comboGroupId, index)} />
+      <div className={this.props.classes.comborow} key={row}>
+        {comboRow.map((comboGroupId, column) => 
+          <ComboCell {...this.getComboCellProps(comboGroupId, row, column)} />
         )}
       </div>
     )
   }
 
-  getComboCellProps(comboGroupId, index) {
+  getSelectableGroupProps() {
+    return {
+      onSelectionFinish: this.handleSelection,
+      resetOnStart: true
+    }
+  }
+
+  getComboCellProps(comboGroupId, row, column) {
     return {
       comboGroup: comboGroups[comboGroupId],
-      lastRow: index === RangeBuilder.lastRowIndex,
+      lastColumn: column === RangeBuilder.lastColumnIndex,
+      lastRow: row === RangeBuilder.lastRowIndex,
       key: comboGroupId,
       selectedColor: this.props.selectedColor
     }
@@ -66,7 +75,7 @@ class RangeBuilder extends Component {
     return classnames(classes.rangebuilder, className)
   }
 
-  handleSelectionFinish(items) {
+  handleSelection(items) {
     const onSelect = this.props.actions.onSelect
 
     if (onSelect) {
