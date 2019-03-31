@@ -2,10 +2,10 @@ import classnames from 'classnames'
 import ComboCell from 'components/range-builder/combo-cell'
 import comboRows from 'modules/range-builder/combo-rows'
 import comboGroups from 'lib/combo-groups'
+import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-
-import 'components/range-builder/range-builder.scss'
+import {styles} from 'components/range-builder/styles'
 
 class RangeBuilder extends Component {
 
@@ -14,22 +14,12 @@ class RangeBuilder extends Component {
     selectedColor: PropTypes.string
   }
 
+  static lastRowIndex = 12
+
   render() {
     return (
       <div className={this.getClass()}>
-        {this.renderRangeTable()}
-      </div>
-    ) 
-  }
-
-  renderRangeTable() {
-    return (
-      <div className="range-builder">
-        <table> 
-          <tbody>
-            {this.renderComboGroups()}
-          </tbody>
-        </table>
+        {this.renderComboGroups()}
       </div>
     )
   }
@@ -40,25 +30,31 @@ class RangeBuilder extends Component {
 
   renderRow(row, index) {
     return (
-      <tr key={index}>
+      <div className={this.props.classes.comborow} key={index}>
         {row.map(comboGroupId => 
-          <ComboCell {...this.getComboCellProps(comboGroupId)} />
+          <ComboCell {...this.getComboCellProps(comboGroupId, index)} />
         )}
-      </tr>
+      </div>
     )
   }
 
-  getComboCellProps(comboGroupId) {
+  getComboCellProps(comboGroupId, index) {
     return {
       comboGroup: comboGroups[comboGroupId],
+      lastRow: index === RangeBuilder.lastRowIndex,
       key: comboGroupId,
       selectedColor: this.props.selectedColor
     }
   }
 
   getClass() {
-    return classnames("range-builder", this.props.className)
+    const {
+      classes,
+      className
+    } = this.props
+
+    return classnames(classes.rangebuilder, className)
   }
 }
 
-export default RangeBuilder
+export default injectSheet(styles)(RangeBuilder)

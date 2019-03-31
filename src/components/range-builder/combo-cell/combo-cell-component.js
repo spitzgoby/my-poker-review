@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -21,22 +22,34 @@ class ComboCell extends Component {
       text: PropTypes.string,
       type: PropTypes.string
     }).isRequired,
+    lastRow: PropTypes.bool,
     selected: PropTypes.bool
   }
 
   render() {
+
+
     return (
-      <td {...this.getProps()}>
+      <div {...this.getProps()}>
         {this.props.comboGroup.text}
-      </td> 
+      </div> 
     ) 
   }
 
   getProps() {
     return {
-      className: this.props.classes.combocell,
+      className: this.getClass(),
       onClick: this.handleSelect
     } 
+  }
+
+  getClass() {
+    const {
+      classes,
+      lastRow
+    } = this.props
+
+    return classnames(classes.combocell, {[classes.lastrow]: lastRow})
   }
 
   handleSelect() {

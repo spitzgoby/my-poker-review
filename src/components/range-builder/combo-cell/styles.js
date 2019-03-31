@@ -10,6 +10,8 @@ const comboCellColors = {
   [types.SUITED]: 'rgb(245, 241, 227)'
 }
 
+const border = `1px solid ${themeColors.darkTextColor}`
+
 const getBackgroundColor = (props, hover = false) => {
   let backgroundColor
   const {
@@ -40,18 +42,29 @@ const getColor = (props, hover = false) => {
 export const styles = {
   combocell: {
     backgroundColor: props => getBackgroundColor(props, false),
-    border: `1px solid ${themeColors.darkTextColor}`,
+    borderTop: border,
+    borderLeft: border,
     color: props => getColor(props, false),
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
     fontFamily: 'sans-serif',
     fontWeight: '300',
     fontSize: '1.5rem',
     height: '64px',
-    textAlign: 'center',
-    width: '64px',
+    width: 'calc(100% / 13)',
 
     '&:hover': {
       backgroundColor: props => getBackgroundColor(props, true),
       color: props => getColor(props, true)
+    },
+
+    '&:last-child': {
+      borderRight: border
     }
+  },
+
+  lastrow: {
+    borderBottom: border
   }
 }
