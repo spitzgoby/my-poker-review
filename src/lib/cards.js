@@ -1,3 +1,7 @@
+/*-----------*
+ * CONSTANTS *
+ *-----------*/
+
 export const ranks = {
   A: 14,
   K: 13,
@@ -22,6 +26,10 @@ export const suits = {
   list: ['c','d','h','s'] 
 }
 
+/*---------*
+ * HELPERS *
+ *---------*/
+
 export const createCard = (rank, suit) => {
   const text = rank + suit
 
@@ -32,6 +40,10 @@ export const createCard = (rank, suit) => {
     text
   }
 }
+
+/*-------*
+ * CARDS *
+ *-------*/
 
 export const cards = ranks.list.reduce((acc, rank) => {
   suits.list.forEach((suit) => {

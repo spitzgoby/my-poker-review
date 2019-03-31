@@ -1,5 +1,9 @@
 import uuid from 'uuid/v4'
 
+/*----------------*
+ * DEFAULT RANGES *
+ *----------------*/
+
 const rangeInfo = [{
   name: 'Bet',
   color: 'blue'
@@ -11,7 +15,9 @@ const rangeInfo = [{
   color: 'purple'
 }]
 
-
+/*------------------*
+ * HELPER FUNCTIONS *
+ *------------------*/
 
 export const createRange = (info, id) => {
   const rangeId = id || uuid() 
@@ -24,7 +30,7 @@ export const createRange = (info, id) => {
   }
 }
 
-const buildRanges = () => {
+const buildRanges = (rangeInfo) => {
   return rangeInfo.reduce((acc, info) => {
     const range = createRange(info)
     acc[range.id] = range
@@ -33,4 +39,4 @@ const buildRanges = () => {
   }, {})
 }
 
-export const ranges = buildRanges()
+export const ranges = buildRanges(rangeInfo)

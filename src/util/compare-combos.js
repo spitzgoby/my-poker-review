@@ -16,15 +16,17 @@ const RANK_VALUES = {
   '2': 2
 }
 
-export const compareCombos = (combo1, combo2) => {
-  let result = compareComboCard(combo1, combo2, FIRST_CARD_INDEX)
+export const getCard = (combo, index) => combo.text.charAt(index)
 
-  if (result === 0) {
-    result = compareComboCard(combo1, combo2, SECOND_CARD_INDEX)
-  }
+export const getFirstCard = (combo) => getCard(combo, FIRST_CARD_INDEX)
 
-  return result
-}
+export const getSecondCard = (combo) => getCard(combo, SECOND_CARD_INDEX)
+
+export const compareFirstCard = (combo1, combo2) => 
+  compareComboCard(combo1, combo2, FIRST_CARD_INDEX)
+
+export const compareSecondCard = (combo1, combo2) =>
+  compareComboCard(combo1, combo2, SECOND_CARD_INDEX)
 
 export const compareComboCard = (combo1, combo2, index) => {
   const cardValue1 = RANK_VALUES[getCard(combo1, index)]
@@ -33,17 +35,15 @@ export const compareComboCard = (combo1, combo2, index) => {
   return cardValue2 - cardValue1
 }
 
-export const compareFirstCard = (combo1, combo2) => 
-  compareComboCard(combo1, combo2, FIRST_CARD_INDEX)
+export const compareCombos = (combo1, combo2) => {
+  let result = compareFirstCard(combo1, combo2)
 
-export const compareSecondCard = (combo1, combo2) =>
-  compareComboCard(combo1, combo2, SECOND_CARD_INDEX)
+  if (result === 0) {
+    result = compareSecondCard(combo1, combo2)
+  }
 
-export const getCard = (combo, index) => combo.text.charAt(index)
-
-export const getFirstCard = (combo) => getCard(combo, FIRST_CARD_INDEX)
-
-export const getSecondCard = (combo) => getCard(combo, SECOND_CARD_INDEX)
+  return result
+}
 
 export const getCardValueDifference = (card1, card2) =>
   RANK_VALUES[card1] - RANK_VALUES[card2]

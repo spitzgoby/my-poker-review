@@ -7,6 +7,10 @@ import {
 
 const DEFAULT_TIMES = 1E4
 
+/*----------------*
+ * BUILD EQUITIES *
+ *----------------*/
+
 export const buildEquities = (options) => {
   const {
     board,

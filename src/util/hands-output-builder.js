@@ -4,15 +4,11 @@ import {
   OFFSUIT_HANDS,
   PAIR_HANDS,
   SUITED_HANDS
-} from 'util/poker-constants'
+} from 'lib/poker-constants'
 
-const buildHands = (combo, suits) => {
-  return suits.map((suitPair, index) => {
-    return suitPair.map((suit, index) => {
-      return getCard(combo, index) + suit
-    })
-  })
-}
+/*------------------*
+ * HELPER FUNCTIONS *
+ *------------------*/
 
 export const filterDeadCards = (hands = [], deadCards) => {
   let result = hands
@@ -34,6 +30,18 @@ export const filterDeadCards = (hands = [], deadCards) => {
   }
 
   return result
+}
+
+/*--------------*
+ * HANDS OUTPUT *
+ *--------------*/
+
+const buildHands = (combo, suits) => {
+  return suits.map((suitPair, index) => {
+    return suitPair.map((suit, index) => {
+      return getCard(combo, index) + suit
+    })
+  })
 }
 
 export const handsFromCombos = (combos, deadCards) => {

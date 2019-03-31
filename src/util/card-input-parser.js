@@ -1,8 +1,8 @@
-import {CARD_REGEX} from 'util/poker-constants'
+import {CARD_REGEX} from 'lib/poker-constants'
 import {createCard} from 'lib/cards'
 import {uniqBy} from 'lodash'
 
-export const getCardsFromInput = (input) => {
+export const parseCardInput = (input) => {
   const tokens = input.match(CARD_REGEX) || []
   const cards = tokens.map((token) => {
     const rank = token[0].toUpperCase()
@@ -14,4 +14,4 @@ export const getCardsFromInput = (input) => {
   return uniqBy(cards, 'id')
 }
 
-export default getCardsFromInput
+export default parseCardInput

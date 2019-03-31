@@ -11,9 +11,10 @@ import {
 import {groupComboIds} from 'util/group-combos'
 import uuid from 'uuid/v4'
 
-/*-------------*
- *** ACTIONS ***
- *-------------*/
+/*---------*
+ * ACTIONS *
+ *---------*/
+
 const types = {
   ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
   CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
@@ -36,16 +37,10 @@ export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
 
-/*-------------*
- *** REDUCER ***
- *-------------*/
-const initialState = {
-  board: '',
-  equities: {},
-  playerHand: '',
-  ranges,
-  selectedRangeId: find(ranges, { 'name': 'Bet' }).id
-}
+
+/*---------*
+ * HELPERS *
+ *---------*/
 
 const updateRangesByClearingAllSelectedCombos = (state) => {
   return reduce(state.ranges, (acc, range) => {
@@ -103,6 +98,18 @@ const findRangeContainingComboGroup = (ranges, comboGroupId) => {
   }
 
   return range
+}
+
+/*---------*
+ * REDUCER *
+ *---------*/
+
+const initialState = {
+  board: '',
+  equities: {},
+  playerHand: '',
+  ranges,
+  selectedRangeId: find(ranges, { 'name': 'Bet' }).id
 }
 
 export default function(state = initialState, action = {}) {
@@ -199,9 +206,10 @@ export default function(state = initialState, action = {}) {
   return nextState;
 }
 
-/*---------------------*
- *** BASIC SELECTORS ***
- *---------------------*/
+/*-----------*
+ * SELECTORS *
+ *-----------*/
+
 const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)]
 

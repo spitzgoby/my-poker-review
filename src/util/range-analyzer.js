@@ -1,5 +1,9 @@
 import {reduce} from 'lodash'
 
+/*------------------*
+ * HELPER FUNCTIONS *
+ *------------------*/
+
 const filterSelectedCombos = (comboGroups, deadCards) => {
   return reduce(comboGroups, (acc, comboGroup, id) => {
     acc[id] = comboGroup.filter((combo) => !deadCards.test(combo))
@@ -24,6 +28,10 @@ const filterRanges = (ranges, deadCards) => {
 
   return filteredRanges
 }
+
+/*----------*
+ * ANALYSIS *
+ *----------*/
 
 const countCombos = (ranges) => {
   return reduce(ranges, (count, range) => {

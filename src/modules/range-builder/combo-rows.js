@@ -1,3 +1,7 @@
+/*------------*
+ * COMBO ROWS *
+ *------------*/
+
 export const comboRows = [
   ['AA','AKs','AQs','AJs','ATs','A9s','A8s','A7s','A6s','A5s','A4s','A3s','A2s'],
   ['AKo','KK','KQs','KJs','KTs','K9s','K8s','K7s','K6s','K5s','K4s','K3s','K2s'],
