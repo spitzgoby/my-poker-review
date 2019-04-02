@@ -2,20 +2,12 @@ import classnames from 'classnames'
 import ComboCell from 'components/range-builder/combo-cell'
 import comboRows from 'modules/range-builder/combo-rows'
 import comboGroups from 'lib/combo-groups'
-import {get} from 'lodash'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {SelectableGroup} from 'react-selectable-fast'
 import {styles} from 'components/range-builder/range-builder-styles'
 
 class RangeBuilder extends Component {
-
-  constructor(props) {
-    super(props)
-
-    this.handleSelection = this.handleSelection.bind(this)
-  }
 
   static propTypes = {
     className: PropTypes.string,
@@ -28,9 +20,7 @@ class RangeBuilder extends Component {
   render() {
     return (
       <div className={this.getClass()}>
-        <SelectableGroup {...this.getSelectableGroupProps()}>
           {this.renderComboGroups()}
-        </SelectableGroup>
       </div>
     )
   }
@@ -47,13 +37,6 @@ class RangeBuilder extends Component {
         )}
       </div>
     )
-  }
-
-  getSelectableGroupProps() {
-    return {
-      onSelectionFinish: this.handleSelection,
-      resetOnStart: true
-    }
   }
 
   getComboCellProps(comboGroupId, row, column) {
@@ -73,24 +56,6 @@ class RangeBuilder extends Component {
     } = this.props
 
     return classnames(classes.rangebuilder, className)
-  }
-
-  handleSelection(items) {
-    const onSelect = this.props.actions.onSelect
-
-    if (onSelect) {
-      const allCombos = items.reduce((acc, item) => {
-        const combos = get(item, 'props.comboGroup.combos')
-
-        if (combos) {
-          acc = acc.concat(combos)
-        }     
-
-        return acc
-      }, [])
-
-      onSelect({combos: allCombos})
-    }
   }
 }
 

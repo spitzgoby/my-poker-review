@@ -15,11 +15,10 @@ const getBackgroundColor = (props, hover = false) => {
   const {
     color,
     comboGroup,
-    selectedColor,
-    selecting,
+    selectedColor
   } = props
 
-  if (hover || selecting) {
+  if (hover) {
     backgroundColor = color
       ? rangeColors['dark' + selectedColor]
       : rangeColors[selectedColor]
@@ -41,7 +40,7 @@ const getBorderWidth = (props) => {
 
 
 const getColor = (props, hover = false) => {
-  return props.color || hover || props.selecting
+  return props.color || hover
     ? themeColors.lightTextColor 
     : themeColors.darkTextColor
 }
