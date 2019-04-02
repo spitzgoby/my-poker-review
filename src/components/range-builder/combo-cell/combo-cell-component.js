@@ -2,7 +2,7 @@ import {createSelectable} from 'react-selectable-fast'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {styles} from 'components/range-builder/combo-cell/styles'
+import {styles} from 'components/range-builder/combo-cell/combo-cell-styles'
 
 class ComboCell extends Component {
   

@@ -1,6 +1,7 @@
 import AddIcon from '@material-ui/icons/Add'
 import BoardInput from 'components/board-input'
 import Button from '@material-ui/core/Button'
+import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
 import Menu from '@material-ui/core/Menu'
@@ -9,7 +10,7 @@ import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import RangeAnalyzerRow from 'components/range-analyzer/range-analyzer-row'
 import React, {Component} from 'react'
-import {styles} from 'components/range-analyzer/styles'
+import {styles} from 'components/range-analyzer/range-analyzer-styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
@@ -86,6 +87,9 @@ class RangeAnalyzer extends Component {
                 <Button onClick={this.handleClearCombosButtonClick}>
                   Clear
                 </Button>
+                <IconButton>
+                  <EditIcon />
+                </IconButton>
               </TableCell>
             </TableRow>              
           </TableHead>

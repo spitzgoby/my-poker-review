@@ -1,10 +1,12 @@
 import Button from '@material-ui/core/Button'
 import classnames from 'classnames'
+import EditIcon from '@material-ui/icons/Edit'
+import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
 import Input from '@material-ui/core/Input'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {styles} from 'components/range-analyzer/range-analyzer-row/styles'
+import {styles} from 'components/range-analyzer/range-analyzer-row/range-analyzer-row-styles'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 
@@ -51,6 +53,9 @@ class RangeAnalyzerRow extends Component {
           <Button className={classes.clear} onClick={this.handleClearButtonClick}>
             Clear
           </Button>
+          <IconButton>
+            <EditIcon />
+          </IconButton>
         </TableCell>
       </TableRow>
     ) 

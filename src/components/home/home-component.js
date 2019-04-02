@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import React, {Component} from 'react'
-import styles from 'components/home/styles'
+import {styles} from 'components/home/home-styles'
 
 import 'typeface-roboto'
 

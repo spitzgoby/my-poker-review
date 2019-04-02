@@ -7,7 +7,7 @@ import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import {SelectableGroup} from 'react-selectable-fast'
-import {styles} from 'components/range-builder/styles'
+import {styles} from 'components/range-builder/range-builder-styles'
 
 class RangeBuilder extends Component {
 
