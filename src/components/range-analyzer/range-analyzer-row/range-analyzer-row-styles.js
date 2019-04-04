@@ -3,17 +3,25 @@ import {
   themeColors
 } from 'styles/colors'
 
+const getRangeColor = (props, dark = false) => {
+  return dark 
+    ? rangeColors['dark' + props.range.color]
+    : rangeColors[props.range.color]
+}
 
+/*-------------*
+ * ROW HELPERS *
+ *-------------*/
 const getBackgroundColor = (props, hover = false) => {
   let color
 
   if (hover) {
     color = props.selected
-      ? rangeColors['dark'+props.range.color]
+      ? getRangeColor(props, true)
       : themeColors.neutralGray
   } else {
     color = props.selected
-      ? rangeColors[props.range.color]
+      ? getRangeColor(props)
       : 'white'
   }
 
@@ -21,15 +29,9 @@ const getBackgroundColor = (props, hover = false) => {
 }
 
 const getBorderColor = (props, hover) => {
-  let color
+  let dark = (props.selected || hover)
 
-  if (props.selected || hover) {
-    color = rangeColors['dark'+props.range.color]
-  } else {
-    color = rangeColors[props.range.color]
-  }
-
-  return color
+  return getRangeColor(props, dark)
 }
 
 const getBorder = (props, hover) => {
@@ -42,16 +44,19 @@ const getColor = (props, hover) => {
   if (hover) {
     color = props.selected
       ? themeColors.lightTextColor
-      : rangeColors['dark'+props.range.color]
+      : getRangeColor(props, true)
   } else {
     color = props.selected
       ? themeColors.lightTextColor
-      : rangeColors[props.range.color]
+      : getRangeColor(props)
   }
 
   return color
 }
 
+/*--------------*
+ * CELL HELPERS *
+ *--------------*/
 
 export const styles = {
   row: {
@@ -68,20 +73,32 @@ export const styles = {
 
   cell: {
     color: (props) => getColor(props, false),
-    fontWeight: 600
+    fontSize: '1.5rem',
+    fontWeight: 600,
   },
 
-  name: {
-    fontWeight: 600 
+  expanded: {
+    borderBottom: 'none'   
   },
 
   editable: {
     color: (props) => getColor(props, false),
+    fontSize: '1.25rem',
+    fontWeight: 900,
     '&:after': {
       borderBottom: `2px solid ${themeColors.lightTextColor}`
     }
   },
+
   clear: {
     color: (props) => getColor(props, false)
+  },
+
+  expand: {
+    color: (props) => props.selected 
+      ? themeColors.lightTextColor 
+      : getRangeColor(props),
+    visibility: (props) => props.rangeAnalysis ? 'visible' : 'hidden' 
   }
+
 }
