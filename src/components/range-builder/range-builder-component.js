@@ -1,3 +1,4 @@
+import Card from '@material-ui/core/Card'
 import classnames from 'classnames'
 import ComboCell from 'components/range-builder/combo-cell'
 import comboRows from 'modules/range-builder/combo-rows'
@@ -19,9 +20,9 @@ class RangeBuilder extends Component {
 
   render() {
     return (
-      <div className={this.getClass()}>
+      <Card className={this.getClass()}>
           {this.renderComboGroups()}
-      </div>
+      </Card>
     )
   }
 

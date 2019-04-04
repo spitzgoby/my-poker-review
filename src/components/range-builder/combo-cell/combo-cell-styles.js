@@ -32,12 +32,11 @@ const getBackgroundColor = (props, hover = false) => {
 }
 
 const getBorderWidth = (props) => {
-  const bottom = props.lastRow ? '1px' : '0'
-  const right = props.lastColumn ? '1px' : '0'
+  const bottom = props.lastRow ? '0' : '1px'
+  const right = props.lastColumn ? '0' : '1px'
 
-  return `1px ${right} ${bottom} 1px`
+  return `0 ${right} ${bottom} 0`
 }
-
 
 const getColor = (props, hover = false) => {
   return props.color || hover
@@ -48,7 +47,7 @@ const getColor = (props, hover = false) => {
 export const styles = {
   combocell: {
     backgroundColor: props => getBackgroundColor(props, false),
-    borderColor: themeColors.darkTextColor,
+    borderColor: '#e0e0e0',
     borderStyle: 'solid',
     borderWidth: props => getBorderWidth(props),
     color: props => getColor(props, false),
