@@ -83,8 +83,6 @@ export const styles = {
 
   editable: {
     color: (props) => getColor(props, false),
-    fontSize: '1.25rem',
-    fontWeight: 900,
     '&:after': {
       borderBottom: `2px solid ${themeColors.lightTextColor}`
     }
