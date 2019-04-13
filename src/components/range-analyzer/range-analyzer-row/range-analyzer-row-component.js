@@ -1,6 +1,7 @@
 import Button from '@material-ui/core/Button'
 import classnames from 'classnames'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
 import Input from '@material-ui/core/Input'
@@ -53,9 +54,9 @@ class RangeAnalyzerRow extends Component {
         <TableRow className={classes.row} onClick={this.handleClick}>
           {this.renderNameCell()}
           {this.renderPercentageCell('handsRatio')}
-          {this.renderCell(rangeAnalysis.combosCount)}
+          {this.renderCell(rangeAnalysis.combosCount, 'right', classes.analysisCell)}
           {this.renderPercentageCell('rangeRatio')}
-          <TableCell className={this.getCellClass()} align="right">
+          <TableCell className={this.getCellClass(classes.buttonsCell)} align="right">
             {this.renderClearButton()}
             {this.renderExpandButton()}
           </TableCell>
@@ -67,7 +68,7 @@ class RangeAnalyzerRow extends Component {
 
   renderNameCell() {
     return (
-      <TableCell className={this.getCellClass()} align='left'>
+      <TableCell className={this.getCellClass(this.props.classes.nameCell)} align='left'>
         <Input {...this.getNameInputProps()} />
       </TableCell>
     )
@@ -82,14 +83,17 @@ class RangeAnalyzerRow extends Component {
   }
 
   renderPercentageCell(ratioName) {
-    const rangeAnalysis = this.props.rangeAnalysis
+    const { 
+      classes,
+      rangeAnalysis
+    } = this.props
     let content = null
 
     if (rangeAnalysis) {
       content = (rangeAnalysis[ratioName] * 100).toFixed(1) + '%'
     }
 
-    return this.renderCell(content)
+    return this.renderCell(content, 'right', classes.analysisCell)
   }
 
   renderClearButton() {
@@ -102,7 +106,7 @@ class RangeAnalyzerRow extends Component {
 
   renderExpandButton() {
     return (
-      <IconButton className={this.props.classes.expand} onClick={this.handleExpandButtonClick}>
+      <IconButton className={this.props.classes.button} onClick={this.handleExpandButtonClick}>
         <ExpandMoreIcon />
       </IconButton>
     )
@@ -115,8 +119,13 @@ class RangeAnalyzerRow extends Component {
     if (this.state.expanded) {
       component = (
         <TableRow className={classes.row}>
-          <TableCell colSpan={5} className={classes.cell}>
+          <TableCell colSpan={4} className={classes.output}>
             {this.props.rangeOutput}
+          </TableCell>
+          <TableCell align="right">
+            <IconButton className={classes.button}>
+              <FileCopyIcon />
+            </IconButton>
           </TableCell>
         </TableRow> 
       )
@@ -141,7 +150,7 @@ class RangeAnalyzerRow extends Component {
   getCellClass(additionalClasses) {
     const classes = this.props.classes
 
-    return classnames(classes.cell, additionalClasses, {
+    return classnames(classes.analysis, additionalClasses, {
       [classes.expanded]: this.state.expanded
     })
   }

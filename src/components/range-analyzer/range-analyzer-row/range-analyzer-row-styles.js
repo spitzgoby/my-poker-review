@@ -71,10 +71,28 @@ export const styles = {
     }
   },
 
-  cell: {
+  analysis: {
     color: (props) => getColor(props, false),
-    fontSize: '1.5rem',
-    fontWeight: 600,
+    fontSize: '1rem',
+    fontWeight: 600
+  },
+
+  nameCell: {
+    width: '26%'
+  },
+
+  analysisCell: {
+    width: '18%'
+  },
+
+  buttonsCell: {
+    width: '20%'
+  },
+
+  output: {
+    color: (props) => getColor(props, false),
+    fontSize: '1rem',
+    fontWeight: 600
   },
 
   expanded: {
@@ -92,7 +110,7 @@ export const styles = {
     color: (props) => getColor(props, false)
   },
 
-  expand: {
+  button: {
     color: (props) => props.selected 
       ? themeColors.lightTextColor 
       : getRangeColor(props),
