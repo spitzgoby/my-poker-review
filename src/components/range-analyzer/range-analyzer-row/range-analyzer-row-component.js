@@ -116,7 +116,7 @@ class RangeAnalyzerRow extends Component {
       component = (
         <TableRow className={classes.row}>
           <TableCell colSpan={5} className={classes.cell}>
-              Hello
+            {this.props.rangeOutput}
           </TableCell>
         </TableRow> 
       )

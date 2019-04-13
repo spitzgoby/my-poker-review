@@ -3,6 +3,7 @@ import {
   clearSelectedCombosFromRange,
   getIsRangeSelected,
   getRangeAnalysisForRange,
+  makeGetOutputForRange,
   selectRange,
   setRangeName
 } from 'modules/range-builder'
@@ -11,6 +12,7 @@ import RangeAnalyzerRow from 'components/range-analyzer/range-analyzer-row/range
 
 const mapStateToProps = (state, ownProps) => ({
   rangeAnalysis: getRangeAnalysisForRange(state, ownProps.range.id),
+  rangeOutput: makeGetOutputForRange()(state, ownProps.range.id),
   selected: getIsRangeSelected(state, ownProps.range.id)
 })
 

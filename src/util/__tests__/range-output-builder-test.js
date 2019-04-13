@@ -70,4 +70,13 @@ describe('when building range output', () => {
 
     expect(rangeFromCombos(range)).toEqual('AA,AKs,7c6c,7d6d,7h6h,AcKh,AcKs')
   })
+
+  it('should ignore empty lists within a combo group', () => {
+    const range = {
+      AA: [],
+      ...KK
+    }
+
+    expect(rangeFromCombos(range)).toEqual('KK')
+  })
 })

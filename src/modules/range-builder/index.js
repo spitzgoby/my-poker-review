@@ -1,6 +1,7 @@
 import {analyzeRanges} from 'util/range-analyzer'
 import {createSelector} from 'reselect'
 import {parseCardInput} from 'util/card-input-parser'
+import {rangeFromCombos} from 'util/range-output-builder'
 import reducer, * as rangeBuilder from 'modules/range-builder/range-builder-duck'
 
 /*---------*
@@ -40,6 +41,8 @@ export const getPlayerHand = (state) =>
   rangeBuilder.getPlayerHand(getRangeBuilderState(state))
 export const getRanges = (state) => 
   rangeBuilder.getRanges(getRangeBuilderState(state))
+export const getRangeById = (state, id) =>
+  rangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeForComboGroup = (state, comboGroupId) =>
   rangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
 export const getSelectedRangeColor = (state) => 
@@ -64,3 +67,8 @@ export const getRangesAnalysis = createSelector(
 
 export const getRangeAnalysisForRange = (state, id) => 
   getRangesAnalysis(state)[id]
+
+export const makeGetOutputForRange = () => createSelector(
+  getRangeById,
+  (range) => rangeFromCombos(range.selectedCombos)
+)

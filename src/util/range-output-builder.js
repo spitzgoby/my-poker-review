@@ -36,7 +36,7 @@ export const rangeFromCombos = (selectedCombos) => {
   return flatMap(combinableComboGroups, (combinableComboGroup) => {
     return combineGroup(combinableComboGroup, selectedCombos)
   })
-  .filter((group) => group.length)
+  .filter((group) => group.length && group[0])
   .map(simplifyCombinedGroup)
   .join(',')
 }
@@ -79,7 +79,6 @@ const shouldCombineComboGroups = (comboGroupId1, comboGroupId2, selectedCombos) 
 
   return entireComboGroupSelected(comboGroupId1, selectedCombos1)
     && entireComboGroupSelected(comboGroupId2, selectedCombos2)
-
 }
 
 const entireComboGroupSelected = (comboGroupId, selectedCombos = []) => {
