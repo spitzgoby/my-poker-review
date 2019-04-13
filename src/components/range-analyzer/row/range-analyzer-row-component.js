@@ -1,13 +1,14 @@
-import Button from '@material-ui/core/Button'
-import classnames from 'classnames'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
-import Input from '@material-ui/core/Input'
 import PropTypes from 'prop-types'
+import {
+  RangeAnalyzerAnalysisCell,
+  RangeAnalyzerEditCell,
+  RangeAnalyzerNameCell
+} from 'components/range-analyzer/cell'
 import React, {Component, Fragment} from 'react'
-import {styles} from 'components/range-analyzer/range-analyzer-row/range-analyzer-row-styles'
+import {styles} from 'components/range-analyzer/row/range-analyzer-row-styles'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 
@@ -16,9 +17,9 @@ class RangeAnalyzerRow extends Component {
   constructor(props) {
     super(props)
 
-    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
+    this.handleClear = this.handleClear.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleExpandButtonClick = this.handleExpandButtonClick.bind(this)
+    this.handleExpand = this.handleExpand.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
 
     this.state = {
@@ -44,34 +45,20 @@ class RangeAnalyzerRow extends Component {
   }
 
   render() {
-    const {
-      classes,
-      rangeAnalysis = {},
-    } = this.props
+    const classes = this.props.classes
 
     return (
       <Fragment>
         <TableRow className={classes.row} onClick={this.handleClick}>
-          {this.renderNameCell()}
-          {this.renderPercentageCell('handsRatio')}
-          {this.renderCell(rangeAnalysis.combosCount, 'right', classes.analysisCell)}
-          {this.renderPercentageCell('rangeRatio')}
-          <TableCell className={this.getCellClass(classes.buttonsCell)} align="right">
-            {this.renderClearButton()}
-            {this.renderExpandButton()}
-          </TableCell>
+          <RangeAnalyzerNameCell {...this.getNameCellProps()} />
+          <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('handsRatio', 'ratio')} />
+          <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('combosCount', 'count')} />
+          <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('rangeRatio', 'ratio')} />
+          <RangeAnalyzerEditCell {...this.getEditCellProps()} />
         </TableRow>
         {this.renderDetails()}
       </Fragment>
     ) 
-  }
-
-  renderNameCell() {
-    return (
-      <TableCell className={this.getCellClass(this.props.classes.nameCell)} align='left'>
-        <Input {...this.getNameInputProps()} />
-      </TableCell>
-    )
   }
 
   renderCell(content, align = 'right', additionalClasses) {
@@ -79,36 +66,6 @@ class RangeAnalyzerRow extends Component {
       <TableCell className={this.getCellClass(additionalClasses)} align={align}>
         {content}
       </TableCell>
-    )
-  }
-
-  renderPercentageCell(ratioName) {
-    const { 
-      classes,
-      rangeAnalysis
-    } = this.props
-    let content = null
-
-    if (rangeAnalysis) {
-      content = (rangeAnalysis[ratioName] * 100).toFixed(1) + '%'
-    }
-
-    return this.renderCell(content, 'right', classes.analysisCell)
-  }
-
-  renderClearButton() {
-    return (
-      <Button className={this.props.classes.clear} onClick={this.handleClearButtonClick}>
-        Clear
-      </Button>
-    )
-  }
-
-  renderExpandButton() {
-    return (
-      <IconButton className={this.props.classes.button} onClick={this.handleExpandButtonClick}>
-        <ExpandMoreIcon />
-      </IconButton>
     )
   }
 
@@ -134,25 +91,48 @@ class RangeAnalyzerRow extends Component {
     return component
   }
 
-  getNameInputProps() {
-    const {
-      classes,
-      range
-    } = this.props
+  getNameCellProps() {
+    return {
+      ...this.getDefaultCellProps(),
+      onNameChange: this.handleNameChange,
+      width: '26%'
+    } 
+  }
+
+  getAnalysisCellProps(property, type) {
+    const {rangeAnalysis = {}} = this.props
 
     return {
-      className: classes.editable,
-      onChange: this.handleNameChange,
-      value: range.name
+      ...this.getDefaultCellProps(),
+      type,
+      value: rangeAnalysis[property],
+      width: '18%'
     }
   }
 
-  getCellClass(additionalClasses) {
-    const classes = this.props.classes
+  getEditCellProps() {
+    const {rangeOutput} = this.props
 
-    return classnames(classes.analysis, additionalClasses, {
-      [classes.expanded]: this.state.expanded
-    })
+    return {
+      ...this.getDefaultCellProps(),
+      expandable: (rangeOutput),
+      onClear: this.handleClear,
+      onExpand: this.handleExpand,
+      width: '20%'
+    }
+  }
+
+  getDefaultCellProps() {
+    const {
+      range,
+      selected
+    } = this.props
+
+    return {
+      expanded: this.state.expanded,
+      range,
+      selected
+    }
   }
 
   handleClick() {
@@ -168,20 +148,21 @@ class RangeAnalyzerRow extends Component {
     }
   }
 
-  handleNameChange(event) {
+  handleNameChange(name) {
     const {
       actions: {
-        onNameChange 
-      },
-      range
+        onNameChange,
+        range
+      }
     } = this.props
 
     if (onNameChange) {
-      onNameChange({id: range.id, name: event.target.value})
+      onNameChange({id: range.id, name: name})
     }
   }
 
-  handleClearButtonClick() {
+
+  handleClear() {
     const {
       actions: {
         onClearButtonClick
@@ -194,7 +175,7 @@ class RangeAnalyzerRow extends Component {
     }
   }
 
-  handleExpandButtonClick() {
+  handleExpand() {
     this.setState({
       expanded: !this.state.expanded
     })

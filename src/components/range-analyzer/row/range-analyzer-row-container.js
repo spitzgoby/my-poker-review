@@ -8,7 +8,7 @@ import {
   setRangeName
 } from 'modules/range-builder'
 import {connect} from 'react-redux'
-import RangeAnalyzerRow from 'components/range-analyzer/range-analyzer-row/range-analyzer-row-component'
+import RangeAnalyzerRow from 'components/range-analyzer/row/range-analyzer-row-component'
 
 const mapStateToProps = (state, ownProps) => ({
   rangeAnalysis: getRangeAnalysisForRange(state, ownProps.range.id),
