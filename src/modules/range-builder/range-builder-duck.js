@@ -20,6 +20,7 @@ const types = {
   CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
   CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
+  DELETE_RANGE: '@my-poker-review/range-builder/DELETE_RANGE',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
@@ -32,6 +33,7 @@ export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COMBOS)
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
+export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')
 export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
@@ -49,6 +51,16 @@ const updateRangesByClearingAllSelectedCombos = (state) => {
     acc[range.id] = {
       ...range,
       selectedCombos: {}
+    }
+
+    return acc
+  }, {})
+}
+
+const updateRangesByDeletingRange = (state, action) => {
+  return reduce(state.ranges, (acc, range) => {
+    if (range.id !== action.payload.id) {
+      acc[range.id] = range
     }
 
     return acc
@@ -158,6 +170,13 @@ export default function(state = initialState, action = {}) {
       nextState = {
         ...state,
         selectedComboIds: []
+      }
+      break
+
+    case types.DELETE_RANGE: 
+      nextState = {
+        ...state,
+        ranges: updateRangesByDeletingRange(state, action) 
       }
       break
 

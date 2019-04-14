@@ -18,6 +18,7 @@ export const addRange = rangeBuilder.addRange
 export const clearAllSelectedCombos = rangeBuilder.clearAllSelectedCombos
 export const clearSelectedCombosFromRange = rangeBuilder.clearSelectedCombosFromRange
 export const clearSelectedComboGroupIds = rangeBuilder.clearSelectedComboGroupIds
+export const deleteRange = rangeBuilder.deleteRange
 export const selectCombos = rangeBuilder.selectCombos
 export const selectRange = rangeBuilder.selectRange
 export const setBoard = rangeBuilder.setBoard

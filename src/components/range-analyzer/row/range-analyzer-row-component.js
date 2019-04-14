@@ -21,6 +21,7 @@ class RangeAnalyzerRow extends Component {
     this.handleClear = this.handleClear.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleCopy = this.handleCopy.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleExpand = this.handleExpand.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
 
@@ -31,6 +32,7 @@ class RangeAnalyzerRow extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({
+      onDelete: PropTypes.func,
       onNameChange: PropTypes.func
     }).isRequired,
     className: PropTypes.string,
@@ -126,6 +128,7 @@ class RangeAnalyzerRow extends Component {
       editing,
       expandable: (rangeOutput),
       onClear: this.handleClear,
+      onDelete: this.handleDelete,
       onExpand: this.handleExpand,
       width: '20%'
     }
@@ -204,6 +207,20 @@ class RangeAnalyzerRow extends Component {
       expanded: !this.state.expanded
     })
   }
+
+  handleDelete() {
+    const {
+      actions: {
+        onDelete
+      },
+      range
+    } = this.props
+
+    if (onDelete) {
+      onDelete({id: range.id})
+    }   
+  }
+
 
   handleCopy() {
     Clipboard.copy(this.props.rangeOutput)

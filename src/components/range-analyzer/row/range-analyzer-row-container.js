@@ -1,6 +1,7 @@
 import {bindActionCreators} from 'redux'
 import {
   clearSelectedCombosFromRange,
+  deleteRange,
   getIsRangeSelected,
   getRangeAnalysisForRange,
   makeGetOutputForRange,
@@ -19,6 +20,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     onClearButtonClick: clearSelectedCombosFromRange,
+    onDelete: deleteRange,
     onNameChange: setRangeName,
     onSelect: selectRange
   }, dispatch) 
