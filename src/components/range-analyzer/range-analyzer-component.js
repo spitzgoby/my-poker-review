@@ -17,6 +17,7 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Toolbar from '@material-ui/core/Toolbar'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 
 class RangeAnalyzer extends Component {
@@ -58,9 +59,11 @@ class RangeAnalyzer extends Component {
           <Typography variant="h5">
             Range Analyzer
           </Typography>
-          <IconButton aria-label="Add" onClick={(e) => this.handleAddClick(e)}>
-            <AddIcon />
-          </IconButton>
+          <Tooltip title="Add a new range">
+            <IconButton aria-label="Add" onClick={(e) => this.handleAddClick(e)}>
+              <AddIcon />
+            </IconButton>
+          </Tooltip>
           <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => this.handleMenuClose()}>
             <MenuItem onClick={() => this.handleMenuItemClick('yellow')}>
               Yellow
@@ -84,9 +87,11 @@ class RangeAnalyzer extends Component {
                 Range (%)
               </TableCell>
               <TableCell align="right">
-                <Button onClick={this.handleClearCombosButtonClick}>
-                  Clear
-                </Button>
+                <Tooltip title="Clear all ranges">
+                  <Button onClick={this.handleClearCombosButtonClick}>
+                    Clear
+                  </Button>
+                </Tooltip>
                 <IconButton>
                   <EditIcon />
                 </IconButton>

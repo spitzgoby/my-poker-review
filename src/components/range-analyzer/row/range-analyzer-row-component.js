@@ -164,8 +164,8 @@ class RangeAnalyzerRow extends Component {
     const {
       actions: {
         onNameChange,
-        range
-      }
+      },
+      range
     } = this.props
 
     if (onNameChange) {

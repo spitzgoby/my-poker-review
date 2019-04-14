@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import styles from 'components/range-analyzer/cell/range-analyzer-edit-cell-styles'
 import TableCell from '@material-ui/core/TableCell'
+import Tooltip from '@material-ui/core/Tooltip'
 
 class RangeAnalyzerEditCell extends Component {
 
@@ -20,7 +21,8 @@ class RangeAnalyzerEditCell extends Component {
     onClear: PropTypes.func,
     onExpand: PropTypes.func,
     range: PropTypes.shape({
-      color: PropTypes.string
+      color: PropTypes.string,
+      name: PropTypes.string
     }),
     selected: PropTypes.bool
   }
@@ -36,17 +38,21 @@ class RangeAnalyzerEditCell extends Component {
 
   renderClearButton() {
     return (
+      <Tooltip title={`Clear ${this.props.range.name}`}>
       <Button className={this.props.classes.clear} onClick={this.handleClearButtonClick}>
         Clear
       </Button>
+      </Tooltip>
     )
   }
 
   renderExpandButton() {
     return (
-      <IconButton className={this.props.classes.expand} onClick={this.handleExpandButtonClick}>
-        <ExpandMoreIcon />
-      </IconButton>
+      <Tooltip title="Show range text">
+        <IconButton className={this.props.classes.expand} onClick={this.handleExpandButtonClick}>
+          <ExpandMoreIcon />
+        </IconButton>
+      </Tooltip>
     )
   }
 

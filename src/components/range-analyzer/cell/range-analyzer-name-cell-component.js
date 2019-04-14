@@ -7,6 +7,12 @@ import {styles} from 'components/range-analyzer/cell/range-analyzer-name-cell-st
 
 class RangeAnalyzerNameCell extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.handleNameChange = this.handleNameChange.bind(this)
+  }
+
   static propTypes = {
     range: PropTypes.shape({
       color: PropTypes.string,
@@ -37,11 +43,7 @@ class RangeAnalyzerNameCell extends Component {
   }
 
   handleNameChange(event) {
-    const {
-      actions: {
-        onNameChange 
-      }
-    } = this.props
+    const onNameChange = this.props.onNameChange
 
     if (onNameChange) {
       onNameChange(event.target.value)

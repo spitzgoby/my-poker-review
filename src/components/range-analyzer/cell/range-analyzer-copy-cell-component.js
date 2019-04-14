@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import styles from 'components/range-analyzer/cell/range-analyzer-copy-cell-styles'
 import TableCell from '@material-ui/core/TableCell'
+import Tooltip from '@material-ui/core/Tooltip'
 
 class RangeAnalyzerCopyCell extends Component {
 
@@ -29,9 +30,11 @@ class RangeAnalyzerCopyCell extends Component {
 
     return (
       <TableCell className={classes.cell} align="right"> 
-          <IconButton className={classes.copy} onClick={this.handleCopyButtonClick}>
+        <Tooltip title="Copy range text to clipboard">
+          <IconButton {...this.getCopyButtonProps()}>
             <FileCopyIcon />
           </IconButton>
+        </Tooltip>
       </TableCell>
     ) 
   }
@@ -39,7 +42,8 @@ class RangeAnalyzerCopyCell extends Component {
   getCopyButtonProps() {
     return {
       className: this.props.classes.copy,
-      onClick: this.handleCopyButtonClick
+      onClick: this.handleCopyButtonClick,
+      toolTip: 'Copy range text to clipboard'
     }
   }
 
