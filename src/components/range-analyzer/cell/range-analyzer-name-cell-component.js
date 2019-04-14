@@ -14,11 +14,12 @@ class RangeAnalyzerNameCell extends Component {
   }
 
   static propTypes = {
+    onNameChange: PropTypes.func,
     range: PropTypes.shape({
       color: PropTypes.string,
       name: PropTypes.string
     }),
-    onNameChange: PropTypes.func
+    selected: PropTypes.bool
   }
 
   render() {

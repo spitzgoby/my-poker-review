@@ -7,10 +7,10 @@ import TableCell from '@material-ui/core/TableCell'
 class RangeAnalyzerAnalysisCell extends Component {
 
   static propTypes = {
-    className: PropTypes.string,
     range: PropTypes.shape({
       color: PropTypes.string
     }),
+    selected: PropTypes.bool,
     type: PropTypes.oneOf(['ratio', 'count']),
     value: PropTypes.number
   }
