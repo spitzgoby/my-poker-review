@@ -46,6 +46,14 @@ class RangeAnalyzerRow extends Component {
     selected: PropTypes.bool
   }
 
+  componentWillUpdate(newProps) {
+    if (this.state.expanded && !newProps.rangeOutput) {
+      this.setState({
+        expanded: false
+      })
+    }
+  }
+
   render() {
     const classes = this.props.classes
 
