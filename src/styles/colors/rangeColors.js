@@ -1,6 +1,6 @@
 import Color from 'color'
 
-const rangeColorInfo = [{
+export const rangeColorList = [{
   name: 'blue',
   rgb: [77, 157, 224]
 },{
@@ -15,6 +15,9 @@ const rangeColorInfo = [{
 },{
   name: 'purple',
   rgb: [119, 104, 174]
+},{
+  name: 'black',
+  rgb: [0, 15, 8]
 }]
 
 const DARK_COLOR_SUFFIX = 'dark'
@@ -28,7 +31,7 @@ const generateColors = (colorInfo) => {
   }
 }
 
-export const rangeColors = rangeColorInfo.reduce((acc, colorInfo) => ({
+export const rangeColors = rangeColorList.reduce((acc, colorInfo) => ({
     ...acc,
     ...generateColors(colorInfo)
 }), {})

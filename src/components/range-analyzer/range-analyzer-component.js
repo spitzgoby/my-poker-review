@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import RangeAnalyzerRow from 'components/range-analyzer/row'
+import RangeColorBlock from 'components/range-analyzer/range-color-block'
+import {rangeColorList} from 'styles/colors/rangeColors'
 import React, {Component} from 'react'
 import {styles} from 'components/range-analyzer/range-analyzer-styles'
 import Table from '@material-ui/core/Table'
@@ -51,7 +53,6 @@ class RangeAnalyzer extends Component {
     const {
       classes
     } = this.props
-    const anchorEl = this.state.anchorEl
 
     return (
       <Paper> 
@@ -59,19 +60,12 @@ class RangeAnalyzer extends Component {
           <Typography variant="h5">
             Range Analyzer
           </Typography>
+          {this.renderAddMenu()}
           <Tooltip title="Add a new range">
             <IconButton aria-label="Add" onClick={(e) => this.handleAddClick(e)}>
               <AddIcon />
             </IconButton>
           </Tooltip>
-          <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => this.handleMenuClose()}>
-            <MenuItem onClick={() => this.handleMenuItemClick('yellow')}>
-              Yellow
-            </MenuItem>
-            <MenuItem onClick={() => this.handleMenuItemClick('red')}>
-              Red
-            </MenuItem>
-          </Menu>
         </Toolbar>
         <Table>
           <TableHead>
@@ -108,6 +102,28 @@ class RangeAnalyzer extends Component {
         </div>
       </Paper>
     ) 
+  }
+
+  renderAddMenu() {
+    const anchorEl = this.state.anchorEl
+
+    return (
+      <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => this.handleMenuClose()}>
+        {rangeColorList.map((color) => {
+          return this.renderAddMenuItem(color.name)
+        })}
+      </Menu>
+    )
+  }
+
+  renderAddMenuItem(color) {
+    return (
+      <Tooltip title={`Add a new ${color} range`}>
+        <MenuItem onClick={() => this.handleMenuItemClick(color)}>
+          <RangeColorBlock color={color} />
+        </MenuItem>
+      </Tooltip>
+    )
   }
 
   renderRangeRows() {
