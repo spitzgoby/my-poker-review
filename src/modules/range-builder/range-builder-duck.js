@@ -97,6 +97,17 @@ const updateRangesBySelectingCombos = (state, action) => {
   }, {})
 }
 
+const updateSelectedRangeId = (state, action) => {
+  const newSelectedRangeId = action.payload.id
+  let selectedRangeId = ''
+
+  if (!state.editing && state.selectedRangeId !== newSelectedRangeId) {
+    selectedRangeId = newSelectedRangeId
+  }
+
+  return selectedRangeId
+}
+
 const findRangeContainingComboGroup = (ranges, comboGroupId) => {
   let index = 0
   let range
@@ -190,9 +201,7 @@ export default function(state = initialState, action = {}) {
     case types.SELECT_RANGE:
       nextState = {
         ...state,
-        selectedRangeId: state.editing 
-          ? ''
-          : action.payload.id
+        selectedRangeId: updateSelectedRangeId(state, action) 
       }
       break
 

@@ -80,24 +80,30 @@ class RangeAnalyzerEditCell extends Component {
     )
   }
 
-  handleClearButtonClick() {
+  handleClearButtonClick(event) {
     const onClear = this.props.onClear
+
+    event.stopPropagation()
 
     if (onClear) {
       onClear()
     }
   }
 
-  handleDeleteButtonClick() {
+  handleDeleteButtonClick(event) {
     const onDelete = this.props.onDelete
+
+    event.stopPropagation()
 
     if (onDelete) {
       onDelete()
     }
   }
 
-  handleExpandButtonClick() {
+  handleExpandButtonClick(event) {
     const onExpand = this.props.onExpand
+
+    event.stopPropagation()
 
     if (onExpand) {
       onExpand()
