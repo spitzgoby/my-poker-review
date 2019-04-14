@@ -1,11 +1,12 @@
-import FileCopyIcon from '@material-ui/icons/FileCopy'
-import IconButton from '@material-ui/core/IconButton'
+import Clipboard from 'util/clipboard'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import {
   RangeAnalyzerAnalysisCell,
+  RangeAnalyzerCopyCell,
   RangeAnalyzerEditCell,
-  RangeAnalyzerNameCell
+  RangeAnalyzerNameCell,
+  RangeAnalyzerOutputCell
 } from 'components/range-analyzer/cell'
 import React, {Component, Fragment} from 'react'
 import {styles} from 'components/range-analyzer/row/range-analyzer-row-styles'
@@ -19,6 +20,7 @@ class RangeAnalyzerRow extends Component {
 
     this.handleClear = this.handleClear.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleCopy = this.handleCopy.bind(this)
     this.handleExpand = this.handleExpand.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
 
@@ -76,14 +78,8 @@ class RangeAnalyzerRow extends Component {
     if (this.state.expanded) {
       component = (
         <TableRow className={classes.row}>
-          <TableCell colSpan={4} className={classes.output}>
-            {this.props.rangeOutput}
-          </TableCell>
-          <TableCell align="right">
-            <IconButton className={classes.button}>
-              <FileCopyIcon />
-            </IconButton>
-          </TableCell>
+          <RangeAnalyzerOutputCell {...this.getOutputCellProps()} />
+          <RangeAnalyzerCopyCell {...this.getCopyCellProps()} />
         </TableRow> 
       )
     }
@@ -118,6 +114,22 @@ class RangeAnalyzerRow extends Component {
       expandable: (rangeOutput),
       onClear: this.handleClear,
       onExpand: this.handleExpand,
+      width: '20%'
+    }
+  }
+
+  getOutputCellProps() {
+    return {
+      ...this.getDefaultCellProps(),
+      rangeOutput: this.props.rangeOutput,
+      width: '80%'
+    }
+  }
+
+  getCopyCellProps() {
+    return {
+      ...this.getDefaultCellProps(),
+      onCopy: this.handleCopy,
       width: '20%'
     }
   }
@@ -161,7 +173,6 @@ class RangeAnalyzerRow extends Component {
     }
   }
 
-
   handleClear() {
     const {
       actions: {
@@ -169,6 +180,10 @@ class RangeAnalyzerRow extends Component {
       },
       range
     } = this.props
+
+    this.setState({
+      expanded: false
+    })
 
     if (onClearButtonClick) {
       onClearButtonClick({id: range.id})
@@ -179,6 +194,10 @@ class RangeAnalyzerRow extends Component {
     this.setState({
       expanded: !this.state.expanded
     })
+  }
+
+  handleCopy() {
+    Clipboard.copy(this.props.rangeOutput)
   }
 }
 

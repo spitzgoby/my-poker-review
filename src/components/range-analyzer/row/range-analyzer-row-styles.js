@@ -49,10 +49,4 @@ export const styles = {
       color: props => getColor(props.range, props.selected, true)
     }
   },
-
-  output: {
-    color: (props) => getColor(props.range, props.selected, false),
-    fontSize: '1rem',
-    fontWeight: 600
-  }
 }
