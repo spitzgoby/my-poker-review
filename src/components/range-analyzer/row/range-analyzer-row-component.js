@@ -34,6 +34,7 @@ class RangeAnalyzerRow extends Component {
       onNameChange: PropTypes.func
     }).isRequired,
     className: PropTypes.string,
+    editing: PropTypes.bool,
     range: PropTypes.shape({
       color: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
@@ -115,10 +116,14 @@ class RangeAnalyzerRow extends Component {
   }
 
   getEditCellProps() {
-    const {rangeOutput} = this.props
+    const {
+      editing,
+      rangeOutput
+    } = this.props
 
     return {
       ...this.getDefaultCellProps(),
+      editing,
       expandable: (rangeOutput),
       onClear: this.handleClear,
       onExpand: this.handleExpand,
@@ -188,10 +193,6 @@ class RangeAnalyzerRow extends Component {
       },
       range
     } = this.props
-
-    this.setState({
-      expanded: false
-    })
 
     if (onClearButtonClick) {
       onClearButtonClick({id: range.id})

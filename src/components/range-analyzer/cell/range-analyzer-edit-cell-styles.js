@@ -3,7 +3,7 @@ import cellStyles from 'components/range-analyzer/cell/shared/styles'
 
 export default {
   ...cellStyles,
-  clear: {
+  button: {
     color: (props) => getColor(props.range, props.selected, false)
   },
 

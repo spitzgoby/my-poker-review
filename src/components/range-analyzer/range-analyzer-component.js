@@ -1,6 +1,7 @@
 import AddIcon from '@material-ui/icons/Add'
 import BoardInput from 'components/board-input'
 import Button from '@material-ui/core/Button'
+import ClearIcon from '@material-ui/icons/Clear'
 import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
@@ -28,6 +29,7 @@ class RangeAnalyzer extends Component {
     super(props)
 
     this.handleClearCombosButtonClick = this.handleClearCombosButtonClick.bind(this)
+    this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
 
     this.state = {
       anchorEl: null
@@ -37,7 +39,8 @@ class RangeAnalyzer extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       onAddRange: PropTypes.func,
-      onClearCombos: PropTypes.func
+      onClearCombos: PropTypes.func,
+      onEdit: PropTypes.func
     }).isRequired,
     className: PropTypes.string,
     ranges: PropTypes.arrayOf(PropTypes.shape({
@@ -50,9 +53,7 @@ class RangeAnalyzer extends Component {
   }
 
   render() {
-    const {
-      classes
-    } = this.props
+    const classes = this.props.classes
 
     return (
       <Paper> 
@@ -86,9 +87,7 @@ class RangeAnalyzer extends Component {
                     Clear
                   </Button>
                 </Tooltip>
-                <IconButton>
-                  <EditIcon />
-                </IconButton>
+                {this.renderEditButton()}
               </TableCell>
             </TableRow>              
           </TableHead>
@@ -118,7 +117,7 @@ class RangeAnalyzer extends Component {
 
   renderAddMenuItem(color) {
     return (
-      <Tooltip title={`Add a new ${color} range`}>
+      <Tooltip key={color} title={`Add a new ${color} range`}>
         <MenuItem onClick={() => this.handleMenuItemClick(color)}>
           <RangeColorBlock color={color} />
         </MenuItem>
@@ -126,10 +125,34 @@ class RangeAnalyzer extends Component {
     )
   }
 
+  renderEditButton() {
+    const editing = this.props.editing
+    const title = editing ? 'Cancel editing' : 'Edit ranges'
+
+    return (
+      <Tooltip title={title}>
+        <IconButton onClick={this.handleEditButtonClick}>
+          { editing
+            ? <ClearIcon />
+            : <EditIcon />
+          }
+        </IconButton>
+      </Tooltip>
+    )
+  }
+
   renderRangeRows() {
     return this.props.ranges.map(range => (
-      <RangeAnalyzerRow range={range} key={range.id} />
+      <RangeAnalyzerRow {...this.getRangeRowProps(range)} />
     ))
+  }
+
+  getRangeRowProps(range) {
+    return {
+      editing: this.props.editing,
+      key: range.id,
+      range
+    }
   }
 
   handleAddClick(e) {
@@ -143,6 +166,14 @@ class RangeAnalyzer extends Component {
 
     if (onClearCombos) {
       onClearCombos()
+    }
+  }
+
+  handleEditButtonClick() {
+    const onEdit = this.props.actions.onEdit
+
+    if (onEdit) {
+      onEdit()
     }
   }
 

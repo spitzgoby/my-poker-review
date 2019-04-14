@@ -23,6 +23,7 @@ const types = {
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
+  SET_EDITING: '@my-poker-review/range-builder/SET_EDITING',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
   SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME'
 }
@@ -34,6 +35,7 @@ export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COM
 export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
+export const setEditing = actionCreator(types.SET_EDITING)
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
 
@@ -106,6 +108,7 @@ const findRangeContainingComboGroup = (ranges, comboGroupId) => {
 
 const initialState = {
   board: '',
+  editing: false,
   equities: {},
   playerHand: '',
   ranges,
@@ -168,7 +171,9 @@ export default function(state = initialState, action = {}) {
     case types.SELECT_RANGE:
       nextState = {
         ...state,
-        selectedRangeId: action.payload.id
+        selectedRangeId: state.editing 
+          ? ''
+          : action.payload.id
       }
       break
 
@@ -176,6 +181,14 @@ export default function(state = initialState, action = {}) {
       nextState = {
         ...state,
         board: action.payload.value
+      }
+      break
+
+    case types.SET_EDITING:
+      nextState = {
+        ...state,
+        editing: !state.editing,
+        selectedRangeId: ''
       }
       break
 
@@ -210,10 +223,12 @@ export default function(state = initialState, action = {}) {
  * SELECTORS *
  *-----------*/
 
+
 const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
-const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)]
+const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 
 export const getBoard = (state) => state.board
+export const getIsEditing = (state) => state.editing
 export const getEquities = (state) => state.equities
 export const getIsComboGroupSelected = (state, id) => { 
   const selectedComboGroup = getSelectedComboIds(state)[id]

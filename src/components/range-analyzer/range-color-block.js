@@ -10,13 +10,8 @@ class component extends Component {
   }
 
   render() {
-    const {
-      classes,
-      color
-    } = this.props
-
     return (
-      <div className={classes.block} />
+      <div className={this.props.classes.block} />
     ) 
   }
 }

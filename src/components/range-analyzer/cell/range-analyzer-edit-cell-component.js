@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button'
+import DeleteIcon from '@material-ui/icons/Delete'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
@@ -14,10 +15,12 @@ class RangeAnalyzerEditCell extends Component {
     super(props)
 
     this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
+    this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this)
     this.handleExpandButtonClick = this.handleExpandButtonClick.bind(this)
   }
 
   static propTypes = {
+    editing: PropTypes.bool,
     onClear: PropTypes.func,
     onExpand: PropTypes.func,
     range: PropTypes.shape({
@@ -28,10 +31,21 @@ class RangeAnalyzerEditCell extends Component {
   }
 
   render() {
+    const {
+      classes,
+      editing
+    } = this.props
+
     return (
-      <TableCell className={this.props.classes.cell} align="right"> 
-        {this.renderClearButton()}
-        {this.renderExpandButton()}
+      <TableCell className={classes.cell} align="right"> 
+        { editing 
+          ? null
+          : this.renderClearButton()
+        }
+        { editing 
+          ? this.renderDeleteButton()
+          : this.renderExpandButton()
+        }
       </TableCell>
     ) 
   }
@@ -39,9 +53,19 @@ class RangeAnalyzerEditCell extends Component {
   renderClearButton() {
     return (
       <Tooltip title={`Clear ${this.props.range.name}`}>
-      <Button className={this.props.classes.clear} onClick={this.handleClearButtonClick}>
-        Clear
-      </Button>
+        <Button className={this.props.classes.button} onClick={this.handleClearButtonClick}>
+          Clear
+        </Button>
+      </Tooltip>
+    )
+  }
+
+  renderDeleteButton() {
+    return (
+      <Tooltip title={`Delete ${this.props.range.name}`}>
+        <IconButton className={this.props.classes.button} onClick={this.handleDeleteButtonClick}>
+          <DeleteIcon />
+        </IconButton>
       </Tooltip>
     )
   }
@@ -61,6 +85,14 @@ class RangeAnalyzerEditCell extends Component {
 
     if (onClear) {
       onClear()
+    }
+  }
+
+  handleDeleteButtonClick() {
+    const onDelete = this.props.onDelete
+
+    if (onDelete) {
+      onDelete()
     }
   }
 
