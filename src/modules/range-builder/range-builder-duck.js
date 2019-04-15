@@ -9,6 +9,7 @@ import {
   without
 } from 'lodash'
 import {groupComboIds} from 'util/group-combos'
+import {rangeColorList} from 'styles/colors/rangeColors'
 import uuid from 'uuid/v4'
 
 /*---------*
@@ -131,6 +132,7 @@ const findRangeContainingComboGroup = (ranges, comboGroupId) => {
 
 const initialState = {
   board: '',
+  colors: rangeColorList,
   editing: false,
   equities: {},
   playerHand: '',
@@ -256,6 +258,7 @@ const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 
 export const getBoard = (state) => state.board
+export const getRangeColors = (state) => state.colors
 export const getIsEditing = (state) => state.editing
 export const getEquities = (state) => state.equities
 export const getIsComboGroupSelected = (state, id) => { 

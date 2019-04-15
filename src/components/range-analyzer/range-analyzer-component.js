@@ -1,17 +1,13 @@
-import AddIcon from '@material-ui/icons/Add'
 import BoardInput from 'components/board-input'
 import Button from '@material-ui/core/Button'
 import ClearIcon from '@material-ui/icons/Clear'
 import EditIcon from '@material-ui/icons/Edit'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
-import Menu from '@material-ui/core/Menu'
-import MenuItem from '@material-ui/core/MenuItem'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
+import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar'
 import RangeAnalyzerRow from 'components/range-analyzer/row'
-import RangeColorBlock from 'components/range-analyzer/range-color-block'
-import {rangeColorList} from 'styles/colors/rangeColors'
 import React, {Component} from 'react'
 import {styles} from 'components/range-analyzer/range-analyzer-styles'
 import Table from '@material-ui/core/Table'
@@ -19,9 +15,7 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
 
 class RangeAnalyzer extends Component {
 
@@ -57,17 +51,7 @@ class RangeAnalyzer extends Component {
 
     return (
       <Paper> 
-        <Toolbar className={classes.toolbar} >
-          <Typography variant="h5">
-            Range Analyzer
-          </Typography>
-          {this.renderAddMenu()}
-          <Tooltip title="Add a new range">
-            <IconButton aria-label="Add" onClick={(e) => this.handleAddClick(e)}>
-              <AddIcon />
-            </IconButton>
-          </Tooltip>
-        </Toolbar>
+        <RangeAnalyzerToolbar />
         <Table>
           <TableHead>
             <TableRow>
@@ -103,28 +87,6 @@ class RangeAnalyzer extends Component {
     ) 
   }
 
-  renderAddMenu() {
-    const anchorEl = this.state.anchorEl
-
-    return (
-      <Menu anchorEl={anchorEl} open={!!anchorEl} onClose={() => this.handleMenuClose()}>
-        {rangeColorList.map((color) => {
-          return this.renderAddMenuItem(color.name)
-        })}
-      </Menu>
-    )
-  }
-
-  renderAddMenuItem(color) {
-    return (
-      <Tooltip key={color} title={`Add a new ${color} range`}>
-        <MenuItem onClick={() => this.handleMenuItemClick(color)}>
-          <RangeColorBlock color={color} />
-        </MenuItem>
-      </Tooltip>
-    )
-  }
-
   renderEditButton() {
     const editing = this.props.editing
     const title = editing ? 'Cancel editing' : 'Edit ranges'
@@ -155,12 +117,6 @@ class RangeAnalyzer extends Component {
     }
   }
 
-  handleAddClick(e) {
-    this.setState({
-      anchorEl: e.currentTarget
-    })
-  }
-
   handleClearCombosButtonClick() {
     const onClearCombos = this.props.actions.onClearCombos
 
@@ -174,22 +130,6 @@ class RangeAnalyzer extends Component {
 
     if (onEdit) {
       onEdit()
-    }
-  }
-
-  handleMenuClose() {
-    this.setState({
-      anchorEl: null
-    })
-  }
-
-  handleMenuItemClick(color) {
-    const onAddRange = this.props.actions.onAddRange
-
-    this.handleMenuClose()
-
-    if (onAddRange) {
-      onAddRange({color})
     }
   }
 }

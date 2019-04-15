@@ -47,6 +47,8 @@ export const getRanges = (state) =>
   rangeBuilder.getRanges(getRangeBuilderState(state))
 export const getRangeById = (state, id) =>
   rangeBuilder.getRangeById(getRangeBuilderState(state), id)
+export const getRangeColors = (state) =>
+  rangeBuilder.getRangeColors(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
   rangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
 export const getSelectedRangeColor = (state) => 
