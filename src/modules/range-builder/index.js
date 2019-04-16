@@ -23,6 +23,7 @@ export const selectCombos = rangeBuilder.selectCombos
 export const selectRange = rangeBuilder.selectRange
 export const setBoard = rangeBuilder.setBoard
 export const setEditing = rangeBuilder.setEditing
+export const setExportFileName = rangeBuilder.setExportFileName
 export const setPlayerHand = rangeBuilder.setPlayerHand
 export const setRangeName = rangeBuilder.setRangeName
 
@@ -37,6 +38,8 @@ export const getEquities = (state) =>
   rangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsEditing = (state) =>
   rangeBuilder.getIsEditing(getRangeBuilderState(state))
+export const getExportFileName = (state) =>
+  rangeBuilder.getExportFileName(getRangeBuilderState(state))
 export const getIsComboGroupSelected = (state, id) => 
   rangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, id) => 

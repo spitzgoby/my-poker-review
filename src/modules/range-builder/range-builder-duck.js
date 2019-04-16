@@ -26,6 +26,7 @@ const types = {
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
   SET_EDITING: '@my-poker-review/range-builder/SET_EDITING',
+  SET_EXPORT_FILE_NAME: '@my-poker-review/range-builder/SET_EXPORT_FILE_NAME',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
   SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME'
 }
@@ -39,6 +40,7 @@ export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setEditing = actionCreator(types.SET_EDITING)
+export const setExportFileName = actionCreator(types.SET_EXPORT_FILE_NAME, 'fileName')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
 
@@ -134,6 +136,7 @@ const initialState = {
   board: '',
   colors: rangeColorList,
   editing: false,
+  exportFileName: '',
   equities: {},
   playerHand: '',
   ranges,
@@ -222,6 +225,13 @@ export default function(state = initialState, action = {}) {
       }
       break
 
+    case types.SET_EXPORT_FILE_NAME:
+      nextState = {
+        ...state,
+        exportFileName: action.payload.fileName
+      }
+      break
+
     case types.SET_PLAYER_HAND:
       nextState = {
         ...state,
@@ -260,6 +270,7 @@ const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {
 export const getBoard = (state) => state.board
 export const getRangeColors = (state) => state.colors
 export const getIsEditing = (state) => state.editing
+export const getExportFileName = (state) => state.exportFileName
 export const getEquities = (state) => state.equities
 export const getIsComboGroupSelected = (state, id) => { 
   const selectedComboGroup = getSelectedComboIds(state)[id]

@@ -1,18 +1,24 @@
 import {
   addRange,
-  getRangeColors
+  getExportFileName,
+  getRangeColors,
+  getRanges,
+  setExportFileName
 } from 'modules/range-builder'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar/range-analyzer-toolbar-component'
 
 const mapStateToProps = (state) => ({
-  colors: getRangeColors(state)
+  colors: getRangeColors(state),
+  exportFileName: getExportFileName(state),
+  ranges: getRanges(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onAddRange: addRange
+    onAddRange: addRange,
+    onChangeFileName: setExportFileName
   }, dispatch)
 })
 
