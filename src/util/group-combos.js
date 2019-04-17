@@ -1,5 +1,5 @@
-export const groupComboIds = (combos) => {
-  return combos.reduce((acc, combo) => {
+export const groupComboIds = (combos) => 
+  combos.reduce((acc, combo) => {
     const comboGroupId = combo.comboGroupId
     const id = combo.id
 
@@ -11,4 +11,3 @@ export const groupComboIds = (combos) => {
 
     return acc
   }, {})
-}

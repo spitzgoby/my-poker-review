@@ -1,8 +1,15 @@
-import {reduce} from 'lodash'
+import {
+  forEach,
+  reduce
+} from 'lodash'
+
+const ALWAYS_FALSE_REGEX = /$^/
 
 /*------------------*
  * HELPER FUNCTIONS *
  *------------------*/
+
+const ALL_COMBOS_COUNT = 1326
 
 const filterSelectedCombos = (comboGroups, deadCards) => {
   return reduce(comboGroups, (acc, comboGroup, id) => {
@@ -14,19 +21,35 @@ const filterSelectedCombos = (comboGroups, deadCards) => {
 
 const filterRanges = (ranges, deadCards) => {
   let filteredRanges = ranges
+  let deadCardsRegex
 
-  if (deadCards.length) {
-    const deadCardsRegex = new RegExp(deadCards.map((deadCard) => deadCard.text).join('|'))
+  deadCardsRegex = deadCards.length
+    ? new RegExp(deadCards.map((deadCard) => deadCard.text).join('|'))
+    : ALWAYS_FALSE_REGEX
 
-    filteredRanges = ranges.map(range => {
-      return {
-        id: range.id,
-        selectedCombos: filterSelectedCombos(range.selectedCombos, deadCardsRegex)
-      }
-    })
-  }
+  filteredRanges = ranges.map(range => {
+    return {
+      containsCombos: doesRangeContainCombos(range),
+      id: range.id,
+      selectedCombos: filterSelectedCombos(range.selectedCombos, deadCardsRegex)
+    }
+  })
 
   return filteredRanges
+}
+
+const doesRangeContainCombos = (range) => {
+  let empty = true
+
+  forEach(range.selectedCombos, (comboGroup) => {
+    if (comboGroup.length) {
+      empty = false
+    }
+
+    return empty
+  })
+
+  return !empty
 }
 
 /*----------*
@@ -39,16 +62,16 @@ const countCombos = (ranges) => {
   }, 0)
 }
 
-export const analyzeRanges = (ranges, deadCards) => {
+export const analyzeRanges = (ranges, deadCards = []) => {
   const filteredRanges = filterRanges(ranges, deadCards)
-  const totalCombosCount = countCombos(filteredRanges)
+  const totalCombosCount = countCombos(filteredRanges) || 1
 
   return filteredRanges.reduce((acc, range) => {
     const combosCount = countCombos([range])
-    if (combosCount > 0) {
+    if (range.containsCombos) {
       acc[range.id] = {
         combosCount, 
-        handsRatio: combosCount / 1326,
+        handsRatio: combosCount / ALL_COMBOS_COUNT,
         rangeRatio: combosCount / totalCombosCount
       }
     }
