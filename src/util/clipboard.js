@@ -5,6 +5,7 @@ export const Clipboard = ((window, document, navigator) => {
 
   const createTextArea = (text) => {
     textArea = document.createElement('textArea')
+    textArea.readonly = true
     textArea.value = text
     document.body.appendChild(textArea)
   }
