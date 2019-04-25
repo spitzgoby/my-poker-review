@@ -2,8 +2,8 @@ import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import Dropzone from 'components/dropzone'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -16,8 +16,6 @@ class ImportRangeDialog extends Component {
 
     this.handleDialogClose = this.handleDialogClose.bind(this)
     this.handleFileImport = this.handleFileImport.bind(this)
-    this.handleBrowseButtonClick = this.handleBrowseButtonClick.bind(this)
-    this.setFileInputRef = this.setFileInputRef.bind(this)
   }
 
   static propTypes = {
@@ -32,16 +30,7 @@ class ImportRangeDialog extends Component {
       <Dialog {...this.getProps()}> 
         <DialogTitle>Import Ranges From File</DialogTitle>
         <DialogContent className={classes.content}>
-          <DialogContentText className={classes.text}>
-            Drag a file here
-          </DialogContentText>
-          <DialogContentText className={classes.text}>
-            or
-          </DialogContentText>
-          <Button {...this.getBrowseButtonProps()} >
-            Browse Files
-          </Button>
-          <input {...this.getFileInputProps()} />
+          <Dropzone />
         </DialogContent>
         <DialogActions>
           <Button {...this.getImportButtonProps()} > 
@@ -54,25 +43,8 @@ class ImportRangeDialog extends Component {
 
   getProps() {
     return {
-      onChange: this.handleFileImport,
       onClose: this.handleDialogClose,
       open: this.props.open
-    }
-  }
-
-  getFileInputProps() {
-    return {
-      className: this.props.classes.fileinput,
-      ref: this.setFileInputRef,
-      type: "file"
-    }
-  }
-
-  getBrowseButtonProps() {
-    return {
-      color: "secondary",  
-      onClick: this.handleBrowseButtonClick,
-      variant: "outlined" 
     }
   }
 
@@ -80,10 +52,6 @@ class ImportRangeDialog extends Component {
     return {
       color: "primary",
     }
-  }
-
-  setFileInputRef(element) {
-    this.fileInputRef = element
   }
 
   handleFileImport(event) {
@@ -95,12 +63,6 @@ class ImportRangeDialog extends Component {
 
     if (onClose) {
       onClose()
-    }
-  }
-
-  handleBrowseButtonClick() {
-    if (this.fileInputRef) {
-      this.fileInputRef.click() 
     }
   }
 }

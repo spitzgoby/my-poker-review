@@ -9,9 +9,5 @@ export default {
     display: 'flex',
     justifyContent: 'center',
     marginBottom: '1rem'
-  },
-
-  fileinput: {
-    display: "none"
   }
 }
