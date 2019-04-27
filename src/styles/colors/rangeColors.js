@@ -19,6 +19,7 @@ export const rangeColorList = [{
   name: 'black',
   rgb: [0, 15, 8]
 }]
+export const rangeColorNames = ['blue', 'red', 'yellow', 'green', 'purple', 'black']
 
 const DARK_COLOR_SUFFIX = 'dark'
 const generateColors = (colorInfo) => {
