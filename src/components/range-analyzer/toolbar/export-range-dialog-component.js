@@ -67,7 +67,8 @@ class ExportRangeDialog extends Component {
   getExportButtonProps() {
     return {
       color: "primary",  
-      onClick: this.handleExportButtonClick
+      onClick: this.handleExportButtonClick,
+      variant: 'contained'
     }
   }
 

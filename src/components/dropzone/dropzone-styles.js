@@ -1,6 +1,8 @@
 import Color from 'color'
 import {themeColors} from 'styles/colors'
 
+const TRANSITION_TIME = '200ms'
+
 const darkerMediumGray = Color(themeColors.neutralGray)
   .darken(0.02)
   .string()
@@ -10,24 +12,30 @@ export default {
     backgroundColor: themeColors.neutralGray,
     border: `dashed 2px ${themeColors.mediumGray}`,
     borderRadius: '4px',
-    color: themeColors.mediumGray,
+    color: themeColors.lightGray,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-around',
     marginTop: '2px',
     minWidth: '30rem',
     padding: '1rem',
-    transition: '200ms',
+    transition: TRANSITION_TIME,
 
     '&:hover': {
       backgroundColor: darkerMediumGray,
-      borderColor: themeColors.primary,
+      borderColor: themeColors.secondary,
+      cursor: 'pointer',
+
+      '& $text, & $cloudcontainer': {
+        color: themeColors.secondary
+      }
     }
   },
 
   cloudcontainer: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    transition: TRANSITION_TIME
   },
 
   cloudicon: {
@@ -36,5 +44,10 @@ export default {
 
   fileinput: {
     display: "none"
+  },
+
+  text: {
+    color: themeColors.lightGray,
+    transition: TRANSITION_TIME
   }
 }

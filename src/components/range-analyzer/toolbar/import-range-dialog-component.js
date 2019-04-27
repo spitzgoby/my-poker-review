@@ -51,6 +51,7 @@ class ImportRangeDialog extends Component {
   getImportButtonProps() {
     return {
       color: "primary",
+      variant: 'contained'
     }
   }
 
