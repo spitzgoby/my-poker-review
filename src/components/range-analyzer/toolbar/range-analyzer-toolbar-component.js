@@ -1,5 +1,5 @@
 import AddIcon from '@material-ui/icons/Add'
-import {download} from 'util/download'
+import {exportRanges} from 'util/range-file-converter'
 import ExportRangeDialog from 'components/range-analyzer/toolbar/export-range-dialog-component'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
@@ -234,7 +234,7 @@ class RangeAnalyzerToolbar extends Component {
       ranges
     } = this.props
 
-    download(ranges, exportFileName)
+    exportRanges(ranges, exportFileName)
   }
 
   handleExportDialogClose() {

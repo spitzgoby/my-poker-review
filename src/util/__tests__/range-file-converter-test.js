@@ -1,12 +1,37 @@
 import {
+  exportRanges,
   importRanges  
 } from 'util/range-file-converter'
+import FileDownload from 'js-file-download'
+
+jest.mock('js-file-download', () => jest.fn())
 
 const makeJsonFileWithData = (data) => {
   return new Blob([JSON.stringify(data)], {type: 'application/json'})
 }
 
 describe('when converting range files', () => {
+
+  describe('and when exporting range files', () => {
+    const mockData = {
+      test: 'test'
+    }
+
+    beforeEach(() => {
+      jest.clearAllMocks()
+    })
+
+    it('should trigger a download with the given filename and data', () => {
+      expect(exportRanges({test: 'test'}, 'test.txt')).toEqual(true)
+      expect(FileDownload).toBeCalledWith(JSON.stringify(mockData), 'test.txt')
+    })
+
+    it('should trigger append .json to a file without an extension', () => {
+      expect(exportRanges({test: 'test'}, 'test')).toEqual(true)
+      expect(FileDownload).toBeCalledWith(JSON.stringify(mockData), 'test.json')
+    })
+  })
+
   describe('and when importing range files', () => {
 
     it('should import a valid range file', () => {
