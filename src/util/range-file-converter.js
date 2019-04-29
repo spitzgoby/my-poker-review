@@ -67,11 +67,12 @@ const parseAndValidateRangeImport = (text) => {
     isvalidFile: false,
   }
   const data = JSON.parse(text)
+  const hasRanges = Object.keys(data).length > 0
   const areValidRanges = reduce(data, (acc, datum) => {
     return acc && validateRange(datum)
   }, true)
 
-  if (areValidRanges) {
+  if (hasRanges && areValidRanges) {
     result.isValidFile = true
     result.ranges = data
   }

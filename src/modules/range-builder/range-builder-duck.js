@@ -9,6 +9,7 @@ import {
   without
 } from 'lodash'
 import {groupComboIds} from 'util/group-combos'
+import {importRanges as importRangesFromFile} from 'util/range-file-converter'
 import {rangeColorList} from 'styles/colors/rangeColors'
 import uuid from 'uuid/v4'
 
@@ -22,6 +23,9 @@ const types = {
   CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
   DELETE_RANGE: '@my-poker-review/range-builder/DELETE_RANGE',
+  IMPORT_RANGES: '@my-poker-review/range-builder/IMPORT_RANGES',
+  IMPORT_RANGES_FAILURE: '@my-poker-review/range-builder/IMPORT_RANGES_FAILURE',
+  IMPORT_RANGES_SUCCESS: '@my-poker-review/range-builder/IMPORT_RANGES_SUCCESS',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
@@ -43,6 +47,39 @@ export const setEditing = actionCreator(types.SET_EDITING)
 export const setExportFileName = actionCreator(types.SET_EXPORT_FILE_NAME, 'fileName')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
+
+
+const importRangesFailure = (error, fileName) => ({
+  type: types.IMPORT_RANGES_FAILURE,
+  payload: {error, fileName}
+})
+
+export const importRanges = (payload) => (dispatch) => {
+  const file = payload.file
+
+  dispatch({type: types.IMPORT_RANGES})
+
+  return importRangesFromFile(file)
+    .then((result) => {
+      if (result) {
+        dispatch({
+          type: types.IMPORT_RANGES_SUCCESS,
+          payload: {result}
+        })
+      } else {
+        dispatch(importRangesFailure(
+          'Invalid range data', 
+          file.name
+        ))
+      }
+    })
+    .catch((error) => {
+      dispatch(importRangesFailure(
+        'There was a problem reading the selected file',
+        file.name
+      ))
+    })
+}
 
 
 /*---------*
@@ -196,6 +233,24 @@ export default function(state = initialState, action = {}) {
       }
       break
 
+    case types.IMPORT_RANGES_SUCCESS:
+      nextState = {
+        ...state,
+        ranges: action.payload.result.reduce((acc, range) => {
+          acc[range.id] = range
+          return acc
+        }, {}),
+        selectedRangeId: action.payload.result[0].id
+      }
+      break
+
+    case types.IMPORT_RANGES_FAILURE:
+      nextState = {
+        ...state,
+        importError: action.payload.error
+      }
+      break
+
     case types.SELECT_COMBOS:
       nextState = {
         ...state,
@@ -262,7 +317,6 @@ export default function(state = initialState, action = {}) {
 /*-----------*
  * SELECTORS *
  *-----------*/
-
 
 const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}

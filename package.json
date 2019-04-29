@@ -71,7 +71,7 @@
     "react-selectable-fast": "^2.2.2",
     "redux": "4.0.1",
     "redux-action-creator": "^3.0.0",
-    "redux-thunk": "2.3.0",
+    "redux-thunk": "^2.3.0",
     "reselect": "^4.0.0",
     "resolve": "1.8.1",
     "sanitize.css": "7.0.3",

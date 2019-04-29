@@ -3,6 +3,7 @@ import {
   getExportFileName,
   getRangeColors,
   getRanges,
+  importRanges,
   setExportFileName
 } from 'modules/range-builder'
 import {bindActionCreators} from 'redux'
@@ -18,7 +19,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     onAddRange: addRange,
-    onChangeFileName: setExportFileName
+    onChangeFileName: setExportFileName,
+    onFileImport: importRanges
   }, dispatch)
 })
 

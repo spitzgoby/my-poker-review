@@ -14,10 +14,14 @@ class Dropzone extends Component {
     this.handleDrop = this.handleDrop.bind(this)
     this.handleFileInputChange = this.handleFileInputChange.bind(this)
     this.setFileInputRef = this.setFileInputRef.bind(this)
+
+    this.state = {
+      file: null
+    }
   }
 
   static propTypes = {
-    className: PropTypes.string
+    onChange: PropTypes.func
   }
 
   render() {
@@ -29,11 +33,19 @@ class Dropzone extends Component {
           <CloudUploadIcon className={classes.cloudicon}/>
         </div>
         <Typography {...this.getTextProps()}>
-          Drag in a file or click to browse
+          {this.renderText()}
         </Typography>
         <input {...this.getFileInputProps()} />
       </div>
     ) 
+  }
+
+  renderText() {
+    const file = this.state.file
+
+    return file
+      ? file.name
+      : 'Drag in a file or click to browse'
   }
 
   getProps() {
@@ -72,18 +84,21 @@ class Dropzone extends Component {
   }
 
   handleDrop(event) {
-    this.addFiles(event.dataTransfer.files)
+    this.addFile(event.dataTransfer.files)
   }
 
   handleFileInputChange(event) {
-    this.addFiles(event.target.files)
+    this.addFile(event.target.files)
   }
 
-  addFiles(files) {
-    const onFilesAdded = this.props.onFilesAdded
+  addFile(files) {
+    const file = files[0]
+    const onChange = this.props.onChange
 
-    if (onFilesAdded) {
-      onFilesAdded(files)
+    this.setState({file})
+
+    if (onChange) {
+      onChange(file)
     }
   }
 }

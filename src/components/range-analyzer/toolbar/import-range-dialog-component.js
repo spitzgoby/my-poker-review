@@ -15,10 +15,16 @@ class ImportRangeDialog extends Component {
     super(props)
 
     this.handleDialogClose = this.handleDialogClose.bind(this)
-    this.handleFileImport = this.handleFileImport.bind(this)
+    this.handleDropzoneChange = this.handleDropzoneChange.bind(this)
+    this.handleImportButtonClick = this.handleImportButtonClick.bind(this)
+
+    this.state = {
+      file: null
+    }
   }
 
   static propTypes = {
+    onImport: PropTypes.func,
     onClose: PropTypes.func,
     open: PropTypes.bool
   }
@@ -30,7 +36,7 @@ class ImportRangeDialog extends Component {
       <Dialog {...this.getProps()}> 
         <DialogTitle>Import Ranges From File</DialogTitle>
         <DialogContent className={classes.content}>
-          <Dropzone />
+          <Dropzone {...this.getDropzoneProps()} />
         </DialogContent>
         <DialogActions>
           <Button {...this.getImportButtonProps()} > 
@@ -48,15 +54,19 @@ class ImportRangeDialog extends Component {
     }
   }
 
-  getImportButtonProps() {
+  getDropzoneProps() {
     return {
-      color: "primary",
-      variant: 'contained'
+      onChange: this.handleDropzoneChange
     }
   }
 
-  handleFileImport(event) {
-    console.log(event.target.files)
+  getImportButtonProps() {
+    return {
+      color: "primary",
+      disabled: (!this.state.file),
+      onClick: this.handleImportButtonClick,
+      variant: 'contained'
+    }
   }
 
   handleDialogClose() {
@@ -64,6 +74,18 @@ class ImportRangeDialog extends Component {
 
     if (onClose) {
       onClose()
+    }
+  }
+
+  handleDropzoneChange(file) {
+    this.setState({file})
+  }
+
+  handleImportButtonClick() {
+    const onImport = this.props.onImport
+
+    if (onImport) {
+      onImport(this.state.file)
     }
   }
 }

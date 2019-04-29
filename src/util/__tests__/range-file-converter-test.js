@@ -56,8 +56,8 @@ describe('when converting range files', () => {
         return expect(importRanges(invalidJSONFile)).rejects.toThrow()
       })
 
-      it('should not import an invalidly formatted range file', () => {
-        const invalidFileData = {test: 'test'}
+      it('should not import an empty range file', () => {
+        const invalidFileData = {}
         const invalidFileName = 'invalidRanges.json'
         const invalidFile = makeJsonFileWithData(invalidFileData, invalidFileName)
 

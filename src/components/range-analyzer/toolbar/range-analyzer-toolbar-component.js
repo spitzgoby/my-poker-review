@@ -28,6 +28,7 @@ class RangeAnalyzerToolbar extends Component {
     this.handleExportDialogClose = this.handleExportDialogClose.bind(this)
     this.handleExportMenuItemClick = this.handleExportMenuItemClick.bind(this)
     this.handleExportFileNameChange = this.handleExportFileNameChange.bind(this)
+    this.handleImport = this.handleImport.bind(this)
     this.handleImportDialogClose = this.handleImportDialogClose.bind(this)
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
@@ -148,6 +149,7 @@ class RangeAnalyzerToolbar extends Component {
   getImportRangeDialogProps() {
     return {
       onClose: this.handleImportDialogClose,
+      onImport: this.handleImport,
       open: this.state.importDialogOpen
     }
   }
@@ -218,6 +220,14 @@ class RangeAnalyzerToolbar extends Component {
     this.setState({
       importDialogOpen: false
     })
+  }
+
+  handleImport(file) {
+    const onFileImport = this.props.actions.onFileImport
+
+    if (onFileImport) {
+      onFileImport({file: file})
+    }
   }
 
   handleExportFileNameChange(event) {
