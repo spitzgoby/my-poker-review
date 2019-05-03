@@ -1,4 +1,10 @@
 import {combineReducers} from 'redux'
-import rangeBuilder from 'modules/range-builder'
+import {
+  ImportReducer,
+  RangeBuilderReducer,
+} from 'modules/range-builder'
 
-export default combineReducers({rangeBuilder})
+export default combineReducers({
+  Import: ImportReducer, 
+  RangeBuilder: RangeBuilderReducer
+})

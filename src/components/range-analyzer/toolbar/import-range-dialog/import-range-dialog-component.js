@@ -7,7 +7,7 @@ import Dropzone from 'components/dropzone'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import styles from 'components/range-analyzer/toolbar/import-range-dialog-styles'
+import styles from 'components/range-analyzer/toolbar/import-range-dialog/import-range-dialog-styles'
 
 class ImportRangeDialog extends Component {
 
@@ -17,15 +17,16 @@ class ImportRangeDialog extends Component {
     this.handleDialogClose = this.handleDialogClose.bind(this)
     this.handleDropzoneChange = this.handleDropzoneChange.bind(this)
     this.handleImportButtonClick = this.handleImportButtonClick.bind(this)
-
-    this.state = {
-      file: null
-    }
   }
 
   static propTypes = {
-    onImport: PropTypes.func,
-    onClose: PropTypes.func,
+    actions: PropTypes.shape({
+      onClose: PropTypes.func,
+      onFileChange: PropTypes.func,
+      onImport: PropTypes.func
+    }).isRequired,
+    file: PropTypes.object,
+    importing: PropTypes.bool,
     open: PropTypes.bool
   }
 
@@ -63,14 +64,14 @@ class ImportRangeDialog extends Component {
   getImportButtonProps() {
     return {
       color: "primary",
-      disabled: (!this.state.file),
+      disabled: (!this.props.file),
       onClick: this.handleImportButtonClick,
       variant: 'contained'
     }
   }
 
   handleDialogClose() {
-    const onClose = this.props.onClose
+    const onClose = this.props.actions.onClose
 
     if (onClose) {
       onClose()
@@ -78,14 +79,18 @@ class ImportRangeDialog extends Component {
   }
 
   handleDropzoneChange(file) {
-    this.setState({file})
+    const onFileChange = this.props.actions.onFileChange
+
+    if (onFileChange) {
+      onFileChange(file)
+    }
   }
 
   handleImportButtonClick() {
-    const onImport = this.props.onImport
+    const onImport = this.props.actions.onImport
 
     if (onImport) {
-      onImport(this.state.file)
+      onImport(this.props.file)
     }
   }
 }

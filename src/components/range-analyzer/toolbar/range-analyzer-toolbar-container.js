@@ -3,9 +3,10 @@ import {
   getExportFileName,
   getRangeColors,
   getRanges,
-  importRanges,
-  setExportFileName
+  setExportFileName,
+  setImportDialogOpen
 } from 'modules/range-builder'
+import {importRanges} from 'modules/range-builder/actions/import-ranges'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar/range-analyzer-toolbar-component'
@@ -20,7 +21,8 @@ const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     onAddRange: addRange,
     onChangeFileName: setExportFileName,
-    onFileImport: importRanges
+    onFileImport: importRanges,
+    onOpenImportDialog: setImportDialogOpen
   }, dispatch)
 })
 

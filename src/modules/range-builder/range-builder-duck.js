@@ -8,32 +8,10 @@ import {
   reduce,
   without
 } from 'lodash'
+import {types} from 'modules/range-builder/constants'
 import {groupComboIds} from 'util/group-combos'
-import {importRanges as importRangesFromFile} from 'util/range-file-converter'
 import {rangeColorList} from 'styles/colors/rangeColors'
 import uuid from 'uuid/v4'
-
-/*---------*
- * ACTIONS *
- *---------*/
-
-const types = {
-  ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
-  CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
-  CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
-  CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',
-  DELETE_RANGE: '@my-poker-review/range-builder/DELETE_RANGE',
-  IMPORT_RANGES: '@my-poker-review/range-builder/IMPORT_RANGES',
-  IMPORT_RANGES_FAILURE: '@my-poker-review/range-builder/IMPORT_RANGES_FAILURE',
-  IMPORT_RANGES_SUCCESS: '@my-poker-review/range-builder/IMPORT_RANGES_SUCCESS',
-  SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
-  SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
-  SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
-  SET_EDITING: '@my-poker-review/range-builder/SET_EDITING',
-  SET_EXPORT_FILE_NAME: '@my-poker-review/range-builder/SET_EXPORT_FILE_NAME',
-  SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
-  SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME'
-}
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COMBOS)
@@ -47,44 +25,6 @@ export const setEditing = actionCreator(types.SET_EDITING)
 export const setExportFileName = actionCreator(types.SET_EXPORT_FILE_NAME, 'fileName')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
-
-
-const importRangesFailure = (error, fileName) => ({
-  type: types.IMPORT_RANGES_FAILURE,
-  payload: {error, fileName}
-})
-
-export const importRanges = (payload) => (dispatch) => {
-  const file = payload.file
-
-  dispatch({type: types.IMPORT_RANGES})
-
-  return importRangesFromFile(file)
-    .then((result) => {
-      if (result) {
-        dispatch({
-          type: types.IMPORT_RANGES_SUCCESS,
-          payload: {result}
-        })
-      } else {
-        dispatch(importRangesFailure(
-          'Invalid range data', 
-          file.name
-        ))
-      }
-    })
-    .catch((error) => {
-      dispatch(importRangesFailure(
-        'There was a problem reading the selected file',
-        file.name
-      ))
-    })
-}
-
-
-/*---------*
- * HELPERS *
- *---------*/
 
 const updateRangesByClearingAllSelectedCombos = (state) => {
   return reduce(state.ranges, (acc, range) => {
@@ -175,12 +115,14 @@ const initialState = {
   editing: false,
   exportFileName: '',
   equities: {},
+  importFileName: '',
+  importing: false,
   playerHand: '',
   ranges,
   selectedRangeId: find(ranges, { 'name': 'Bet' }).id
 }
 
-export default function(state = initialState, action = {}) {
+export default (state = initialState, action = {}) => {
   let nextState;
 
   switch(action.type) {
@@ -236,18 +178,11 @@ export default function(state = initialState, action = {}) {
     case types.IMPORT_RANGES_SUCCESS:
       nextState = {
         ...state,
-        ranges: action.payload.result.reduce((acc, range) => {
+        ranges: action.payload.reduce((acc, range) => {
           acc[range.id] = range
           return acc
         }, {}),
-        selectedRangeId: action.payload.result[0].id
-      }
-      break
-
-    case types.IMPORT_RANGES_FAILURE:
-      nextState = {
-        ...state,
-        importError: action.payload.error
+        selectedRangeId: action.payload[0].id
       }
       break
 

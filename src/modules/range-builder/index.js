@@ -1,62 +1,73 @@
-import {analyzeRanges} from 'util/range-analyzer'
+import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
+import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 import {createSelector} from 'reselect'
 import {parseCardInput} from 'util/card-input-parser'
+import {analyzeRanges} from 'util/range-analyzer'
 import {rangeFromCombos} from 'util/range-output-builder'
-import reducer, * as rangeBuilder from 'modules/range-builder/range-builder-duck'
 
 /*---------*
  * REDUCER *
  *---------*/ 
 
-export default reducer
+export const ImportReducer = importReducer
+export const RangeBuilderReducer = rangeBuilderReducer
 
 /*---------*
  * ACTIONS *
  *---------*/
 
-export const addRange = rangeBuilder.addRange
-export const clearAllSelectedCombos = rangeBuilder.clearAllSelectedCombos
-export const clearSelectedCombosFromRange = rangeBuilder.clearSelectedCombosFromRange
-export const clearSelectedComboGroupIds = rangeBuilder.clearSelectedComboGroupIds
-export const deleteRange = rangeBuilder.deleteRange
-export const importRanges = rangeBuilder.importRanges
-export const selectCombos = rangeBuilder.selectCombos
-export const selectRange = rangeBuilder.selectRange
-export const setBoard = rangeBuilder.setBoard
-export const setEditing = rangeBuilder.setEditing
-export const setExportFileName = rangeBuilder.setExportFileName
-export const setPlayerHand = rangeBuilder.setPlayerHand
-export const setRangeName = rangeBuilder.setRangeName
+export * from 'modules/range-builder/actions'
 
-/*-----------------*
- * BASIC SELECTORS *
- *-----------------*/
+export const addRange = fromRangeBuilder.addRange
+export const clearAllSelectedCombos = fromRangeBuilder.clearAllSelectedCombos
+export const clearSelectedCombosFromRange = fromRangeBuilder.clearSelectedCombosFromRange
+export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
+export const deleteRange = fromRangeBuilder.deleteRange
+export const selectCombos = fromRangeBuilder.selectCombos
+export const selectRange = fromRangeBuilder.selectRange
+export const setBoard = fromRangeBuilder.setBoard
+export const setEditing = fromRangeBuilder.setEditing
+export const setExportFileName = fromRangeBuilder.setExportFileName
+export const setPlayerHand = fromRangeBuilder.setPlayerHand
+export const setRangeName = fromRangeBuilder.setRangeName
 
-const getRangeBuilderState = (state) => state.rangeBuilder
+/*--------*
+ * IMPORT *
+ *--------*/
+const getImportState = (state) => state.Import
+export const getImportFile = (state) => fromImport.getImportFile(getImportState(state))
+export const getIsImportDialogOpen = (state) => fromImport.getIsImportDialogOpen(getImportState(state))
+export const getIsImporting = (state) => fromImport.getIsImporting(getImportState(state))
+
+/*--------*
+ * RANGES *
+ *--------*/
+
+const getRangeBuilderState = (state) => state.RangeBuilder
 export const getBoard = (state) => 
-  rangeBuilder.getBoard(getRangeBuilderState(state))
+  fromRangeBuilder.getBoard(getRangeBuilderState(state))
 export const getEquities = (state) => 
-  rangeBuilder.getEquities(getRangeBuilderState(state))
+  fromRangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsEditing = (state) =>
-  rangeBuilder.getIsEditing(getRangeBuilderState(state))
+  fromRangeBuilder.getIsEditing(getRangeBuilderState(state))
 export const getExportFileName = (state) =>
-  rangeBuilder.getExportFileName(getRangeBuilderState(state))
+  fromRangeBuilder.getExportFileName(getRangeBuilderState(state))
 export const getIsComboGroupSelected = (state, id) => 
-  rangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
+  fromRangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, id) => 
-  rangeBuilder.getIsRangeSelected(getRangeBuilderState(state), id)
+  fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), id)
 export const getPlayerHand = (state) => 
-  rangeBuilder.getPlayerHand(getRangeBuilderState(state))
+  fromRangeBuilder.getPlayerHand(getRangeBuilderState(state))
 export const getRanges = (state) => 
-  rangeBuilder.getRanges(getRangeBuilderState(state))
+  fromRangeBuilder.getRanges(getRangeBuilderState(state))
 export const getRangeById = (state, id) =>
-  rangeBuilder.getRangeById(getRangeBuilderState(state), id)
+  fromRangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeColors = (state) =>
-  rangeBuilder.getRangeColors(getRangeBuilderState(state))
+  fromRangeBuilder.getRangeColors(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
-  rangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
+  fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
 export const getSelectedRangeColor = (state) => 
-  rangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
+  fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
 /*-----------------*
  * COMBO SELECTORS *
