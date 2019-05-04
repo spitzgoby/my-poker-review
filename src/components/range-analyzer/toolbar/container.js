@@ -1,4 +1,4 @@
-import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar/range-analyzer-toolbar-component'
+import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar/component'
 import {
   addRange,
   getRangeColors,
