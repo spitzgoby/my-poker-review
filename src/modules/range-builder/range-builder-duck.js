@@ -109,11 +109,11 @@ const findRangeContainingComboGroup = (ranges, comboGroupId) => {
  *---------*/
 
 const initialState = {
+  addRangeMenuOpen: false,
   board: '',
   colors: rangeColorList,
   editing: false,
   equities: {},
-  importing: false,
   playerHand: '',
   ranges,
   selectedRangeId: find(ranges, { 'name': 'Bet' }).id
@@ -128,6 +128,7 @@ export default (state = initialState, action = {}) => {
 
       nextState = {
         ...state,
+        addRangeMenuOpen: false,
         ranges: {
           ...state.ranges,
           [rangeId]: createRange({
@@ -197,6 +198,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_ADD_RANGE_MENU_OPEN:
+      nextState = {
+        ...state,
+        addRangeMenuOpen: !state.addRangeMenuOpen
+      }
+      break
+
     case types.SET_BOARD:
       nextState = {
         ...state,
@@ -247,17 +255,18 @@ const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 
 export const getBoard = (state) => state.board
-export const getRangeColors = (state) => state.colors
-export const getIsEditing = (state) => state.editing
 export const getEquities = (state) => state.equities
+export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboGroupSelected = (state, id) => { 
   const selectedComboGroup = getSelectedComboIds(state)[id]
   return selectedComboGroup && selectedComboGroup.length > 0
 }
+export const getIsEditing = (state) => state.editing
 export const getPlayerHand = (state) => state.playerHand
+export const getRangeColors = (state) => state.colors
 export const getRanges = (state) => map(state.ranges, (range) => range)
 export const getRangeById = (state, id) => state.ranges[id]
-export const getSelectedRangeId = (state) => state.selectedRangeId
-export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id
 export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
+export const getSelectedRangeId = (state) => state.selectedRangeId
+export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id

@@ -1,20 +1,19 @@
-import AddIcon from '@material-ui/icons/Add'
+import AddRangeMenu from 'components/range-analyzer/toolbar/add-range-menu'
 import ExportRangeDialog from 'components/range-analyzer/toolbar/export-range-dialog'
+import ImportRangeDialog from 'components/range-analyzer/toolbar/import-range-dialog'
+import styles from 'components/range-analyzer/toolbar/styles'
+import PropTypes from 'prop-types'
+import AddIcon from '@material-ui/icons/Add'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
-import injectSheet from 'react-jss'
-import ImportExportIcon from '@material-ui/icons/ImportExport'
-import ImportRangeDialog from 'components/range-analyzer/toolbar/import-range-dialog'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
-import PropTypes from 'prop-types'
-import RangeColorBlock from 'components/range-analyzer/range-color-block'
-import {rangeColorList} from 'styles/colors/rangeColors'
-import React, {Component} from 'react'
-import styles from 'components/range-analyzer/toolbar/styles'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import ImportExportIcon from '@material-ui/icons/ImportExport'
+import React, {Component} from 'react'
+import injectSheet from 'react-jss'
 
 class RangeAnalyzerToolbar extends Component {
 
@@ -22,7 +21,6 @@ class RangeAnalyzerToolbar extends Component {
     super(props)
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
-    this.handleAddMenuClose = this.handleAddMenuClose.bind(this)
     this.handleExportMenuItemClick = this.handleExportMenuItemClick.bind(this)
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
@@ -62,7 +60,7 @@ class RangeAnalyzerToolbar extends Component {
             {this.renderImportExportButton()}
             <ImportRangeDialog />
             <ExportRangeDialog />
-            {this.renderAddMenu()}
+            <AddRangeMenu anchorEl={this.state.addAnchorEl} />
             {this.renderAddButton()}
           </Grid>
         </Grid>
@@ -103,26 +101,6 @@ class RangeAnalyzerToolbar extends Component {
     )
   }
 
-  renderAddMenu() {
-    return (
-      <Menu {...this.getAddMenuProps()}>
-        {rangeColorList.map((color) => {
-          return this.renderAddMenuItem(color.name)
-        })}
-      </Menu>
-    )
-  }
-
-  renderAddMenuItem(color) {
-    return (
-      <Tooltip key={color} title={`Add a new ${color} range`}>
-        <MenuItem onClick={() => this.handleAddMenuItemClick(color)}>
-          <RangeColorBlock color={color} />
-        </MenuItem>
-      </Tooltip>
-    )
-  }
-
   getImportExportMenuProps() {
     const importExportAnchorEl = this.state.importExportAnchorEl
 
@@ -145,16 +123,6 @@ class RangeAnalyzerToolbar extends Component {
       color: "primary",  
       onClick: this.handleExportButtonClick,
       variant: "contained" 
-    }
-  }
-
-  getAddMenuProps() {
-    const addAnchorEl = this.state.addAnchorEl
-
-    return {
-      anchorEl: addAnchorEl, 
-      open: !!addAnchorEl,
-      onClose: this.handleAddMenuClose
     }
   }
 
@@ -193,28 +161,18 @@ class RangeAnalyzerToolbar extends Component {
     })
   }
 
-  handleAddMenuItemClick(color) {
-    const onAddRange = this.props.actions.onAddRange
-
-    this.setState({
-      addAnchorEl: null
-    })
-
-    if (onAddRange) {
-      onAddRange({color})
-    }
-  }
-
-  handleAddMenuClose() {
-    this.setState({
-      addAnchorEl: null
-    })
-  }
-
   handleAddButtonClick(event) {
-    this.setState({
-      addAnchorEl: event.currentTarget
-    })
+    const onOpenAddRangeMenu = this.props.actions.onOpenAddRangeMenu
+
+    if (!this.state.addAnchorEl) {
+      this.setState({
+        addAnchorEl: event.currentTarget
+      })
+    }
+
+    if (onOpenAddRangeMenu) {
+      onOpenAddRangeMenu()
+    }
   }
 }
 

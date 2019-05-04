@@ -56,6 +56,8 @@ export const getBoard = (state) =>
   fromRangeBuilder.getBoard(getRangeBuilderState(state))
 export const getEquities = (state) => 
   fromRangeBuilder.getEquities(getRangeBuilderState(state))
+export const getIsAddRangeMenuOpen = (state) =>
+  fromRangeBuilder.getIsAddRangeMenuOpen(getRangeBuilderState(state))
 export const getIsEditing = (state) =>
   fromRangeBuilder.getIsEditing(getRangeBuilderState(state))
 export const getIsComboGroupSelected = (state, id) => 

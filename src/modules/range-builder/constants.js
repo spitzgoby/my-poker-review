@@ -11,6 +11,7 @@ export const types = {
   IMPORT_RANGES_SUCCESS: '@my-poker-review/range-builder/IMPORT_RANGES_SUCCESS',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
+  SET_ADD_RANGE_MENU_OPEN: '@my-poker-review/range-builder/SET_ADD_RANGE_MENU_OPEN',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',
   SET_EDITING: '@my-poker-review/range-builder/SET_EDITING',
   SET_EXPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_EXPORT_DIALOG_OPEN',

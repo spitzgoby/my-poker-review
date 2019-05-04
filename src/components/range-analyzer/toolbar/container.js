@@ -3,6 +3,7 @@ import {
   addRange,
   getRangeColors,
   getRanges,
+  setAddRangeMenuOpen,
   setExportDialogOpen,
   setImportDialogOpen
 } from 'modules/range-builder'
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     onAddRange: addRange,
+    onOpenAddRangeMenu: setAddRangeMenuOpen,
     onOpenExportDialog: setExportDialogOpen,
     onOpenImportDialog: setImportDialogOpen
   }, dispatch)
