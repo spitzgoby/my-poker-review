@@ -9,6 +9,7 @@ export default {
 
   expand: {
     color: (props) => getColor(props.range, props.selected, false),
-    visibility: (props) => props.expandable ? 'visible' : 'hidden' 
+    visibility: (props) => props.expandable ? 'visible' : 'hidden',
+    transition: '200ms'
   }
 }

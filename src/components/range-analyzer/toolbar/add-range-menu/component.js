@@ -3,7 +3,7 @@ import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Tooltip from '@material-ui/core/Tooltip'
 import PropTypes from 'prop-types'
-import {rangeColorList} from 'styles/colors/rangeColors'
+import {rangeColorList} from 'styles/colors/range-colors'
 import React, {Component} from 'react'
 
 class AddRangeMenu extends Component {

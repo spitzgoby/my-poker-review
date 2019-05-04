@@ -10,7 +10,7 @@ import {
 } from 'lodash'
 import {types} from 'modules/range-builder/constants'
 import {groupComboIds} from 'util/group-combos'
-import {rangeColorList} from 'styles/colors/rangeColors'
+import {rangeColorList} from 'styles/colors/range-colors'
 import uuid from 'uuid/v4'
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')

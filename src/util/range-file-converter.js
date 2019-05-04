@@ -2,7 +2,7 @@ import {combos} from 'lib/combos'
 import {comboGroups} from 'lib/combo-groups'
 import FileDownload from 'js-file-download'
 import PromiseFileReader from 'promise-file-reader'
-import {rangeColorNames} from 'styles/colors/rangeColors'
+import {rangeColorNames} from 'styles/colors/range-colors'
 import {reduce} from 'lodash'
 
 /*------------------*
