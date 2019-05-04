@@ -4,9 +4,9 @@ import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
+import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import TextField from '@material-ui/core/TextField'
 
 class ExportRangeDialog extends Component {
 
@@ -19,11 +19,14 @@ class ExportRangeDialog extends Component {
   }
 
   static propTypes = {
+    actions: PropTypes.shape({
+      onClose: PropTypes.func,
+      onExport: PropTypes.func,
+      onFileChange: PropTypes.func
+    }).isRequired,
     fileName: PropTypes.string,
-    onClose: PropTypes.func,
-    onExport: PropTypes.func,
-    onFileNameChange: PropTypes.func,
-    open: PropTypes.bool
+    open: PropTypes.bool,
+    ranges: PropTypes.arrayOf(PropTypes.object)
   }
 
   render() {
@@ -34,7 +37,7 @@ class ExportRangeDialog extends Component {
         </DialogTitle>
         <DialogContent>
           <DialogContentText>
-            If you do not provide a file extension then json 
+            If you do not provide a file extension then .json 
             will be used by default.
           </DialogContentText>
           <TextField {...this.getExportFileNameTextFieldProps()} />
@@ -73,7 +76,7 @@ class ExportRangeDialog extends Component {
   }
 
   handleDialogClose() {
-    const onClose = this.props.onClose 
+    const onClose = this.props.actions.onClose 
 
     if (onClose) {
       onClose()
@@ -81,18 +84,24 @@ class ExportRangeDialog extends Component {
   }
 
   handleExportFileNameTextFieldChange(event) {
-    const onFileNameChange = this.props.onFileNameChange    
+    const onFileChange = this.props.actions.onFileChange
 
-    if (onFileNameChange) {
-      onFileNameChange(event)
+    if (onFileChange) {
+      onFileChange(event.target.value)
     }
   }
 
   handleExportButtonClick() {
-    const onExport = this.props.onExport
+    const { 
+      actions: {
+        onExport
+      },
+      fileName,
+      ranges
+    } = this.props
 
     if (onExport) {
-      onExport(this.props.fileName)
+      onExport({ranges, fileName})
     }
   }
 }

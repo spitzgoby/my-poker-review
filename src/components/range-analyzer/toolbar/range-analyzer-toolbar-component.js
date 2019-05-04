@@ -1,6 +1,5 @@
 import AddIcon from '@material-ui/icons/Add'
-import {exportRanges} from 'util/range-file-converter'
-import ExportRangeDialog from 'components/range-analyzer/toolbar/export-range-dialog-component'
+import ExportRangeDialog from 'components/range-analyzer/toolbar/export-range-dialog'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import injectSheet from 'react-jss'
@@ -24,19 +23,13 @@ class RangeAnalyzerToolbar extends Component {
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
     this.handleAddMenuClose = this.handleAddMenuClose.bind(this)
-    this.handleExport = this.handleExport.bind(this)
-    this.handleExportDialogClose = this.handleExportDialogClose.bind(this)
     this.handleExportMenuItemClick = this.handleExportMenuItemClick.bind(this)
-    this.handleExportFileNameChange = this.handleExportFileNameChange.bind(this)
-    this.handleImportDialogClose = this.handleImportDialogClose.bind(this)
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
     this.handleImportMenuItemClick = this.handleImportMenuItemClick.bind(this)
 
     this.state = {
       addAnchorEl: null,
-      exportDialogOpen: false,
-      importDialogOpen: false,
       importExportAnchorEl: null
     }
   }
@@ -44,7 +37,7 @@ class RangeAnalyzerToolbar extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       onAddRange: PropTypes.func,
-      onChangeFileName: PropTypes.func,
+      onOpenExportDialog: PropTypes.func,
       onOpenImportDialog: PropTypes.func
     }).isRequired,
     colors: PropTypes.arrayOf(PropTypes.shape({
@@ -68,7 +61,7 @@ class RangeAnalyzerToolbar extends Component {
             {this.renderImportExportMenu()}
             {this.renderImportExportButton()}
             <ImportRangeDialog />
-            <ExportRangeDialog {...this.getExportRangeDialogProps()} />
+            <ExportRangeDialog />
             {this.renderAddMenu()}
             {this.renderAddButton()}
           </Grid>
@@ -147,25 +140,6 @@ class RangeAnalyzerToolbar extends Component {
     }
   }
 
-  getExportRangeDialogProps() {
-    return {
-      fileName: this.props.exportFileName,
-      open: this.state.exportDialogOpen,
-      onClose: this.handleExportDialogClose,
-      onExport: this.handleExport,
-      onFileNameChange: this.handleExportFileNameChange
-    }
-  }
-
-  getExportFileNameTextFieldProps() {
-    return {
-      fullWidth: true, 
-      label: "Filename", 
-      onChange: this.handleExportFileNameChange,
-      value: this.props.exportFileName
-    }
-  }
-
   getExportButtonProps() {
     return {
       color: "primary",  
@@ -206,38 +180,11 @@ class RangeAnalyzerToolbar extends Component {
   }
 
   handleExportMenuItemClick() {
-    this.setState({
-      exportDialogOpen: true
-    })
-  }
+    const onOpenExportDialog = this.props.actions.onOpenExportDialog
 
-  handleImportDialogClose() {
-    this.setState({
-      importDialogOpen: false
-    })
-  }
-
-  handleExportFileNameChange(event) {
-    const onChangeFileName = this.props.actions.onChangeFileName    
-
-    if (onChangeFileName) {
-      onChangeFileName({fileName: event.target.value})
+    if (onOpenExportDialog) {
+      onOpenExportDialog()
     }
-  }
-
-  handleExport() {
-    const {
-      exportFileName,
-      ranges
-    } = this.props
-
-    exportRanges(ranges, exportFileName)
-  }
-
-  handleExportDialogClose() {
-    this.setState({
-      exportDialogOpen: false
-    })
   }
 
   handleImportExportButtonClick(event) {

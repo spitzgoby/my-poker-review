@@ -15,6 +15,11 @@ const fileNameWithExtensionRegex = /^[\w,\s-]+\.[A-Za-z]+$/
 const addFileExtension = (fileName) => {
   let result
 
+  console.log('fileName: ', fileName)
+  if (!fileName) {
+    fileName = 'ranges'
+  }
+
   if (fileNameRegex.test(fileName)) {
     fileName = fileName + '.json'
   }

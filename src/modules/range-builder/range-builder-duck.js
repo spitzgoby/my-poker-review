@@ -22,7 +22,6 @@ export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setEditing = actionCreator(types.SET_EDITING)
-export const setExportFileName = actionCreator(types.SET_EXPORT_FILE_NAME, 'fileName')
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
 
@@ -113,9 +112,7 @@ const initialState = {
   board: '',
   colors: rangeColorList,
   editing: false,
-  exportFileName: '',
   equities: {},
-  importFileName: '',
   importing: false,
   playerHand: '',
   ranges,
@@ -215,13 +212,6 @@ export default (state = initialState, action = {}) => {
       }
       break
 
-    case types.SET_EXPORT_FILE_NAME:
-      nextState = {
-        ...state,
-        exportFileName: action.payload.fileName
-      }
-      break
-
     case types.SET_PLAYER_HAND:
       nextState = {
         ...state,
@@ -259,7 +249,6 @@ const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {
 export const getBoard = (state) => state.board
 export const getRangeColors = (state) => state.colors
 export const getIsEditing = (state) => state.editing
-export const getExportFileName = (state) => state.exportFileName
 export const getEquities = (state) => state.equities
 export const getIsComboGroupSelected = (state, id) => { 
   const selectedComboGroup = getSelectedComboIds(state)[id]

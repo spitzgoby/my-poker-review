@@ -1,3 +1,4 @@
+import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 import {createSelector} from 'reselect'
@@ -9,6 +10,7 @@ import {rangeFromCombos} from 'util/range-output-builder'
  * REDUCER *
  *---------*/ 
 
+export const ExportReducer = exportReducer
 export const ImportReducer = importReducer
 export const RangeBuilderReducer = rangeBuilderReducer
 
@@ -27,9 +29,15 @@ export const selectCombos = fromRangeBuilder.selectCombos
 export const selectRange = fromRangeBuilder.selectRange
 export const setBoard = fromRangeBuilder.setBoard
 export const setEditing = fromRangeBuilder.setEditing
-export const setExportFileName = fromRangeBuilder.setExportFileName
 export const setPlayerHand = fromRangeBuilder.setPlayerHand
 export const setRangeName = fromRangeBuilder.setRangeName
+
+/*--------*
+ * EXPORT *
+ *--------*/
+const getExportState = (state) => state.Export
+export const getExportFileName = (state) => fromExport.getExportFileName(getExportState(state))
+export const getIsExportDialogOpen = (state) => fromExport.getIsExportDialogOpen(getExportState(state))
 
 /*--------*
  * IMPORT *
@@ -50,8 +58,6 @@ export const getEquities = (state) =>
   fromRangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsEditing = (state) =>
   fromRangeBuilder.getIsEditing(getRangeBuilderState(state))
-export const getExportFileName = (state) =>
-  fromRangeBuilder.getExportFileName(getRangeBuilderState(state))
 export const getIsComboGroupSelected = (state, id) => 
   fromRangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, id) => 

@@ -1,6 +1,7 @@
 import {types} from 'modules/range-builder/constants'
 
 const initialState = {
+  error: '',
   importing: false,
   importDialogOpen: false,
   importFile: null
@@ -13,6 +14,7 @@ export default (state = initialState, action = {}) => {
     case types.IMPORT_RANGES_INIT:
       nextState = {
         ...state,
+        error: null,
         importing: true
       }
       break
@@ -20,6 +22,7 @@ export default (state = initialState, action = {}) => {
     case types.IMPORT_RANGES_SUCCESS:
       nextState = {
         ...state,
+        error: null,
         importDialogOpen: false,
         importing: false
       }
@@ -28,14 +31,15 @@ export default (state = initialState, action = {}) => {
     case types.IMPORT_RANGES_FAILURE:
       nextState = {
         ...state,
-        importing: false,
-        error: action.payload
+        error: action.payload,
+        importing: false
       }
       break
 
     case types.SET_IMPORT_DIALOG_OPEN:
       nextState = {
         ...state,
+        error: null,
         importDialogOpen: !state.importDialogOpen
       }
       break
@@ -43,6 +47,7 @@ export default (state = initialState, action = {}) => {
     case types.SET_IMPORT_FILE:
       nextState = {
         ...state,
+        error: null,
         importFile: action.payload
       }
       break
