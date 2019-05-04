@@ -1,4 +1,5 @@
 import Button from '@material-ui/core/Button'
+import Fade from '@material-ui/core/Fade'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import IconButton from '@material-ui/core/IconButton'
@@ -21,6 +22,7 @@ class RangeAnalyzerEditCell extends Component {
 
   static propTypes = {
     editing: PropTypes.bool,
+    expandable: PropTypes.bool,
     onClear: PropTypes.func,
     onExpand: PropTypes.func,
     range: PropTypes.shape({
@@ -38,13 +40,13 @@ class RangeAnalyzerEditCell extends Component {
 
     return (
       <TableCell className={classes.cell} align="right"> 
-        { editing 
-          ? null
-          : this.renderClearButton()
-        }
-        { editing 
-          ? this.renderDeleteButton()
-          : this.renderExpandButton()
+        <Fade in={!editing}>
+          {this.renderClearButton()}
+        </Fade>
+        {
+          editing
+            ? this.renderDeleteFade()
+            : this.renderExpandFade()
         }
       </TableCell>
     ) 
@@ -60,6 +62,14 @@ class RangeAnalyzerEditCell extends Component {
     )
   }
 
+  renderDeleteFade() {
+    return (
+      <Fade in={this.props.editing}>
+        {this.renderDeleteButton()}
+      </Fade>
+    )
+  }
+
   renderDeleteButton() {
     return (
       <Tooltip title={`Delete ${this.props.range.name}`}>
@@ -67,6 +77,14 @@ class RangeAnalyzerEditCell extends Component {
           <DeleteIcon />
         </IconButton>
       </Tooltip>
+    )
+  }
+
+  renderExpandFade() {
+    return (
+      <Fade in={this.props.expandable}>
+        {this.renderExpandButton()}
+      </Fade>
     )
   }
 

@@ -1,3 +1,4 @@
+import {transitionTime} from 'styles/animations'
 import {themeColors} from 'styles/colors'
 import {
   getColor,
@@ -43,7 +44,7 @@ export const styles = {
     borderLeft: (props) => getBorder(props, false),
     borderRight: (props) => getBorder(props, false),
     color: (props) => getColor(props.range, props.selected, false),
-    transition: '100ms',
+    transition: transitionTime,
 
     '&:hover': {
       backgroundColor: props => getBackgroundColor(props, true),

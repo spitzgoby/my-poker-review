@@ -1,0 +1,1 @@
+export const transitionTime = '200ms'
