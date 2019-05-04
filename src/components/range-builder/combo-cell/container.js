@@ -1,17 +1,21 @@
 import {bindActionCreators} from 'redux'
-import ComboCell from 'components/range-builder/combo-cell/combo-cell-component'
+import ComboCell from 'components/range-builder/combo-cell/component'
 import {connect} from 'react-redux'
 import {
+  getIsSelecting,
   makeGetRangeColorForComboGroup,
-  selectCombos
+  selectCombos,
+  setSelecting
 } from 'modules/range-builder'
 
 const mapStateToProps = (state, ownProps) => ({
-  color: makeGetRangeColorForComboGroup()(state, ownProps.comboGroup.id)
+  color: makeGetRangeColorForComboGroup()(state, ownProps.comboGroup.id),
+  selecting: getIsSelecting(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
+    onDragStart: setSelecting,
     onSelect: selectCombos
   }, dispatch)
 })

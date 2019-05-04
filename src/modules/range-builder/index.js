@@ -64,6 +64,8 @@ export const getIsComboGroupSelected = (state, id) =>
   fromRangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, id) => 
   fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), id)
+export const getIsSelecting = (state) =>
+  fromRangeBuilder.getIsSelecting(getRangeBuilderState(state))
 export const getPlayerHand = (state) => 
   fromRangeBuilder.getPlayerHand(getRangeBuilderState(state))
 export const getRanges = (state) => 

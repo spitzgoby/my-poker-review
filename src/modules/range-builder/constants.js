@@ -19,7 +19,8 @@ export const types = {
   SET_IMPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_IMPORT_DIALOG_OPEN',
   SET_IMPORT_FILE: '@my-poker-review/range-builder/SET_IMPORT_FILE',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',
-  SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME'
+  SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME',
+  SET_SELECTING: '@my-poker-review/range-builder/SET_SELECTING'
 }
 
 export const comboRows = [

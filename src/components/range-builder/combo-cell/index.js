@@ -1,3 +1,3 @@
-import ComboCell from 'components/range-builder/combo-cell/combo-cell-container'
+import ComboCell from './container'
 
 export default ComboCell

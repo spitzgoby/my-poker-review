@@ -1,7 +1,7 @@
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {styles} from 'components/range-builder/combo-cell/combo-cell-styles'
+import {styles} from 'components/range-builder/combo-cell/styles'
 
 class ComboCell extends Component {
 
@@ -24,7 +24,8 @@ class ComboCell extends Component {
       type: PropTypes.string
     }).isRequired,
     lastRow: PropTypes.bool,
-    selected: PropTypes.bool
+    selected: PropTypes.bool,
+    selecting: PropTypes.bool
   }
 
   static dragImage = document.createElement('span')
@@ -58,10 +59,15 @@ class ComboCell extends Component {
 
   handleDragStart(event) {
     const dataTransfer = event.dataTransfer
+    const onDragStart = this.props.actions.onDragStart
 
     if (dataTransfer) {
       dataTransfer.setData('text/plain', '')
       dataTransfer.setDragImage(ComboCell.dragImage, 0, 0)
+    }
+
+    if (onDragStart) {
+      onDragStart(!this.props.color)
     }
   }
 

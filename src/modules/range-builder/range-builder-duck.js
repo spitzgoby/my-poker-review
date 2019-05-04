@@ -46,7 +46,7 @@ const updateRangesByDeletingRange = (state, action) => {
   }, {})
 }
 
-const updateRangeBySelectingCombos = (range, combos, selected) => {
+const updateRangeBySelectingCombos = (range, combos, selecting, selected) => {
   const selectedCombos = range.selectedCombos
   let newSelectedCombos = {...selectedCombos}
   let newSelectedCombosMap = groupComboIds(combos)
@@ -55,7 +55,7 @@ const updateRangeBySelectingCombos = (range, combos, selected) => {
     const selectedComboGroup = selectedCombos[comboGroupId] || []
     const diff = difference(selectedCombosList, selectedComboGroup) 
 
-    if (diff.length === 0 || !selected) {
+    if (!selecting) {
       newSelectedCombos[comboGroupId] = without(selectedComboGroup, ...selectedCombosList)
     } else {
       newSelectedCombos[comboGroupId] = selectedComboGroup.concat(diff)
@@ -69,8 +69,17 @@ const updateRangeBySelectingCombos = (range, combos, selected) => {
 }
 
 const updateRangesBySelectingCombos = (state, action) => {
+  const { 
+    selectedRangeId,
+    selecting
+  } = state
+
   return reduce(state.ranges, (acc, range) => {
-    acc[range.id] = updateRangeBySelectingCombos(range, action.payload.combos, range.id === state.selectedRangeId)
+    acc[range.id] = updateRangeBySelectingCombos(
+      range, 
+      action.payload.combos, 
+      selecting,
+      range.id === selectedRangeId)
 
     return acc
   }, {})
@@ -116,6 +125,7 @@ const initialState = {
   equities: {},
   playerHand: '',
   ranges,
+  selecting: true,
   selectedRangeId: find(ranges, { 'name': 'Bet' }).id
 }
 
@@ -240,6 +250,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_SELECTING:
+      nextState = {
+        ...state,
+        selecting: action.payload
+      }
+      break
+
     default:
       nextState = state
   }
@@ -262,6 +279,7 @@ export const getIsComboGroupSelected = (state, id) => {
   return selectedComboGroup && selectedComboGroup.length > 0
 }
 export const getIsEditing = (state) => state.editing
+export const getIsSelecting = (state) => state.selecting
 export const getPlayerHand = (state) => state.playerHand
 export const getRangeColors = (state) => state.colors
 export const getRanges = (state) => map(state.ranges, (range) => range)
