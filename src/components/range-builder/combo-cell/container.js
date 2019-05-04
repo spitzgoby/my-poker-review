@@ -15,7 +15,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onDragStart: setSelecting,
+    onChangeSelecting: setSelecting,
     onSelect: selectCombos
   }, dispatch)
 })

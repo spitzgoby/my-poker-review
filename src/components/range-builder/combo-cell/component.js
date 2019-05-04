@@ -8,13 +8,14 @@ class ComboCell extends Component {
   constructor(props) {
     super(props)
 
-    this.handleClick = this.handleClick.bind(this)
     this.handleDragEnter = this.handleDragEnter.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
+    this.handleMouseDown = this.handleMouseDown.bind(this)
   }
   
   static propTypes = {
     actions: PropTypes.shape({
+      onChangeSelecting: PropTypes.func,
       onSelect: PropTypes.func
     }).isRequired,
     color: PropTypes.string,
@@ -43,35 +44,36 @@ class ComboCell extends Component {
       className: this.props.classes.combocell,
       draggable: true,
       ref: this.props.selectableRef,
-      onClick: this.handleClick,
       onDragEnter: this.handleDragEnter,
       onDragStart: this.handleDragStart,
+      onMouseDown: this.handleMouseDown
     } 
   }
 
-  handleClick() {
-    this.handleSelect()
-  }
-
   handleDragEnter() {
-    this.handleSelect()
+    this.handleSelect(this.props.selecting)
   }
 
   handleDragStart(event) {
     const dataTransfer = event.dataTransfer
-    const onDragStart = this.props.actions.onDragStart
 
     if (dataTransfer) {
       dataTransfer.setData('text/plain', '')
       dataTransfer.setDragImage(ComboCell.dragImage, 0, 0)
     }
-
-    if (onDragStart) {
-      onDragStart(!this.props.color)
-    }
   }
 
-  handleSelect() {
+  handleMouseDown() {
+    const onChangeSelecting = this.props.actions.onChangeSelecting
+
+    if (onChangeSelecting) {
+      onChangeSelecting(!this.props.color)
+    }
+
+    this.handleSelect(!this.props.color)
+  }
+
+  handleSelect(select) {
     const {
       actions: {
         onSelect
@@ -80,7 +82,10 @@ class ComboCell extends Component {
     } = this.props
 
     if (onSelect) {
-      onSelect({combos: comboGroup.combos})
+      onSelect({
+        combos: comboGroup.combos, 
+        select
+      })
     }
   }
 }

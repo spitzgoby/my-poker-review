@@ -18,7 +18,7 @@ export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COM
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')
-export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos')
+export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos', 'select')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setEditing = actionCreator(types.SET_EDITING)
@@ -46,7 +46,7 @@ const updateRangesByDeletingRange = (state, action) => {
   }, {})
 }
 
-const updateRangeBySelectingCombos = (range, combos, selecting, selected) => {
+const updateRangeBySelectingCombos = (range, combos, select, selected) => {
   const selectedCombos = range.selectedCombos
   let newSelectedCombos = {...selectedCombos}
   let newSelectedCombosMap = groupComboIds(combos)
@@ -55,7 +55,7 @@ const updateRangeBySelectingCombos = (range, combos, selecting, selected) => {
     const selectedComboGroup = selectedCombos[comboGroupId] || []
     const diff = difference(selectedCombosList, selectedComboGroup) 
 
-    if (!selecting) {
+    if (!select) {
       newSelectedCombos[comboGroupId] = without(selectedComboGroup, ...selectedCombosList)
     } else {
       newSelectedCombos[comboGroupId] = selectedComboGroup.concat(diff)
@@ -69,17 +69,19 @@ const updateRangeBySelectingCombos = (range, combos, selecting, selected) => {
 }
 
 const updateRangesBySelectingCombos = (state, action) => {
-  const { 
-    selectedRangeId,
-    selecting
-  } = state
+  const {
+    payload: {
+      combos,
+      select
+    }
+  } = action
 
   return reduce(state.ranges, (acc, range) => {
     acc[range.id] = updateRangeBySelectingCombos(
       range, 
-      action.payload.combos, 
-      selecting,
-      range.id === selectedRangeId)
+      combos, 
+      select,
+      range.id === state.selectedRangeId)
 
     return acc
   }, {})
