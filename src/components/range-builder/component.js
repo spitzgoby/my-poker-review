@@ -6,7 +6,7 @@ import comboGroups from 'lib/combo-groups'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {styles} from 'components/range-builder/range-builder-styles'
+import {styles} from 'components/range-builder/styles'
 
 class RangeBuilder extends Component {
 

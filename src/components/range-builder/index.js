@@ -1,3 +1,3 @@
-import RangeBuilder from 'components/range-builder/range-builder-container'
+import RangeBuilder from './container'
 
 export default RangeBuilder
