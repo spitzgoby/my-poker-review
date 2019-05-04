@@ -55,7 +55,7 @@ const updateRangeBySelectingCombos = (range, combos, select, selected) => {
     const selectedComboGroup = selectedCombos[comboGroupId] || []
     const diff = difference(selectedCombosList, selectedComboGroup) 
 
-    if (!select) {
+    if (!select || !selected) {
       newSelectedCombos[comboGroupId] = without(selectedComboGroup, ...selectedCombosList)
     } else {
       newSelectedCombos[comboGroupId] = selectedComboGroup.concat(diff)
