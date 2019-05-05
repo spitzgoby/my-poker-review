@@ -1,9 +1,9 @@
-import {transitionTime} from 'styles/animations'
-import {themeColors} from 'styles/colors'
 import {
   getColor,
   getRangeColor
 } from 'components/range-analyzer/shared/styles'
+import {transitionTimes} from 'styles/animations'
+import {themeColors} from 'styles/colors'
 
 /*-------------*
  * ROW HELPERS *
@@ -44,7 +44,7 @@ export const styles = {
     borderLeft: (props) => getBorder(props, false),
     borderRight: (props) => getBorder(props, false),
     color: (props) => getColor(props.range, props.selected, false),
-    transition: transitionTime,
+    transition: transitionTimes.default,
 
     '&:hover': {
       backgroundColor: props => getBackgroundColor(props, true),

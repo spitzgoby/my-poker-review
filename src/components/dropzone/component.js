@@ -1,9 +1,9 @@
+import styles from 'components/dropzone/styles'
 import CloudUploadIcon from '@material-ui/icons/CloudUpload'
-import injectSheet from 'react-jss'
+import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import styles from 'components/dropzone/dropzone-styles'
-import Typography from '@material-ui/core/Typography'
+import injectSheet from 'react-jss'
 
 class Dropzone extends Component {
 

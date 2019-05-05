@@ -1,6 +1,3 @@
-import Clipboard from 'util/clipboard'
-import injectSheet from 'react-jss'
-import PropTypes from 'prop-types'
 import {
   RangeAnalyzerAnalysisCell,
   RangeAnalyzerCopyCell,
@@ -8,10 +5,13 @@ import {
   RangeAnalyzerNameCell,
   RangeAnalyzerOutputCell
 } from 'components/range-analyzer/cell'
-import React, {Component, Fragment} from 'react'
-import {styles} from 'components/range-analyzer/row/range-analyzer-row-styles'
+import {styles} from 'components/range-analyzer/row/styles'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
+import PropTypes from 'prop-types'
+import React, {Component, Fragment} from 'react'
+import injectSheet from 'react-jss'
+import Clipboard from 'util/clipboard'
 
 class RangeAnalyzerRow extends Component {
 

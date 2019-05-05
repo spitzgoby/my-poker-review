@@ -67,10 +67,10 @@ class ComboCell extends Component {
     const onChangeSelecting = this.props.actions.onChangeSelecting
 
     if (onChangeSelecting) {
-      onChangeSelecting(!this.props.color)
+      onChangeSelecting(!this.props.selected)
     }
 
-    this.handleSelect(!this.props.color)
+    this.handleSelect(!this.props.selected)
   }
 
   handleSelect(select) {

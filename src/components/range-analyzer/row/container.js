@@ -1,4 +1,4 @@
-import {bindActionCreators} from 'redux'
+import RangeAnalyzerRow from 'components/range-analyzer/row/component'
 import {
   clearSelectedCombosFromRange,
   deleteRange,
@@ -9,7 +9,7 @@ import {
   setRangeName
 } from 'modules/range-builder'
 import {connect} from 'react-redux'
-import RangeAnalyzerRow from 'components/range-analyzer/row/range-analyzer-row-component'
+import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state, ownProps) => ({
   rangeAnalysis: getRangeAnalysisForRange(state, ownProps.range.id),

@@ -1,5 +1,5 @@
 import Color from 'color'
-import {transitionTime} from 'styles/animations'
+import {transitionTimes} from 'styles/animations'
 import {themeColors} from 'styles/colors'
 
 const darkerMediumGray = Color(themeColors.neutralGray)
@@ -18,7 +18,7 @@ export default {
     marginTop: '2px',
     minWidth: '30rem',
     padding: '1rem',
-    transition: transitionTime,
+    transition: transitionTimes.default,
 
     '&:hover': {
       backgroundColor: darkerMediumGray,
@@ -34,7 +34,7 @@ export default {
   cloudcontainer: {
     display: 'flex',
     justifyContent: 'center',
-    transition: transitionTime
+    transition: transitionTimes.default
   },
 
   cloudicon: {
@@ -47,6 +47,6 @@ export default {
 
   text: {
     color: themeColors.lightGray,
-    transition: transitionTime
+    transition: transitionTimes.default
   }
 }

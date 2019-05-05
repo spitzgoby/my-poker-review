@@ -1,1 +1,4 @@
-export const transitionTime = '200ms'
+export const transitionTimes = {
+  quick: '100ms',
+  default: '200ms'
+}

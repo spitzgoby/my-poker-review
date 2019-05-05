@@ -1,8 +1,9 @@
+import {types} from 'lib/combos'
+import {transitionTimes} from 'styles/animations'
 import {
   rangeColors,
   themeColors
 } from 'styles/colors'
-import {types} from 'lib/combos'
 
 const comboCellColors = {
   [types.OFFSUIT]: 'rgb(255, 255, 255)',
@@ -15,15 +16,16 @@ const getBackgroundColor = (props, hover = false) => {
   const {
     color,
     comboGroup,
+    selected,
     selectedColor
   } = props
 
   if (hover) {
-    backgroundColor = color
+    backgroundColor = selected
       ? rangeColors['dark' + selectedColor]
       : rangeColors[selectedColor]
   } else {
-    backgroundColor = color 
+    backgroundColor = selected 
       ? rangeColors[color]
       : comboCellColors[comboGroup.type]
   }
@@ -46,19 +48,20 @@ const getColor = (props, hover = false) => {
 
 export const styles = {
   combocell: {
+    alignItems: 'center',
     backgroundColor: props => getBackgroundColor(props, false),
     borderColor: '#e0e0e0',
     borderStyle: 'solid',
     borderWidth: props => getBorderWidth(props),
     color: props => getColor(props, false),
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     fontFamily: 'sans-serif',
     fontWeight: '300',
     fontSize: '1.5rem',
     height: '64px',
+    justifyContent: 'center',
     width: 'calc(100% / 13)',
+    transition: transitionTimes.quick,
 
     '&:hover': {
       backgroundColor: props => getBackgroundColor(props, true),

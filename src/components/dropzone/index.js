@@ -1,3 +1,3 @@
-import Dropzone from 'components/dropzone/dropzone-component'
+import Dropzone from 'components/dropzone/component'
 
 export default Dropzone
