@@ -49,11 +49,11 @@ const getColor = (props, hover = false) => {
 export const styles = {
   combocell: {
     alignItems: 'center',
-    backgroundColor: props => getBackgroundColor(props, false),
+    backgroundColor: (props) => getBackgroundColor(props, false),
     borderColor: '#e0e0e0',
     borderStyle: 'solid',
-    borderWidth: props => getBorderWidth(props),
-    color: props => getColor(props, false),
+    borderWidth: (props) => getBorderWidth(props),
+    color: (props) => getColor(props, false),
     display: 'flex',
     fontFamily: 'sans-serif',
     fontWeight: '300',
@@ -64,8 +64,13 @@ export const styles = {
     transition: transitionTimes.quick,
 
     '&:hover': {
-      backgroundColor: props => getBackgroundColor(props, true),
-      color: props => getColor(props, true)
+      backgroundColor: (props) => getBackgroundColor(props, true),
+      color: (props) => getColor(props, true)
     },
+  },
+
+  firstdragged: {
+    backgroundColor: (props) => getBackgroundColor(props, false),
+    color: (props) => getColor(props, false)
   }
 }

@@ -9,11 +9,15 @@ import {
   setSelecting
 } from 'modules/range-builder'
 
-const mapStateToProps = (state, ownProps) => ({
-  color: makeGetRangeColorForComboGroup()(state, ownProps.comboGroup.id),
-  selected: getIsComboGroupSelected(state, ownProps.comboGroup.id),
-  selecting: getIsSelecting(state)
-})
+const mapStateToProps = (state, ownProps) => {
+  const comboGroupId = ownProps.comboGroup.id
+
+  return {
+    color: makeGetRangeColorForComboGroup()(state, comboGroupId),
+    selected: getIsComboGroupSelected(state, comboGroupId),
+    selecting: getIsSelecting(state)
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({

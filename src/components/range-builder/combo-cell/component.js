@@ -1,7 +1,8 @@
-import injectSheet from 'react-jss'
+import classnames from 'classnames'
+import {styles} from 'components/range-builder/combo-cell/styles'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {styles} from 'components/range-builder/combo-cell/styles'
+import injectSheet from 'react-jss'
 
 class ComboCell extends Component {
 
@@ -9,8 +10,13 @@ class ComboCell extends Component {
     super(props)
 
     this.handleDragEnter = this.handleDragEnter.bind(this)
+    this.handleDragEnd = this.handleDragEnd.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
     this.handleMouseDown = this.handleMouseDown.bind(this)
+
+    this.state = {
+      firstDragged: false
+    }
   }
   
   static propTypes = {
@@ -41,17 +47,38 @@ class ComboCell extends Component {
 
   getProps() {
     return {
-      className: this.props.classes.combocell,
+      className: this.getClass(),
       draggable: true,
-      ref: this.props.selectableRef,
+      onDragEnd: this.handleDragEnd,
       onDragEnter: this.handleDragEnter,
       onDragStart: this.handleDragStart,
-      onMouseDown: this.handleMouseDown
+      onMouseDown: this.handleMouseDown,
+      onMouseUp: this.handleMouseUp,
+      ref: this.props.selectableRef
     } 
+  }
+
+  getClass() {
+    const {
+      combocell,
+      firstdragged
+    } = this.props.classes
+    const classes = {
+      [combocell]: true,
+      [firstdragged]: this.state.firstDragged
+    }
+
+    return classnames(classes)
   }
 
   handleDragEnter() {
     this.handleSelect(this.props.selecting)
+  }
+
+  handleDragEnd() {
+    if (this.state.firstDragged) {
+      this.toggleFirstDragged(false)
+    }
   }
 
   handleDragStart(event) {
@@ -65,6 +92,8 @@ class ComboCell extends Component {
 
   handleMouseDown() {
     const onChangeSelecting = this.props.actions.onChangeSelecting
+
+    this.toggleFirstDragged(true)
 
     if (onChangeSelecting) {
       onChangeSelecting(!this.props.selected)
@@ -88,6 +117,12 @@ class ComboCell extends Component {
       })
     }
   }
+
+  toggleFirstDragged(firstDragged) {
+    this.setState({
+      firstDragged
+    })
+  } 
 }
 
 export default injectSheet(styles)(ComboCell)

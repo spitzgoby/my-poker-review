@@ -91,7 +91,7 @@ const updateSelectedRangeId = (state, action) => {
   const newSelectedRangeId = action.payload.id
   let selectedRangeId = ''
 
-  if (!state.editing && state.selectedRangeId !== newSelectedRangeId) {
+  if (state.selectedRangeId !== newSelectedRangeId) {
     selectedRangeId = newSelectedRangeId
   }
 
@@ -227,8 +227,7 @@ export default (state = initialState, action = {}) => {
     case types.SET_EDITING:
       nextState = {
         ...state,
-        editing: !state.editing,
-        selectedRangeId: ''
+        editing: !state.editing
       }
       break
 
@@ -270,16 +269,12 @@ export default (state = initialState, action = {}) => {
  * SELECTORS *
  *-----------*/
 
-const getSelectedComboIds = (state) => getSelectedRange(state).selectedCombos
 const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 
 export const getBoard = (state) => state.board
 export const getEquities = (state) => state.equities
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
-export const getIsComboGroupSelected = (state, id) => { 
-  const selectedComboGroup = getSelectedComboIds(state)[id]
-  return selectedComboGroup && selectedComboGroup.length > 0
-}
+export const getIsComboGroupSelected = (state, id) => !!getRangeForComboGroup(state, id)
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting
 export const getPlayerHand = (state) => state.playerHand

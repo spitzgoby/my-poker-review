@@ -11,6 +11,7 @@ class RangeAnalyzerNameCell extends Component {
     super(props)
 
     this.handleNameChange = this.handleNameChange.bind(this)
+    this.handleNameClick = this.handleNameClick.bind(this)
   }
 
   static propTypes = {
@@ -39,6 +40,7 @@ class RangeAnalyzerNameCell extends Component {
     return {
       className: classes.input,
       onChange: this.handleNameChange,
+      onClick: this.handleNameClick,
       value: range.name
     }
   }
@@ -49,6 +51,10 @@ class RangeAnalyzerNameCell extends Component {
     if (onNameChange) {
       onNameChange(event.target.value)
     }
+  }
+
+  handleNameClick(event) {
+    event.stopPropagation()
   }
 }
 
