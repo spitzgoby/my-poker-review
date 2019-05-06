@@ -59,13 +59,9 @@ class ComboCell extends Component {
   }
 
   getClass() {
-    const {
-      combocell,
-      firstdragged
-    } = this.props.classes
     const classes = {
-      [combocell]: true,
-      [firstdragged]: this.state.firstDragged
+      [this.props.classes.combocell]: true,
+      firstdragged: this.state.firstDragged
     }
 
     return classnames(classes)

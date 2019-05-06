@@ -67,10 +67,10 @@ export const styles = {
       backgroundColor: (props) => getBackgroundColor(props, true),
       color: (props) => getColor(props, true)
     },
-  },
 
-  firstdragged: {
-    backgroundColor: (props) => getBackgroundColor(props, false),
-    color: (props) => getColor(props, false)
+    '&.firstdragged': {
+      backgroundColor: (props) => getBackgroundColor(props, false),
+      color: (props) => getColor(props, false)
+    }
   }
 }
