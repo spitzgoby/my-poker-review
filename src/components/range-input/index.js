@@ -1,3 +1,3 @@
-import RangeInput from 'components/range-input/range-input-container'
+import RangeInput from './container'
 
 export default RangeInput

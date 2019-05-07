@@ -4,7 +4,7 @@ import {
   getPlayerHand,
   setPlayerHand
 } from 'modules/range-builder'
-import RangeInput from 'components/range-input/range-input-component'
+import RangeInput from 'components/range-input/component'
 
 const mapStateToProps = (state) => ({
   playerHand: getPlayerHand(state)
