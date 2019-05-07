@@ -12,6 +12,8 @@ class BoardInput extends Component {
     super(props)
 
     this.handleBoardChange = this.handleBoardChange.bind(this)
+    this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
+    this.setBoardInputRef = this.setBoardInputRef.bind(this)
   }
 
   static propTypes = {
@@ -29,7 +31,7 @@ class BoardInput extends Component {
   render() {
     return (
         <div>
-          <TextField {...this.getInputProps()} />
+          <TextField {...this.getTextFieldProps()} />
           {this.renderCardIcons()}
         </div>
     ) 
@@ -41,7 +43,9 @@ class BoardInput extends Component {
     if (this.props.board) {
       component = (
           <InputAdornment position="end">
-            <IconButton><ClearIcon /></IconButton>
+            <IconButton onClick={this.handleClearButtonClick}>
+              <ClearIcon />
+            </IconButton>
           </InputAdornment>
       )
     }
@@ -55,13 +59,14 @@ class BoardInput extends Component {
     })
   }
 
-  getInputProps() {
+  getTextFieldProps() {
     const board = this.props.board
 
     return {
       InputProps: {
         endAdornment: this.renderClearButton(),
       },
+      inputRef: this.setBoardInputRef,
       label: 'Board',
       onChange: this.handleBoardChange,
       value: board,
@@ -70,14 +75,31 @@ class BoardInput extends Component {
   }
 
   handleBoardChange(event) {
+    this.updateBoard(event.target.value)
+  }
+
+  handleClearButtonClick(event) {
+    this.updateBoard('')
+
+    this.focusInput()
+  }
+
+  updateBoard(value) {
     const setBoard = this.props.actions.setBoard
 
     if (setBoard) {
-      setBoard({
-        value: event.target.value
-      })
+      setBoard({value})
     }
   }
+
+  setBoardInputRef(component) {
+    this.boardInput = component
+  }
+
+  focusInput() {
+    this.boardInput.focus()
+  }
+
 }
 
 export default BoardInput
