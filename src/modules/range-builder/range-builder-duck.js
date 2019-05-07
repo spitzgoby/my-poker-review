@@ -126,7 +126,6 @@ const initialState = {
   boardCards: [],
   colors: rangeColorList,
   editing: false,
-  equities: {},
   playerHand: '',
   ranges,
   selecting: true,
@@ -151,6 +150,15 @@ export default (state = initialState, action = {}) => {
           }, rangeId)
         },
         selectedRangeId: rangeId
+      }
+      break
+
+    case types.CLEAR_ALL:
+      nextState = {
+        ...state,
+        board: '',
+        boardCards: [],
+        ranges: updateRangesByClearingAllSelectedCombos(state)
       }
       break
 
@@ -277,7 +285,6 @@ const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {
 
 export const getBoard = (state) => state.board
 export const getBoardCards = (state) => state.boardCards
-export const getEquities = (state) => state.equities
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboGroupSelected = (state, id) => !!getRangeForComboGroup(state, id)
 export const getIsEditing = (state) => state.editing

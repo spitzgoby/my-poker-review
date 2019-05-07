@@ -1,5 +1,6 @@
 export const types = {
   ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
+  CLEAR_ALL: '@my-poker-review/range-builder/CLEAR_ALL',
   CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
   CLEAR_SELECTED_COMBOS_FROM_RANGE: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBOS_FROM_RANGE',
   CLEAR_SELECTED_COMBO_GROUP_IDS: '@my-poker-review/range-builder/CLEAR_SELECTED_COMBO_GROUP_IDS',

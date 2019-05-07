@@ -55,8 +55,6 @@ export const getBoard = (state) =>
   fromRangeBuilder.getBoard(getRangeBuilderState(state))
 export const getBoardCards = (state) =>
   fromRangeBuilder.getBoardCards(getRangeBuilderState(state))
-export const getEquities = (state) => 
-  fromRangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsAddRangeMenuOpen = (state) =>
   fromRangeBuilder.getIsAddRangeMenuOpen(getRangeBuilderState(state))
 export const getIsEditing = (state) =>

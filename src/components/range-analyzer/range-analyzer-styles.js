@@ -2,7 +2,7 @@ export const styles = {
   boardinput: {
     display: 'flex', 
     justifyContent: 'space-between',
-    padding: '2rem'
+    padding: '1.5rem'
   }
 }
 

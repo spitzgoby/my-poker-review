@@ -1,5 +1,6 @@
 import {
   addRange,
+  clearAll,
   clearAllSelectedCombos,
   getIsEditing,
   getRanges,
@@ -17,6 +18,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     onAddRange: addRange,
+    onClearAll: clearAll,
     onClearCombos: clearAllSelectedCombos,
     onEdit: setEditing
   }, dispatch)

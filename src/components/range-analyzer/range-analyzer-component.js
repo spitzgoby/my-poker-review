@@ -22,6 +22,7 @@ class RangeAnalyzer extends Component {
   constructor(props) {
     super(props)
 
+    this.handleClearAllButtonClick = this.handleClearAllButtonClick.bind(this)
     this.handleClearCombosButtonClick = this.handleClearCombosButtonClick.bind(this)
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
 
@@ -81,7 +82,9 @@ class RangeAnalyzer extends Component {
         </Table>
         <div className={classes.boardinput}>
           <BoardInput />
-          <Button >Clear All</Button>
+          <Button onClick={this.handleClearAllButtonClick}>
+            Clear All
+          </Button>
         </div>
       </Paper>
     ) 
@@ -132,6 +135,15 @@ class RangeAnalyzer extends Component {
       onEdit()
     }
   }
+
+  handleClearAllButtonClick() {
+    const onClearAll = this.props.actions.onClearAll
+
+    if (onClearAll) {
+      onClearAll()
+    }   
+  }
+
 }
 
 export default injectSheet(styles)(RangeAnalyzer)

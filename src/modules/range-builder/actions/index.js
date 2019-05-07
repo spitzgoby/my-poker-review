@@ -1,3 +1,4 @@
+export * from './clear-all'
 export * from './export-ranges'
 export * from './import-ranges'
 export * from './set-add-range-menu-open'
