@@ -1,5 +1,3 @@
-import {actionCreator} from 'redux-action-creator'
-import {createRange, ranges} from 'modules/range-builder/ranges'
 import {
   difference, 
   forEach, 
@@ -9,8 +7,10 @@ import {
   without
 } from 'lodash'
 import {types} from 'modules/range-builder/constants'
-import {groupComboIds} from 'util/group-combos'
+import {createRange, ranges} from 'modules/range-builder/ranges'
+import {actionCreator} from 'redux-action-creator'
 import {rangeColorList} from 'styles/colors/range-colors'
+import {groupComboIds} from 'util/group-combos'
 import uuid from 'uuid/v4'
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
@@ -147,7 +147,8 @@ export default (state = initialState, action = {}) => {
             color: action.payload.color,
             name: action.payload.color,
           }, rangeId)
-        }
+        },
+        selectedRangeId: rangeId
       }
       break
 

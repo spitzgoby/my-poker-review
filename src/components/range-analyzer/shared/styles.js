@@ -24,3 +24,17 @@ export const getColor = (range, selected, hover) => {
 
   return color
 }
+
+export const cell = {
+  cell: {
+    borderBottom: (props) => props.expanded 
+      ? 'none'
+      : `1px solid ${themeColors.neutralGray}`,
+    color: (props) => getColor(props.range, props.selected, false),
+    width: (props) => props.width,
+
+    '&:hover': {
+      color: (props) => getColor(props.range, props.selected, true)
+    }
+  }
+}

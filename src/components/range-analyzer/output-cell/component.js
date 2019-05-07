@@ -1,8 +1,8 @@
-import injectSheet from 'react-jss'
+import styles from 'components/range-analyzer/output-cell/styles'
+import TableCell from '@material-ui/core/TableCell'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import styles from 'components/range-analyzer/cell/range-analyzer-output-cell-styles'
-import TableCell from '@material-ui/core/TableCell'
+import injectSheet from 'react-jss'
 
 class RangeAnalyzerOutputCell extends Component {
 

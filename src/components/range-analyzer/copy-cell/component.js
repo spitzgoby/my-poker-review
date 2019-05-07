@@ -1,11 +1,11 @@
-import FileCopyIcon from '@material-ui/icons/FileCopy'
+import styles from 'components/range-analyzer/copy-cell/styles'
 import IconButton from '@material-ui/core/IconButton'
-import injectSheet from 'react-jss'
-import PropTypes from 'prop-types'
-import React, {Component} from 'react'
-import styles from 'components/range-analyzer/cell/range-analyzer-copy-cell-styles'
 import TableCell from '@material-ui/core/TableCell'
 import Tooltip from '@material-ui/core/Tooltip'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
+import injectSheet from 'react-jss'
 
 class RangeAnalyzerCopyCell extends Component {
 

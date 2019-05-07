@@ -1,9 +1,9 @@
-import injectSheet from 'react-jss'
+import {styles} from 'components/range-analyzer/name-cell/styles'
 import Input from '@material-ui/core/Input'
+import TableCell from '@material-ui/core/TableCell'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import TableCell from '@material-ui/core/TableCell'
-import {styles} from 'components/range-analyzer/cell/range-analyzer-name-cell-styles'
+import injectSheet from 'react-jss'
 
 class RangeAnalyzerNameCell extends Component {
 
@@ -12,6 +12,7 @@ class RangeAnalyzerNameCell extends Component {
 
     this.handleNameChange = this.handleNameChange.bind(this)
     this.handleNameClick = this.handleNameClick.bind(this)
+    this.setNameInputRef = this.setNameInputRef.bind(this)
   }
 
   static propTypes = {
@@ -21,6 +22,12 @@ class RangeAnalyzerNameCell extends Component {
       name: PropTypes.string
     }),
     selected: PropTypes.bool
+  }
+
+  componentDidMount() {
+    if (this.props.selected && this.nameInput) {
+      this.nameInput.focus()
+    }
   }
 
   render() {
@@ -41,6 +48,7 @@ class RangeAnalyzerNameCell extends Component {
       className: classes.input,
       onChange: this.handleNameChange,
       onClick: this.handleNameClick,
+      inputRef: this.setNameInputRef,
       value: range.name
     }
   }
@@ -55,6 +63,10 @@ class RangeAnalyzerNameCell extends Component {
 
   handleNameClick(event) {
     event.stopPropagation()
+  }
+
+  setNameInputRef(component) {
+    this.nameInput = component
   }
 }
 

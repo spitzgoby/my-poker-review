@@ -1,10 +1,8 @@
-import {
-  RangeAnalyzerAnalysisCell,
-  RangeAnalyzerCopyCell,
-  RangeAnalyzerEditCell,
-  RangeAnalyzerNameCell,
-  RangeAnalyzerOutputCell
-} from 'components/range-analyzer/cell'
+import RangeAnalyzerCopyCell from 'components/range-analyzer/copy-cell'
+import RangeAnalyzerAnalysisCell from 'components/range-analyzer/analysis-cell'
+import RangeAnalyzerEditCell from 'components/range-analyzer/edit-cell'
+import RangeAnalyzerNameCell from 'components/range-analyzer/name-cell'
+import RangeAnalyzerOutputCell from 'components/range-analyzer/output-cell'
 import {styles} from 'components/range-analyzer/row/styles'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'

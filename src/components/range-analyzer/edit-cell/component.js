@@ -1,14 +1,14 @@
+import styles from 'components/range-analyzer/edit-cell/styles'
 import Button from '@material-ui/core/Button'
 import Fade from '@material-ui/core/Fade'
-import DeleteIcon from '@material-ui/icons/Delete'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import IconButton from '@material-ui/core/IconButton'
-import injectSheet from 'react-jss'
-import PropTypes from 'prop-types'
-import React, {Component} from 'react'
-import styles from 'components/range-analyzer/cell/range-analyzer-edit-cell-styles'
 import TableCell from '@material-ui/core/TableCell'
 import Tooltip from '@material-ui/core/Tooltip'
+import DeleteIcon from '@material-ui/icons/Delete'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
+import injectSheet from 'react-jss'
 
 class RangeAnalyzerEditCell extends Component {
 

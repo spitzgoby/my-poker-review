@@ -1,8 +1,10 @@
-import {getColor} from 'components/range-analyzer/shared/styles'
-import cellStyles from 'components/range-analyzer/cell/shared/styles'
+import {
+  cell,
+  getColor
+} from 'components/range-analyzer/shared/styles'
 
 export default {
-  ...cellStyles,
+  ...cell,
   button: {
     color: (props) => getColor(props.range, props.selected, false)
   },
