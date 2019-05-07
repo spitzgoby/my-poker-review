@@ -10,6 +10,7 @@ import {types} from 'modules/range-builder/constants'
 import {createRange, ranges} from 'modules/range-builder/ranges'
 import {actionCreator} from 'redux-action-creator'
 import {rangeColorList} from 'styles/colors/range-colors'
+import {parseCardInput} from 'util/card-input-parser'
 import {groupComboIds} from 'util/group-combos'
 import uuid from 'uuid/v4'
 
@@ -122,6 +123,7 @@ const findRangeContainingComboGroup = (ranges, comboGroupId) => {
 const initialState = {
   addRangeMenuOpen: false,
   board: '',
+  boardCards: [],
   colors: rangeColorList,
   editing: false,
   equities: {},
@@ -221,7 +223,8 @@ export default (state = initialState, action = {}) => {
     case types.SET_BOARD:
       nextState = {
         ...state,
-        board: action.payload.value
+        board: action.payload.value,
+        boardCards: parseCardInput(action.payload.value)
       }
       break
 
@@ -273,6 +276,7 @@ export default (state = initialState, action = {}) => {
 const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 
 export const getBoard = (state) => state.board
+export const getBoardCards = (state) => state.boardCards
 export const getEquities = (state) => state.equities
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboGroupSelected = (state, id) => !!getRangeForComboGroup(state, id)

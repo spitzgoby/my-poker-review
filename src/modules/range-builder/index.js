@@ -2,7 +2,6 @@ import exportReducer, * as fromExport from 'modules/range-builder/reducers/expor
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 import {createSelector} from 'reselect'
-import {parseCardInput} from 'util/card-input-parser'
 import {analyzeRanges} from 'util/range-analyzer'
 import {rangeFromCombos} from 'util/range-output-builder'
 
@@ -54,6 +53,8 @@ export const getIsImporting = (state) => fromImport.getIsImporting(getImportStat
 const getRangeBuilderState = (state) => state.RangeBuilder
 export const getBoard = (state) => 
   fromRangeBuilder.getBoard(getRangeBuilderState(state))
+export const getBoardCards = (state) =>
+  fromRangeBuilder.getBoardCards(getRangeBuilderState(state))
 export const getEquities = (state) => 
   fromRangeBuilder.getEquities(getRangeBuilderState(state))
 export const getIsAddRangeMenuOpen = (state) =>
@@ -91,9 +92,9 @@ export const makeGetRangeColorForComboGroup = () => createSelector(
 )
 
 export const getRangesAnalysis = createSelector(
-  getBoard,
+  getBoardCards,
   getRanges,
-  (board, ranges) => analyzeRanges(ranges, parseCardInput(board))
+  (boardCards, ranges) => analyzeRanges(ranges, boardCards)
 )
 
 export const getRangeAnalysisForRange = (state, id) => 

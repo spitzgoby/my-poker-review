@@ -1,3 +1,4 @@
+import CardIcon from 'components/card-icon/component'
 import ClearIcon from '@material-ui/icons/Clear'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -16,12 +17,21 @@ class BoardInput extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       setBoard: PropTypes.func
-    })
+    }),
+    board: PropTypes.string,
+    cards: PropTypes.arrayOf(PropTypes.string).isRequired
+  }
+
+  static defaultProps = {
+    cardIds: []
   }
 
   render() {
     return (
-        <TextField {...this.getInputProps()} />
+        <div>
+          <TextField {...this.getInputProps()} />
+          {this.renderCardIcons()}
+        </div>
     ) 
   }
 
@@ -37,6 +47,12 @@ class BoardInput extends Component {
     }
 
     return component
+  }
+
+  renderCardIcons() {
+    return this.props.cards.map((card) => {
+      return <CardIcon cardId={card.id} key={card.id} />
+    })
   }
 
   getInputProps() {
