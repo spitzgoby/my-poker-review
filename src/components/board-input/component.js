@@ -2,9 +2,11 @@ import CardIcon from 'components/card-icon/component'
 import ClearIcon from '@material-ui/icons/Clear'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
+import TextField from '@material-ui/core/TextField'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import TextField from '@material-ui/core/TextField'
+import injectSheet from 'react-jss'
+import styles from 'components/board-input/styles'
 
 class BoardInput extends Component {
 
@@ -63,6 +65,7 @@ class BoardInput extends Component {
     const board = this.props.board
 
     return {
+      className: this.props.classes.board,
       InputProps: {
         endAdornment: this.renderClearButton(),
       },
@@ -102,4 +105,4 @@ class BoardInput extends Component {
 
 }
 
-export default BoardInput
+export default injectSheet(styles)(BoardInput)

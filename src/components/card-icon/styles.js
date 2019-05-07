@@ -8,6 +8,7 @@ export default {
   icon: {
     fill: (props) => getFill(props, false),
     height: '56px',
-    width: '56px'
+    marginRight: '0.5rem',
+    width: '44px'
   }
 }
