@@ -1,12 +1,13 @@
 import CardIcon from 'components/card-icon/component'
-import ClearIcon from '@material-ui/icons/Clear'
+import styles from 'components/board-input/styles'
+import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
 import TextField from '@material-ui/core/TextField'
+import ClearIcon from '@material-ui/icons/Clear'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
-import styles from 'components/board-input/styles'
 
 class BoardInput extends Component {
 
@@ -40,19 +41,15 @@ class BoardInput extends Component {
   }
 
   renderClearButton() {
-    let component = null
-
-    if (this.props.board) {
-      component = (
-          <InputAdornment position="end">
-            <IconButton onClick={this.handleClearButtonClick}>
-              <ClearIcon />
-            </IconButton>
-          </InputAdornment>
-      )
-    }
-
-    return component
+    return (
+      <Fade in={!!this.props.board}>
+        <InputAdornment position="end">
+          <IconButton onClick={this.handleClearButtonClick}>
+            <ClearIcon />
+          </IconButton>
+        </InputAdornment>
+      </Fade>
+    )
   }
 
   renderCardIcons() {
