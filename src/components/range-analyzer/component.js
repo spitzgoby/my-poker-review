@@ -1,21 +1,21 @@
 import BoardInput from 'components/board-input'
-import Button from '@material-ui/core/Button'
-import ClearIcon from '@material-ui/icons/Clear'
-import EditIcon from '@material-ui/icons/Edit'
-import IconButton from '@material-ui/core/IconButton'
-import injectSheet from 'react-jss'
-import Paper from '@material-ui/core/Paper'
-import PropTypes from 'prop-types'
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar'
 import RangeAnalyzerRow from 'components/range-analyzer/row'
-import React, {Component} from 'react'
-import {styles} from 'components/range-analyzer/range-analyzer-styles'
+import {styles} from 'components/range-analyzer/styles'
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Tooltip from '@material-ui/core/Tooltip'
+import ClearIcon from '@material-ui/icons/Clear'
+import EditIcon from '@material-ui/icons/Edit'
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
+import injectSheet from 'react-jss'
 
 class RangeAnalyzer extends Component {
 
@@ -143,7 +143,6 @@ class RangeAnalyzer extends Component {
       onClearAll()
     }   
   }
-
 }
 
 export default injectSheet(styles)(RangeAnalyzer)

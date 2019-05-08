@@ -1,9 +1,9 @@
-import injectSheet from 'react-jss'
+import styles from 'components/range-analyzer/color-block/styles.js'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import styles from 'components/range-analyzer/range-color-block-styles.js'
+import injectSheet from 'react-jss'
 
-class component extends Component {
+class ColorBlock extends Component {
 
   static propTypes = {
     color: PropTypes.string
@@ -16,4 +16,4 @@ class component extends Component {
   }
 }
 
-export default injectSheet(styles)(component)
+export default injectSheet(styles)(ColorBlock)

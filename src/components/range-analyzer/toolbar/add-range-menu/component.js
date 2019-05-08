@@ -1,4 +1,4 @@
-import RangeColorBlock from 'components/range-analyzer/range-color-block'
+import ColorBlock from 'components/range-analyzer/color-block'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -37,7 +37,7 @@ class AddRangeMenu extends Component {
     return (
       <Tooltip key={color} title={`Add a new ${color} range`}>
         <MenuItem onClick={() => this.handleMenuItemClick(color)}>
-          <RangeColorBlock color={color} />
+          <ColorBlock color={color} />
         </MenuItem>
       </Tooltip>
     )
