@@ -124,7 +124,7 @@ class RangeAnalyzerRow extends Component {
     return {
       ...this.getDefaultCellProps(),
       editing,
-      expandable: (rangeOutput),
+      expandable: !!rangeOutput,
       onClear: this.handleClear,
       onDelete: this.handleDelete,
       onExpand: this.handleExpand,
