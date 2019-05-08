@@ -1,4 +1,4 @@
-import Color from 'color'
+import {generateColors} from 'styles/colors/generate-colors'
 
 export const rangeColorList = [{
   name: 'blue',
@@ -19,20 +19,7 @@ export const rangeColorList = [{
   name: 'black',
   rgb: [0, 15, 8]
 }]
+
 export const rangeColorNames = ['blue', 'red', 'yellow', 'green', 'purple', 'black']
 
-const DARK_COLOR_SUFFIX = 'dark'
-const generateColors = (colorInfo) => {
-  const color = Color(colorInfo.rgb)
-  const darkenAmount = 0.10
-
-  return {
-    [colorInfo.name]: color.string(),
-    [DARK_COLOR_SUFFIX + colorInfo.name]: color.darken(darkenAmount).string()
-  }
-}
-
-export const rangeColors = rangeColorList.reduce((acc, colorInfo) => ({
-    ...acc,
-    ...generateColors(colorInfo)
-}), {})
+export const rangeColors = generateColors(rangeColorList)

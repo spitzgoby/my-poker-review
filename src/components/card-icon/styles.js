@@ -1,7 +1,11 @@
-const getFill = (props) => {
-  const black = props.cardId.includes('s') || props.cardId.includes('c')
+import {cardColors} from 'styles/colors'
 
-  return black ? 'black' : 'red'
+const SUIT_INDEX = 1
+
+const getFill = (props, hover) => {
+  return hover 
+    ? cardColors['dark' + props.cardId[SUIT_INDEX]]
+    : cardColors[props.cardId[SUIT_INDEX]]
 }
 
 export default {
@@ -9,6 +13,10 @@ export default {
     fill: (props) => getFill(props, false),
     height: '56px',
     marginRight: '0.5rem',
-    width: '44px'
+    width: '44px',
+
+    '&:hover': {
+      fill: (props) => getFill(props, true),
+    }
   }
 }
