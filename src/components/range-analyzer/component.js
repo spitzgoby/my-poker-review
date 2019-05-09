@@ -1,4 +1,4 @@
-import BoardInput from 'components/board-input'
+import Board from 'components/board'
 import RangeAnalyzerHeader from 'components/range-analyzer/header'
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar'
 import RangeAnalyzerRow from 'components/range-analyzer/row'
@@ -52,7 +52,7 @@ class RangeAnalyzer extends Component {
           </TableBody>
         </Table>
         <div className={classes.board}>
-          <BoardInput />
+          <Board />
           <Button onClick={this.handleClearAllButtonClick}>
             Clear All
           </Button>

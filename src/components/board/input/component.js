@@ -1,5 +1,4 @@
-import CardIcon from 'components/card-icon/component'
-import styles from 'components/board-input/styles'
+import styles from 'components/board/input/styles'
 import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -20,23 +19,14 @@ class BoardInput extends Component {
   }
 
   static propTypes = {
-    actions: PropTypes.shape({
-      setBoard: PropTypes.func
-    }),
     board: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.string).isRequired
-  }
-
-  static defaultProps = {
-    cardIds: []
+    cards: PropTypes.arrayOf(PropTypes.string).isRequired,
+    onChange: PropTypes.func
   }
 
   render() {
     return (
-        <div>
-          <TextField {...this.getTextFieldProps()} />
-          {this.renderCardIcons()}
-        </div>
+      <TextField {...this.getTextFieldProps()} />
     ) 
   }
 
@@ -50,12 +40,6 @@ class BoardInput extends Component {
         </InputAdornment>
       </Fade>
     )
-  }
-
-  renderCardIcons() {
-    return this.props.cards.map((card) => {
-      return <CardIcon cardId={card.id} key={card.id} />
-    })
   }
 
   getTextFieldProps() {
@@ -85,10 +69,10 @@ class BoardInput extends Component {
   }
 
   updateBoard(value) {
-    const setBoard = this.props.actions.setBoard
+    const onChange = this.props.onChange
 
-    if (setBoard) {
-      setBoard({value})
+    if (onChange) {
+      onChange(value)
     }
   }
 
@@ -99,7 +83,6 @@ class BoardInput extends Component {
   focusInput() {
     this.boardInput.focus()
   }
-
 }
 
 export default injectSheet(styles)(BoardInput)

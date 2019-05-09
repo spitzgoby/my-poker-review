@@ -1,11 +1,12 @@
-import {bindActionCreators} from 'redux'
-import BoardInput from 'components/board-input/component'
-import {connect} from 'react-redux'
+import Board from 'components/board/component'
 import {
   getBoard,
   getBoardCards,
   setBoard
 } from 'modules/range-builder'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+
 
 const mapStateToProps = (state) => ({
   board: getBoard(state),
@@ -18,4 +19,4 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(BoardInput)
+export default connect(mapStateToProps, mapDispatchToProps)(Board)
