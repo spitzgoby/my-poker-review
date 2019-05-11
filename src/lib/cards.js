@@ -44,13 +44,17 @@ export const createCard = (rank, suit) => {
 /*-------*
  * CARDS *
  *-------*/
-
+let cardMap = {}
 export const cards = ranks.list.reduce((acc, rank) => {
   suits.list.forEach((suit) => {
-    acc.push(createCard(rank, suit))
+    const card = createCard(rank, suit)
+    acc.push(card)
+    cardMap[card.id] = card
   })
 
   return acc
 }, [])
+
+export const getCard = (cardId) => cardMap[cardId]
 
 export default cards

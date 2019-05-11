@@ -1,4 +1,6 @@
-import CardIcons from 'components/card-icon/icons'
+import RankPath from 'components/card-icon/rank-path'
+import SuitPath from 'components/card-icon/suit-path'
+import {getCard} from 'lib/cards'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -11,14 +13,26 @@ class CardIcon extends Component {
   }
 
   render() {
-    const Icon = CardIcons[this.props.cardId]
+    const {
+      rank,
+      suit
+    } = getCard(this.props.cardId)
 
-    return <Icon {...this.getProps()} />
+    return (
+      <svg {...this.getProps()}>
+        <RankPath rank={rank} />
+        <SuitPath suit={suit} />
+      </svg>
+    )
   }
 
   getProps() {
     return {
-      className: this.props.classes.icon
+      className: this.props.classes.icon,
+      viewBox: '0 0 84 128',
+      x: '0',
+      'xml:space': 'preserve',
+      y: '0' 
     }
   }
 }

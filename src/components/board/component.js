@@ -37,10 +37,8 @@ class Board extends Component {
   }
 
   getBoardProps() {
-    const board = this.props.board
-
     return {
-      board,
+      board: this.props.board,
       onChange: this.handleBoardChange
     }
   }
