@@ -1,12 +1,12 @@
-import injectSheet from 'react-jss'
-import PropTypes from 'prop-types'
+import Board from 'components/board'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
-import React, {Component} from 'react'
 import {styles} from 'components/home/home-styles'
+import PropTypes from 'prop-types'
+import React, {Component} from 'react'
+import injectSheet from 'react-jss'
 
 import 'typeface-roboto'
-
 
 class Home extends Component {
 
@@ -26,6 +26,7 @@ class Home extends Component {
         <RangeBuilder className={classes.builder}/>
         <div className={classes.info}> 
           <RangeAnalyzer />
+          <Board className={classes.board} />
         </div>
       </div>
     )

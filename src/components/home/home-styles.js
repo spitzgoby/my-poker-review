@@ -15,6 +15,10 @@ export const styles = {
   info: {
     marginLeft: gutterWidth,
     width: 'calc(50% - 3rem)'
+  },
+
+  board: {
+    marginTop: gutterWidth
   }
 }
 

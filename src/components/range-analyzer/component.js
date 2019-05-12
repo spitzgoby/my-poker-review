@@ -40,8 +40,6 @@ class RangeAnalyzer extends Component {
   }
 
   render() {
-    const classes = this.props.classes
-
     return (
       <Paper> 
         <RangeAnalyzerToolbar />
@@ -51,12 +49,6 @@ class RangeAnalyzer extends Component {
             {this.renderRangeRows()}
           </TableBody>
         </Table>
-        <div className={classes.board}>
-          <Board />
-          <Button onClick={this.handleClearAllButtonClick}>
-            Clear All
-          </Button>
-        </div>
       </Paper>
     ) 
   }

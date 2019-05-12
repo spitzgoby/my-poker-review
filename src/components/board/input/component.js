@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import styles from 'components/board/input/styles'
 import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
@@ -20,7 +21,9 @@ class BoardInput extends Component {
 
   static propTypes = {
     board: PropTypes.string,
-    onChange: PropTypes.func
+    className: PropTypes.string,
+    onChange: PropTypes.func,
+    street: PropTypes.string
   }
 
   render() {
@@ -42,20 +45,32 @@ class BoardInput extends Component {
   }
 
   getTextFieldProps() {
-    const board = this.props.board
+    const { 
+      board,
+      street
+    } = this.props
 
     return {
-      className: this.props.classes.board,
+      className: this.getClass(),
       InputProps: {
         endAdornment: this.renderClearButton(),
       },
       inputRef: this.setBoardInputRef,
-      label: 'Board',
+      label: street,
       maxLength: 10,
       onChange: this.handleBoardChange,
       value: board,
       variant: 'outlined'
     }
+  }
+
+  getClass() {
+    const {
+      classes,
+      className
+    } = this.props
+
+    return classnames(classes.board, className)
   }
 
   handleBoardChange(event) {
