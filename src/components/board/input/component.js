@@ -20,7 +20,6 @@ class BoardInput extends Component {
 
   static propTypes = {
     board: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.string).isRequired,
     onChange: PropTypes.func
   }
 
@@ -52,6 +51,7 @@ class BoardInput extends Component {
       },
       inputRef: this.setBoardInputRef,
       label: 'Board',
+      maxLength: 10,
       onChange: this.handleBoardChange,
       value: board,
       variant: 'outlined'

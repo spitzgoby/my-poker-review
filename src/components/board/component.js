@@ -18,7 +18,11 @@ class Board extends Component {
       setBoard: PropTypes.func
     }).isRequired,
     board: PropTypes.string,
-    cards: PropTypes.arrayOf(PropTypes.string)
+    cards: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string
+      })
+    )
   }
 
   render() {
@@ -32,7 +36,7 @@ class Board extends Component {
 
   renderCardIcons() {
     return this.props.cards.map((card) => {
-      return <CardIcon cardId={card.id} key={card.id} />
+      return <CardIcon card={card} key={card.id} />
     })
   }
 

@@ -1,11 +1,10 @@
 import {cardColors} from 'styles/colors'
 
-const SUIT_INDEX = 1
-
 const getColor = (props, hover) => {
+  const suit = props.card.suit
   return hover 
-    ? cardColors['dark' + props.cardId[SUIT_INDEX]]
-    : cardColors[props.cardId[SUIT_INDEX]]
+    ? cardColors['dark' + suit]
+    : cardColors[suit]
 }
 
 export default {
@@ -16,7 +15,7 @@ export default {
     height: '56px',
     marginRight: '0.5rem',
     stroke: (props) => getColor(props, false),
-    width: '38px',
+    width: '44px',
 
     '&:hover': {
       fill: (props) => getColor(props, true),
