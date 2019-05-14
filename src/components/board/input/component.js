@@ -22,8 +22,7 @@ class BoardInput extends Component {
   static propTypes = {
     board: PropTypes.string,
     className: PropTypes.string,
-    onChange: PropTypes.func,
-    street: PropTypes.string
+    onChange: PropTypes.func
   }
 
   render() {
@@ -47,20 +46,20 @@ class BoardInput extends Component {
   getTextFieldProps() {
     const { 
       board,
-      street
     } = this.props
 
     return {
       className: this.getClass(),
+      inputProps: {
+        maxLength: 10
+      },
       InputProps: {
         endAdornment: this.renderClearButton(),
       },
       inputRef: this.setBoardInputRef,
-      label: street,
-      maxLength: 10,
+      label: 'Cards',
       onChange: this.handleBoardChange,
-      value: board,
-      variant: 'outlined'
+      value: board
     }
   }
 
@@ -84,7 +83,9 @@ class BoardInput extends Component {
   }
 
   updateBoard(value) {
-    const onChange = this.props.onChange
+    const {
+      onChange
+    } = this.props
 
     if (onChange) {
       onChange(value)

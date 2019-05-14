@@ -1,5 +1,6 @@
 export default {
   board: {
-    marginRight: '1rem'
+    marginRight: '16px',
+    maxWidth: '156px'
   }
 }

@@ -1,7 +1,8 @@
 import classnames from 'classnames'
 import BoardInput from 'components/board/input'
-import CardIcon from 'components/card-icon/component'
+import CardIcon from 'components/card-icon'
 import styles from 'components/board/styles'
+import Street from 'components/board/street'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -33,24 +34,22 @@ class Board extends Component {
 
   render() {
     return (
-      <Paper className={this.props.className}> 
+      <Paper className={this.getClass()}> 
         <Toolbar>
           <Typography className={this.props.classes.title} variant="h5">
             Board
           </Typography>
         </Toolbar>
         <Grid container>
-          <Grid item xs={6}>
-            <BoardInput {...this.getFlopProps()} />
-            {this.renderCardIcons()}
-          </Grid>
           <Grid item xs={3}>
             <BoardInput {...this.getFlopProps()} />
-            {this.renderCardIcons()}
           </Grid>
-          <Grid item xs={3}>
-            <BoardInput {...this.getFlopProps()} />
-            {this.renderCardIcons()}
+          <Grid item xs={9} >
+            <Grid container direction="row">
+              <Street street="FLOP" />
+              <Street street="TURN" />
+              <Street street="RIVER" />
+            </Grid>
           </Grid>
         </Grid>
       </Paper>
@@ -75,6 +74,15 @@ class Board extends Component {
       street: 'Flop',
       onChange: this.handleBoardChange
     }
+  }
+
+  getClass() {
+    const {
+      classes,
+      className
+    } = this.props
+
+    return classnames(classes.board, className)
   }
 
   handleBoardChange(value) {

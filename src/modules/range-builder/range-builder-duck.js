@@ -1,3 +1,4 @@
+import {STREETS} from 'lib/poker-constants'
 import {
   difference, 
   forEach, 
@@ -285,6 +286,15 @@ const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {
 
 export const getBoard = (state) => state.board
 export const getBoardCards = (state) => state.boardCards
+export const getCardsForStreet = (state, street) => {
+  const boardCards = getBoardCards(state)
+  const {
+    index,
+    count
+  } = STREETS[street]
+
+  return boardCards.slice(index, index + count)
+}
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboGroupSelected = (state, id) => !!getRangeForComboGroup(state, id)
 export const getIsEditing = (state) => state.editing

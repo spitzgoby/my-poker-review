@@ -22,6 +22,21 @@ export const PAIR_HANDS = [
   ['h','s']
 ]
 export const RANKS = ['A','K','Q','J','T','9','8','7','6','5','4','3','2']
+export const STREETS = {
+  FLOP: {
+    index: 0,
+    count: 3
+  },
+  TURN: {
+    index: 3,
+    count: 1
+  },
+  RIVER: {
+    index: 4,
+    count: 1
+  },
+  list: ['FLOP', 'TURN', 'RIVER']
+}
 export const SUITED_HANDS = [
   ['c','c'],
   ['d','d'],
