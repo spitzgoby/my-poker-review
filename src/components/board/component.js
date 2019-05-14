@@ -41,10 +41,10 @@ class Board extends Component {
           </Typography>
         </Toolbar>
         <Grid container>
-          <Grid item xs={3}>
+          <Grid item xs={12} sm={4} md={3}>
             <BoardInput {...this.getFlopProps()} />
           </Grid>
-          <Grid item xs={9} >
+          <Grid item xs={12} sm={8} md={9}>
             <Grid container direction="row">
               <Street street="FLOP" />
               <Street street="TURN" />
