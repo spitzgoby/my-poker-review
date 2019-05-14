@@ -8,6 +8,6 @@ export default {
   },
 
   input: {
-    margin: '14px 24px 24px 24px'
+    margin: '13px 24px 24px 24px'
   }
 }

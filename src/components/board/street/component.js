@@ -12,6 +12,30 @@ class Street extends Component {
   }
 
   render() {
+    return (
+      <div className={this.props.classes.street}> 
+        {this.renderCards()}
+        {this.renderSubtitle()}
+      </div>
+    ) 
+  }
+
+  renderCards() {
+    const {
+      cards,
+      classes
+    } = this.props
+
+    return (
+      <span className={classes.cards}>{
+        cards.map((card) => 
+          <CardIcon card={card} key={card.id} /> 
+        )
+      }</span>
+    )
+  }
+
+  renderSubtitle() {
     const {
       cards,
       classes,
@@ -19,19 +43,12 @@ class Street extends Component {
     } = this.props
 
     return (
-      <div className={classes.street}> 
-        <span className={classes.cards}>{
-          cards.map((card) => 
-            <CardIcon card={card} key={card.id} /> 
-          )
-        }</span>
-        <div className={classes.subtitle}>
-          <Typography color="secondary" variant="subtitle2">
-            {cards.length ? street : null}
-          </Typography>
-        </div>
+      <div className={classes.subtitle}>
+        <Typography color="secondary" variant="subtitle2">
+          {cards.length ? street : null}
+        </Typography>
       </div>
-    ) 
+    )
   }
 }
 
