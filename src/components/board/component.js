@@ -3,6 +3,8 @@ import BoardInput from 'components/board/input'
 import CardIcon from 'components/card-icon'
 import styles from 'components/board/styles'
 import Street from 'components/board/street'
+import {HANDS} from 'lib/poker-constants'
+import Chip from '@material-ui/core/Chip'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Toolbar from '@material-ui/core/Toolbar'
@@ -33,19 +35,21 @@ class Board extends Component {
   }
 
   render() {
+    const classes = this.props.classes
+
     return (
       <Paper className={this.getClass()}> 
-        <Toolbar>
-          <Typography className={this.props.classes.title} variant="h5">
+        <Toolbar className={classes.title}>
+          <Typography variant="h5">
             Board
           </Typography>
         </Toolbar>
         <Grid container>
-          <Grid item xs={12} sm={6} md={4} lg={3}>
+          <Grid item xs={12} sm={6} md={4}>
             <BoardInput {...this.getFlopProps()} />
           </Grid>
-          <Grid item xs={12} sm={6} md={8} lg={9}>
-            <Grid container direction="row">
+          <Grid item xs={12} sm={6} md={8}>
+            <Grid className={classes.streets} container direction="row">
               <Street street="FLOP" />
               <Street street="TURN" />
               <Street street="RIVER" />

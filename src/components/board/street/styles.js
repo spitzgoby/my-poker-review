@@ -4,7 +4,7 @@ export default {
   street: {
     display: 'flex',
     flexDirection: 'column',
-    margin: '0 16px 24px 0'
+    marginRight: '12px'
   },
 
   cards: {

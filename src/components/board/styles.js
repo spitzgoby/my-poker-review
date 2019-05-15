@@ -1,13 +1,14 @@
 export default {
   board: {
-    minHeight: '172px',
+    height: '155px',
+    padding: '0 24px 24px 24px'
+  },
+
+  streets: {
+    marginTop: '-14px'
   },
 
   title: {
-    paddingTop: '12px'  
-  },
-
-  input: {
-    margin: '13px 24px 24px 24px'
+    paddingLeft: '0'  
   }
 }
