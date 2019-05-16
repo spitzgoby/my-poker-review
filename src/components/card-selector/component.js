@@ -1,6 +1,8 @@
 import CardCell from 'components/card-selector/card-cell'
+import ComboCell from 'components/card-selector/combo-cell'
 import styles from 'components/card-selector/styles'
 import {createCard} from 'lib/cards'
+import {combos} from 'lib/combos'
 import Menu from '@material-ui/core/Menu'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -31,81 +33,19 @@ class CardSelector extends Component {
   }
 
   render() {
-    const aceOfClubs = createCard('A', 'h')
-    const aceOfDiamonds = createCard('A', 'd')
-    const aceOfHearts = createCard('A', 'h')
-    const aceOfSpades = createCard('A', 's')
-
     return (
       <Menu anchorEl={this.props.anchorEl} open={!!this.props.anchorEl}>
         <Table padding="dense"> 
           <TableBody>
             <TableRow>
-              <TableCell />
-              <CardCell card={aceOfClubs} />
-              <CardCell card={aceOfDiamonds} />
-              <CardCell card={aceOfHearts} />
-              <CardCell card={aceOfSpades} />
+              <ComboCell combo={combos['AcAd']} />
+              <ComboCell combo={combos['AcAh']} />
+              <ComboCell combo={combos['AcAs']} />
             </TableRow>
             <TableRow>
-              <CardCell card={aceOfClubs} />
-              <TableCell> 
-                Ac
-              </TableCell>
-              <TableCell> 
-                Ad
-              </TableCell>
-              <TableCell> 
-                Ah
-              </TableCell>
-              <TableCell> 
-                As
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <CardCell card={aceOfDiamonds} />
-              <TableCell> 
-                Ac
-              </TableCell>
-              <TableCell> 
-                Ad
-              </TableCell>
-              <TableCell> 
-                Ah
-              </TableCell>
-              <TableCell> 
-                As
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <CardCell card={aceOfHearts} />
-              <TableCell> 
-                Ac
-              </TableCell>
-              <TableCell> 
-                Ad
-              </TableCell>
-              <TableCell> 
-                Ah
-              </TableCell>
-              <TableCell> 
-                As
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <CardCell card={aceOfSpades} />
-              <TableCell> 
-                Ac
-              </TableCell>
-              <TableCell> 
-                Ad
-              </TableCell>
-              <TableCell> 
-                Ah
-              </TableCell>
-              <TableCell> 
-                As
-              </TableCell>
+              <ComboCell combo={combos['AdAh']} />
+              <ComboCell combo={combos['AdAs']} />
+              <ComboCell combo={combos['AhAs']} />
             </TableRow>
           </TableBody>
         </Table>

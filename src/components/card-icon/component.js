@@ -11,7 +11,13 @@ class CardIcon extends Component {
     card: PropTypes.shape({
       rank: PropTypes.string,
       suit: PropTypes.string
-    })
+    }),
+    size: PropTypes.oneOf(['sm', 'md']),
+    variant: PropTypes.oneOf(['outline', 'shadow'])
+  }
+
+  static defaultProps = {
+    variant: 'shadow'
   }
 
   render() {

@@ -1,44 +1,13 @@
 import {STREETS} from 'lib/poker-constants'
 import {
   find,
-  map
+  map, 
 } from 'lodash'
 import {types} from 'modules/range-builder/constants'
 import {createRange, ranges} from 'modules/range-builder/ranges'
-import {
-  findRangeContainingCombo,
-  findRangeContainingComboGroup,
-  updateRangesByClearingAllSelectedCombos,
-  updateRangesByDeletingRange,
-  updateRangesBySelectingCombos,
-} from 'modules/range-builder/reducers/ranges/utilities'
-import {actionCreator} from 'redux-action-creator'
 import {rangeColorList} from 'styles/colors/range-colors'
 import {parseCardInput} from 'util/card-input-parser'
 import uuid from 'uuid/v4'
-
-export const addRange = actionCreator(types.ADD_RANGE, 'color')
-export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COMBOS)
-export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
-export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
-export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')
-export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos', 'select')
-export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
-export const setBoard = actionCreator(types.SET_BOARD, 'value')
-export const setEditing = actionCreator(types.SET_EDITING)
-export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
-export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
-
-const updateSelectedRangeId = (state, action) => {
-  const newSelectedRangeId = action.payload.id
-  let selectedRangeId = ''
-
-  if (state.selectedRangeId !== newSelectedRangeId) {
-    selectedRangeId = newSelectedRangeId
-  }
-
-  return selectedRangeId
-}
 
 /*---------*
  * REDUCER *

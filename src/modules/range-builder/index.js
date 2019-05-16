@@ -63,6 +63,8 @@ export const getIsEditing = (state) =>
   fromRangeBuilder.getIsEditing(getRangeBuilderState(state))
 export const getIsComboGroupSelected = (state, id) => 
   fromRangeBuilder.getIsComboGroupSelected(getRangeBuilderState(state), id)
+export const getIsComboSelected = (state, id) =>
+  fromRangeBuilder.getIsComboSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, id) => 
   fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), id)
 export const getIsSelecting = (state) =>
@@ -75,6 +77,8 @@ export const getRangeById = (state, id) =>
   fromRangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeColors = (state) =>
   fromRangeBuilder.getRangeColors(getRangeBuilderState(state))
+export const getRangeForCombo = (state, comboId) =>
+  fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
 export const getSelectedRangeColor = (state) => 
@@ -83,6 +87,13 @@ export const getSelectedRangeColor = (state) =>
 /*-----------------*
  * COMBO SELECTORS *
  *-----------------*/
+
+export const makeGetRangeColorForCombo = () => createSelector(
+  getRangeForCombo,
+  (range) => range
+    ? range.color
+    : ''
+)
 
 export const makeGetRangeColorForComboGroup = () => createSelector(
   getRangeForComboGroup,
