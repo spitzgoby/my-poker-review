@@ -1,14 +1,24 @@
-import Card from '@material-ui/core/Card'
 import classnames from 'classnames'
+import CardSelector from 'components/card-selector'
 import ComboCell from 'components/range-builder/combo-cell'
-import {comboRows} from 'modules/range-builder/constants'
+import {styles} from 'components/range-builder/styles'
 import comboGroups from 'lib/combo-groups'
-import injectSheet from 'react-jss'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import {comboRows} from 'modules/range-builder/constants'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import {styles} from 'components/range-builder/styles'
+import injectSheet from 'react-jss'
 
 class RangeBuilder extends Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      cardSelectorAnchor: null
+    }
+  }
 
   static propTypes = {
     className: PropTypes.string,
@@ -22,6 +32,8 @@ class RangeBuilder extends Component {
     return (
       <Card className={this.getClass()}>
           {this.renderComboGroups()}
+          <Button onClick={(e) => this.openMenu(e)}>Card Selector</Button>
+          <CardSelector anchorEl={this.state.cardSelectorAnchor} />
       </Card>
     )
   }
@@ -57,6 +69,12 @@ class RangeBuilder extends Component {
     } = this.props
 
     return classnames(classes.rangebuilder, className)
+  }
+
+  openMenu(event) {
+    this.setState({
+      cardSelectorAnchor: event.currentTarget
+    })
   }
 }
 
