@@ -8,10 +8,13 @@ import injectSheet from 'react-jss'
 class ComboCell extends Component {
 
   static propTypes = {
+    color: PropTypes.string,
     combo: PropTypes.shape({
       cards: PropTypes.array,
       id: PropTypes.string
-    })
+    }),
+    selected: PropTypes.bool,
+    selectedColor: PropTypes.string 
   }
 
   render() {

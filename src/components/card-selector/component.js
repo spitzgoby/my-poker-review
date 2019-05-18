@@ -1,12 +1,9 @@
-import CardCell from 'components/card-selector/card-cell'
 import ComboCell from 'components/card-selector/combo-cell'
 import styles from 'components/card-selector/styles'
-import {createCard} from 'lib/cards'
 import {combos} from 'lib/combos'
 import Menu from '@material-ui/core/Menu'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -17,6 +14,7 @@ class CardSelector extends Component {
   constructor(props) {
     super(props)
 
+    this.handleClose = this.handleClose.bind(this)
     this.handleSelect = this.handleSelect.bind(this)
   }
 
@@ -34,7 +32,7 @@ class CardSelector extends Component {
 
   render() {
     return (
-      <Menu anchorEl={this.props.anchorEl} open={!!this.props.anchorEl}>
+      <Menu {...this.getProps()} >
         <Table padding="dense"> 
           <TableBody>
             <TableRow>
@@ -51,6 +49,24 @@ class CardSelector extends Component {
         </Table>
       </Menu>
     ) 
+  }
+
+  getProps() {
+    const anchorEl = this.props.anchorEl
+
+    return {
+      anchorEl: anchorEl,
+      onClose: this.handleClose,
+      open: !!anchorEl
+    }
+  }
+
+  handleClose() {
+    const onClose = this.props.onClose 
+
+    if (onClose) {
+      onClose()
+    }
   }
 
   handleSelect(combos) {

@@ -15,6 +15,8 @@ class RangeBuilder extends Component {
   constructor(props) {
     super(props)
 
+    this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
+
     this.state = {
       cardSelectorAnchor: null
     }
@@ -33,7 +35,7 @@ class RangeBuilder extends Component {
       <Card className={this.getClass()}>
           {this.renderComboGroups()}
           <Button onClick={(e) => this.openMenu(e)}>Card Selector</Button>
-          <CardSelector anchorEl={this.state.cardSelectorAnchor} />
+          <CardSelector {...this.getCardSelectorProps()} />
       </Card>
     )
   }
@@ -62,6 +64,13 @@ class RangeBuilder extends Component {
     }
   }
 
+  getCardSelectorProps() {
+    return {
+      anchorEl: this.state.cardSelectorAnchor,
+      onClose: this.handleCardSelectorClose
+    }
+  }
+
   getClass() {
     const {
       classes,
@@ -74,6 +83,12 @@ class RangeBuilder extends Component {
   openMenu(event) {
     this.setState({
       cardSelectorAnchor: event.currentTarget
+    })
+  }
+
+  handleCardSelectorClose() {
+    this.setState({
+      cardSelectorAnchor: null
     })
   }
 }
