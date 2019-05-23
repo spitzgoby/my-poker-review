@@ -1,4 +1,5 @@
 import classnames from 'classnames'
+import ClickNHold from 'react-click-n-hold'
 import {styles} from 'components/range-builder/combo-cell/styles'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -9,6 +10,7 @@ class ComboCell extends Component {
   constructor(props) {
     super(props)
 
+    this.handleCardSelectorClick = this.handleCardSelectorClick.bind(this)
     this.handleDragEnter = this.handleDragEnter.bind(this)
     this.handleDragEnd = this.handleDragEnd.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
@@ -31,6 +33,7 @@ class ComboCell extends Component {
       type: PropTypes.string
     }).isRequired,
     lastRow: PropTypes.bool,
+    onOpenCardSelector: PropTypes.func,
     selected: PropTypes.bool,
     selecting: PropTypes.bool
   }
@@ -39,9 +42,11 @@ class ComboCell extends Component {
 
   render() {
     return (
-      <div {...this.getProps()}>
-        {this.props.comboGroup.text}
-      </div> 
+        <div {...this.getProps()}>
+          <ClickNHold time={0.5} onClickNHold={this.handleCardSelectorClick}>
+            <div>{this.props.comboGroup.text}</div>
+          </ClickNHold>
+        </div> 
     ) 
   }
 
@@ -53,7 +58,6 @@ class ComboCell extends Component {
       onDragEnter: this.handleDragEnter,
       onDragStart: this.handleDragStart,
       onMouseDown: this.handleMouseDown,
-      onMouseUp: this.handleMouseUp,
       ref: this.props.selectableRef
     } 
   }
@@ -111,6 +115,17 @@ class ComboCell extends Component {
         combos: comboGroup.combos, 
         select
       })
+    }
+  }
+
+  handleCardSelectorClick(_, event) {
+    const {
+      comboGroup,
+      onOpenCardSelector
+    } = this.props
+
+    if (onOpenCardSelector) {
+      onOpenCardSelector(event, comboGroup)
     }
   }
 

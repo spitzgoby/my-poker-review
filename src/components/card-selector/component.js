@@ -1,6 +1,6 @@
 import ComboCell from 'components/card-selector/combo-cell'
 import styles from 'components/card-selector/styles'
-import {combos} from 'lib/combos'
+import {types} from 'lib/combos'
 import Menu from '@material-ui/core/Menu'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -8,6 +8,12 @@ import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
+
+const rowCounts = {
+  [types.OFFSUIT]: [3,3,3,3],
+  [types.PAIR]: [3,3],
+  [types.SUITED]: [2,2]
+}
 
 class CardSelector extends Component {
 
@@ -22,33 +28,58 @@ class CardSelector extends Component {
     actions: PropTypes.shape({
       onSelect: PropTypes.func
     }).isRequired,
-    anchorEl: PropTypes.node,
+    anchorEl: PropTypes.object,
     comboGroup: PropTypes.shape({
+      combos: PropTypes.arrayOf(PropTypes.object),
       id: PropTypes.string.isRequired,
       text: PropTypes.string,
       type: PropTypes.string
-    }).isRequired
+    })
   }
 
   render() {
+    let component = null
+
+    if (this.props.comboGroup) {
+      component = this.renderCardSelector()
+    }
+
+    return component
+  }
+
+  renderCardSelector() {
+    const comboType = this.props.comboGroup.type
+    const rows = rowCounts[comboType]
+
     return (
       <Menu {...this.getProps()} >
         <Table padding="dense"> 
           <TableBody>
-            <TableRow>
-              <ComboCell combo={combos['AcAd']} />
-              <ComboCell combo={combos['AcAh']} />
-              <ComboCell combo={combos['AcAs']} />
-            </TableRow>
-            <TableRow>
-              <ComboCell combo={combos['AdAh']} />
-              <ComboCell combo={combos['AdAs']} />
-              <ComboCell combo={combos['AhAs']} />
-            </TableRow>
+            {this.renderSelectorRows(rows)}
           </TableBody>
         </Table>
       </Menu>
     ) 
+  }
+
+  renderSelectorRows(rows) {
+    const combos = this.props.comboGroup.combos
+    let currentIndex = 0
+
+    return rows.map((count, row) => {
+      const end = currentIndex + count
+      const rowCombos = combos.slice(currentIndex, currentIndex + count)
+
+      currentIndex = end
+
+      return (
+        <TableRow key={row}>
+          {rowCombos.map((combo) => {
+            return <ComboCell key={combo.id} combo={combo} />
+          })}
+        </TableRow>
+      )
+    })
   }
 
   getProps() {

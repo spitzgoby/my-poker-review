@@ -1,13 +1,13 @@
 import Color from 'color'
 
-const DARK_COLOR_SUFFIX = 'dark'
+const DARK_COLOR_PREFIX = 'dark'
 const generateColor = (colorInfo) => {
   const color = Color(colorInfo.rgb)
   const darkenAmount = 0.10
 
   return {
     [colorInfo.name]: color.string(),
-    [DARK_COLOR_SUFFIX + colorInfo.name]: color.darken(darkenAmount).string()
+    [DARK_COLOR_PREFIX + colorInfo.name]: color.darken(darkenAmount).string()
   }
 }
 

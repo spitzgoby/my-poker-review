@@ -3,7 +3,6 @@ import CardSelector from 'components/card-selector'
 import ComboCell from 'components/range-builder/combo-cell'
 import {styles} from 'components/range-builder/styles'
 import comboGroups from 'lib/combo-groups'
-import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import {comboRows} from 'modules/range-builder/constants'
 import PropTypes from 'prop-types'
@@ -16,9 +15,11 @@ class RangeBuilder extends Component {
     super(props)
 
     this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
+    this.handleOpenCardSelector = this.handleOpenCardSelector.bind(this)
 
     this.state = {
-      cardSelectorAnchor: null
+      cardSelectorAnchor: null,
+      cardSelectorComboGroup: null
     }
   }
 
@@ -34,7 +35,6 @@ class RangeBuilder extends Component {
     return (
       <Card className={this.getClass()}>
           {this.renderComboGroups()}
-          <Button onClick={(e) => this.openMenu(e)}>Card Selector</Button>
           <CardSelector {...this.getCardSelectorProps()} />
       </Card>
     )
@@ -59,14 +59,21 @@ class RangeBuilder extends Component {
       comboGroup: comboGroups[comboGroupId],
       lastColumn: column === RangeBuilder.lastColumnIndex,
       lastRow: row === RangeBuilder.lastRowIndex,
+      onOpenCardSelector: this.handleOpenCardSelector,
       key: comboGroupId,
       selectedColor: this.props.selectedColor
     }
   }
 
   getCardSelectorProps() {
+    const {
+      cardSelectorAnchor,
+      cardSelectorComboGroup
+    } = this.state
+
     return {
-      anchorEl: this.state.cardSelectorAnchor,
+      anchorEl: cardSelectorAnchor,
+      comboGroup: cardSelectorComboGroup,
       onClose: this.handleCardSelectorClose
     }
   }
@@ -80,15 +87,17 @@ class RangeBuilder extends Component {
     return classnames(classes.rangebuilder, className)
   }
 
-  openMenu(event) {
+  handleOpenCardSelector(event, comboGroup) {
     this.setState({
-      cardSelectorAnchor: event.currentTarget
+      cardSelectorAnchor: event.currentTarget,
+      cardSelectorComboGroup: comboGroup
     })
   }
 
   handleCardSelectorClose() {
     this.setState({
-      cardSelectorAnchor: null
+      cardSelectorAnchor: null,
+      cardSelectorComboGroup: null
     })
   }
 }
