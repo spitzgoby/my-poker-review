@@ -219,7 +219,6 @@ export const getCardsForStreet = (state, street) => {
   return boardCards.slice(index, index + count)
 }
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
-export const getIsComboGroupSelected = (state, id) => !!getRangeForComboGroup(state, id)
 export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRanges(state), id)
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting

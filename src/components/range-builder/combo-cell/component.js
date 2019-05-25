@@ -1,6 +1,6 @@
 import classnames from 'classnames'
-import ClickNHold from 'react-click-n-hold'
 import {styles} from 'components/range-builder/combo-cell/styles'
+import Tooltip from '@material-ui/core/Tooltip'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -10,11 +10,12 @@ class ComboCell extends Component {
   constructor(props) {
     super(props)
 
-    this.handleCardSelectorClick = this.handleCardSelectorClick.bind(this)
+    this.handleSelectorButtonClick = this.handleSelectorButtonClick.bind(this)
     this.handleDragEnter = this.handleDragEnter.bind(this)
     this.handleDragEnd = this.handleDragEnd.bind(this)
     this.handleDragStart = this.handleDragStart.bind(this)
     this.handleMouseDown = this.handleMouseDown.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
 
     this.state = {
       firstDragged: false
@@ -41,11 +42,20 @@ class ComboCell extends Component {
   static dragImage = document.createElement('span')
 
   render() {
+    const {
+      classes,
+      comboGroup
+    } = this.props
+
     return (
         <div {...this.getProps()}>
-          <ClickNHold time={0.5} onClickNHold={this.handleCardSelectorClick}>
-            <div>{this.props.comboGroup.text}</div>
-          </ClickNHold>
+          <div className={classes.spacer} />
+          <div>{comboGroup.text}</div>
+            <div className={classes.selectorcontainer}>
+              <Tooltip title="Select suits">
+                  <div {...this.getSelectorButtonProps()} />
+              </Tooltip>
+            </div>
         </div> 
     ) 
   }
@@ -58,8 +68,18 @@ class ComboCell extends Component {
       onDragEnter: this.handleDragEnter,
       onDragStart: this.handleDragStart,
       onMouseDown: this.handleMouseDown,
+      onMouseUp: this.handleMouseUp,
       ref: this.props.selectableRef
     } 
+  }
+
+  getSelectorButtonProps() {
+    return {
+      className: this.props.classes.selectorbutton,
+      onClick: this.handleSelectorButtonClick,
+      onMouseDown: this.handleSelectorButtonMouseDown,
+      role: 'button'
+    }
   }
 
   getClass() {
@@ -102,6 +122,10 @@ class ComboCell extends Component {
     this.handleSelect(!this.props.selected)
   }
 
+  handleMouseUp() {
+    this.toggleFirstDragged(false)
+  }
+
   handleSelect(select) {
     const {
       actions: {
@@ -118,7 +142,11 @@ class ComboCell extends Component {
     }
   }
 
-  handleCardSelectorClick(_, event) {
+  handleSelectorButtonMouseDown(event) {
+    event.stopPropagation()
+  }
+
+  handleSelectorButtonClick(event) {
     const {
       comboGroup,
       onOpenCardSelector

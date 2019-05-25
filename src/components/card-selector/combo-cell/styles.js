@@ -9,7 +9,7 @@ const getBackgroundColor = (props, hover) => {
       : rangeColors[props.selectedColor]
   } else {
     color = props.selected
-      ? rangeColors[props.color]
+      ? rangeColors[props.selectedColor]
       : 'white'
   }
 

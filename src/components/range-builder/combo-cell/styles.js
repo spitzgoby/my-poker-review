@@ -1,5 +1,4 @@
 import {types} from 'lib/combos'
-import {transitionTimes} from 'styles/animations'
 import {
   rangeColors,
   themeColors
@@ -21,6 +20,10 @@ const getBackgroundColor = (props, hover = false) => {
   } = props
 
   if (hover) {
+    if (selected) {
+      console.log(selectedColor)
+      console.log(rangeColors)
+    }
     backgroundColor = selected
       ? rangeColors['dark' + selectedColor]
       : rangeColors[selectedColor]
@@ -28,6 +31,10 @@ const getBackgroundColor = (props, hover = false) => {
     backgroundColor = selected 
       ? rangeColors[color]
       : comboCellColors[comboGroup.type]
+  }
+
+  if (selected && hover) {
+    console.log(backgroundColor)
   }
 
   return backgroundColor
@@ -55,22 +62,51 @@ export const styles = {
     borderWidth: (props) => getBorderWidth(props),
     color: (props) => getColor(props, false),
     display: 'flex',
+    flexDirection: 'column',
     fontFamily: 'sans-serif',
     fontWeight: '300',
     fontSize: '1.5rem',
     height: '64px',
     justifyContent: 'center',
     width: 'calc(100% / 13)',
-    transition: transitionTimes.quick,
 
     '&:hover': {
       backgroundColor: (props) => getBackgroundColor(props, true),
-      color: (props) => getColor(props, true)
+      color: (props) => getColor(props, true),
+
+    },
+
+    '&:hover $selectorbutton': {
+      visibility: 'visible'
     },
 
     '&.firstdragged': {
       backgroundColor: (props) => getBackgroundColor(props, false),
       color: (props) => getColor(props, false)
+    }
+  },
+
+  spacer: {
+    height: '8px'
+  },
+
+  selectorcontainer: {
+    display: 'flex',
+    flexDirection: 'row-reverse',
+    paddingRight: '4px',
+    width: '100%'
+  },
+
+  selectorbutton: {
+    backgroundColor: 'white',
+    borderRadius: '4px',
+    height: '8px',
+    width: '8px',
+    visibility: 'hidden',
+
+    '&:hover': {
+
+      cursor: 'pointer'
     }
   }
 }
