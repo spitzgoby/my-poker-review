@@ -74,8 +74,8 @@ class CardSelector extends Component {
 
       return (
         <TableRow key={row}>
-          {rowCombos.map((combo) => {
-            return <ComboCell key={combo.id} combo={combo} />
+          {rowCombos.map((combo, col) => {
+            return <ComboCell {...this.getComboCellProps(combo, rows, row, col)} />
           })}
         </TableRow>
       )
@@ -87,8 +87,20 @@ class CardSelector extends Component {
 
     return {
       anchorEl: anchorEl,
+      MenuListProps: {
+        className: this.props.classes.list
+      },
       onClose: this.handleClose,
       open: !!anchorEl
+    }
+  }
+
+  getComboCellProps(combo, rows, row, col) {
+    return {
+      combo,
+      key: combo.id,
+      lastColumn: col === rows[col] - 1,
+      lastRow: row === rows.length - 1
     }
   }
 

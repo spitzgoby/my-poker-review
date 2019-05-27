@@ -7,6 +7,12 @@ import injectSheet from 'react-jss'
 
 class ComboCell extends Component {
 
+  constructor(props) {
+    super(props)
+
+    this.handleClick = this.handleClick.bind(this)
+  }
+
   static propTypes = {
     color: PropTypes.string,
     combo: PropTypes.shape({
@@ -19,11 +25,18 @@ class ComboCell extends Component {
 
   render() {
     return (
-      <TableCell className={this.props.classes.cell}> 
+      <TableCell {...this.getProps()}> 
         <CardIcon {...this.getCardIconProps(0)} />
         <CardIcon {...this.getCardIconProps(1)} />
       </TableCell>
     ) 
+  }
+
+  getProps() {
+    return {
+      className: this.props.classes.cell,
+      onClick: this.handleClick
+    }
   }
 
   getCardIconProps(index) {
@@ -31,6 +44,23 @@ class ComboCell extends Component {
       card: this.props.combo.cards[index],
       size: 'sm',
       variant: 'outline'
+    }
+  }
+
+  handleClick() {
+    const {
+      actions: {
+        onSelect
+      },
+      combo,
+      selected
+    } = this.props
+
+    if (onSelect) {
+      onSelect({
+        combos: [combo],
+        select: !selected
+      })
     }
   }
 }

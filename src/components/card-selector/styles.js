@@ -1,1 +1,5 @@
-export default {}
+export default {
+  list: {
+    padding: '0px'
+  }
+}

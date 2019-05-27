@@ -226,6 +226,11 @@ export const getPlayerHand = (state) => state.playerHand
 export const getRangeColors = (state) => state.colors
 export const getRanges = (state) => map(state.ranges, (range) => range)
 export const getRangeById = (state, id) => state.ranges[id]
+export const getRangeColorForCombo = (state, id) => {
+  const range = findRangeContainingCombo(getRanges(state), id)
+
+  return range ? range.color : ''
+}
 export const getRangeForCombo = (state, id) => findRangeContainingCombo(getRanges(state), id)
 export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color

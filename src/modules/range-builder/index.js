@@ -75,6 +75,8 @@ export const getRangeById = (state, id) =>
   fromRangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeColors = (state) =>
   fromRangeBuilder.getRangeColors(getRangeBuilderState(state))
+export const getRangeColorForCombo = (state, comboId) =>
+  fromRangeBuilder.getRangeColorForCombo(getRangeBuilderState(state), comboId)
 export const getRangeForCombo = (state, comboId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
@@ -89,13 +91,6 @@ export const getSelectedRangeColor = (state) =>
 export const makeGetIsComboGroupSelected = () => createSelector(
   getRangeForComboGroup,
   (range) => !!range
-)
-
-export const makeGetRangeColorForCombo = () => createSelector(
-  getRangeForCombo,
-  (range) => range
-    ? range.color
-    : ''
 )
 
 export const makeGetRangeColorForComboGroup = () => createSelector(

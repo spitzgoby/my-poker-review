@@ -1,4 +1,5 @@
 export const themeColors = {
+  borderGray: 'rgb(224, 224, 224)',
   darkTextColor: 'rgb(0, 15, 8)',  
   error: 'rgb(243, 66, 19)',
   lightTextColor: 'rgb(255, 255, 255)',
