@@ -1,2 +1,2 @@
 export const borderRadius = '4px'
-export const gutterWidth = '2rem'
+export const gutterWidth = '16px'
