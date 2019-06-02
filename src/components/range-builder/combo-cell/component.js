@@ -42,20 +42,13 @@ class ComboCell extends Component {
   static dragImage = document.createElement('span')
 
   render() {
-    const {
-      classes,
-      comboGroup
-    } = this.props
-
     return (
         <div {...this.getProps()}>
-          <div className={classes.spacer} />
-          <div>{comboGroup.text}</div>
-            <div className={classes.selectorcontainer}>
-              <Tooltip title="Select suits">
-                  <div {...this.getSelectorButtonProps()} />
-              </Tooltip>
+          <Tooltip title="Select suits">
+            <div {...this.getSelectorButtonProps()}>
+              {this.props.comboGroup.text}
             </div>
+          </Tooltip>
         </div> 
     ) 
   }

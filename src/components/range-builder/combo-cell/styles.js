@@ -99,26 +99,8 @@ export const styles = {
     }
   },
 
-  spacer: {
-    height: '8px'
-  },
-
-  selectorcontainer: {
-    display: 'flex',
-    flexDirection: 'row-reverse',
-    paddingRight: '4px',
-    width: '100%'
-  },
-
   selectorbutton: {
-    backgroundColor: 'white',
-    borderRadius: '4px',
-    height: '8px',
-    width: '8px',
-    visibility: 'hidden',
-
     '&:hover': {
-
       cursor: 'pointer'
     }
   }
