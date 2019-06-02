@@ -40,11 +40,11 @@ const getColor = (props, hover) => {
 
   if (hover) {
     color = props.selected
-      ? themeColors.lightTextColor
+      ? themeColors.lightText
       : rangeColors['dark'+props.color]
   } else {
     color = props.selected
-      ? themeColors.lightTextColor
+      ? themeColors.lightText
       : rangeColors[props.color]
   }
 

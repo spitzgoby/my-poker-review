@@ -4,9 +4,15 @@ import {
 } from 'styles/colors'
 
 export const getRangeColor = (range, dark = false) => {
-  return dark 
-    ? rangeColors['dark' + range.color]
-    : rangeColors[range.color]
+  let color
+
+  if (range) {
+    color = dark
+      ? rangeColors['dark' + range.color]
+      : rangeColors[range.color]
+  }
+
+  return color
 }
 
 export const getColor = (range, selected, hover) => {
@@ -14,11 +20,11 @@ export const getColor = (range, selected, hover) => {
 
   if (hover) {
     color = selected
-      ? themeColors.lightTextColor
+      ? themeColors.lightText
       : getRangeColor(range, true)
   } else {
     color = selected
-      ? themeColors.lightTextColor
+      ? themeColors.lightText
       : getRangeColor(range, false)
   }
 
@@ -29,7 +35,7 @@ export const cell = {
   cell: {
     borderBottom: (props) => props.expanded 
       ? 'none'
-      : `1px solid ${themeColors.neutralGray}`,
+      : `1px solid rgb(224, 224, 224)`,
     color: (props) => getColor(props.range, props.selected, false),
     width: (props) => props.width,
 

@@ -1,13 +1,11 @@
 import RangeAnalyzerCell from 'components/range-analyzer/cell'
-import Button from '@material-ui/core/Button'
-import IconButton from '@material-ui/core/IconButton'
+import RangeAnalyzerEditCell from 'components/range-analyzer/edit-cell'
+import Fade from '@material-ui/core/Fade'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-import Tooltip from '@material-ui/core/Tooltip'
-import ClearIcon from '@material-ui/icons/Clear'
-import EditIcon from '@material-ui/icons/Edit'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
+import {themeColors} from 'styles/colors'
 
 class RangeAnalyzerHeader extends Component {
 
@@ -15,54 +13,51 @@ class RangeAnalyzerHeader extends Component {
     super(props)
 
     this.handleClearCombosButtonClick = this.handleClearCombosButtonClick.bind(this)
-    this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
+    this.handleDeleteAllClick = this.handleDeleteAllClick.bind(this)
   }
 
   static propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
+    editing: PropTypes.bool
   }
 
   render() {
+    const editing = this.props.editing
+
     return (
       <TableHead>
         <TableRow>
           <RangeAnalyzerCell>Name</RangeAnalyzerCell>
           <RangeAnalyzerCell align="right">
-            Hands (%)
+            <Fade in={!editing}>
+              <span>Hands (%)</span>
+            </Fade>
           </RangeAnalyzerCell>
           <RangeAnalyzerCell align="right">
-            Combos (#)
+            <Fade in={!editing}>
+              <span>Combos (#)</span>
+            </Fade>
           </RangeAnalyzerCell>
           <RangeAnalyzerCell align="right">
-            Range (%)
+            <Fade in={!editing}>
+              <span>Range (%)</span>
+            </Fade>
           </RangeAnalyzerCell>
-          <RangeAnalyzerCell align="right">
-            <Tooltip title="Clear all ranges">
-              <Button onClick={this.handleClearCombosButtonClick}>
-                Clear
-              </Button>
-            </Tooltip>
-            {this.renderEditButton()}
-          </RangeAnalyzerCell>
+          <RangeAnalyzerEditCell {...this.getEditCellProps()} />
         </TableRow>              
       </TableHead>
     ) 
   }
 
-  renderEditButton() {
+  getEditCellProps() {
     const editing = this.props.editing
-    const title = editing ? 'Cancel editing' : 'Edit ranges'
 
-    return (
-      <Tooltip title={title}>
-        <IconButton onClick={this.handleEditButtonClick}>
-          { editing
-            ? <ClearIcon />
-            : <EditIcon />
-          }
-        </IconButton>
-      </Tooltip>
-    )
+    return {
+      color: editing ? themeColors.error : themeColors.darkText,
+      editing: editing,
+      onClear: this.handleClearCombosButtonClick,
+      onDelete: this.handleDeleteAllClick 
+    }
   }
 
   handleClearCombosButtonClick() {
@@ -73,14 +68,9 @@ class RangeAnalyzerHeader extends Component {
     }
   }
 
-  handleEditButtonClick() {
-    const onEdit = this.props.actions.onEdit
-
-    if (onEdit) {
-      onEdit()
-    }
+  handleDeleteAllClick() {
+    console.log('delete all clicked')
   }
-
 }
 
 export default (RangeAnalyzerHeader)

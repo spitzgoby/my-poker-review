@@ -5,7 +5,6 @@ import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete'
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -40,13 +39,14 @@ class RangeAnalyzerEditCell extends Component {
 
     return (
       <RangeAnalyzerCell className={classes.cell} align="right"> 
-        <Fade in={!editing}>
-          {this.renderClearButton()}
-        </Fade>
         {
-          editing
-            ? this.renderDeleteFade()
-            : this.renderExpandFade()
+          !editing 
+            ? <Fade in={!editing}>{this.renderClearButton()}</Fade>
+            : null
+        }{
+          editing 
+            ? <Fade in={editing}>{this.renderDeleteButton()}</Fade>
+            : null
         }
       </RangeAnalyzerCell>
     ) 
@@ -54,7 +54,7 @@ class RangeAnalyzerEditCell extends Component {
 
   renderClearButton() {
     return (
-      <Tooltip title={`Clear ${this.props.range.name}`}>
+      <Tooltip title={`Clear ${this.getTooltipTitleName()}`}>
         <Button className={this.props.classes.button} onClick={this.handleClearButtonClick}>
           Clear
         </Button>
@@ -62,17 +62,9 @@ class RangeAnalyzerEditCell extends Component {
     )
   }
 
-  renderDeleteFade() {
-    return (
-      <Fade in={this.props.editing}>
-        {this.renderDeleteButton()}
-      </Fade>
-    )
-  }
-
   renderDeleteButton() {
     return (
-      <Tooltip title={`Delete ${this.props.range.name}`}>
+      <Tooltip title={`Delete ${this.getTooltipTitleName()}`}>
         <IconButton className={this.props.classes.button} onClick={this.handleDeleteButtonClick}>
           <DeleteIcon />
         </IconButton>
@@ -80,22 +72,15 @@ class RangeAnalyzerEditCell extends Component {
     )
   }
 
-  renderExpandFade() {
-    return (
-      <Fade in={this.props.expandable}>
-        {this.renderExpandButton()}
-      </Fade>
-    )
-  }
+  getTooltipTitleName() {
+    const range = this.props.range
+    let name = 'all'
 
-  renderExpandButton() {
-    return (
-      <Tooltip title="Show range text">
-        <IconButton className={this.props.classes.expand} onClick={this.handleExpandButtonClick}>
-          <ExpandMoreIcon />
-        </IconButton>
-      </Tooltip>
-    )
+    if (range) {
+      name = range.name
+    }
+
+    return name
   }
 
   handleClearButtonClick(event) {

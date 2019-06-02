@@ -1,9 +1,11 @@
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar/component'
 import {
   addRange,
+  getIsEditing,
   getRangeColors,
   getRanges,
   setAddRangeMenuOpen,
+  setEditing,
   setExportDialogOpen,
   setImportDialogOpen
 } from 'modules/range-builder'
@@ -12,12 +14,14 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
   colors: getRangeColors(state),
+  editing: getIsEditing(state),
   ranges: getRanges(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     onAddRange: addRange,
+    onEdit: setEditing,
     onOpenAddRangeMenu: setAddRangeMenuOpen,
     onOpenExportDialog: setExportDialogOpen,
     onOpenImportDialog: setImportDialogOpen

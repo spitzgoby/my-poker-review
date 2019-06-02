@@ -11,6 +11,8 @@ import MenuItem from '@material-ui/core/MenuItem'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import ClearIcon from '@material-ui/icons/Clear'
+import EditIcon from '@material-ui/icons/Edit'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -21,6 +23,7 @@ class RangeAnalyzerToolbar extends Component {
     super(props)
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
+    this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
     this.handleExportMenuItemClick = this.handleExportMenuItemClick.bind(this)
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
@@ -52,7 +55,7 @@ class RangeAnalyzerToolbar extends Component {
         <Grid justify="space-between" container>
           <Grid item>
             <Typography className={classes.title} variant="h5">
-              Range Analyzer
+              Ranges
             </Typography>
           </Grid>
           <Grid item>
@@ -62,6 +65,7 @@ class RangeAnalyzerToolbar extends Component {
             <ExportRangeDialog />
             <AddRangeMenu anchorEl={this.state.addAnchorEl} />
             {this.renderAddButton()}
+            {this.renderEditButton()}
           </Grid>
         </Grid>
       </Toolbar>
@@ -96,6 +100,22 @@ class RangeAnalyzerToolbar extends Component {
       <Tooltip title="Add a new range">
         <IconButton {...this.getAddButtonProps()}>
           <AddIcon />
+        </IconButton>
+      </Tooltip>
+    )
+  }
+  
+  renderEditButton() {
+    const editing = this.props.editing
+    const title = editing ? 'Cancel editing' : 'Edit ranges'
+
+    return (
+      <Tooltip title={title}>
+        <IconButton onClick={this.handleEditButtonClick}>
+          { editing
+            ? <ClearIcon />
+            : <EditIcon />
+          }
         </IconButton>
       </Tooltip>
     )
@@ -172,6 +192,14 @@ class RangeAnalyzerToolbar extends Component {
 
     if (onOpenAddRangeMenu) {
       onOpenAddRangeMenu()
+    }
+  }
+
+  handleEditButtonClick() {
+    const onEdit = this.props.actions.onEdit
+
+    if (onEdit) {
+      onEdit()
     }
   }
 }

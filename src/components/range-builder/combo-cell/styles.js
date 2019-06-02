@@ -49,8 +49,8 @@ const getBorderWidth = (props) => {
 
 const getColor = (props, hover = false) => {
   return props.color || hover
-    ? themeColors.lightTextColor 
-    : themeColors.darkTextColor
+    ? themeColors.lightText
+    : themeColors.darkText
 }
 
 export const styles = {

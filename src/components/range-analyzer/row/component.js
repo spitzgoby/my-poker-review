@@ -20,12 +20,7 @@ class RangeAnalyzerRow extends Component {
     this.handleClick = this.handleClick.bind(this)
     this.handleCopy = this.handleCopy.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
-    this.handleExpand = this.handleExpand.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
-
-    this.state = {
-      expanded: false
-    }
   }
 
   static propTypes = {
@@ -45,14 +40,6 @@ class RangeAnalyzerRow extends Component {
       rangeRation: PropTypes.number
     }),
     selected: PropTypes.bool
-  }
-
-  componentWillUpdate(newProps) {
-    if (this.state.expanded && !newProps.rangeOutput) {
-      this.setState({
-        expanded: false
-      })
-    }
   }
 
   render() {
@@ -81,10 +68,13 @@ class RangeAnalyzerRow extends Component {
   }
 
   renderDetails() {
-    let classes = this.props.classes
+    const { 
+      classes,
+      rangeOutput
+    } = this.props
     let component = null
 
-    if (this.state.expanded) {
+    if (rangeOutput) {
       component = (
         <TableRow className={classes.row}>
           <RangeAnalyzerOutputCell {...this.getOutputCellProps()} />
@@ -151,11 +141,12 @@ class RangeAnalyzerRow extends Component {
   getDefaultCellProps() {
     const {
       range,
+      rangeOutput,
       selected
     } = this.props
 
     return {
-      expanded: this.state.expanded,
+      expanded: !!rangeOutput,
       range,
       selected
     }
@@ -198,12 +189,6 @@ class RangeAnalyzerRow extends Component {
     if (onClearButtonClick) {
       onClearButtonClick({id: range.id})
     }
-  }
-
-  handleExpand() {
-    this.setState({
-      expanded: !this.state.expanded
-    })
   }
 
   handleDelete() {

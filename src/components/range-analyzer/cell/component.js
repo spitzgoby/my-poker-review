@@ -8,7 +8,7 @@ import injectSheet from 'react-jss'
 class RangeAnalyzerCell extends Component {
 
   static propTypes = {
-    align: PropTypes.align,
+    align: PropTypes.string,
     className: PropTypes.string,
     colSpan: PropTypes.number
   }

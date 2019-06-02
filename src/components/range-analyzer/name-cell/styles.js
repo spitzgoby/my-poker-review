@@ -10,7 +10,7 @@ export const styles = {
     color: (props) => getColor(props.range, props.selected, false),
 
     '&:after': {
-      borderBottom: `2px solid ${themeColors.lightTextColor}`
+      borderBottom: `2px solid ${themeColors.lightText}`
     }
   }
 }
