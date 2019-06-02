@@ -1,5 +1,5 @@
+import RangeAnalyzerCell from 'components/range-analyzer/cell'
 import styles from 'components/range-analyzer/analysis-cell/styles'
-import TableCell from '@material-ui/core/TableCell'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -17,9 +17,9 @@ class RangeAnalyzerAnalysisCell extends Component {
 
   render() {
     return (
-      <TableCell className={this.props.classes.cell} align="right"> 
+      <RangeAnalyzerCell className={this.props.classes.cell} align="right"> 
         {this.renderAnalysis()}
-      </TableCell>
+      </RangeAnalyzerCell>
     ) 
   }
 
