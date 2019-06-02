@@ -66,7 +66,7 @@ export const styles = {
     fontFamily: 'sans-serif',
     fontWeight: '300',
     fontSize: '1rem',
-    height: '64px',
+    height: '45px',
     justifyContent: 'center',
     width: 'calc(100% / 13)',
 
