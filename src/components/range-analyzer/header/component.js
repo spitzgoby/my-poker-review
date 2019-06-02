@@ -25,20 +25,22 @@ class RangeAnalyzerHeader extends Component {
   }
 
   render() {
+    const cell = this.props.classes.cell
+
     return (
       <TableHead>
         <TableRow>
-          <TableCell>Name</TableCell>
-          <TableCell align="right">
+          <TableCell className={cell}>Name</TableCell>
+          <TableCell className={cell} align="right">
             Hands (%)
           </TableCell>
-          <TableCell align="right">
+          <TableCell className={cell} align="right">
             Combos (#)
           </TableCell>
-          <TableCell align="right">
+          <TableCell className={cell} align="right">
             Range (%)
           </TableCell>
-          <TableCell align="right">
+          <TableCell className={cell} align="right">
             <Tooltip title="Clear all ranges">
               <Button onClick={this.handleClearCombosButtonClick}>
                 Clear

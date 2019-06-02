@@ -65,7 +65,7 @@ export const styles = {
     flexDirection: 'column',
     fontFamily: 'sans-serif',
     fontWeight: '300',
-    fontSize: '1.5rem',
+    fontSize: '1rem',
     height: '64px',
     justifyContent: 'center',
     width: 'calc(100% / 13)',
@@ -83,6 +83,19 @@ export const styles = {
     '&.firstdragged': {
       backgroundColor: (props) => getBackgroundColor(props, false),
       color: (props) => getColor(props, false)
+    }
+  },
+
+  '@media (max-width: 1280px)': {
+    combocell: {
+      height: '40px'
+    }
+  },
+
+  '@media (max-width: 600px)': {
+    combocell: {
+      fontSize: '0.5rem',
+      height: '30px'
     }
   },
 

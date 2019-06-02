@@ -3,7 +3,7 @@ import CardSelector from 'components/card-selector'
 import ComboCell from 'components/range-builder/combo-cell'
 import {styles} from 'components/range-builder/styles'
 import comboGroups from 'lib/combo-groups'
-import Card from '@material-ui/core/Card'
+import Paper from '@material-ui/core/Paper'
 import {comboRows} from 'modules/range-builder/constants'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -33,10 +33,10 @@ class RangeBuilder extends Component {
 
   render() {
     return (
-      <Card className={this.getClass()}>
+      <Paper className={this.getClass()}>
           {this.renderComboGroups()}
           <CardSelector {...this.getCardSelectorProps()} />
-      </Card>
+      </Paper>
     )
   }
 

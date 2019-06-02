@@ -25,10 +25,10 @@ class Home extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
-          <Grid item sm={12} md={6}>
+          <Grid item xs={12} lg={6}>
             <RangeBuilder />
           </Grid>
-          <Grid item sm={12} md={6}>
+          <Grid item xs={12} lg={6}>
             <div> 
               <RangeAnalyzer />
               <Board className={classes.board} />
