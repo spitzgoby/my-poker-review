@@ -70,11 +70,12 @@ class RangeAnalyzerRow extends Component {
   renderDetails() {
     const { 
       classes,
+      editing,
       rangeOutput
     } = this.props
     let component = null
 
-    if (rangeOutput) {
+    if (!editing && rangeOutput) {
       component = (
         <TableRow className={classes.row}>
           <RangeAnalyzerOutputCell {...this.getOutputCellProps()} />
@@ -140,12 +141,14 @@ class RangeAnalyzerRow extends Component {
 
   getDefaultCellProps() {
     const {
+      editing,
       range,
       rangeOutput,
       selected
     } = this.props
 
     return {
+      editing,
       expanded: !!rangeOutput,
       range,
       selected

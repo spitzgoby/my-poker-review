@@ -1,5 +1,6 @@
 import RangeAnalyzerCell from 'components/range-analyzer/cell'
 import styles from 'components/range-analyzer/copy-cell/styles'
+import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
@@ -23,6 +24,7 @@ class RangeAnalyzerCopyCell extends Component {
   }
 
   static propTypes = {
+    editing: PropTypes.bool,
     onCopy: PropTypes.func,
     range: PropTypes.shape({
       color: PropTypes.string
@@ -32,16 +34,19 @@ class RangeAnalyzerCopyCell extends Component {
 
   render() {
     const {
-      classes
+      classes,
+      editing
     } = this.props
 
     return (
       <RangeAnalyzerCell className={classes.cell} align="right"> 
-        <Tooltip title="Copy range text to clipboard">
-          <IconButton {...this.getCopyButtonProps()}>
-            <FileCopyIcon />
-          </IconButton>
-        </Tooltip>
+        <Fade in={!editing}>
+          <Tooltip title="Copy range text to clipboard">
+            <IconButton {...this.getCopyButtonProps()}>
+              <FileCopyIcon />
+            </IconButton>
+          </Tooltip>
+        </Fade>
         <Snackbar {...this.getRangeCopiedMessageProps()}>
           <SnackbarContent {...this.getRangeCopiedMessageContentProps()} />
         </Snackbar>
@@ -50,8 +55,14 @@ class RangeAnalyzerCopyCell extends Component {
   }
 
   getCopyButtonProps() {
+    const {
+      classes,
+      editing
+    } = this.props
+
     return {
-      className: this.props.classes.copy,
+      className: classes.copy,
+      disabled: editing,
       onClick: this.handleCopyButtonClick
     }
   }

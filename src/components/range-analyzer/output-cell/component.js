@@ -31,7 +31,7 @@ class RangeAnalyzerOutputCell extends Component {
 
   getProps() {
     return {
-      align: 'left',
+      align: 'right',
       className: this.props.classes.cell,
       colSpan: 4
     }
