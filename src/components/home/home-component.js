@@ -28,11 +28,11 @@ class Home extends Component {
           <Grid item xs={12} lg={7}>
             <div> 
               <RangeAnalyzer />
-              <Board className={classes.board} />
             </div>
           </Grid>
           <Grid item xs={12} lg={5}>
             <RangeBuilder />
+            <Board className={classes.board} />
           </Grid>
         </Grid>
       </div>
