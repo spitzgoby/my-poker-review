@@ -1,8 +1,8 @@
+import RangeAnalyzerCell from 'components/range-analyzer/cell'
 import styles from 'components/range-analyzer/edit-cell/styles'
 import Button from '@material-ui/core/Button'
 import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
-import TableCell from '@material-ui/core/TableCell'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
@@ -39,7 +39,7 @@ class RangeAnalyzerEditCell extends Component {
     } = this.props
 
     return (
-      <TableCell className={classes.cell} align="right"> 
+      <RangeAnalyzerCell className={classes.cell} align="right"> 
         <Fade in={!editing}>
           {this.renderClearButton()}
         </Fade>
@@ -48,7 +48,7 @@ class RangeAnalyzerEditCell extends Component {
             ? this.renderDeleteFade()
             : this.renderExpandFade()
         }
-      </TableCell>
+      </RangeAnalyzerCell>
     ) 
   }
 

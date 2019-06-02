@@ -1,8 +1,8 @@
+import RangeAnalyzerCell from 'components/range-analyzer/cell'
 import styles from 'components/range-analyzer/copy-cell/styles'
 import IconButton from '@material-ui/core/IconButton'
 import Snackbar from '@material-ui/core/Snackbar'
 import SnackbarContent from '@material-ui/core/SnackbarContent'
-import TableCell from '@material-ui/core/TableCell'
 import Tooltip from '@material-ui/core/Tooltip'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import PropTypes from 'prop-types'
@@ -36,7 +36,7 @@ class RangeAnalyzerCopyCell extends Component {
     } = this.props
 
     return (
-      <TableCell className={classes.cell} align="right"> 
+      <RangeAnalyzerCell className={classes.cell} align="right"> 
         <Tooltip title="Copy range text to clipboard">
           <IconButton {...this.getCopyButtonProps()}>
             <FileCopyIcon />
@@ -45,7 +45,7 @@ class RangeAnalyzerCopyCell extends Component {
         <Snackbar {...this.getRangeCopiedMessageProps()}>
           <SnackbarContent {...this.getRangeCopiedMessageContentProps()} />
         </Snackbar>
-      </TableCell>
+      </RangeAnalyzerCell>
     ) 
   }
 

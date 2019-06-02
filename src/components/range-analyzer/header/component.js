@@ -1,7 +1,6 @@
-import styles from 'components/range-analyzer/styles'
+import RangeAnalyzerCell from 'components/range-analyzer/cell'
 import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton'
-import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Tooltip from '@material-ui/core/Tooltip'
@@ -9,7 +8,6 @@ import ClearIcon from '@material-ui/icons/Clear'
 import EditIcon from '@material-ui/icons/Edit'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import injectSheet from 'react-jss'
 
 class RangeAnalyzerHeader extends Component {
 
@@ -25,29 +23,27 @@ class RangeAnalyzerHeader extends Component {
   }
 
   render() {
-    const cell = this.props.classes.cell
-
     return (
       <TableHead>
         <TableRow>
-          <TableCell className={cell}>Name</TableCell>
-          <TableCell className={cell} align="right">
+          <RangeAnalyzerCell>Name</RangeAnalyzerCell>
+          <RangeAnalyzerCell align="right">
             Hands (%)
-          </TableCell>
-          <TableCell className={cell} align="right">
+          </RangeAnalyzerCell>
+          <RangeAnalyzerCell align="right">
             Combos (#)
-          </TableCell>
-          <TableCell className={cell} align="right">
+          </RangeAnalyzerCell>
+          <RangeAnalyzerCell align="right">
             Range (%)
-          </TableCell>
-          <TableCell className={cell} align="right">
+          </RangeAnalyzerCell>
+          <RangeAnalyzerCell align="right">
             <Tooltip title="Clear all ranges">
               <Button onClick={this.handleClearCombosButtonClick}>
                 Clear
               </Button>
             </Tooltip>
             {this.renderEditButton()}
-          </TableCell>
+          </RangeAnalyzerCell>
         </TableRow>              
       </TableHead>
     ) 
@@ -87,4 +83,4 @@ class RangeAnalyzerHeader extends Component {
 
 }
 
-export default injectSheet(styles)(RangeAnalyzerHeader)
+export default (RangeAnalyzerHeader)

@@ -48,7 +48,7 @@ class RangeAnalyzerToolbar extends Component {
     const classes = this.props.classes
 
     return (
-      <Toolbar>
+      <Toolbar className={classes.toolbar}>
         <Grid justify="space-between" container>
           <Grid item>
             <Typography className={classes.title} variant="h5">

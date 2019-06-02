@@ -1,5 +1,5 @@
+import RangeAnalyzerCell from 'components/range-analyzer/cell'
 import styles from 'components/range-analyzer/output-cell/styles'
-import TableCell from '@material-ui/core/TableCell'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -21,12 +21,20 @@ class RangeAnalyzerOutputCell extends Component {
     } = this.props
 
     return (
-      <TableCell className={classes.cell} colSpan={4} align="left"> 
+      <RangeAnalyzerCell {...this.getProps()}> 
         <span className={classes.text}>
           {rangeOutput}
         </span>
-      </TableCell>
+      </RangeAnalyzerCell>
     ) 
+  }
+
+  getProps() {
+    return {
+      align: 'left',
+      className: this.props.classes.cell,
+      colSpan: 4
+    }
   }
 }
 

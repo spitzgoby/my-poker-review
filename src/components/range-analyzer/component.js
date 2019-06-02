@@ -1,13 +1,11 @@
 import RangeAnalyzerHeader from 'components/range-analyzer/header'
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar'
 import RangeAnalyzerRow from 'components/range-analyzer/row'
-import {styles} from 'components/range-analyzer/styles'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
-import injectSheet from 'react-jss'
 
 class RangeAnalyzer extends Component {
 
@@ -74,4 +72,4 @@ class RangeAnalyzer extends Component {
   }
 }
 
-export default injectSheet(styles)(RangeAnalyzer)
+export default RangeAnalyzer
