@@ -87,6 +87,10 @@ class CardSelector extends Component {
 
     return {
       anchorEl: anchorEl,
+      anchorOrigin: {
+        horizontal: 'right',
+        vertical: 'center'
+      },
       MenuListProps: {
         className: this.props.classes.list
       },
