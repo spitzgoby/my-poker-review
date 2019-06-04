@@ -46,10 +46,12 @@ class BoardInput extends Component {
   getTextFieldProps() {
     const { 
       board,
+      className
     } = this.props
 
     return {
-      className: this.getClass(),
+      className,
+      fullWidth: true,
       inputProps: {
         maxLength: 10
       },
@@ -61,15 +63,6 @@ class BoardInput extends Component {
       onChange: this.handleBoardChange,
       value: board
     }
-  }
-
-  getClass() {
-    const {
-      classes,
-      className
-    } = this.props
-
-    return classnames(classes.board, className)
   }
 
   handleBoardChange(event) {

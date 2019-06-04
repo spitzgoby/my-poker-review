@@ -4,6 +4,7 @@ import RangeAnalyzerEditCell from 'components/range-analyzer/edit-cell'
 import RangeAnalyzerNameCell from 'components/range-analyzer/name-cell'
 import RangeAnalyzerOutputCell from 'components/range-analyzer/output-cell'
 import {styles} from 'components/range-analyzer/row/styles'
+import Hidden from '@material-ui/core/Hidden'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
@@ -49,7 +50,9 @@ class RangeAnalyzerRow extends Component {
       <Fragment>
         <TableRow className={classes.row} onClick={this.handleClick}>
           <RangeAnalyzerNameCell {...this.getNameCellProps()} />
-          <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('handsRatio', 'ratio')} />
+          <Hidden xsDown>
+            <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('handsRatio', 'ratio')} />
+          </Hidden>
           <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('combosCount', 'count')} />
           <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('rangeRatio', 'ratio')} />
           <RangeAnalyzerEditCell {...this.getEditCellProps()} />

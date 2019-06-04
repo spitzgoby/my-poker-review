@@ -2,11 +2,17 @@ import {gutterWidth} from 'styles/layout'
 
 export const styles = {
   root: {
-    padding: gutterWidth 
+    margin: `${gutterWidth} 0 ${gutterWidth} ${gutterWidth}`
   },
 
-  board: {
-    marginTop: gutterWidth
+  '@media (max-width: 1280px)':{
+    rangebuilder: {
+      marginRight: gutterWidth
+    }
+  },
+
+  subtitle: {
+    padding: gutterWidth
   }
 }
 

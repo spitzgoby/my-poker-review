@@ -1,11 +1,10 @@
 export default {
   board: {
-    height: '155px',
-    padding: '0 24px 24px 24px'
+    padding: '0 16px 16px 16px'
   },
 
   streets: {
-    marginTop: '-14px'
+    marginTop: '16px'
   },
 
   title: {

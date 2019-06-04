@@ -3,6 +3,8 @@ import {styles} from 'components/home/home-styles'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -25,14 +27,25 @@ class Home extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={16}>
-          <Grid item xs={12} lg={7}>
-            <div> 
+          <Grid container direction="column" spacing={16} item xs={12} lg={7}>
+            <Grid item>
               <RangeAnalyzer />
-            </div>
+            </Grid>
+            <Grid container spacing={16} item>
+              <Grid item xs={12} lg={6}>
+                <Board />
+              </Grid>
+              <Grid item xs={12} lg={6}>
+                <Paper>
+                  <Typography className={classes.subtitle} variant="h5">
+                    Hand
+                  </Typography>
+                </Paper>
+              </Grid>
+            </Grid>
           </Grid>
-          <Grid item xs={12} lg={5}>
-            <RangeBuilder />
-            <Board className={classes.board} />
+          <Grid item xs={12} lg={5} className={classes.rangebuilder}>
+              <RangeBuilder />
           </Grid>
         </Grid>
       </div>

@@ -1,5 +1,3 @@
-import {themeColors} from 'styles/colors'
-
 export default {
   street: {
     display: 'flex',
@@ -13,7 +11,6 @@ export default {
   },
 
   subtitle: {
-    borderTop: `1px solid ${themeColors.secondary}`,
     marginTop: '4px',
     marginRight: '8px'
   }
