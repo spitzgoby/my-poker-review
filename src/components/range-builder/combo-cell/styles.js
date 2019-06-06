@@ -69,19 +69,23 @@ export const styles = {
     justifyContent: 'center',
     width: 'calc(100% / 13)',
 
-    '&:hover': {
-      backgroundColor: (props) => getBackgroundColor(props, true),
-      color: (props) => getColor(props, true),
-
-    },
-
-    '&:hover $selectorbutton': {
-      visibility: 'visible'
-    },
-
     '&.firstdragged': {
       backgroundColor: (props) => getBackgroundColor(props, false),
       color: (props) => getColor(props, false)
+    }
+  },
+
+  '@media (hover: hover)': {
+    combocell: {
+      '&:hover': {
+        backgroundColor: (props) => getBackgroundColor(props, true),
+        color: (props) => getColor(props, true),
+
+      },
+
+      '&:hover $selectorbutton': {
+        visibility: 'visible'
+      }
     }
   },
 
