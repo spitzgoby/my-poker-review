@@ -53,6 +53,7 @@ const initialState = {
   playerHand: '',
   ranges,
   selecting: true,
+  selectingSuits: false,
   selectedRangeId: find(ranges, { 'name': 'Bet' }).id
 }
 
@@ -194,6 +195,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_SELECTING_SUITS:
+      nextState = {
+        ...state,
+        selectingSuits: !state.selectingSuits
+      }
+      break
+
     default:
       nextState = state
   }
@@ -222,6 +230,7 @@ export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRanges(state), id)
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting
+export const getIsSelectingSuits = (state) => state.selectingSuits
 export const getPlayerHand = (state) => state.playerHand
 export const getRangeColors = (state) => state.colors
 export const getRanges = (state) => map(state.ranges, (range) => range)

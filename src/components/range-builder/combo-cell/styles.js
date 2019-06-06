@@ -41,10 +41,9 @@ const getBackgroundColor = (props, hover = false) => {
 }
 
 const getBorderWidth = (props) => {
-  const bottom = props.lastRow ? '0' : '1px'
   const right = props.lastColumn ? '0' : '1px'
 
-  return `0 ${right} ${bottom} 0`
+  return `0 ${right} 1px 0`
 }
 
 const getColor = (props, hover = false) => {

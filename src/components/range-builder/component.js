@@ -3,6 +3,7 @@ import CardSelector from 'components/card-selector'
 import ComboCell from 'components/range-builder/combo-cell'
 import {styles} from 'components/range-builder/styles'
 import comboGroups from 'lib/combo-groups'
+import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import {comboRows} from 'modules/range-builder/constants'
 import PropTypes from 'prop-types'
@@ -16,6 +17,7 @@ class RangeBuilder extends Component {
 
     this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
     this.handleOpenCardSelector = this.handleOpenCardSelector.bind(this)
+    this.handleSuitSelectorClick = this.handleSuitSelectorClick.bind(this)
 
     this.state = {
       cardSelectorAnchor: null,
@@ -24,8 +26,12 @@ class RangeBuilder extends Component {
   }
 
   static propTypes = {
+    actions: PropTypes.shape({
+      onSelectSuits: PropTypes.func
+    }).isRequired,
     className: PropTypes.string,
-    selectedColor: PropTypes.string
+    selectedColor: PropTypes.string,
+    selectingSuits: PropTypes.bool
   }
 
   static lastColumnIndex = 12
@@ -35,6 +41,7 @@ class RangeBuilder extends Component {
     return (
       <Paper className={this.getClass()}>
           {this.renderComboGroups()}
+          <Button {...this.getSuitSelectorButtonProps()}>Select Suits</Button>
           <CardSelector {...this.getCardSelectorProps()} />
       </Paper>
     )
@@ -65,6 +72,16 @@ class RangeBuilder extends Component {
     }
   }
 
+  getSuitSelectorButtonProps() {
+    const selectingSuits = this.props.selectingSuits
+
+    return {
+      color: selectingSuits ? 'primary' : 'default',
+      onClick: this.handleSuitSelectorClick,
+      variant: selectingSuits ? 'contained' : 'default' 
+    }
+  }
+
   getCardSelectorProps() {
     const {
       cardSelectorAnchor,
@@ -85,6 +102,14 @@ class RangeBuilder extends Component {
     } = this.props
 
     return classnames(classes.rangebuilder, className)
+  }
+
+  handleSuitSelectorClick() {
+    const onSelectSuits = this.props.actions.onSelectSuits
+
+    if (onSelectSuits) {
+      onSelectSuits()
+    }
   }
 
   handleOpenCardSelector(event, comboGroup) {

@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {
   makeGetIsComboGroupSelected,
   getIsSelecting,
+  getIsSelectingSuits,
   makeGetRangeColorForComboGroup,
   selectCombos,
   setSelecting
@@ -15,7 +16,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     color: makeGetRangeColorForComboGroup()(state, comboGroupId),
     selected: makeGetIsComboGroupSelected()(state, comboGroupId),
-    selecting: getIsSelecting(state)
+    selecting: getIsSelecting(state),
+    selectingSuits: getIsSelectingSuits(state)
   }
 }
 
