@@ -35,7 +35,6 @@ class RangeBuilder extends Component {
   }
 
   static lastColumnIndex = 12
-  static lastRowIndex = 12
 
   render() {
     return (
@@ -65,7 +64,6 @@ class RangeBuilder extends Component {
     return {
       comboGroup: comboGroups[comboGroupId],
       lastColumn: column === RangeBuilder.lastColumnIndex,
-      lastRow: row === RangeBuilder.lastRowIndex,
       onOpenCardSelector: this.handleOpenCardSelector,
       key: comboGroupId,
       selectedColor: this.props.selectedColor

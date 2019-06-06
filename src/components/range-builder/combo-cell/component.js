@@ -14,6 +14,7 @@ class ComboCell extends Component {
     this.handleDragStart = this.handleDragStart.bind(this)
     this.handleMouseDown = this.handleMouseDown.bind(this)
     this.handleMouseUp = this.handleMouseUp.bind(this)
+    this.handleTouchEnd = this.handleTouchEnd.bind(this)
 
     this.state = {
       firstDragged: false
@@ -31,7 +32,7 @@ class ComboCell extends Component {
       text: PropTypes.string,
       type: PropTypes.string
     }).isRequired,
-    lastRow: PropTypes.bool,
+    lastColumn: PropTypes.bool,
     onOpenCardSelector: PropTypes.func,
     selected: PropTypes.bool,
     selecting: PropTypes.bool,
@@ -57,6 +58,7 @@ class ComboCell extends Component {
       onDragStart: this.handleDragStart,
       onMouseDown: this.handleMouseDown,
       onMouseUp: this.handleMouseUp,
+      onTouchEnd: this.handleTouchEnd,
       ref: this.props.selectableRef
     } 
   }
@@ -119,6 +121,10 @@ class ComboCell extends Component {
 
   handleMouseUp() {
     this.toggleFirstDragged(false)
+  }
+
+  handleTouchEnd() {
+    this.handleSelect(!this.props.selected)
   }
 
   handleSelect(select) {
