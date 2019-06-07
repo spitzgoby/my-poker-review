@@ -1,9 +1,10 @@
 export default {
   board: {
-    padding: '0 16px 16px 16px'
+    padding: '8px 16px 0px 16px'
   },
 
   streets: {
+    marginBottom: '8px',
     marginTop: '16px'
   },
 

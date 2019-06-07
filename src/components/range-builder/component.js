@@ -76,20 +76,22 @@ class RangeBuilder extends Component {
     return {
       color: selectingSuits ? 'primary' : 'default',
       onClick: this.handleSuitSelectorClick,
-      variant: selectingSuits ? 'contained' : 'default' 
+      variant: selectingSuits ? 'contained' : 'text' 
     }
   }
 
   getCardSelectorProps() {
     const {
       cardSelectorAnchor,
-      cardSelectorComboGroup
+      cardSelectorComboGroup,
+      cardSelectorTransformOrigin
     } = this.state
 
     return {
       anchorEl: cardSelectorAnchor,
       comboGroup: cardSelectorComboGroup,
-      onClose: this.handleCardSelectorClose
+      onClose: this.handleCardSelectorClose,
+      transformOrigin: cardSelectorTransformOrigin
     }
   }
 
@@ -113,7 +115,8 @@ class RangeBuilder extends Component {
   handleOpenCardSelector(event, comboGroup) {
     this.setState({
       cardSelectorAnchor: event.currentTarget,
-      cardSelectorComboGroup: comboGroup
+      cardSelectorComboGroup: comboGroup,
+      cardSelectorTransformOrigin: this.getTransformOriginForComboGroup(comboGroup)
     })
   }
 
@@ -122,6 +125,35 @@ class RangeBuilder extends Component {
       cardSelectorAnchor: null,
       cardSelectorComboGroup: null
     })
+  }
+
+  getTransformOriginForComboGroup(comboGroup) {
+    let column;
+    let currentRow = 0;
+    let currentColumn = 0;
+    let row; 
+
+    while(!row && currentRow < comboRows.length) {
+      const comboRow = comboRows[currentRow]
+
+      while (!column && currentColumn < comboRow.length) {
+        const comboGroupId = comboRow[currentColumn]
+
+        if (comboGroupId === comboGroup.id) {
+          column = currentColumn
+          row = currentRow
+        }
+
+        currentColumn++
+      }
+
+      currentRow++
+    }
+
+    return {
+      horizontal: column > (comboRows[0].length / 2) ? 'right' : 'left',
+      vertical: row > (comboRows.length / 2) ? 'top' : 'bottom'
+    }
   }
 }
 

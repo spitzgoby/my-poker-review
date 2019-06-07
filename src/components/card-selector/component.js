@@ -34,6 +34,11 @@ class CardSelector extends Component {
       id: PropTypes.string.isRequired,
       text: PropTypes.string,
       type: PropTypes.string
+    }),
+    onClose: PropTypes.func,
+    transformOrigin: PropTypes.shape({
+      horizontal: PropTypes.string,
+      vertical: PropTypes.string
     })
   }
 

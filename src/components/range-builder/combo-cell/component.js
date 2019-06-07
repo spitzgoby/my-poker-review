@@ -123,8 +123,19 @@ class ComboCell extends Component {
     this.toggleFirstDragged(false)
   }
 
-  handleTouchEnd() {
-    this.handleSelect(!this.props.selected)
+  handleTouchEnd(event) {
+    const {
+      selected,
+      selectingSuits
+    } = this.props
+
+    event.preventDefault()
+
+    if (selectingSuits) {
+      this.openCardSelector(event)
+    } else {
+      this.handleSelect(!selected)
+    }
   }
 
   handleSelect(select) {

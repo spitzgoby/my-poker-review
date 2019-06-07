@@ -32,10 +32,10 @@ class Home extends Component {
               <RangeAnalyzer />
             </Grid>
             <Grid container spacing={16} item>
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={6}>
                 <Board />
               </Grid>
-              <Grid item xs={12} lg={6}>
+              <Grid item xs={12} md={6}>
                 <Paper>
                   <Typography className={classes.subtitle} variant="h5">
                     Hand

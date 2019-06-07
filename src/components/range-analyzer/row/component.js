@@ -1,8 +1,6 @@
-import RangeAnalyzerCopyCell from 'components/range-analyzer/copy-cell'
 import RangeAnalyzerAnalysisCell from 'components/range-analyzer/analysis-cell'
 import RangeAnalyzerEditCell from 'components/range-analyzer/edit-cell'
 import RangeAnalyzerNameCell from 'components/range-analyzer/name-cell'
-import RangeAnalyzerOutputCell from 'components/range-analyzer/output-cell'
 import {styles} from 'components/range-analyzer/row/styles'
 import Hidden from '@material-ui/core/Hidden'
 import TableCell from '@material-ui/core/TableCell'
@@ -57,7 +55,6 @@ class RangeAnalyzerRow extends Component {
           <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('rangeRatio', 'ratio')} />
           <RangeAnalyzerEditCell {...this.getEditCellProps()} />
         </TableRow>
-        {this.renderDetails()}
       </Fragment>
     ) 
   }
@@ -68,26 +65,6 @@ class RangeAnalyzerRow extends Component {
         {content}
       </TableCell>
     )
-  }
-
-  renderDetails() {
-    const { 
-      classes,
-      editing,
-      rangeOutput
-    } = this.props
-    let component = null
-
-    if (!editing && rangeOutput) {
-      component = (
-        <TableRow className={classes.row}>
-          <RangeAnalyzerOutputCell {...this.getOutputCellProps()} />
-          <RangeAnalyzerCopyCell {...this.getCopyCellProps()} />
-        </TableRow> 
-      )
-    }
-
-    return component
   }
 
   getNameCellProps() {

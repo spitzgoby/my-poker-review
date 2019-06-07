@@ -1,4 +1,3 @@
-import classnames from 'classnames'
 import styles from 'components/board/input/styles'
 import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
@@ -59,7 +58,7 @@ class BoardInput extends Component {
         endAdornment: this.renderClearButton(),
       },
       inputRef: this.setBoardInputRef,
-      label: 'Cards',
+      label: 'Board',
       onChange: this.handleBoardChange,
       value: board
     }

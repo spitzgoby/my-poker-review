@@ -5,8 +5,6 @@ import styles from 'components/board/styles'
 import Street from 'components/board/street'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import Toolbar from '@material-ui/core/Toolbar'
-import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -37,11 +35,6 @@ class Board extends Component {
 
     return (
       <Paper className={this.getClass()}> 
-        <Toolbar className={classes.title}>
-          <Typography variant="h5">
-            Board
-          </Typography>
-        </Toolbar>
         <Grid container>
           <Grid item xs={12}>
             <BoardInput {...this.getFlopProps()} />
@@ -73,7 +66,6 @@ class Board extends Component {
     return {
       board,
       className: classnames(classes.input, classes.flop),
-      street: 'Flop',
       onChange: this.handleBoardChange
     }
   }

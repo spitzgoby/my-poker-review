@@ -20,10 +20,6 @@ const getBackgroundColor = (props, hover = false) => {
   } = props
 
   if (hover) {
-    if (selected) {
-      console.log(selectedColor)
-      console.log(rangeColors)
-    }
     backgroundColor = selected
       ? rangeColors['dark' + selectedColor]
       : rangeColors[selectedColor]
@@ -81,10 +77,6 @@ export const styles = {
         backgroundColor: (props) => getBackgroundColor(props, true),
         color: (props) => getColor(props, true),
 
-      },
-
-      '&:hover $selectorbutton': {
-        visibility: 'visible'
       }
     }
   },
@@ -99,12 +91,6 @@ export const styles = {
     combocell: {
       fontSize: '0.5rem',
       height: '30px'
-    }
-  },
-
-  selectorbutton: {
-    '&:hover': {
-      cursor: 'pointer'
     }
   }
 }
