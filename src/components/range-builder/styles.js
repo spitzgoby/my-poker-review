@@ -9,5 +9,10 @@ export const styles = {
   comborow: {
     display: 'flex',
     flexDirection: 'row',
+  },
+
+  selectorbutton: {
+    borderTopLeftRadius: '0',
+    borderTopRightRadius: '0'
   }
 }

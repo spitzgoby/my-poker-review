@@ -71,10 +71,14 @@ class RangeBuilder extends Component {
   }
 
   getSuitSelectorButtonProps() {
-    const selectingSuits = this.props.selectingSuits
+    const { 
+      classes,
+      selectingSuits
+    } = this.props
 
     return {
       color: selectingSuits ? 'primary' : 'default',
+      className: classes.selectorbutton,
       onClick: this.handleSuitSelectorClick,
       variant: selectingSuits ? 'contained' : 'text' 
     }
