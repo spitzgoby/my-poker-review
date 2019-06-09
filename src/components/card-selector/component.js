@@ -1,10 +1,13 @@
+import CardIcon from 'components/card-icon'
 import ComboCell from 'components/card-selector/combo-cell'
 import styles from 'components/card-selector/styles'
+import {cards} from 'lib/cards'
 import {types} from 'lib/combos'
 import {times} from 'lodash'
 import Menu from '@material-ui/core/Menu'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -93,10 +96,21 @@ class CardSelector extends Component {
   }
 
   renderAllCardSelector() {
-    return null
-  }
+    const rowLength = 4
+    const rows = 13
 
-  renderSelectorRows(rows) {
+    return times(rows, (i) => {
+      return (
+        <TableRow key={i}>
+          {times(rowLength, (j) => {
+            const card = cards[j + i*rowLength]
+            return (<TableCell padding="none" key={`${i}${j}`}>
+              <CardIcon card={card} key={card.id} />
+            </TableCell>)
+          })}
+        </TableRow>
+      )
+    })
   }
 
   getProps() {
@@ -150,7 +164,6 @@ class CardSelector extends Component {
 
   getRowCombos(combos, index, count) {
     return combos.slice(index, index+count)
-
   }
 }
 

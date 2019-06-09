@@ -47,9 +47,9 @@ class Street extends Component {
     if (index < cards.length) {
       const card = cards[index]
 
-      component = <CardIcon card={card} key={card.id} />
+      component = <CardIcon card={card} key={card.id} shouldSelectCard={true}/>
     } else {
-      component = <CardIcon key={index} />
+      component = <CardIcon key={index} shouldSelectCard={true}/>
     }
 
     return component
