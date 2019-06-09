@@ -1,6 +1,5 @@
 import classnames from 'classnames'
 import BoardInput from 'components/board/input'
-import CardIcon from 'components/card-icon'
 import styles from 'components/board/styles'
 import Street from 'components/board/street'
 import Grid from '@material-ui/core/Grid'
