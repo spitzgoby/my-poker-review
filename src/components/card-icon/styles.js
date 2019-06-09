@@ -68,7 +68,6 @@ export default {
     boxShadow: (props) => props.variant === 'shadow' ? boxShadow : 'none',
     fill: (props) => getColor(props, false),
     height: (props) => getHeight(props),
-    marginRight: (props) => getMargin(props),
     stroke: (props) => getColor(props, false),
     width: (props) => getWidth(props),
 

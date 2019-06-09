@@ -10,6 +10,10 @@ export default {
     flexDirection: 'row'
   },
 
+  card: {
+    marginRight: '8px'
+  },
+
   subtitle: {
     marginTop: '4px',
     marginRight: '8px'

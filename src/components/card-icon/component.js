@@ -1,3 +1,4 @@
+import classnames from 'classnames'
 import CardBackPath from 'components/card-icon/card-back-path'
 import CardSelector from 'components/card-selector'
 import RankPath from 'components/card-icon/rank-path'
@@ -24,6 +25,7 @@ class CardIcon extends Component {
       rank: PropTypes.string,
       suit: PropTypes.string
     }),
+    className: PropTypes.string,
     shouldSelectCard: PropTypes.bool,
     size: PropTypes.oneOf(['sm', 'md']),
     variant: PropTypes.oneOf(['outline', 'shadow'])
@@ -62,7 +64,7 @@ class CardIcon extends Component {
 
   getProps() {
     return {
-      className: this.props.classes.icon,
+      className: this.getClass(),
       onClick: this.handleClick,
       viewBox: '0 0 84 128',
       x: '0',
@@ -75,10 +77,20 @@ class CardIcon extends Component {
     const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
 
     return {
+      allCards: true,
       anchorEl: cardSelectorAnchorEl,
       onClose: this.handleCardSelectorClose,
       open: !!cardSelectorAnchorEl
     }
+  }
+
+  getClass() {
+    const {
+      classes,
+      className
+    } = this.props
+
+    return classnames(classes.icon, className)
   }
 
   handleClick(event) {

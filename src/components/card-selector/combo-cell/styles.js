@@ -38,12 +38,16 @@ export default {
     borderStyle: 'solid',
     padding: '12px',
 
-    '&:hover': {
-      backgroundColor: (props) => getBackgroundColor(props, true)
-    },
-
     '&:last-child': {
       padding: '12px'
     }
-  }
+  },
+
+  '@media (hover: hover)': {
+    cell: {
+      '&:hover': {
+        backgroundColor: (props) => getBackgroundColor(props, true)
+      }
+    }
+  },
 }

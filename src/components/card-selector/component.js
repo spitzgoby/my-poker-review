@@ -32,6 +32,7 @@ class CardSelector extends Component {
     actions: PropTypes.shape({
       onSelect: PropTypes.func
     }).isRequired,
+    allCards: PropTypes.bool,
     anchorEl: PropTypes.object,
     comboGroup: PropTypes.shape({
       combos: PropTypes.arrayOf(PropTypes.object),
@@ -52,16 +53,32 @@ class CardSelector extends Component {
   render() {
     return (
       <Menu {...this.getProps()} >
-        <Table padding="dense"> 
+        {this.renderTable()}
+      </Menu>
+    )
+  }
+
+  renderTable() {
+    const {
+      allCards, 
+      comboGroup
+    } = this.props
+    let component = null
+
+    if (allCards || comboGroup) {
+      component = (
+        <Table padding="dense">
           <TableBody>
-            {this.props.comboGroup
-              ? this.renderComboGroupCardSelector()
-              : this.renderAllCardSelector()
+            {allCards
+              ? this.renderAllCardSelector()
+              : this.renderComboGroupCardSelector()
             }
           </TableBody>
         </Table>
-      </Menu>
-    )
+      )
+    }
+
+    return component
   }
 
   renderComboGroupCardSelector() {
@@ -101,12 +118,15 @@ class CardSelector extends Component {
 
     return times(rows, (i) => {
       return (
-        <TableRow key={i}>
+        <TableRow key={i} style={{paddingLeft: '8px'}}>
           {times(rowLength, (j) => {
             const card = cards[j + i*rowLength]
-            return (<TableCell padding="none" key={`${i}${j}`}>
-              <CardIcon card={card} key={card.id} />
-            </TableCell>)
+
+            return (
+              <TableCell padding="none" key={`${i}${j}`}>
+                <CardIcon card={card} key={card.id} className={this.props.classes.card} />
+              </TableCell>
+            )
           })}
         </TableRow>
       )

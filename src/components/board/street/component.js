@@ -42,17 +42,16 @@ class Street extends Component {
 
   renderCard(index) {
     const cards = this.props.cards 
-    let component = null
+    let cardProps
 
     if (index < cards.length) {
       const card = cards[index]
-
-      component = <CardIcon card={card} key={card.id} shouldSelectCard={true}/>
+      cardProps = this.getCardProps(card, card.id)
     } else {
-      component = <CardIcon key={index} shouldSelectCard={true}/>
+      cardProps = this.getCardProps(null, index) 
     }
 
-    return component
+    return <CardIcon {...cardProps} />
   }
 
   renderSubtitle() {
@@ -68,6 +67,15 @@ class Street extends Component {
         </Typography>
       </div>
     )
+  }
+
+  getCardProps(card, key) {
+    return {
+      card,
+      className: this.props.classes.card,
+      key,
+      shouldSelectCard: true
+    }
   }
 }
 
