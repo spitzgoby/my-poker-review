@@ -1,3 +1,4 @@
+import CardBackPath from 'components/card-icon/card-back-path'
 import RankPath from 'components/card-icon/rank-path'
 import SuitPath from 'components/card-icon/suit-path'
 import injectSheet from 'react-jss'
@@ -22,15 +23,25 @@ class CardIcon extends Component {
 
   render() {
     const {
-      rank,
-      suit
-    } = this.props.card
+      card
+    } = this.props
 
     return (
       <svg {...this.getProps()}>
-        <RankPath rank={rank} />
-        <SuitPath suit={suit} />
+        {card
+            ? this.renderCardFront(card)
+            : <CardBackPath />
+        }
       </svg>
+    )
+  }
+
+  renderCardFront(card) {
+    return (
+      <g>
+        <RankPath rank={card.rank} />
+        <SuitPath suit={card.suit} />
+      </g>
     )
   }
 

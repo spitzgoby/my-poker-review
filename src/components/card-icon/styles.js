@@ -1,13 +1,27 @@
+import Color from 'color'
 import {
   cardColors,
   themeColors
 } from 'styles/colors'
 
+const darkPrimary = Color(themeColors.primary).darken(.10).string()
+
 const getColor = (props, hover) => {
-  const suit = props.card.suit
-  return hover 
-    ? cardColors['dark' + suit]
-    : cardColors[suit]
+  const card = props.card
+  let color
+
+  if (card) {
+    const suit = card.suit
+    color = hover 
+      ? cardColors['dark' + suit]
+      : cardColors[suit]
+  } else {
+    color = hover
+      ? darkPrimary
+      : themeColors.primary
+  }
+
+  return color
 }
 
 const heights = {
@@ -59,6 +73,7 @@ export default {
     width: (props) => getWidth(props),
 
     '&:hover': {
+      cursor: 'pointer',
       fill: (props) => getColor(props, true),
       stroke: (props) => getColor(props, true)
     }

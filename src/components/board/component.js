@@ -51,12 +51,6 @@ class Board extends Component {
     ) 
   }
 
-  renderCardIcons() {
-    return this.props.cards.map((card) => {
-      return <CardIcon card={card} key={card.id} />
-    })
-  }
-
   getFlopProps() {
     const {
       board,
