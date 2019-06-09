@@ -21,14 +21,12 @@ class CardSelector extends Component {
   }
 
   static propTypes = {
-    actions: PropTypes.shape({
-      onSelect: PropTypes.func
-    }).isRequired,
     anchorEl: PropTypes.object,
     deadCards: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string
     })),
     onClose: PropTypes.func,
+    onSelect: PropTypes.func,
     transformOrigin: PropTypes.shape({
       horizontal: PropTypes.string,
       vertical: PropTypes.string
@@ -54,6 +52,7 @@ class CardSelector extends Component {
   }
 
   renderCards() {
+    const deadCardIds = this.props.deadCards.map((deadCard) => deadCard.id)
     const rowLength = 4
     const rows = 13
 
@@ -65,7 +64,7 @@ class CardSelector extends Component {
 
             return (
               <TableCell padding="none" key={`${i}${j}`}>
-                <CardIcon card={card} key={card.id} className={this.props.classes.card} />
+                <CardIcon {...this.getCardProps(card, deadCardIds)} />
               </TableCell>
             )
           })}
@@ -92,6 +91,15 @@ class CardSelector extends Component {
     }
   }
 
+  getCardProps(card, deadCardIds) {
+    return {
+      card: card, 
+      className: this.props.classes.card,
+      disabled: deadCardIds.includes(card.id),
+      key: card.id 
+    }
+  }
+
   handleClose() {
     const onClose = this.props.onClose 
 
@@ -101,7 +109,7 @@ class CardSelector extends Component {
   }
 
   handleSelect(combos) {
-    const onSelect = this.props.actions.onSelect
+    const onSelect = this.props.onSelect
 
     if (onSelect) {
       onSelect(combos)

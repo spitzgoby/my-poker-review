@@ -7,10 +7,15 @@ import {
 const darkPrimary = Color(themeColors.primary).darken(.10).string()
 
 const getColor = (props, hover) => {
-  const card = props.card
+  const {
+    card,
+    disabled
+  } = props
   let color
 
-  if (card) {
+  if (disabled) {
+    color = themeColors.lightGray 
+  } else if (card) {
     const suit = card.suit
     color = hover 
       ? cardColors['dark' + suit]
@@ -61,7 +66,7 @@ export default {
     width: (props) => getWidth(props),
 
     '&:hover': {
-      cursor: 'pointer',
+      cursor: (props) => props.disabled ? 'default': 'pointer',
       fill: (props) => getColor(props, true),
       stroke: (props) => getColor(props, true)
     }

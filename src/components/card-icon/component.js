@@ -26,6 +26,7 @@ class CardIcon extends Component {
       suit: PropTypes.string
     }),
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     shouldSelectCard: PropTypes.bool,
     size: PropTypes.oneOf(['sm', 'md']),
     variant: PropTypes.oneOf(['outline', 'shadow'])
@@ -94,7 +95,12 @@ class CardIcon extends Component {
   }
 
   handleClick(event) {
-    if (this.props.shouldSelectCard) {
+    const {
+      disabled,
+      shouldSelectCard
+    } = this.props
+
+    if (shouldSelectCard && !disabled) {
       this.setState({
         cardSelectorAnchorEl: event.currentTarget
       })

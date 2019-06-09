@@ -132,6 +132,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SELECT_BOARD_CARDS:
+      nextState = {
+        ...state,
+        boardCards: action.payload
+      }
+      break
+
     case types.SELECT_COMBOS:
       nextState = {
         ...state,
