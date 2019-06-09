@@ -1,15 +1,20 @@
-import CardIcon from 'components/card-icon'
+import ComboCell from 'components/combo-selector/combo-cell'
 import styles from 'components/card-selector/styles'
-import {cards} from 'lib/cards'
+import {types} from 'lib/combos'
 import {times} from 'lodash'
 import Menu from '@material-ui/core/Menu'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
-import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
+
+const rowCounts = {
+  [types.OFFSUIT]: [4,4,4],
+  [types.PAIR]: [3,3],
+  [types.SUITED]: [2,2]
+}
 
 class CardSelector extends Component {
 
@@ -25,6 +30,12 @@ class CardSelector extends Component {
       onSelect: PropTypes.func
     }).isRequired,
     anchorEl: PropTypes.object,
+    comboGroup: PropTypes.shape({
+      combos: PropTypes.arrayOf(PropTypes.object),
+      id: PropTypes.string.isRequired,
+      text: PropTypes.string,
+      type: PropTypes.string
+    }),
     deadCards: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string
     })),
@@ -44,30 +55,49 @@ class CardSelector extends Component {
   }
 
   renderTable() {
-    return (
-      <Table padding="dense">
-        <TableBody>
-          {this.renderCards()}
-        </TableBody>
-      </Table>
-    )
+    const {
+      comboGroup
+    } = this.props
+    let component = null
+
+    if (comboGroup) {
+      component = (
+        <Table padding="dense">
+          <TableBody>
+            {this.renderComboGroupCardSelector()}
+          </TableBody>
+        </Table>
+      )
+    }
+
+    return component
   }
 
-  renderCards() {
-    const rowLength = 4
-    const rows = 13
+  renderComboGroupCardSelector() {
+    const {
+      comboGroup: {
+        combos,
+        type
+      } 
+    } = this.props
 
-    return times(rows, (i) => {
+    const rows = rowCounts[type]
+    let currentIndex = 0
+    let rowIndex = 0
+
+    return rows.map((count, row) => {
+      const end = currentIndex + count
+      const rowCombos = (type === types.OFFSUIT)
+        ? this.getOffsuitRowCombos(combos, rowIndex, rows.length, count)
+        : this.getRowCombos(combos, currentIndex, count)
+
+      currentIndex = end
+      rowIndex++
+
       return (
-        <TableRow key={i} style={{paddingLeft: '8px'}}>
-          {times(rowLength, (j) => {
-            const card = cards[j + i*rowLength]
-
-            return (
-              <TableCell padding="none" key={`${i}${j}`}>
-                <CardIcon card={card} key={card.id} className={this.props.classes.card} />
-              </TableCell>
-            )
+        <TableRow key={row}>
+          {rowCombos.map((combo, col) => {
+            return <ComboCell {...this.getComboCellProps(combo, rows, row, col)} />
           })}
         </TableRow>
       )
@@ -92,6 +122,15 @@ class CardSelector extends Component {
     }
   }
 
+  getComboCellProps(combo, rows, row, col) {
+    return {
+      combo,
+      key: combo.id,
+      lastColumn: col === rows[col] - 1,
+      lastRow: row === rows.length - 1
+    }
+  }
+
   handleClose() {
     const onClose = this.props.onClose 
 
@@ -106,6 +145,16 @@ class CardSelector extends Component {
     if (onSelect) {
       onSelect(combos)
     }
+  }
+
+  getOffsuitRowCombos(combos, rowIndex, rows, count) {
+    return times(count, (n) => {
+      return combos[rowIndex + n * rows] 
+    })
+  }
+
+  getRowCombos(combos, index, count) {
+    return combos.slice(index, index+count)
   }
 }
 

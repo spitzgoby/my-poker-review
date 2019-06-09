@@ -1,4 +1,4 @@
-import ComboCell from 'components/card-selector/combo-cell/component'
+import ComboCell from 'components/combo-selector/combo-cell/component'
 import {
   getIsComboSelected,
   getRangeColorForCombo,

@@ -1,5 +1,5 @@
 import CardIcon from 'components/card-icon'
-import styles from 'components/card-selector/combo-cell/styles'
+import styles from 'components/combo-selector/combo-cell/styles'
 import TableCell from '@material-ui/core/TableCell'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'

@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import CardSelector from 'components/card-selector'
+import ComboSelector from 'components/combo-selector'
 import ComboCell from 'components/range-builder/combo-cell'
 import {styles} from 'components/range-builder/styles'
 import comboGroups from 'lib/combo-groups'
@@ -41,7 +41,7 @@ class RangeBuilder extends Component {
       <Paper className={this.getClass()}>
           {this.renderComboGroups()}
           <Button {...this.getSuitSelectorButtonProps()}>Select Suits</Button>
-          <CardSelector {...this.getCardSelectorProps()} />
+          <ComboSelector {...this.getCardSelectorProps()} />
       </Paper>
     )
   }
