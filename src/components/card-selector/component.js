@@ -17,7 +17,7 @@ class CardSelector extends Component {
     super(props)
 
     this.handleClose = this.handleClose.bind(this)
-    this.handleSelect = this.handleSelect.bind(this)
+    this.handleCardSelect = this.handleCardSelect.bind(this)
   }
 
   static propTypes = {
@@ -96,7 +96,8 @@ class CardSelector extends Component {
       card: card, 
       className: this.props.classes.card,
       disabled: deadCardIds.includes(card.id),
-      key: card.id 
+      key: card.id,
+      onClick: () => this.handleCardSelect(card)
     }
   }
 
@@ -108,11 +109,11 @@ class CardSelector extends Component {
     }
   }
 
-  handleSelect(combos) {
+  handleCardSelect(card) {
     const onSelect = this.props.onSelect
 
     if (onSelect) {
-      onSelect(combos)
+      onSelect(card)
     }
   }
 }

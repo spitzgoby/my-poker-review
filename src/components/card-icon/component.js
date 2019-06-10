@@ -1,6 +1,5 @@
 import classnames from 'classnames'
 import CardBackPath from 'components/card-icon/card-back-path'
-import CardSelector from 'components/card-selector'
 import RankPath from 'components/card-icon/rank-path'
 import SuitPath from 'components/card-icon/suit-path'
 import injectSheet from 'react-jss'
@@ -12,12 +11,7 @@ class CardIcon extends Component {
   constructor(props) {
     super(props)
 
-    this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
     this.handleClick = this.handleClick.bind(this)
-
-    this.state = {
-      cardSelectorAnchorEl: null
-    }
   }
 
   static propTypes = {
@@ -27,7 +21,7 @@ class CardIcon extends Component {
     }),
     className: PropTypes.string,
     disabled: PropTypes.bool,
-    shouldSelectCard: PropTypes.bool,
+    onClick: PropTypes.func,
     size: PropTypes.oneOf(['sm', 'md']),
     variant: PropTypes.oneOf(['outline', 'shadow'])
   }
@@ -49,7 +43,6 @@ class CardIcon extends Component {
               : <CardBackPath />
           }
         </svg>
-        <CardSelector {...this.getCardSelectorProps()} />
       </Fragment>
     )
   }
@@ -74,17 +67,6 @@ class CardIcon extends Component {
     }
   }
 
-  getCardSelectorProps() {
-    const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
-
-    return {
-      allCards: true,
-      anchorEl: cardSelectorAnchorEl,
-      onClose: this.handleCardSelectorClose,
-      open: !!cardSelectorAnchorEl
-    }
-  }
-
   getClass() {
     const {
       classes,
@@ -95,22 +77,11 @@ class CardIcon extends Component {
   }
 
   handleClick(event) {
-    const {
-      disabled,
-      shouldSelectCard
-    } = this.props
+    const onClick = this.props.onClick
 
-    if (shouldSelectCard && !disabled) {
-      this.setState({
-        cardSelectorAnchorEl: event.currentTarget
-      })
+    if (onClick) {
+      onClick(event)
     }
-  }
-
-  handleCardSelectorClose() {
-    this.setState({
-      cardSelectorAnchorEl: null
-    })
   }
 }
 

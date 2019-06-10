@@ -1,4 +1,5 @@
 import {combos} from 'lib/combos'
+import {STREETS} from 'lib/poker-constants'
 import {
   difference, 
   forEach, 
@@ -59,6 +60,24 @@ const buildRanges = (rangeInfo) => {
 
     return acc
   }, {})
+}
+
+export const updateBoardCards = (state, action) => {
+  const {
+    card,
+    index,
+    street
+  } = action.payload
+  const boardCards = [...state.boardCards]
+  let absoluteIndex = STREETS[street].index + index
+
+  if (absoluteIndex < boardCards.length) {
+    boardCards[absoluteIndex] = card
+  } else {
+    boardCards.push(card)
+  }
+
+  return boardCards
 }
 
 export const ranges = buildRanges(rangeInfo)

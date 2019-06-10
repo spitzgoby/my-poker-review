@@ -8,6 +8,7 @@ import {createRange, ranges} from 'modules/range-builder/ranges'
 import {
   findRangeContainingCombo,
   findRangeContainingComboGroup,
+  updateBoardCards,
   updateRangesByClearingAllSelectedCombos,
   updateRangesByDeletingRange,
   updateRangesBySelectingCombos,
@@ -135,7 +136,7 @@ export default (state = initialState, action = {}) => {
     case types.SELECT_BOARD_CARDS:
       nextState = {
         ...state,
-        boardCards: action.payload
+        boardCards: updateBoardCards(state, action)
       }
       break
 

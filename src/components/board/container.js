@@ -2,6 +2,7 @@ import Board from 'components/board/component'
 import {
   getBoard,
   getBoardCards,
+  selectBoardCards,
   setBoard
 } from 'modules/range-builder'
 import {connect} from 'react-redux'
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
+    selectBoardCards,
     setBoard
   }, dispatch)
 })

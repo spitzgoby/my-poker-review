@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import BoardInput from 'components/board/input'
+import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
 import Street from 'components/board/street'
 import Grid from '@material-ui/core/Grid'
@@ -14,10 +15,20 @@ class Board extends Component {
     super(props)
 
     this.handleBoardChange = this.handleBoardChange.bind(this)
+    this.handleCardSelect = this.handleCardSelect.bind(this)
+    this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
+    this.handleStreetClick = this.handleStreetClick.bind(this)
+
+    this.state = {
+      cardSelectorAnchorEl: null,
+      cardSelectorIndex: null,
+      cardSelectorStreet: null
+    }
   }
 
   static propTypes = {
     actions: PropTypes.shape({
+      selectBoardCards: PropTypes.func,
       setBoard: PropTypes.func
     }).isRequired,
     board: PropTypes.string,
@@ -40,12 +51,13 @@ class Board extends Component {
           </Grid>
           <Grid item xs={12}>
             <Grid className={classes.streets} container direction="row">
-              <Street street="FLOP" />
-              <Street street="TURN" />
-              <Street street="RIVER" />
+              <Street {...this.getStreetProps('FLOP')} />
+              <Street {...this.getStreetProps('TURN')} />
+              <Street {...this.getStreetProps('RIVER')} />
             </Grid>
           </Grid>
         </Grid>
+        <CardSelector {...this.getCardSelectorProps()} />
       </Paper>
     ) 
   }
@@ -60,6 +72,25 @@ class Board extends Component {
       board,
       className: classnames(classes.input, classes.flop),
       onChange: this.handleBoardChange
+    }
+  }
+
+  getStreetProps(street) {
+    return {
+      onCardClick: this.handleStreetClick,
+      street
+    }
+  }
+
+  getCardSelectorProps() {
+    const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
+
+    return {
+      allCards: true,
+      anchorEl: cardSelectorAnchorEl,
+      onClose: this.handleCardSelectorClose,
+      onSelect: this.handleCardSelect,
+      open: !!cardSelectorAnchorEl
     }
   }
 
@@ -78,6 +109,50 @@ class Board extends Component {
     if (setBoard) {
       setBoard({value})
     }
+  }
+
+  handleStreetClick(street, index, event) {
+    const disabled = this.props.disabled
+
+    if (!disabled) {
+      this.setState({
+        cardSelectorAnchorEl: event.currentTarget,
+        cardSelectorIndex: index,
+        cardSelectorStreet: street
+      })
+    }
+  }
+
+  handleCardSelect(card) {
+    const selectBoardCards = this.props.actions.selectBoardCards
+    const {
+      cardSelectorIndex: index,
+      cardSelectorStreet: street
+    } = this.state
+
+
+    if (selectBoardCards) {
+      selectBoardCards({
+        card,
+        index,
+        street
+      })
+    }
+
+    this.closeCardSelector()
+  }
+
+  handleCardSelectorClose() {
+    this.closeCardSelector()
+  }
+
+  closeCardSelector() {
+    this.setState({
+      cardSelectorAnchorEl: null,
+      cardSelectorIndex: null,
+      cardSelectorStreet: null
+    })
+
   }
 }
 

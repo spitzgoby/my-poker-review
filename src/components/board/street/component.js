@@ -11,6 +11,7 @@ class Street extends Component {
 
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
+    onCardClick: PropTypes.func,
     street: PropTypes.string.isRequired
   }
 
@@ -46,9 +47,9 @@ class Street extends Component {
 
     if (index < cards.length) {
       const card = cards[index]
-      cardProps = this.getCardProps(card, card.id)
+      cardProps = this.getCardProps(card, card.id, index)
     } else {
-      cardProps = this.getCardProps(null, index) 
+      cardProps = this.getCardProps(null, index, index) 
     }
 
     return <CardIcon {...cardProps} />
@@ -69,12 +70,23 @@ class Street extends Component {
     )
   }
 
-  getCardProps(card, key) {
+  getCardProps(card, key, index) {
     return {
       card,
       className: this.props.classes.card,
       key,
-      shouldSelectCard: true
+      onClick: (event) => this.handleCardClick(index, event)
+    }
+  }
+
+  handleCardClick(index, event) {
+    const {
+      onCardClick,
+      street
+    } = this.props
+
+    if (onCardClick) {
+      onCardClick(street, index, event)
     }
   }
 }
