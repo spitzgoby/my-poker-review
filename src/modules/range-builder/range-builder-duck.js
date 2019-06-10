@@ -15,7 +15,10 @@ import {
 } from 'modules/range-builder/reducers/ranges/utilities'
 import {actionCreator} from 'redux-action-creator'
 import {rangeColorList} from 'styles/colors/range-colors'
-import {parseCardInput} from 'util/card-input-parser'
+import {
+  cardify,
+  stringify
+} from 'util/card-parser'
 import uuid from 'uuid/v4'
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
@@ -59,7 +62,7 @@ const initialState = {
 }
 
 export default (state = initialState, action = {}) => {
-  let nextState;
+  let nextState
 
   switch(action.type) {
     case types.ADD_RANGE:
@@ -134,9 +137,12 @@ export default (state = initialState, action = {}) => {
       break
 
     case types.SELECT_BOARD_CARDS:
+      const boardCards = updateBoardCards(state, action)
+
       nextState = {
         ...state,
-        boardCards: updateBoardCards(state, action)
+        board: stringify(boardCards),
+        boardCards
       }
       break
 
@@ -165,7 +171,7 @@ export default (state = initialState, action = {}) => {
       nextState = {
         ...state,
         board: action.payload.value,
-        boardCards: parseCardInput(action.payload.value)
+        boardCards: cardify(action.payload.value)
       }
       break
 

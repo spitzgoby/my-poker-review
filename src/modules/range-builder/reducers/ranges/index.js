@@ -6,7 +6,7 @@ import {
 import {types} from 'modules/range-builder/constants'
 import {createRange, ranges} from 'modules/range-builder/ranges'
 import {rangeColorList} from 'styles/colors/range-colors'
-import {parseCardInput} from 'util/card-input-parser'
+import {cardify} from 'util/card-parser'
 import uuid from 'uuid/v4'
 
 /*---------*
