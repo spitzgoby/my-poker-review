@@ -1,4 +1,5 @@
 import Color from 'color'
+import {transitionTimes} from 'styles/animations'
 import {
   cardColors,
   themeColors
@@ -56,6 +57,7 @@ export default {
     height: (props) => '56px',
     stroke: (props) => getColor(props, false),
     width: (props) => '44px',
+    transition: transitionTimes.default
   },
 
   '@media (hover: hover)': {
