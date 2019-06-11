@@ -1,4 +1,4 @@
-import styles from 'components/board/input/styles'
+import styles from 'components/card-input/styles'
 import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -21,6 +21,7 @@ class BoardInput extends Component {
   static propTypes = {
     board: PropTypes.string,
     className: PropTypes.string,
+    label: PropTypes.string,
     onChange: PropTypes.func
   }
 
@@ -45,7 +46,8 @@ class BoardInput extends Component {
   getTextFieldProps() {
     const { 
       board,
-      className
+      className,
+      label
     } = this.props
 
     return {
@@ -58,7 +60,7 @@ class BoardInput extends Component {
         endAdornment: this.renderClearButton(),
       },
       inputRef: this.setBoardInputRef,
-      label: 'Board',
+      label,
       onChange: this.handleBoardChange,
       value: board
     }

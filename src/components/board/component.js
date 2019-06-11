@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import BoardInput from 'components/board/input'
+import CardInput from 'components/card-input'
 import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
 import Street from 'components/board/street'
@@ -48,7 +48,7 @@ class Board extends Component {
       <Paper className={this.getClass()}> 
         <Grid container>
           <Grid item xs={12}>
-            <BoardInput {...this.getFlopProps()} />
+            <CardInput {...this.getCardInputProps()} />
           </Grid>
           <Grid item xs={12}>
             <Grid className={classes.streets} container direction="row">
@@ -63,7 +63,7 @@ class Board extends Component {
     ) 
   }
 
-  getFlopProps() {
+  getCardInputProps() {
     const {
       board,
       classes
@@ -72,7 +72,8 @@ class Board extends Component {
     return {
       board,
       className: classnames(classes.input, classes.flop),
-      onChange: this.handleBoardChange
+      label: 'Board',
+      onChange: this.handleBoardChange,
     }
   }
 
