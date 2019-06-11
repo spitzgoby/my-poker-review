@@ -64,7 +64,7 @@ class Street extends Component {
 
     return (
       <div className={classes.subtitle}>
-        <Typography color="secondary" variant="subtitle2">
+        <Typography className={classes.subtitle} variant="subtitle2">
           {street}
         </Typography>
       </div>

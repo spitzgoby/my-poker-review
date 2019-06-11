@@ -1,3 +1,5 @@
+import {themeColors} from 'styles/colors'
+
 export default {
   street: {
     display: 'flex',
@@ -15,7 +17,7 @@ export default {
   },
 
   subtitle: {
-    marginTop: '4px',
+    color: (props) => props.disabled ? themeColors.mediumGray : themeColors.secondary,
     marginRight: '8px'
   }
 }
