@@ -3,6 +3,7 @@ import BoardInput from 'components/board/input'
 import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
 import Street from 'components/board/street'
+import {STREETS} from 'lib/poker-constants'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
@@ -77,6 +78,7 @@ class Board extends Component {
 
   getStreetProps(street) {
     return {
+      disabled: STREETS[street].index > this.props.cards.length,
       onCardClick: this.handleStreetClick,
       street
     }

@@ -11,6 +11,7 @@ class Street extends Component {
 
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
+    disabled: PropTypes.bool,
     onCardClick: PropTypes.func,
     street: PropTypes.string.isRequired
   }
@@ -71,9 +72,16 @@ class Street extends Component {
   }
 
   getCardProps(card, key, index) {
+    const {
+      cards,
+      classes,
+      disabled
+    } = this.props
+
     return {
       card,
-      className: this.props.classes.card,
+      className: classes.card,
+      disabled: disabled || index > cards.length,
       key,
       onClick: (event) => this.handleCardClick(index, event)
     }
