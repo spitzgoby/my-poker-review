@@ -18,6 +18,7 @@ export const types = {
   SET_EDITING: '@my-poker-review/range-builder/SET_EDITING',
   SET_EXPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_EXPORT_DIALOG_OPEN',
   SET_EXPORT_FILE_NAME: '@my-poker-review/range-builder/SET_EXPORT_FILE_NAME',
+  SET_HAND: '@my-poker-review/range-builder/SET_HAND',
   SET_IMPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_IMPORT_DIALOG_OPEN',
   SET_IMPORT_FILE: '@my-poker-review/range-builder/SET_IMPORT_FILE',
   SET_PLAYER_HAND: '@my-poker-review/range-builder/SET_PLAYER_HAND',

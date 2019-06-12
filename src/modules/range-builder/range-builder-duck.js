@@ -54,6 +54,8 @@ const initialState = {
   boardCards: [],
   colors: rangeColorList,
   editing: false,
+  hand: '',
+  handCards: [],
   playerHand: '',
   ranges,
   selecting: true,
@@ -182,6 +184,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_HAND:
+      nextState = {
+        ...state,
+        hand: action.payload
+      }
+      break
+
     case types.SET_PLAYER_HAND:
       nextState = {
         ...state,
@@ -240,6 +249,7 @@ export const getCardsForStreet = (state, street) => {
 
   return boardCards.slice(index, index + count)
 }
+export const getHand = (state) => state.hand
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRanges(state), id)
 export const getIsEditing = (state) => state.editing

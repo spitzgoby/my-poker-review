@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
-class BoardInput extends Component {
+class CardInput extends Component {
 
   constructor(props) {
     super(props)
@@ -95,4 +95,4 @@ class BoardInput extends Component {
   }
 }
 
-export default injectSheet(styles)(BoardInput)
+export default injectSheet(styles)(CardInput)
