@@ -1,5 +1,5 @@
 import {connect} from 'react-redux'
-import Home from 'components/home/home-component'
+import Home from 'components/home/component'
 import {getRanges} from 'modules/range-builder'
 
 const mapStateToProps = (state) => ({

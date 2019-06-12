@@ -1,6 +1,6 @@
 import Board from 'components/board'
 import Hand from 'components/hand'
-import {styles} from 'components/home/home-styles'
+import {styles} from 'components/home/styles'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import Grid from '@material-ui/core/Grid'
