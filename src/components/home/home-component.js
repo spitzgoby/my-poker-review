@@ -1,10 +1,10 @@
 import Board from 'components/board'
+import Hand from 'components/hand'
 import {styles} from 'components/home/home-styles'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -37,9 +37,7 @@ class Home extends Component {
               </Grid>
               <Grid item xs={12} md={6} xl={4}>
                 <Paper>
-                  <Typography className={classes.subtitle} variant="h5">
-                    Hand
-                  </Typography>
+                  <Hand />
                 </Paper>
               </Grid>
             </Grid>

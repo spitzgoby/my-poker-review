@@ -2,7 +2,7 @@ import classnames from 'classnames'
 import CardInput from 'components/card-input'
 import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
-import Street from 'components/board/street'
+import CardList from 'components/card-list'
 import {STREETS} from 'lib/poker-constants'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -52,9 +52,9 @@ class Board extends Component {
           </Grid>
           <Grid item xs={12}>
             <Grid className={classes.streets} container direction="row">
-              <Street {...this.getStreetProps('FLOP')} />
-              <Street {...this.getStreetProps('TURN')} />
-              <Street {...this.getStreetProps('RIVER')} />
+              <CardList {...this.getCardListProps('FLOP')} />
+              <CardList {...this.getCardListProps('TURN')} />
+              <CardList {...this.getCardListProps('RIVER')} />
             </Grid>
           </Grid>
         </Grid>
@@ -77,11 +77,18 @@ class Board extends Component {
     }
   }
 
-  getStreetProps(street) {
+  getCardListProps(streetName) {
+    const cards = this.props.cards
+    const street = STREETS[streetName]
+    const index = street.index
+
     return {
-      disabled: STREETS[street].index > this.props.cards.length,
-      onCardClick: this.handleStreetClick,
-      street
+      cards: cards.slice(index, street.length),
+      count: street.count,
+      disabled: index > this.props.cards.length,
+      index: index,
+      label: streetName,
+      onCardClick: (index, event) => this.handleStreetClick(streetName, index, event)
     }
   }
 

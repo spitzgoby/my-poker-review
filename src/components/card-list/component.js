@@ -1,19 +1,20 @@
-import styles from 'components/board/street/styles'
+import styles from 'components/card-list/styles'
 import CardIcon from 'components/card-icon'
-import {STREETS} from 'lib/poker-constants'
 import {times} from 'lodash'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
-class Street extends Component {
+class CardList extends Component {
 
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
+    count: PropTypes.number,
     disabled: PropTypes.bool,
-    onCardClick: PropTypes.func,
-    street: PropTypes.string.isRequired
+    index: PropTypes.number,
+    label: PropTypes.string,
+    onCardClick: PropTypes.func
   }
 
   render() {
@@ -28,10 +29,8 @@ class Street extends Component {
   renderCards() {
     const {
       classes,
-      street
+      count
     } = this.props
-
-    const count = STREETS[street].count
 
     return (
       <span className={classes.cards}>{
@@ -59,13 +58,13 @@ class Street extends Component {
   renderSubtitle() {
     const {
       classes,
-      street
+      label
     } = this.props
 
     return (
       <div className={classes.subtitle}>
         <Typography className={classes.subtitle} variant="subtitle2">
-          {street}
+          {label}
         </Typography>
       </div>
     )
@@ -89,14 +88,13 @@ class Street extends Component {
 
   handleCardClick(index, event) {
     const {
-      onCardClick,
-      street
+      onCardClick
     } = this.props
 
     if (onCardClick) {
-      onCardClick(street, index, event)
+      onCardClick(index, event)
     }
   }
 }
 
-export default injectSheet(styles)(Street)
+export default injectSheet(styles)(CardList)
