@@ -12,6 +12,7 @@ export const types = {
   IMPORT_RANGES_SUCCESS: '@my-poker-review/range-builder/IMPORT_RANGES_SUCCESS',
   SELECT_BOARD_CARDS: '@my-poker-review/range-builder/SELECT_BOARD_CARDS',
   SELECT_COMBOS: '@my-poker-review/range-builder/SELECT_COMBOS',
+  SELECT_HAND_CARDS: '@my-poker-review/range-builder/SELECT_HAND_CARDS',
   SELECT_RANGE: '@my-poker-review/range-builder/SELECT_RANGE',
   SET_ADD_RANGE_MENU_OPEN: '@my-poker-review/range-builder/SET_ADD_RANGE_MENU_OPEN',
   SET_BOARD: '@my-poker-review/range-builder/SET_BOARD',

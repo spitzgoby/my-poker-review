@@ -70,10 +70,11 @@ class Board extends Component {
     } = this.props
 
     return {
-      board,
       className: classnames(classes.input, classes.flop),
       label: 'Board',
+      maxLength: 10,
       onChange: this.handleBoardChange,
+      value: board
     }
   }
 
@@ -96,7 +97,6 @@ class Board extends Component {
     const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
 
     return {
-      allCards: true,
       anchorEl: cardSelectorAnchorEl,
       onClose: this.handleCardSelectorClose,
       onSelect: this.handleCardSelect,
@@ -122,15 +122,11 @@ class Board extends Component {
   }
 
   handleStreetClick(street, index, event) {
-    const disabled = this.props.disabled
-
-    if (!disabled) {
-      this.setState({
-        cardSelectorAnchorEl: event.currentTarget,
-        cardSelectorIndex: index,
-        cardSelectorStreet: street
-      })
-    }
+    this.setState({
+      cardSelectorAnchorEl: event.currentTarget,
+      cardSelectorIndex: index,
+      cardSelectorStreet: street
+    })
   }
 
   handleCardSelect(card) {

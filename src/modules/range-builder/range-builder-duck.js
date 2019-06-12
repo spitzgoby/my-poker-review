@@ -9,6 +9,7 @@ import {
   findRangeContainingCombo,
   findRangeContainingComboGroup,
   updateBoardCards,
+  updateHandCards,
   updateRangesByClearingAllSelectedCombos,
   updateRangesByDeletingRange,
   updateRangesBySelectingCombos,
@@ -155,6 +156,16 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SELECT_HAND_CARDS:
+      const handCards = updateHandCards(state, action)
+
+      nextState = {
+        ...state,
+        hand: stringify(handCards),
+        handCards: handCards
+      }
+      break
+
     case types.SELECT_RANGE:
       nextState = {
         ...state,
@@ -187,7 +198,8 @@ export default (state = initialState, action = {}) => {
     case types.SET_HAND:
       nextState = {
         ...state,
-        hand: action.payload
+        hand: action.payload,
+        handCards: cardify(action.payload)
       }
       break
 
@@ -250,6 +262,7 @@ export const getCardsForStreet = (state, street) => {
   return boardCards.slice(index, index + count)
 }
 export const getHand = (state) => state.hand
+export const getHandCards = (state) => state.handCards
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRanges(state), id)
 export const getIsEditing = (state) => state.editing

@@ -59,6 +59,8 @@ export const getCardsForStreet = (state, street) =>
   fromRangeBuilder.getCardsForStreet(getRangeBuilderState(state), street)
 export const getHand = (state) =>
   fromRangeBuilder.getHand(getRangeBuilderState(state))
+export const getHandCards = (state) =>
+  fromRangeBuilder.getHandCards(getRangeBuilderState(state))
 export const getIsAddRangeMenuOpen = (state) =>
   fromRangeBuilder.getIsAddRangeMenuOpen(getRangeBuilderState(state))
 export const getIsEditing = (state) =>

@@ -13,16 +13,16 @@ class CardInput extends Component {
   constructor(props) {
     super(props)
 
-    this.handleBoardChange = this.handleBoardChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
     this.handleClearButtonClick = this.handleClearButtonClick.bind(this)
-    this.setBoardInputRef = this.setBoardInputRef.bind(this)
+    this.setInputRef = this.setInputRef.bind(this)
   }
 
   static propTypes = {
-    board: PropTypes.string,
     className: PropTypes.string,
     label: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    value: PropTypes.string
   }
 
   render() {
@@ -33,7 +33,7 @@ class CardInput extends Component {
 
   renderClearButton() {
     return (
-      <Fade in={!!this.props.board}>
+      <Fade in={!!this.props.value}>
         <InputAdornment position="end">
           <IconButton onClick={this.handleClearButtonClick}>
             <ClearIcon />
@@ -45,38 +45,39 @@ class CardInput extends Component {
 
   getTextFieldProps() {
     const { 
-      board,
       className,
-      label
+      label,
+      maxLength,
+      value
     } = this.props
 
     return {
       className,
       fullWidth: true,
       inputProps: {
-        maxLength: 10
+        maxLength
       },
       InputProps: {
         endAdornment: this.renderClearButton(),
       },
-      inputRef: this.setBoardInputRef,
+      inputRef: this.setInputRef,
       label,
-      onChange: this.handleBoardChange,
-      value: board
+      onChange: this.handleChange,
+      value
     }
   }
 
-  handleBoardChange(event) {
-    this.updateBoard(event.target.value)
+  handleChange(event) {
+    this.updateInput(event.target.value)
   }
 
   handleClearButtonClick(event) {
-    this.updateBoard('')
+    this.updateInput('')
 
     this.focusInput()
   }
 
-  updateBoard(value) {
+  updateInput(value) {
     const {
       onChange
     } = this.props
@@ -86,12 +87,12 @@ class CardInput extends Component {
     }
   }
 
-  setBoardInputRef(component) {
-    this.boardInput = component
+  setInputRef(component) {
+    this.input = component
   }
 
   focusInput() {
-    this.boardInput.focus()
+    this.input.focus()
   }
 }
 

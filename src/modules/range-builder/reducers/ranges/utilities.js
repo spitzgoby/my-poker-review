@@ -80,6 +80,22 @@ export const updateBoardCards = (state, action) => {
   return boardCards
 }
 
+export const updateHandCards = (state, action) => {
+  const {
+    card,
+    index
+  } = action.payload
+  const handCards = [...state.handCards]
+
+  if (index < handCards.length) {
+    handCards[index] = card
+  } else {
+    handCards.push(card)
+  }
+
+  return handCards
+}
+
 export const ranges = buildRanges(rangeInfo)
 
 export const updateRangesByClearingAllSelectedCombos = (state) => {

@@ -1,5 +1,6 @@
 import CardInput from 'components/card-input'
 import CardList from 'components/card-list'
+import CardSelector from 'components/card-selector'
 import styles from 'components/hand/styles'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -12,14 +13,25 @@ class Hand extends Component {
   constructor(props) {
     super(props)
 
+    this.handleCardClick = this.handleCardClick.bind(this)
     this.handleCardInputChange = this.handleCardInputChange.bind(this)
+    this.handleCardSelect = this.handleCardSelect.bind(this)
+    this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
+
+    this.state = {
+      cardSelectorAnchorEl: null,
+      cardSelectorIndex: null,
+    }
   }
 
   static propTypes = {
-    cards: PropTypes.arrayOf(PropTypes.shape({
+    actions: PropTypes.shape({
+      setHand: PropTypes.func
+    }).isRequired,
+    hand: PropTypes.string,
+    handCards: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string
-    })),
-    hand: PropTypes.string
+    }))
   }
 
   render() {
@@ -29,7 +41,7 @@ class Hand extends Component {
       <Paper className={classes.hand}>
         <Grid container>
           <Grid item xs={12}>
-            <CardInput label="Hand" />
+            <CardInput {...this.getCardInputProps()} />
           </Grid>
           <Grid item xs={12}>
             <Grid className={classes.cards} container direction="row">
@@ -37,14 +49,15 @@ class Hand extends Component {
             </Grid>
           </Grid>
         </Grid>
+        <CardSelector {...this.getCardSelectorProps()} />
       </Paper>
     ) 
   }
 
   getCardInputProps() {
-
-
     return {
+      label: 'Hand',
+      maxLength: 4,
       onChange: this.handleCardInputChange,
       value: this.props.hand
     }
@@ -52,18 +65,62 @@ class Hand extends Component {
 
   getCardListProps() {
     return {
-      cards: [],
+      cards: this.props.handCards,
       count: 2,
-      label: 'HOLE'
+      label: 'HOLE',
+      onCardClick: this.handleCardClick
     }
   }
 
-  handleCardInputChange(event) {
-    const onChange = this.props.actions.onChange
+  getCardSelectorProps() {
+    const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
 
-    if (onChange) {
-      onChange(event.target.value)
+    return {
+      anchorEl: cardSelectorAnchorEl,
+      onClose: this.handleCardSelectorClose,
+      onSelect: this.handleCardSelect,
+      open: !!cardSelectorAnchorEl
     }
+  }
+
+  handleCardInputChange(value) {
+    const setHand = this.props.actions.setHand
+
+    if (setHand) {
+      setHand(value)
+    }
+  }
+
+  handleCardClick(index, event) {
+    this.setState({
+      cardSelectorAnchorEl: event.currentTarget,
+      cardSelectorIndex: index
+    })
+  }
+
+  handleCardSelect(card) {
+    const cardSelectorIndex = this.state.cardSelectorIndex
+    const selectHandCards = this.props.actions.selectHandCards
+
+    if (selectHandCards) {
+      selectHandCards({
+        card,
+        index: cardSelectorIndex
+      })
+    }
+
+    this.closeCardSelector()
+  }
+
+  handleCardSelectorClose() {
+    this.closeCardSelector()
+  }
+
+  closeCardSelector() {
+    this.setState({
+      cardSelectorAnchorEl: null,
+      cardSelectorIndex: null
+    })
   }
 }
 
