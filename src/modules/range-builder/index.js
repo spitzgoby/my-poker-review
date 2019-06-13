@@ -109,9 +109,9 @@ export const makeGetRangeColorForComboGroup = () => createSelector(
 )
 
 export const getRangesAnalysis = createSelector(
-  getBoardCards,
+  getDeadCards,
   getRanges,
-  (boardCards, ranges) => analyzeRanges(ranges, boardCards)
+  (deadCards, ranges) => analyzeRanges(ranges, deadCards)
 )
 
 export const getRangeAnalysisForRange = (state, id) => 

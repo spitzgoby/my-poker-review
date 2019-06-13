@@ -1,5 +1,6 @@
 import {
   forEach,
+  map,
   reduce
 } from 'lodash'
 
@@ -21,10 +22,11 @@ const filterSelectedCombos = (comboGroups, deadCards) => {
 
 const filterRanges = (ranges, deadCards) => {
   let filteredRanges = ranges
+  let deadCardsList = map(deadCards)
   let deadCardsRegex
 
-  deadCardsRegex = deadCards.length
-    ? new RegExp(deadCards.map((deadCard) => deadCard.text).join('|'))
+  deadCardsRegex = deadCardsList.length
+    ? new RegExp(deadCardsList.map((deadCard) => deadCard.text).join('|'))
     : ALWAYS_FALSE_REGEX
 
   filteredRanges = ranges.map(range => {
