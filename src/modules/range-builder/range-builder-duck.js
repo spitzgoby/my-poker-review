@@ -9,6 +9,7 @@ import {
   findRangeContainingCombo,
   findRangeContainingComboGroup,
   updateBoardCards,
+  updateDeadCards,
   updateHandCards,
   updateRangesByClearingAllSelectedCombos,
   updateRangesByDeletingRange,
@@ -54,6 +55,7 @@ const initialState = {
   board: '',
   boardCards: [],
   colors: rangeColorList,
+  deadCards: {},
   editing: false,
   hand: '',
   handCards: [],
@@ -65,6 +67,8 @@ const initialState = {
 }
 
 export default (state = initialState, action = {}) => {
+  let boardCards
+  let handCards
   let nextState
 
   switch(action.type) {
@@ -90,6 +94,9 @@ export default (state = initialState, action = {}) => {
         ...state,
         board: '',
         boardCards: [],
+        deadCards: {},
+        hand: '',
+        handCards: [],
         ranges: updateRangesByClearingAllSelectedCombos(state)
       }
       break
@@ -140,12 +147,13 @@ export default (state = initialState, action = {}) => {
       break
 
     case types.SELECT_BOARD_CARDS:
-      const boardCards = updateBoardCards(state, action)
+      boardCards = updateBoardCards(state, action)
 
       nextState = {
         ...state,
         board: stringify(boardCards),
-        boardCards
+        boardCards,
+        deadCards: updateDeadCards(boardCards, state.handCards)
       }
       break
 
@@ -157,10 +165,11 @@ export default (state = initialState, action = {}) => {
       break
 
     case types.SELECT_HAND_CARDS:
-      const handCards = updateHandCards(state, action)
+      handCards = updateHandCards(state, action)
 
       nextState = {
         ...state,
+        deadCards: updateDeadCards(state.boardCards, handCards),
         hand: stringify(handCards),
         handCards: handCards
       }
@@ -181,10 +190,13 @@ export default (state = initialState, action = {}) => {
       break
 
     case types.SET_BOARD:
+      boardCards = cardify(action.payload.value)
+
       nextState = {
         ...state,
         board: action.payload.value,
-        boardCards: cardify(action.payload.value)
+        boardCards,
+        deadCards: updateDeadCards(boardCards, state.handCards)
       }
       break
 
@@ -196,10 +208,13 @@ export default (state = initialState, action = {}) => {
       break
 
     case types.SET_HAND:
+      handCards = cardify(action.payload)
+
       nextState = {
         ...state,
+        deadCards: updateDeadCards(state.boardCards, handCards),
         hand: action.payload,
-        handCards: cardify(action.payload)
+        handCards
       }
       break
 
@@ -261,6 +276,7 @@ export const getCardsForStreet = (state, street) => {
 
   return boardCards.slice(index, index + count)
 }
+export const getDeadCards = (state) => state.deadCards
 export const getHand = (state) => state.hand
 export const getHandCards = (state) => state.handCards
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen

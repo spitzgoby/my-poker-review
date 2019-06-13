@@ -57,6 +57,8 @@ export const getBoardCards = (state) =>
   fromRangeBuilder.getBoardCards(getRangeBuilderState(state))
 export const getCardsForStreet = (state, street) =>
   fromRangeBuilder.getCardsForStreet(getRangeBuilderState(state), street)
+export const getDeadCards = (state) =>
+  fromRangeBuilder.getDeadCards(getRangeBuilderState(state))
 export const getHand = (state) =>
   fromRangeBuilder.getHand(getRangeBuilderState(state))
 export const getHandCards = (state) =>

@@ -52,7 +52,6 @@ class CardSelector extends Component {
   }
 
   renderCards() {
-    const deadCardIds = this.props.deadCards.map((deadCard) => deadCard.id)
     const rowLength = 4
     const rows = 13
 
@@ -64,7 +63,7 @@ class CardSelector extends Component {
 
             return (
               <TableCell padding="none" key={`${i}${j}`}>
-                <CardIcon {...this.getCardProps(card, deadCardIds)} />
+                <CardIcon {...this.getCardProps(card, this.props.deadCards)} />
               </TableCell>
             )
           })}
@@ -91,11 +90,11 @@ class CardSelector extends Component {
     }
   }
 
-  getCardProps(card, deadCardIds) {
+  getCardProps(card, deadCards) {
     return {
       card: card, 
       className: this.props.classes.card,
-      disabled: deadCardIds.includes(card.id),
+      disabled: deadCards[card.id],
       key: card.id,
       onClick: () => this.handleCardSelect(card)
     }

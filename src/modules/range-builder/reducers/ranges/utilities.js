@@ -80,6 +80,14 @@ export const updateBoardCards = (state, action) => {
   return boardCards
 }
 
+export const updateDeadCards = (boardCards, handCards) => {
+  return boardCards.concat(handCards).reduce((acc, card) => {
+    acc[card.id] = card
+
+    return acc
+  }, {})
+}
+
 export const updateHandCards = (state, action) => {
   const {
     card,
