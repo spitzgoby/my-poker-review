@@ -5,14 +5,8 @@ import uuid from 'uuid/v4'
  *----------------*/
 
 const rangeInfo = [{
-  name: 'Bet',
+  name: 'Villain',
   color: 'blue'
-},{
-  name: 'Call',
-  color: 'green'
-},{
-  name: 'Raise',
-  color: 'purple'
 }]
 
 /*------------------*

@@ -61,7 +61,7 @@ const initialState = {
   ranges,
   selecting: true,
   selectingSuits: false,
-  selectedRangeId: find(ranges, { 'name': 'Bet' }).id
+  selectedRangeId: find(ranges, { 'name': 'Villain' }).id
 }
 
 export default (state = initialState, action = {}) => {
