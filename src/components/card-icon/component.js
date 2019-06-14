@@ -77,9 +77,12 @@ class CardIcon extends Component {
   }
 
   handleClick(event) {
-    const onClick = this.props.onClick
+    const {
+      disabled,
+      onClick
+    } = this.props
 
-    if (onClick) {
+    if (!disabled && onClick) {
       onClick(event)
     }
   }

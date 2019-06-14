@@ -191,6 +191,8 @@ export default (state = initialState, action = {}) => {
 
     case types.SET_BOARD:
       boardCards = cardify(action.payload.value)
+        .filter((card) => !find(state.handCards, 
+          (handCard) => handCard.id === card.id))
 
       nextState = {
         ...state,
@@ -209,6 +211,8 @@ export default (state = initialState, action = {}) => {
 
     case types.SET_HAND:
       handCards = cardify(action.payload)
+        .filter((card) => !find(state.boardCards, 
+          (boardCard) => boardCard.id === card.id))
 
       nextState = {
         ...state,
