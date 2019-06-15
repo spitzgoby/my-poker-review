@@ -1,7 +1,7 @@
 import {
   getColor,
   getRangeColor
-} from 'components/range-analyzer/shared/styles'
+} from 'components/range-row/shared/styles'
 import {transitionTimes} from 'styles/animations'
 import {themeColors} from 'styles/colors'
 

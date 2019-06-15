@@ -1,5 +1,5 @@
-import RangeAnalyzerCell from 'components/range-analyzer/cell'
-import RangeAnalyzerEditCell from 'components/range-analyzer/edit-cell'
+import RangeRowCell from 'components/range-row/cell'
+import RangeEditCell from 'components/range-row/edit-cell'
 import Fade from '@material-ui/core/Fade'
 import Hidden from '@material-ui/core/Hidden'
 import TableHead from '@material-ui/core/TableHead'
@@ -28,25 +28,25 @@ class RangeAnalyzerHeader extends Component {
     return (
       <TableHead>
         <TableRow>
-          <RangeAnalyzerCell>Name</RangeAnalyzerCell>
+          <RangeRowCell>Name</RangeRowCell>
           <Hidden xsDown>
-            <RangeAnalyzerCell align="right">
+            <RangeRowCell align="right">
                 <Fade in={!editing}>
                   <span>Hands (%)</span>
                 </Fade>
-            </RangeAnalyzerCell>
+            </RangeRowCell>
           </Hidden>
-          <RangeAnalyzerCell align="right">
+          <RangeRowCell align="right">
             <Fade in={!editing}>
               <span>Combos (#)</span>
             </Fade>
-          </RangeAnalyzerCell>
-          <RangeAnalyzerCell align="right">
+          </RangeRowCell>
+          <RangeRowCell align="right">
             <Fade in={!editing}>
               <span>Range (%)</span>
             </Fade>
-          </RangeAnalyzerCell>
-          <RangeAnalyzerEditCell {...this.getEditCellProps()} />
+          </RangeRowCell>
+          <RangeEditCell {...this.getEditCellProps()} />
         </TableRow>              
       </TableHead>
     ) 

@@ -1,11 +1,11 @@
-import RangeAnalyzerCell from 'components/range-analyzer/cell'
-import styles from 'components/range-analyzer/analysis-cell/styles'
+import RangeRowCell from 'components/range-row/cell'
+import styles from 'components/range-row/analysis-cell/styles'
 import Fade from '@material-ui/core/Fade'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
   
-class RangeAnalyzerAnalysisCell extends Component {
+class RangeAnalysisCell extends Component {
 
   static propTypes = {
     editing: PropTypes.bool,
@@ -24,11 +24,11 @@ class RangeAnalyzerAnalysisCell extends Component {
     } = this.props
 
     return (
-      <RangeAnalyzerCell className={classes.cell} align="right"> 
+      <RangeRowCell className={classes.cell} align="right"> 
         <Fade in={!editing}>
           {this.renderAnalysis()}
         </Fade>
-      </RangeAnalyzerCell>
+      </RangeRowCell>
     ) 
   }
 
@@ -54,4 +54,4 @@ class RangeAnalyzerAnalysisCell extends Component {
   }
 }
 
-export default injectSheet(styles)(RangeAnalyzerAnalysisCell)
+export default injectSheet(styles)(RangeAnalysisCell)

@@ -1,7 +1,7 @@
-import RangeAnalyzerAnalysisCell from 'components/range-analyzer/analysis-cell'
-import RangeAnalyzerEditCell from 'components/range-analyzer/edit-cell'
-import RangeAnalyzerNameCell from 'components/range-analyzer/name-cell'
-import {styles} from 'components/range-analyzer/row/styles'
+import RangeAnalysisCell from 'components/range-row/analysis-cell'
+import RangeEditCell from 'components/range-row/edit-cell'
+import RangeNameCell from 'components/range-row/name-cell'
+import {styles} from 'components/range-row/styles'
 import Hidden from '@material-ui/core/Hidden'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
@@ -29,6 +29,7 @@ class RangeAnalyzerRow extends Component {
     }).isRequired,
     className: PropTypes.string,
     editing: PropTypes.bool,
+    mode: PropTypes.oneOf(['equity', 'ranges']),
     range: PropTypes.shape({
       color: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
@@ -42,21 +43,34 @@ class RangeAnalyzerRow extends Component {
   }
 
   render() {
-    const classes = this.props.classes
+    const {
+      classes,
+      mode
+    }  = this.props
 
     return (
-      <Fragment>
-        <TableRow className={classes.row} onClick={this.handleClick}>
-          <RangeAnalyzerNameCell {...this.getNameCellProps()} />
-          <Hidden xsDown>
-            <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('handsRatio', 'ratio')} />
-          </Hidden>
-          <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('combosCount', 'count')} />
-          <RangeAnalyzerAnalysisCell {...this.getAnalysisCellProps('rangeRatio', 'ratio')} />
-          <RangeAnalyzerEditCell {...this.getEditCellProps()} />
-        </TableRow>
-      </Fragment>
+      <TableRow className={classes.row} onClick={this.handleClick}>
+        <RangeNameCell {...this.getNameCellProps()} />
+        {mode === 'equity'? this.renderEquityCells() : this.renderAnalysisCells()}
+      </TableRow>
     ) 
+  }
+
+  renderEquityCells() {
+    return null
+  }
+
+  renderAnalysisCells() {
+    return (
+      <Fragment>
+        <Hidden xsDown>
+          <RangeAnalysisCell {...this.getAnalysisCellProps('handsRatio', 'ratio')} />
+        </Hidden>
+        <RangeAnalysisCell {...this.getAnalysisCellProps('combosCount', 'count')} />
+        <RangeAnalysisCell {...this.getAnalysisCellProps('rangeRatio', 'ratio')} />
+        <RangeEditCell {...this.getEditCellProps()} />
+      </Fragment>
+    )
   }
 
   renderCell(content, align = 'right', additionalClasses) {

@@ -1,5 +1,5 @@
 import classnames from 'classnames'
-import styles from 'components/range-analyzer/cell/styles'
+import styles from 'components/range-row/cell/styles'
 import TableCell from '@material-ui/core/TableCell'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'

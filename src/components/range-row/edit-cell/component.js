@@ -1,5 +1,5 @@
-import RangeAnalyzerCell from 'components/range-analyzer/cell'
-import styles from 'components/range-analyzer/edit-cell/styles'
+import RangeRowCell from 'components/range-row/cell'
+import styles from 'components/range-row/edit-cell/styles'
 import Button from '@material-ui/core/Button'
 import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
@@ -9,7 +9,7 @@ import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
-class RangeAnalyzerEditCell extends Component {
+class RangeEditCell extends Component {
 
   constructor(props) {
     super(props)
@@ -38,7 +38,7 @@ class RangeAnalyzerEditCell extends Component {
     } = this.props
 
     return (
-      <RangeAnalyzerCell className={classes.cell} align="right"> 
+      <RangeRowCell className={classes.cell} align="right"> 
         {
           !editing 
             ? <Fade in={!editing}>{this.renderClearButton()}</Fade>
@@ -48,7 +48,7 @@ class RangeAnalyzerEditCell extends Component {
             ? <Fade in={editing}>{this.renderDeleteButton()}</Fade>
             : null
         }
-      </RangeAnalyzerCell>
+      </RangeRowCell>
     ) 
   }
 
@@ -114,4 +114,4 @@ class RangeAnalyzerEditCell extends Component {
   }
 }
 
-export default injectSheet(styles)(RangeAnalyzerEditCell)
+export default injectSheet(styles)(RangeEditCell)

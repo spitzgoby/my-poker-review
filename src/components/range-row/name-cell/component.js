@@ -1,11 +1,11 @@
-import RangeAnalyzerCell from 'components/range-analyzer/cell'
-import {styles} from 'components/range-analyzer/name-cell/styles'
+import RangeRowCell from 'components/range-row/cell'
+import {styles} from 'components/range-row/name-cell/styles'
 import Input from '@material-ui/core/Input'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
-class RangeAnalyzerNameCell extends Component {
+class RangeNameCell extends Component {
 
   constructor(props) {
     super(props)
@@ -32,9 +32,9 @@ class RangeAnalyzerNameCell extends Component {
 
   render() {
     return (
-      <RangeAnalyzerCell className={this.props.classes.cell} align='left'>
+      <RangeRowCell className={this.props.classes.cell} align='left'>
         <Input {...this.getNameInputProps()} />
-      </RangeAnalyzerCell>
+      </RangeRowCell>
     ) 
   }
 
@@ -70,4 +70,4 @@ class RangeAnalyzerNameCell extends Component {
   }
 }
 
-export default injectSheet(styles)(RangeAnalyzerNameCell)
+export default injectSheet(styles)(RangeNameCell)

@@ -1,4 +1,4 @@
-import RangeAnalyzerRow from 'components/range-analyzer/row/component'
+import RangeAnalyzerRow from 'components/range-row/component'
 import {
   clearSelectedCombosFromRange,
   deleteRange,

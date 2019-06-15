@@ -1,6 +1,6 @@
 import RangeAnalyzerHeader from 'components/range-analyzer/header'
 import RangeAnalyzerToolbar from 'components/range-analyzer/toolbar'
-import RangeAnalyzerRow from 'components/range-analyzer/row'
+import RangeRow from 'components/range-row'
 import Paper from '@material-ui/core/Paper'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -51,7 +51,7 @@ class RangeAnalyzer extends Component {
 
   renderRangeRows() {
     return this.props.ranges.map(range => (
-      <RangeAnalyzerRow {...this.getRangeRowProps(range)} />
+      <RangeRow {...this.getRangeRowProps(range)} />
     ))
   }
 
@@ -59,6 +59,7 @@ class RangeAnalyzer extends Component {
     return {
       editing: this.props.editing,
       key: range.id,
+      mode: 'analysis',
       range
     }
   }

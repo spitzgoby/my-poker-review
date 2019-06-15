@@ -1,7 +1,7 @@
 import {
   cell, 
   getColor
-} from 'components/range-analyzer/shared/styles'
+} from 'components/range-row/shared/styles'
 import {themeColors} from 'styles/colors'
 
 export const styles = {

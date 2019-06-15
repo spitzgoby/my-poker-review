@@ -1,4 +1,4 @@
-import {cell} from 'components/range-analyzer/shared/styles'
+import {cell} from 'components/range-row/shared/styles'
 
 export default {
   ...cell,
