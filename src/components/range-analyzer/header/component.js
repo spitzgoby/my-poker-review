@@ -1,10 +1,11 @@
 import RangeRowCell from 'components/range-row/cell'
+import {modes} from 'lib/application-constants'
 import Fade from '@material-ui/core/Fade'
 import Hidden from '@material-ui/core/Hidden'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {themeColors} from 'styles/colors'
 
 class RangeAnalyzerHeader extends Component {
@@ -18,37 +19,60 @@ class RangeAnalyzerHeader extends Component {
 
   static propTypes = {
     className: PropTypes.string,
-    editing: PropTypes.bool
+    editing: PropTypes.bool,
+    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES])
   }
 
   render() {
-    const editing = this.props.editing
 
     return (
       <TableHead>
         <TableRow>
           <RangeRowCell>Name</RangeRowCell>
-          <Hidden xsDown>
-            <RangeRowCell align="right">
-                <Fade in={!editing}>
-                  <span>Hands (%)</span>
-                </Fade>
-            </RangeRowCell>
-          </Hidden>
-          <RangeRowCell align="right">
-            <Fade in={!editing}>
-              <span>Combos (#)</span>
-            </Fade>
-          </RangeRowCell>
-          <RangeRowCell align="right">
-            <Fade in={!editing}>
-              <span>Range (%)</span>
-            </Fade>
-          </RangeRowCell>
-          <RangeRowCell />
+          { this.props.mode === modes.EQUITY
+            ? this.renderEquityCells()
+            : this.renderRangeCells() 
+          }
         </TableRow>              
       </TableHead>
     ) 
+  }
+
+  renderEquityCells() {
+    return (
+      <RangeRowCell align="right">
+        <Fade in={!this.props.editing}>
+          <span>Equity</span>
+        </Fade>
+      </RangeRowCell>
+    )
+  }
+
+  renderRangeCells() {
+    const editing = this.props.editing
+
+    return (
+      <Fragment>
+        <Hidden xsDown>
+          <RangeRowCell align="right">
+              <Fade in={!editing}>
+                <span>Hands (%)</span>
+              </Fade>
+          </RangeRowCell>
+        </Hidden>
+        <RangeRowCell align="right">
+          <Fade in={!editing}>
+            <span>Combos (#)</span>
+          </Fade>
+        </RangeRowCell>
+        <RangeRowCell align="right">
+          <Fade in={!editing}>
+            <span>Range (%)</span>
+          </Fade>
+        </RangeRowCell>
+        <RangeRowCell />
+      </Fragment>
+    )
   }
 
   getEditCellProps() {

@@ -2,6 +2,7 @@ import RangeAnalysisCell from 'components/range-row/analysis-cell'
 import RangeEditCell from 'components/range-row/edit-cell'
 import RangeNameCell from 'components/range-row/name-cell'
 import {styles} from 'components/range-row/styles'
+import {modes} from 'lib/application-constants'
 import Hidden from '@material-ui/core/Hidden'
 import TableCell from '@material-ui/core/TableCell'
 import TableRow from '@material-ui/core/TableRow'
@@ -27,7 +28,7 @@ class RangeAnalyzerRow extends Component {
     }).isRequired,
     className: PropTypes.string,
     editing: PropTypes.bool,
-    mode: PropTypes.oneOf(['equity', 'ranges']),
+    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES]),
     range: PropTypes.shape({
       color: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired
@@ -49,13 +50,15 @@ class RangeAnalyzerRow extends Component {
     return (
       <TableRow className={classes.row} onClick={this.handleClick}>
         <RangeNameCell {...this.getNameCellProps()} />
-        {mode === 'equity'? this.renderEquityCells() : this.renderAnalysisCells()}
+        {mode === 'equity' ? this.renderEquityCells() : this.renderAnalysisCells()}
       </TableRow>
     ) 
   }
 
   renderEquityCells() {
-    return null
+    return (
+      <RangeAnalysisCell {...this.getEquityCellProps()} />
+    )
   }
 
   renderAnalysisCells() {
@@ -95,6 +98,14 @@ class RangeAnalyzerRow extends Component {
       type,
       value: rangeAnalysis[property],
       width: '18%'
+    }
+  }
+
+  getEquityCellProps() {
+    return {
+      ...this.getDefaultCellProps(),
+      type: 'ratio',
+      value: .50
     }
   }
 

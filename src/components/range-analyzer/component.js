@@ -59,7 +59,7 @@ class RangeAnalyzer extends Component {
     return {
       editing: this.props.editing,
       key: range.id,
-      mode: 'analysis',
+      mode: 'ranges',
       range
     }
   }

@@ -1,4 +1,5 @@
 import RangeAnalyzerHeader from 'components/range-analyzer/header/component'
+import {getMode} from 'modules/application'
 import {
   clearAllSelectedCombos,
   getIsEditing
@@ -7,7 +8,8 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state) => ({
-  editing: getIsEditing(state)
+  editing: getIsEditing(state),
+  mode: getMode(state)
 })
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({

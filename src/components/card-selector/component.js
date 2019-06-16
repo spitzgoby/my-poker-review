@@ -22,9 +22,7 @@ class CardSelector extends Component {
 
   static propTypes = {
     anchorEl: PropTypes.object,
-    deadCards: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string
-    })),
+    deadCards: PropTypes.object,
     onClose: PropTypes.func,
     onSelect: PropTypes.func,
     transformOrigin: PropTypes.shape({
