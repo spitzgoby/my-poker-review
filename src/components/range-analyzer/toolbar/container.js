@@ -4,6 +4,7 @@ import {
   getIsEditing,
   getRangeColors,
   getRanges,
+  getSelectedRangeOutput,
   setAddRangeMenuOpen,
   setEditing,
   setExportDialogOpen,
@@ -15,7 +16,8 @@ import {connect} from 'react-redux'
 const mapStateToProps = (state) => ({
   colors: getRangeColors(state),
   editing: getIsEditing(state),
-  ranges: getRanges(state)
+  ranges: getRanges(state),
+  selectedRangeOutput: getSelectedRangeOutput(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,3 +1,4 @@
+import Clipboard from 'util/clipboard'
 import AddRangeMenu from 'components/range-analyzer/toolbar/add-range-menu'
 import ExportRangeDialog from 'components/range-analyzer/toolbar/export-range-dialog'
 import ImportRangeDialog from 'components/range-analyzer/toolbar/import-range-dialog'
@@ -8,11 +9,13 @@ import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
+import Snackbar from '@material-ui/core/Snackbar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
 import ClearIcon from '@material-ui/icons/Clear'
 import EditIcon from '@material-ui/icons/Edit'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -23,6 +26,8 @@ class RangeAnalyzerToolbar extends Component {
     super(props)
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
+    this.handleCopyButtonClick = this.handleCopyButtonClick.bind(this)
+    this.handleCopySnackbarClose = this.handleCopySnackbarClose.bind(this)
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
     this.handleExportMenuItemClick = this.handleExportMenuItemClick.bind(this)
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
@@ -44,7 +49,8 @@ class RangeAnalyzerToolbar extends Component {
     colors: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string
     })).isRequired,
-    ranges: PropTypes.arrayOf(PropTypes.object)
+    ranges: PropTypes.arrayOf(PropTypes.object),
+    selectedRangeOutput: PropTypes.string
   }
 
   render() {
@@ -59,6 +65,8 @@ class RangeAnalyzerToolbar extends Component {
             </Typography>
           </Grid>
           <Grid item>
+            {this.renderCopyButton()}
+            {this.renderCopySnackbar()}
             {this.renderImportExportMenu()}
             {this.renderImportExportButton()}
             <ImportRangeDialog />
@@ -70,6 +78,23 @@ class RangeAnalyzerToolbar extends Component {
         </Grid>
       </Toolbar>
     ) 
+  }
+
+  renderCopyButton() {
+    return (
+      <Tooltip title="Copy selected range">
+        <IconButton {...this.getCopyButtonProps()}>
+          <FileCopyIcon />
+        </IconButton>
+      </Tooltip>
+    )
+  }
+
+  renderCopySnackbar() {
+    return (
+      <Snackbar {...this.getCopySnackbarProps()}> 
+      </Snackbar>
+    )
   }
 
   renderImportExportMenu() {
@@ -121,6 +146,29 @@ class RangeAnalyzerToolbar extends Component {
     )
   }
 
+  getCopyButtonProps() {
+    return {
+      onClick: this.handleCopyButtonClick
+    }
+  }
+
+  getCopySnackbarProps() {
+    return {
+      anchorOrigin: {
+        horizontal: 'right',
+        vertical: 'bottom'
+      },
+      autoHideDuration: 2000,
+      ContentProps: {
+        className: this.props.classes.snackbar
+      },
+      message: 'Range copied to clipboard',
+      onClose: this.handleCopySnackbarClose,
+      open: this.state.copySnackbarOpen,
+      variant: 'success'
+    }
+  }
+
   getImportExportMenuProps() {
     const importExportAnchorEl = this.state.importExportAnchorEl
 
@@ -140,9 +188,7 @@ class RangeAnalyzerToolbar extends Component {
 
   getExportButtonProps() {
     return {
-      color: "primary",  
       onClick: this.handleExportButtonClick,
-      variant: "contained" 
     }
   }
 
@@ -151,6 +197,20 @@ class RangeAnalyzerToolbar extends Component {
       'aria-label': 'Add',
       onClick: this.handleAddButtonClick
     }
+  }
+
+  handleCopyButtonClick() {
+    Clipboard.copy(this.props.selectedRangeOutput)
+
+    this.setState({
+      copySnackbarOpen: true
+    })
+  }
+
+  handleCopySnackbarClose() {
+    this.setState({
+      copySnackbarOpen: false
+    })   
   }
 
   handleImportExportMenuClose() {
@@ -202,6 +262,7 @@ class RangeAnalyzerToolbar extends Component {
       onEdit()
     }
   }
+
 }
 
 export default injectSheet(styles)(RangeAnalyzerToolbar)

@@ -1,5 +1,4 @@
 import RangeRowCell from 'components/range-row/cell'
-import RangeEditCell from 'components/range-row/edit-cell'
 import Fade from '@material-ui/core/Fade'
 import Hidden from '@material-ui/core/Hidden'
 import TableHead from '@material-ui/core/TableHead'
@@ -46,7 +45,7 @@ class RangeAnalyzerHeader extends Component {
               <span>Range (%)</span>
             </Fade>
           </RangeRowCell>
-          <RangeEditCell {...this.getEditCellProps()} />
+          <RangeRowCell />
         </TableRow>              
       </TableHead>
     ) 

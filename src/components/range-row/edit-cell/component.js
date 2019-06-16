@@ -1,7 +1,6 @@
 import RangeRowCell from 'components/range-row/cell'
 import styles from 'components/range-row/edit-cell/styles'
 import Button from '@material-ui/core/Button'
-import Fade from '@material-ui/core/Fade'
 import IconButton from '@material-ui/core/IconButton'
 import Tooltip from '@material-ui/core/Tooltip'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -39,20 +38,13 @@ class RangeEditCell extends Component {
 
     return (
       <RangeRowCell className={classes.cell} align="right"> 
-        {
-          !editing 
-            ? <Fade in={!editing}>{this.renderClearButton()}</Fade>
-            : null
-        }{
-          editing 
-            ? <Fade in={editing}>{this.renderDeleteButton()}</Fade>
-            : null
-        }
+        {!editing ? this.renderStandardButtons() : null}
+        {editing ? this.renderEditingButtons() : null}
       </RangeRowCell>
     ) 
   }
 
-  renderClearButton() {
+  renderStandardButtons() {
     return (
       <Tooltip title={`Clear ${this.getTooltipTitleName()}`}>
         <Button className={this.props.classes.button} onClick={this.handleClearButtonClick}>
@@ -62,7 +54,7 @@ class RangeEditCell extends Component {
     )
   }
 
-  renderDeleteButton() {
+  renderEditingButtons() {
     return (
       <Tooltip title={`Delete ${this.getTooltipTitleName()}`}>
         <IconButton className={this.props.classes.button} onClick={this.handleDeleteButtonClick}>

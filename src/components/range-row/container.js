@@ -4,7 +4,6 @@ import {
   deleteRange,
   getIsRangeSelected,
   getRangeAnalysisForRange,
-  makeGetOutputForRange,
   selectRange,
   setRangeName
 } from 'modules/range-builder'
@@ -12,8 +11,8 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state, ownProps) => ({
+  equity: null,
   rangeAnalysis: getRangeAnalysisForRange(state, ownProps.range.id),
-  rangeOutput: makeGetOutputForRange()(state, ownProps.range.id),
   selected: getIsRangeSelected(state, ownProps.range.id)
 })
 

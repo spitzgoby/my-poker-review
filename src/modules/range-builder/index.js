@@ -89,6 +89,8 @@ export const getRangeForCombo = (state, comboId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
+export const getSelectedRange = (state) =>
+  fromRangeBuilder.getSelectedRange(getRangeBuilderState(state))
 export const getSelectedRangeColor = (state) => 
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
 
@@ -117,8 +119,15 @@ export const getRangesAnalysis = createSelector(
 export const getRangeAnalysisForRange = (state, id) => 
   getRangesAnalysis(state)[id]
 
+export const getSelectedRangeOutput = createSelector(
+  getSelectedRange,
+  (selectedRange) => {
+    let output = ''
 
-export const makeGetOutputForRange = () => createSelector(
-  getRangeById,
-  (range) => rangeFromCombos(range.selectedCombos)
+    if (selectedRange) {
+      output = rangeFromCombos(selectedRange.selectedCombos)
+    }
+
+    return output
+  }
 )

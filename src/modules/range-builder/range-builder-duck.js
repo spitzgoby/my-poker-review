@@ -267,7 +267,6 @@ export default (state = initialState, action = {}) => {
  * SELECTORS *
  *-----------*/
 
-const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 
 export const getBoard = (state) => state.board
 export const getBoardCards = (state) => state.boardCards
@@ -299,6 +298,7 @@ export const getRangeColorForCombo = (state, id) => {
 }
 export const getRangeForCombo = (state, id) => findRangeContainingCombo(getRanges(state), id)
 export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
+export const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
 export const getSelectedRangeId = (state) => state.selectedRangeId
 export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id

@@ -12,7 +12,6 @@ const getColor = (props) => {
 export default {
   ...cell,
   button: {
-    color: (props) => getColor(props),
-    minHeight: '48px'
+    color: (props) => getColor(props)
   }
 }

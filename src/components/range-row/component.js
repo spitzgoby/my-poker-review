@@ -8,7 +8,6 @@ import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
 import React, {Component, Fragment} from 'react'
 import injectSheet from 'react-jss'
-import Clipboard from 'util/clipboard'
 
 class RangeAnalyzerRow extends Component {
 
@@ -17,7 +16,6 @@ class RangeAnalyzerRow extends Component {
 
     this.handleClear = this.handleClear.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleCopy = this.handleCopy.bind(this)
     this.handleDelete = this.handleDelete.bind(this)
     this.handleNameChange = this.handleNameChange.bind(this)
   }
@@ -103,25 +101,15 @@ class RangeAnalyzerRow extends Component {
   getEditCellProps() {
     const {
       editing,
-      rangeOutput
     } = this.props
 
     return {
       ...this.getDefaultCellProps(),
       editing,
-      expandable: !!rangeOutput,
       onClear: this.handleClear,
       onDelete: this.handleDelete,
       onExpand: this.handleExpand,
       width: '20%'
-    }
-  }
-
-  getOutputCellProps() {
-    return {
-      ...this.getDefaultCellProps(),
-      rangeOutput: this.props.rangeOutput,
-      width: '80%'
     }
   }
 
@@ -137,13 +125,11 @@ class RangeAnalyzerRow extends Component {
     const {
       editing,
       range,
-      rangeOutput,
       selected
     } = this.props
 
     return {
       editing,
-      expanded: !!rangeOutput,
       range,
       selected
     }
@@ -199,11 +185,6 @@ class RangeAnalyzerRow extends Component {
     if (onDelete) {
       onDelete({id: range.id})
     }   
-  }
-
-
-  handleCopy() {
-    Clipboard.copy(this.props.rangeOutput)
   }
 }
 
