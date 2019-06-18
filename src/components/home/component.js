@@ -34,10 +34,10 @@ class Home extends Component {
               <RangeAnalyzer />
             </Grid>
             <Grid container spacing={16} item>
-              <Grid item xs={12} md={6} xl={4}>
+              <Grid item xs={12} sm={6} xl={4}>
                 <Board />
               </Grid>
-              <Grid item xs={12} md={6} xl={4}>
+              <Grid item xs={12} sm={6} xl={4}>
                 <Paper>
                   <Hand />
                 </Paper>

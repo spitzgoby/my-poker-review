@@ -54,9 +54,9 @@ export default {
     borderRadius: '4px',
     boxShadow: (props) => props.variant === 'shadow' ? boxShadow : 'none',
     fill: (props) => getColor(props, false),
-    height: (props) => '56px',
+    height: (props) => '48px',
     stroke: (props) => getColor(props, false),
-    width: (props) => '44px',
+    width: (props) => '36px',
     transition: transitionTimes.default
   },
 

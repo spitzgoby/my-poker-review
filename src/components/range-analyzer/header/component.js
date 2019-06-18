@@ -55,6 +55,7 @@ class RangeAnalyzerHeader extends Component {
             <span>Equity</span>
           </Fade>
         </RangeRowCell>
+        <RangeRowCell />
       </Fragment>
     )
   }

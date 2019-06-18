@@ -65,6 +65,7 @@ class RangeAnalyzerRow extends Component {
           </RangeRowCell>
         </Hidden>
         <RangeAnalysisCell {...this.getEquityCellProps()} />
+        <RangeEditCell {...this.getEditCellProps()} />
       </Fragment>
     )
   }
