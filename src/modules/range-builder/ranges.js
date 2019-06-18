@@ -5,6 +5,7 @@ import uuid from 'uuid/v4'
  *----------------*/
 
 const rangeInfo = [{
+  id: uuid(),
   name: 'Villain',
   color: 'blue'
 }]
@@ -26,7 +27,7 @@ export const createRange = (info, id) => {
 
 const buildRanges = (rangeInfo) => {
   return rangeInfo.reduce((acc, info) => {
-    const range = createRange(info)
+    const range = createRange(info, info.id)
     acc[range.id] = range
 
     return acc
@@ -34,3 +35,4 @@ const buildRanges = (rangeInfo) => {
 }
 
 export const ranges = buildRanges(rangeInfo)
+export const rangeList = rangeInfo.map((info) => info.id)

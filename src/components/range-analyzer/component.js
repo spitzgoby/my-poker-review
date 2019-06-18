@@ -50,17 +50,17 @@ class RangeAnalyzer extends Component {
   }
 
   renderRangeRows() {
-    return this.props.ranges.map(range => (
-      <RangeRow {...this.getRangeRowProps(range)} />
+    return this.props.rangeList.map(rangeId => (
+      <RangeRow {...this.getRangeRowProps(rangeId)} />
     ))
   }
 
-  getRangeRowProps(range) {
+  getRangeRowProps(rangeId) {
     return {
       editing: this.props.editing,
-      key: range.id,
+      key: rangeId,
       mode: 'ranges',
-      range
+      rangeId
     }
   }
 

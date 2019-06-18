@@ -5,6 +5,7 @@ import {
   deleteRange,
   getIsRangeSelected,
   getRangeAnalysisForRange,
+  getRangeById,
   makeGetEquityForRange,
   selectRange,
   setRangeName
@@ -13,10 +14,11 @@ import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state, ownProps) => ({
-  equity: makeGetEquityForRange()(state, ownProps.range.id),
+  equity: makeGetEquityForRange()(state, ownProps.rangeId),
   mode: getMode(state),
-  rangeAnalysis: getRangeAnalysisForRange(state, ownProps.range.id),
-  selected: getIsRangeSelected(state, ownProps.range.id)
+  range: getRangeById(state, ownProps.rangeId),
+  rangeAnalysis: getRangeAnalysisForRange(state, ownProps.rangeId),
+  selected: getIsRangeSelected(state, ownProps.rangeId)
 })
 
 const mapDispatchToProps = (dispatch) => ({

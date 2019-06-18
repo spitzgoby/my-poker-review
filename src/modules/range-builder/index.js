@@ -78,8 +78,6 @@ export const getIsSelectingSuits = (state) =>
   fromRangeBuilder.getIsSelectingSuits(getRangeBuilderState(state))
 export const getPlayerHand = (state) => 
   fromRangeBuilder.getPlayerHand(getRangeBuilderState(state))
-export const getRanges = (state) => 
-  fromRangeBuilder.getRanges(getRangeBuilderState(state))
 export const getRangeById = (state, id) =>
   fromRangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeColors = (state) =>
@@ -90,6 +88,10 @@ export const getRangeForCombo = (state, comboId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
+export const getRangeList = (state) => 
+  fromRangeBuilder.getRangeList(getRangeBuilderState(state))
+export const getRanges = (state) =>
+  fromRangeBuilder.getRanges(getRangeBuilderState(state))
 export const getSelectedRange = (state) =>
   fromRangeBuilder.getSelectedRange(getRangeBuilderState(state))
 export const getSelectedRangeColor = (state) => 

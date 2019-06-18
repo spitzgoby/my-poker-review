@@ -16,7 +16,7 @@ import {connect} from 'react-redux'
 const mapStateToProps = (state) => ({
   colors: getRangeColors(state),
   editing: getIsEditing(state),
-  ranges: getRanges(state),
+  rangeList: getRanges(state),
   selectedRangeOutput: getSelectedRangeOutput(state)
 })
 

@@ -13,7 +13,7 @@ import {bindActionCreators} from 'redux'
 const mapStateToProps = (state) => ({
   fileName: getExportFileName(state),
   open: getIsExportDialogOpen(state),
-  ranges: getRanges(state)
+  rangeList: getRanges(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

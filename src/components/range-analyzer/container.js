@@ -1,7 +1,7 @@
 import {
   clearAll,
   getIsEditing,
-  getRanges,
+  getRangeList,
 } from 'modules/range-builder'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -9,7 +9,7 @@ import RangeAnalyzer from 'components/range-analyzer/component'
 
 const mapStateToProps = (state) => ({
   editing: getIsEditing(state),
-  ranges: getRanges(state)
+  rangeList: getRangeList(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
