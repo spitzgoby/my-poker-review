@@ -138,7 +138,7 @@ export default (state = initialState, action = {}) => {
     case types.DELETE_RANGE: 
       nextState = {
         ...state,
-        rangeList: state.rangeList.filter(rangeId => action.payload.id),
+        rangeList: state.rangeList.filter(rangeId => rangeId !== action.payload.id),
         ranges: updateRangesByDeletingRange(state, action) 
       }
       break
