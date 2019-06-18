@@ -1,4 +1,5 @@
 import styles from 'components/app-bar/menu/styles'
+import {modes} from 'lib/application-constants'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -34,7 +35,9 @@ class Menu extends Component {
   }
 
   renderModeSubMenu() {
-    const classes = this.props.classes
+    const {
+      classes,
+    } = this.props
 
     return (
       <Fragment> 
@@ -43,13 +46,13 @@ class Menu extends Component {
             Mode
           </ListItemText>
         </ListItem>
-        <ListItem className={classes.nested} selected button>
+        <ListItem {...this.getEquityListItemProps()} >
           <ListItemIcon>
             <PieChartIcon />
           </ListItemIcon>
           <ListItemText>Equity</ListItemText>
         </ListItem>
-        <ListItem divider className={classes.nested} disabled button>
+        <ListItem {...this.getRangesListItemsProps()}>
           <ListItemIcon>
             <BallotIcon className={classes.icon} />
           </ListItemIcon>
@@ -77,6 +80,43 @@ class Menu extends Component {
         </ListItem>
       </Fragment>
     )
+  }
+
+  getEquityListItemProps() {
+    const {
+      classes,
+      mode
+    } = this.props
+
+    return {
+      button: true,
+      className: classes.nested, 
+      onClick: () => this.handleModeClick(modes.EQUITY),
+      selected: mode === modes.EQUITY 
+    }
+  }
+
+  getRangesListItemsProps() {
+    const {
+      classes,
+      mode
+    } = this.props
+
+    return {
+      button: true,
+      className: classes.nested,
+      divider: true,
+      onClick: () => this.handleModeClick(modes.RANGES),
+      selected: mode === modes.RANGES
+    }
+  }
+
+  handleModeClick(mode) {
+    const setMode = this.props.actions.setMode
+
+    if (setMode) {
+      setMode(mode)
+    }
   }
 }
 

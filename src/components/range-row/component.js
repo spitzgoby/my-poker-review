@@ -1,6 +1,7 @@
 import RangeAnalysisCell from 'components/range-row/analysis-cell'
 import RangeEditCell from 'components/range-row/edit-cell'
 import RangeNameCell from 'components/range-row/name-cell'
+import RangeRowCell from 'components/range-row/cell'
 import {styles} from 'components/range-row/styles'
 import {modes} from 'lib/application-constants'
 import Hidden from '@material-ui/core/Hidden'
@@ -57,7 +58,14 @@ class RangeAnalyzerRow extends Component {
 
   renderEquityCells() {
     return (
-      <RangeAnalysisCell {...this.getEquityCellProps()} />
+      <Fragment>
+        <Hidden smDown>
+          <RangeRowCell {...this.getOutputCellProps()}>
+            {this.props.rangeOutput}
+          </RangeRowCell>
+        </Hidden>
+        <RangeAnalysisCell {...this.getEquityCellProps()} />
+      </Fragment>
     )
   }
 
@@ -90,6 +98,10 @@ class RangeAnalyzerRow extends Component {
     } 
   }
 
+  getOutputCellProps() {
+    return {}
+  }
+
   getAnalysisCellProps(property, type) {
     const {rangeAnalysis = {}} = this.props
 
@@ -105,7 +117,7 @@ class RangeAnalyzerRow extends Component {
     return {
       ...this.getDefaultCellProps(),
       type: 'ratio',
-      value: .50
+      value: this.props.equity.win
     }
   }
 

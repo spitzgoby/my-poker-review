@@ -1,3 +1,4 @@
+import {calculateEquity} from 'util/equity-calculator'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
@@ -130,4 +131,11 @@ export const getSelectedRangeOutput = createSelector(
 
     return output
   }
+)
+
+export const makeGetEquityForRange = () => createSelector(
+  getBoardCards,
+  getHandCards,
+  getRangeById,
+  (board, hand, range) => calculateEquity(board, hand, range)
 )

@@ -1,3 +1,3 @@
-import Menu from './component'
+import Menu from './container'
 
 export default Menu

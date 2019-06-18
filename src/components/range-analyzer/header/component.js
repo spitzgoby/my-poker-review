@@ -39,12 +39,23 @@ class RangeAnalyzerHeader extends Component {
   }
 
   renderEquityCells() {
+    const editing = this.props.editing
+
     return (
-      <RangeRowCell align="right">
-        <Fade in={!this.props.editing}>
-          <span>Equity</span>
-        </Fade>
-      </RangeRowCell>
+      <Fragment>
+        <Hidden smDown>
+          <RangeRowCell>
+            <Fade in={!this.props.editing}>
+              <span>Text</span>
+            </Fade>
+          </RangeRowCell>
+        </Hidden>
+        <RangeRowCell align="right">
+          <Fade in={!editing}>
+            <span>Equity</span>
+          </Fade>
+        </RangeRowCell>
+      </Fragment>
     )
   }
 
