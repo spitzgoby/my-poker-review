@@ -4,6 +4,7 @@ import Hand from 'components/hand'
 import {styles} from 'components/home/styles'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
+import {modes} from 'lib/application-constants'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
@@ -15,6 +16,7 @@ import 'typeface-roboto'
 class Home extends Component {
 
   static propTypes = {
+    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES]),
     ranges: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       color: PropTypes.string,
@@ -23,7 +25,10 @@ class Home extends Component {
   }
 
   render() {
-    const classes = this.props.classes
+    const {
+      classes, 
+      mode 
+    } = this.props
 
     return (
       <div className={classes.root}>
@@ -33,16 +38,20 @@ class Home extends Component {
             <Grid item>
               <RangeAnalyzer />
             </Grid>
-            <Grid container spacing={16} item>
-              <Grid item xs={12} sm={6} xl={4}>
-                <Board />
-              </Grid>
-              <Grid item xs={12} sm={6} xl={4}>
-                <Paper>
-                  <Hand />
-                </Paper>
-              </Grid>
-            </Grid>
+            {
+              mode === modes.EQUITY 
+              ? <Grid container spacing={16} item>
+                  <Grid item xs={12} sm={6} xl={4}>
+                    <Board />
+                  </Grid>
+                  <Grid item xs={12} sm={6} xl={4}>
+                    <Paper>
+                      <Hand />
+                    </Paper>
+                  </Grid>
+                </Grid>
+              : null
+            }
           </Grid>
           <Grid item xs={12} lg={5} className={classes.rangebuilder}>
               <RangeBuilder />
