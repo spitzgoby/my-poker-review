@@ -32,7 +32,7 @@ const combinableComboGroups = [
   ['32o']
 ]
 
-export const rangeFromCombos = (selectedCombos) => {
+export const rangeFromCombos = (selectedCombos = {}) => {
   return flatMap(combinableComboGroups, (combinableComboGroup) => {
     return combineGroup(combinableComboGroup, selectedCombos)
   })
