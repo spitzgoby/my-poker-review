@@ -15,6 +15,7 @@ class ComboCell extends Component {
     this.handleMouseDown = this.handleMouseDown.bind(this)
     this.handleMouseUp = this.handleMouseUp.bind(this)
     this.handleTouchEnd = this.handleTouchEnd.bind(this)
+    this.setSelectableRef = this.setSelectableRef.bind(this)
 
     this.state = {
       firstDragged: false
@@ -59,7 +60,7 @@ class ComboCell extends Component {
       onMouseDown: this.handleMouseDown,
       onMouseUp: this.handleMouseUp,
       onTouchEnd: this.handleTouchEnd,
-      ref: this.props.selectableRef
+      ref: this.setSelectableRef
     } 
   }
 
@@ -128,13 +129,16 @@ class ComboCell extends Component {
       selected,
       selectingSuits
     } = this.props
+    const touchEndedInComponent = this.didTouchEndInComponent(event);
 
     event.preventDefault()
 
-    if (selectingSuits) {
-      this.openCardSelector(event)
-    } else {
-      this.handleSelect(!selected)
+    if (touchEndedInComponent) {
+      if (selectingSuits) {
+        this.openCardSelector(event)
+      } else {
+        this.handleSelect(!selected)
+      }
     }
   }
 
@@ -158,6 +162,10 @@ class ComboCell extends Component {
     event.stopPropagation()
   }
 
+  setSelectableRef(node) {
+    this.selectableRef = node
+  }
+
   openCardSelector(event) {
     const {
       comboGroup,
@@ -174,6 +182,18 @@ class ComboCell extends Component {
       firstDragged
     })
   } 
+
+  didTouchEndInComponent(event) {
+    const boundingRect = this.selectableRef.getBoundingClientRect()
+    const touch = event.changedTouches[0]
+    const x = touch.clientX
+    const y = touch.clientY
+
+    return x > boundingRect.left 
+      && x < boundingRect.right
+      && y > boundingRect.top
+      && y < boundingRect.bottom
+  }
 }
 
 export default injectSheet(styles)(ComboCell)
