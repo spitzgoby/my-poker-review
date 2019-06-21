@@ -1,8 +1,5 @@
 import {STREETS} from 'lib/poker-constants'
-import {
-  find,
-  map
-} from 'lodash'
+import {find} from 'lodash'
 import {types} from 'modules/range-builder/constants'
 import {
   createRange, 

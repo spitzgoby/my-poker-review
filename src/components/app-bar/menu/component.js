@@ -87,8 +87,6 @@ class Menu extends Component {
   }
 
   renderInputTypeSubMenu() {
-    const classes = this.props.classes
-
     return (
       <Fragment>
         <ListItem>
