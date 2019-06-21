@@ -1,8 +1,12 @@
-import {modes} from 'lib/application-constants'
+import {
+  inputModes,
+  modes
+} from 'lib/application-constants'
 import {types} from 'modules/application/constants'
 
 const initialState = {
-  mode: modes.EQUITY
+  mode: modes.EQUITY,
+  inputMode: inputModes.CARD
 }
 
 export default (state = initialState, action = {}) => {
@@ -16,6 +20,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_INPUT_MODE:
+      nextState = {
+        ...state,
+        inputMode: action.payload
+      }
+      break
+
     default:
       nextState = state
   }
@@ -23,4 +34,5 @@ export default (state = initialState, action = {}) => {
   return nextState
 }
 
+export const getInputMode = (state) => state.inputMode
 export const getMode = (state) => state.mode

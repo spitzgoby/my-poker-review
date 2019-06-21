@@ -5,6 +5,10 @@ export default {
 
   cards: {
     marginBottom: '8px',
-    marginTop: '16px'
+    marginTop: '8px'
+  },
+
+  text: {
+    marginBottom: '16px'
   }
 }

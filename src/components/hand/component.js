@@ -2,6 +2,7 @@ import CardInput from 'components/card-input'
 import CardList from 'components/card-list'
 import CardSelector from 'components/card-selector'
 import styles from 'components/hand/styles'
+import {inputModes} from 'lib/application-constants'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
@@ -31,22 +32,24 @@ class Hand extends Component {
     hand: PropTypes.string,
     handCards: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.string
-    }))
+    })),
+    inputMode: PropTypes.oneOf([inputModes.CARD, inputModes.TEXT])
   }
 
   render() {
-    const classes = this.props.classes
+    const {
+      classes,
+      inputMode
+    } = this.props
 
     return (
       <Paper className={classes.hand}>
         <Grid container>
-          <Grid item xs={12}>
-            <CardInput {...this.getCardInputProps()} />
-          </Grid>
-          <Grid item xs={12}>
-            <Grid className={classes.cards} container direction="row">
-              <CardList {...this.getCardListProps()} />
-            </Grid>
+          <Grid className={this.getInputClass()} item xs={12}>
+            {inputMode === inputModes.CARD
+              ? <CardList {...this.getCardListProps()} />
+              : <CardInput {...this.getCardInputProps()} />
+            }
           </Grid>
         </Grid>
         <CardSelector {...this.getCardSelectorProps()} />
@@ -67,7 +70,7 @@ class Hand extends Component {
     return {
       cards: this.props.handCards,
       count: 2,
-      label: 'HOLE',
+      label: 'HAND',
       onCardClick: this.handleCardClick
     }
   }
@@ -81,6 +84,17 @@ class Hand extends Component {
       onSelect: this.handleCardSelect,
       open: !!cardSelectorAnchorEl
     }
+  }
+
+  getInputClass() {
+    const {
+      classes, 
+      inputMode
+    } = this.props
+
+    return inputMode === inputModes.CARD
+      ? classes.cards
+      : classes.text
   }
 
   handleCardInputChange(value) {

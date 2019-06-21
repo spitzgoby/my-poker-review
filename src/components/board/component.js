@@ -3,6 +3,7 @@ import CardInput from 'components/card-input'
 import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
 import CardList from 'components/card-list'
+import {inputModes} from 'lib/application-constants'
 import {STREETS} from 'lib/poker-constants'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
@@ -30,7 +31,8 @@ class Board extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       selectBoardCards: PropTypes.func,
-      setBoard: PropTypes.func
+      setBoard: PropTypes.func,
+      setInputMode: PropTypes.func
     }).isRequired,
     board: PropTypes.string,
     cards: PropTypes.arrayOf(
@@ -38,29 +40,34 @@ class Board extends Component {
         id: PropTypes.string
       })
     ),
-    className: PropTypes.string
+    className: PropTypes.string,
+    inputMode: PropTypes.oneOf([inputModes.CARD, inputModes.TEXT])
   }
 
   render() {
-    const classes = this.props.classes
-
     return (
       <Paper className={this.getClass()}> 
         <Grid container>
-          <Grid item xs={12}>
-            <CardInput {...this.getCardInputProps()} />
-          </Grid>
-          <Grid item xs={12}>
-            <Grid className={classes.streets} container direction="row">
-              <CardList {...this.getCardListProps('FLOP')} />
-              <CardList {...this.getCardListProps('TURN')} />
-              <CardList {...this.getCardListProps('RIVER')} />
-            </Grid>
+          <Grid className={this.getInputClass()} item xs={12}>
+            {this.props.inputMode === inputModes.CARD 
+              ? this.renderCardLists()
+              : <CardInput {...this.getCardInputProps()} />
+            }
           </Grid>
         </Grid>
         <CardSelector {...this.getCardSelectorProps()} />
       </Paper>
     ) 
+  }
+
+  renderCardLists() {
+    return (
+      <Grid container direction="row">
+        <CardList {...this.getCardListProps('FLOP')} />
+        <CardList {...this.getCardListProps('TURN')} />
+        <CardList {...this.getCardListProps('RIVER')} />
+      </Grid>
+    )
   }
 
   getCardInputProps() {
@@ -111,6 +118,17 @@ class Board extends Component {
     } = this.props
 
     return classnames(classes.board, className)
+  }
+
+  getInputClass() {
+    const {
+      classes,
+      inputMode
+    } = this.props
+
+    return inputMode === inputModes.CARD
+      ? classes.streets
+      : classes.text
   }
 
   handleBoardChange(value) {

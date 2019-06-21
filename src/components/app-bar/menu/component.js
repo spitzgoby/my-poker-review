@@ -1,5 +1,8 @@
 import styles from 'components/app-bar/menu/styles'
-import {modes} from 'lib/application-constants'
+import {
+  inputModes,
+  modes
+} from 'lib/application-constants'
 import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
@@ -29,6 +32,7 @@ class Menu extends Component {
         <List>
           {this.renderModeSubMenu()}
           {this.renderDeckSubMenu()}
+          {this.renderInputTypeSubMenu()}
         </List>
       </Drawer>
     ) 
@@ -82,6 +86,26 @@ class Menu extends Component {
     )
   }
 
+  renderInputTypeSubMenu() {
+    const classes = this.props.classes
+
+    return (
+      <Fragment>
+        <ListItem>
+          <ListItemText>
+            Hand and Board Input
+          </ListItemText>
+        </ListItem>
+        <ListItem {...this.getCardInputListItemProps()}>
+          <ListItemText>Card</ListItemText>
+        </ListItem>
+        <ListItem {...this.getTextInputListItemProps()}>
+          <ListItemText>Text</ListItemText>
+        </ListItem>
+      </Fragment>
+    )
+  }
+
   getEquityListItemProps() {
     const {
       classes,
@@ -111,11 +135,48 @@ class Menu extends Component {
     }
   }
 
+  getCardInputListItemProps() {
+    const {
+      classes,
+      inputMode
+    } = this.props
+
+    return {
+      button: true,
+      className: classes.nested,
+      onClick: () => this.handleCardInputModeClick(inputModes.CARD),
+      selected: inputMode === inputModes.CARD
+    }
+  }
+
+  getTextInputListItemProps() {
+    const {
+      classes,
+      inputMode
+    } = this.props
+
+    return {
+      button: true,
+      className: classes.nested,
+      divider: true,
+      onClick: () => this.handleCardInputModeClick(inputModes.TEXT),
+      selected: inputMode === inputModes.TEXT
+    }
+  }
+
   handleModeClick(mode) {
     const setMode = this.props.actions.setMode
 
     if (setMode) {
       setMode(mode)
+    }
+  }
+
+  handleCardInputModeClick(mode) {
+    const setInputMode = this.props.actions.setInputMode 
+
+    if (setInputMode) {
+      setInputMode(mode)
     }
   }
 }

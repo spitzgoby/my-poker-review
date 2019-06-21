@@ -1,4 +1,5 @@
 import Hand from 'components/hand/component'
+import {getInputMode} from 'modules/application'
 import {
   getHand,
   getHandCards,
@@ -11,7 +12,8 @@ import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state) => ({
   hand: getHand(state),
-  handCards: getHandCards(state)
+  handCards: getHandCards(state),
+  inputMode: getInputMode(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,5 +1,9 @@
 import Board from 'components/board/component'
 import {
+  getInputMode,
+  setInputMode
+} from 'modules/application'
+import {
   getBoard,
   getBoardCards,
   selectBoardCards,
@@ -11,13 +15,15 @@ import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state) => ({
   board: getBoard(state),
-  cards: getBoardCards(state)
+  cards: getBoardCards(state),
+  inputMode: getInputMode(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
     selectBoardCards,
-    setBoard
+    setBoard,
+    setInputMode
   }, dispatch)
 })
 
