@@ -2,6 +2,7 @@ import AppBar from 'components/app-bar'
 import Board from 'components/board'
 import Hand from 'components/hand'
 import {styles} from 'components/home/styles'
+import EquityAnalzyer from 'components/equity-analyzer'
 import RangeAnalyzer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import {modes} from 'lib/application-constants'
@@ -36,7 +37,10 @@ class Home extends Component {
         <Grid container spacing={16}>
           <Grid container direction="column" spacing={16} item xs={12} lg={7}>
             <Grid item>
-              <RangeAnalyzer />
+              {mode === modes.EQUITY
+                ? <EquityAnalzyer />
+                : <RangeAnalyzer />
+              }
             </Grid>
             {
               mode === modes.EQUITY 
