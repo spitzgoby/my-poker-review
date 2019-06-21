@@ -76,10 +76,10 @@ class Menu extends Component {
             Deck
           </ListItemText>
         </ListItem>
-        <ListItem className={classes.nested} button>
+        <ListItem disabled className={classes.nested} button>
           <ListItemText>2 Color</ListItemText>
         </ListItem>
-        <ListItem divider className={classes.nested} selected button>
+        <ListItem disabled divider className={classes.nested} selected button>
           <ListItemText>4 Color</ListItemText>
         </ListItem>
       </Fragment>
