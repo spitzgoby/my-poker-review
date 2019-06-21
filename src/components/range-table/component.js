@@ -11,9 +11,7 @@ class RangeTable extends Component {
 
   static propTypes = {
     editing: PropTypes.bool,
-    rangeList: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string
-    }))
+    rangeList: PropTypes.arrayOf(PropTypes.string)
   }
 
   render() {
