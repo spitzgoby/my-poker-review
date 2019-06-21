@@ -1,3 +1,4 @@
+import RangeEditCell from 'components/range-row/edit-cell'
 import RangeRowCell from 'components/range-row/cell'
 import {modes} from 'lib/application-constants'
 import Fade from '@material-ui/core/Fade'
@@ -14,7 +15,6 @@ class RangeTableHeader extends Component {
     super(props)
 
     this.handleClearCombosButtonClick = this.handleClearCombosButtonClick.bind(this)
-    this.handleDeleteAllClick = this.handleDeleteAllClick.bind(this)
   }
 
   static propTypes = {
@@ -33,6 +33,7 @@ class RangeTableHeader extends Component {
             ? this.renderEquityCells()
             : this.renderRangeCells() 
           }
+          <RangeEditCell onClear={this.handleClearCombosButtonClick}/>
         </TableRow>              
       </TableHead>
     ) 
@@ -55,7 +56,6 @@ class RangeTableHeader extends Component {
             <span>Equity</span>
           </Fade>
         </RangeRowCell>
-        <RangeRowCell />
       </Fragment>
     )
   }
@@ -82,7 +82,6 @@ class RangeTableHeader extends Component {
             <span>Range (%)</span>
           </Fade>
         </RangeRowCell>
-        <RangeRowCell />
       </Fragment>
     )
   }
@@ -104,10 +103,6 @@ class RangeTableHeader extends Component {
     if (onClearCombos) {
       onClearCombos()
     }
-  }
-
-  handleDeleteAllClick() {
-    console.log('delete all clicked')
   }
 }
 
