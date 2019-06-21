@@ -24,12 +24,13 @@ class RangeTableHeader extends Component {
   }
 
   render() {
+    const equityMode = this.props.mode === modes.EQUITY
 
     return (
       <TableHead>
         <TableRow>
-          <RangeRowCell>Name</RangeRowCell>
-          { this.props.mode === modes.EQUITY
+          <RangeRowCell>{equityMode ? 'Opponent' : 'Name'}</RangeRowCell>
+          { equityMode
             ? this.renderEquityCells()
             : this.renderRangeCells() 
           }
