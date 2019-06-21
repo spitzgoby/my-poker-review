@@ -4,7 +4,6 @@ import CardSelector from 'components/card-selector'
 import styles from 'components/hand/styles'
 import {inputModes} from 'lib/application-constants'
 import Grid from '@material-ui/core/Grid'
-import Paper from '@material-ui/core/Paper'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -43,7 +42,7 @@ class Hand extends Component {
     } = this.props
 
     return (
-      <Paper className={classes.hand}>
+      <div className={classes.hand}>
         <Grid container>
           <Grid className={this.getInputClass()} item xs={12}>
             {inputMode === inputModes.CARD
@@ -53,7 +52,7 @@ class Hand extends Component {
           </Grid>
         </Grid>
         <CardSelector {...this.getCardSelectorProps()} />
-      </Paper>
+      </div>
     ) 
   }
 
