@@ -7,11 +7,6 @@ export default {
     marginBottom: '16px'
   },
 
-  streets: {
-    marginBottom: '8px',
-    marginTop: '8px'
-  },
-
   title: {
     paddingLeft: '0'  
   }

@@ -5,6 +5,10 @@ export const styles = {
     margin: `80px 0 ${gutterWidth} ${gutterWidth}`
   },
 
+  analyzergrid: {
+    display: 'inline-block'
+  },
+
   '@media (max-width: 1280px)':{
     rangebuilder: {
       marginRight: gutterWidth

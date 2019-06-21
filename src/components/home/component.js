@@ -32,7 +32,7 @@ class Home extends Component {
       <div className={classes.root}>
         <AppBar />
         <Grid container spacing={16}>
-          <Grid container direction="column" spacing={16} item xs={12} lg={7}>
+          <Grid className={classes.analyzergrid} container direction="column" spacing={16} item xs={12} lg={7}>
             <Grid item>
               {mode === modes.EQUITY
                 ? <EquityAnalzyer />

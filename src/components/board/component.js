@@ -125,9 +125,9 @@ class Board extends Component {
       inputMode
     } = this.props
 
-    return inputMode === inputModes.CARD
-      ? classes.streets
-      : classes.text
+    return inputMode === inputModes.TEXT
+      ? classes.text
+      : ''
   }
 
   handleBoardChange(value) {
