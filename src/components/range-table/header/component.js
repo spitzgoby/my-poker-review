@@ -8,7 +8,7 @@ import PropTypes from 'prop-types'
 import React, {Component, Fragment} from 'react'
 import {themeColors} from 'styles/colors'
 
-class RangeAnalyzerHeader extends Component {
+class RangeTableHeader extends Component {
 
   constructor(props) {
     super(props)
@@ -111,4 +111,4 @@ class RangeAnalyzerHeader extends Component {
   }
 }
 
-export default (RangeAnalyzerHeader)
+export default (RangeTableHeader)

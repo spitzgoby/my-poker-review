@@ -1,4 +1,4 @@
-import RangeAnalyzerHeader from 'components/range-analyzer/header/component'
+import RangeTableHeader from 'components/range-table/header/component'
 import {getMode} from 'modules/application'
 import {
   clearAllSelectedCombos,
@@ -17,4 +17,4 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RangeAnalyzerHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(RangeTableHeader)
