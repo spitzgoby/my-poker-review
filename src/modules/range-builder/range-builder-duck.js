@@ -1,4 +1,3 @@
-import {STREETS} from 'lib/poker-constants'
 import {find} from 'lodash'
 import {types} from 'modules/range-builder/constants'
 import {
@@ -275,15 +274,6 @@ export default (state = initialState, action = {}) => {
 
 export const getBoard = (state) => state.board
 export const getBoardCards = (state) => state.boardCards
-export const getCardsForStreet = (state, street) => {
-  const boardCards = getBoardCards(state)
-  const {
-    index,
-    count
-  } = STREETS[street]
-
-  return boardCards.slice(index, index + count)
-}
 export const getDeadCards = (state) => state.deadCards
 export const getHand = (state) => state.hand
 export const getHandCards = (state) => state.handCards

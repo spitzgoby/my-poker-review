@@ -4,7 +4,6 @@ import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
 import CardList from 'components/card-list'
 import {inputModes} from 'lib/application-constants'
-import {STREETS} from 'lib/poker-constants'
 import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -23,7 +22,6 @@ class Board extends Component {
     this.state = {
       cardSelectorAnchorEl: null,
       cardSelectorIndex: null,
-      cardSelectorStreet: null
     }
   }
 
@@ -63,8 +61,6 @@ class Board extends Component {
     return (
       <Grid container direction="row">
         <CardList {...this.getCardListProps('FLOP')} />
-        <CardList {...this.getCardListProps('TURN')} />
-        <CardList {...this.getCardListProps('RIVER')} />
       </Grid>
     )
   }
@@ -84,18 +80,12 @@ class Board extends Component {
     }
   }
 
-  getCardListProps(streetName) {
-    const cards = this.props.cards
-    const street = STREETS[streetName]
-    const index = street.index
-
+  getCardListProps() {
     return {
-      cards: cards.slice(index, street.length),
-      count: street.count,
-      disabled: index > this.props.cards.length,
-      index: index,
-      label: streetName,
-      onCardClick: (index, event) => this.handleStreetClick(streetName, index, event)
+      cards: this.props.cards,
+      count: 5,
+      label: 'BOARD',
+      onCardClick: (index, event) => this.handleStreetClick(index, event)
     }
   }
 
@@ -138,27 +128,22 @@ class Board extends Component {
     }
   }
 
-  handleStreetClick(street, index, event) {
+  handleStreetClick(index, event) {
     this.setState({
       cardSelectorAnchorEl: event.currentTarget,
-      cardSelectorIndex: index,
-      cardSelectorStreet: street
+      cardSelectorIndex: index
     })
   }
 
   handleCardSelect(card) {
     const selectBoardCards = this.props.actions.selectBoardCards
-    const {
-      cardSelectorIndex: index,
-      cardSelectorStreet: street
-    } = this.state
+    const index = this.state.cardSelectorIndex
 
 
     if (selectBoardCards) {
       selectBoardCards({
         card,
-        index,
-        street
+        index
       })
     }
 

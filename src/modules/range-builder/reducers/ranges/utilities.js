@@ -1,5 +1,4 @@
 import {combos} from 'lib/combos'
-import {STREETS} from 'lib/poker-constants'
 import {
   difference, 
   forEach, 
@@ -66,13 +65,11 @@ export const updateBoardCards = (state, action) => {
   const {
     card,
     index,
-    street
   } = action.payload
   const boardCards = [...state.boardCards]
-  let absoluteIndex = STREETS[street].index + index
 
-  if (absoluteIndex < boardCards.length) {
-    boardCards[absoluteIndex] = card
+  if (index < boardCards.length) {
+    boardCards[index] = card
   } else {
     boardCards.push(card)
   }

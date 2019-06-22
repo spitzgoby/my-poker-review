@@ -13,10 +13,10 @@ class EquityAnalyzer extends Component {
       <Paper>
         <Grid container spacing={16} item>
           <Grid item xs={12} sm={6} xl={4}>
-            <Board />
+            <Hand />
           </Grid>
           <Grid item xs={12} sm={6} xl={4}>
-            <Hand />
+            <Board />
           </Grid>
         </Grid>
         <RangeTable />
