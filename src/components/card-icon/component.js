@@ -4,7 +4,7 @@ import RankPath from 'components/card-icon/rank-path'
 import SuitPath from 'components/card-icon/suit-path'
 import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
-import React, {Component, Fragment} from 'react'
+import React, {Component} from 'react'
 import styles from 'components/card-icon/styles'
 
 class CardIcon extends Component {
@@ -22,7 +22,6 @@ class CardIcon extends Component {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
-    size: PropTypes.oneOf(['sm', 'md']),
     variant: PropTypes.oneOf(['outline', 'shadow'])
   }
 
@@ -36,14 +35,12 @@ class CardIcon extends Component {
     } = this.props
 
     return (
-      <Fragment>
-        <svg {...this.getProps()}>
-          {card
-              ? this.renderCardFront(card)
-              : <CardBackPath />
-          }
-        </svg>
-      </Fragment>
+      <svg {...this.getProps()}>
+        {card
+            ? this.renderCardFront(card)
+            : <CardBackPath />
+        }
+      </svg>
     )
   }
 
@@ -60,6 +57,7 @@ class CardIcon extends Component {
     return {
       className: this.getClass(),
       onClick: this.handleClick,
+      ref: this.props.innerRef,
       viewBox: '0 0 84 128',
       x: '0',
       xmlSpace: 'preserve',
@@ -89,3 +87,4 @@ class CardIcon extends Component {
 }
 
 export default injectSheet(styles)(CardIcon)
+

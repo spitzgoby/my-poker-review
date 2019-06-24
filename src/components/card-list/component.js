@@ -1,5 +1,6 @@
 import styles from 'components/card-list/styles'
 import CardIcon from 'components/card-icon'
+import CardSelector from 'components/card-selector'
 import {times} from 'lodash'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
@@ -8,13 +9,26 @@ import injectSheet from 'react-jss'
 
 class CardList extends Component {
 
+  constructor(props) {
+    super(props) 
+
+    this.handleCardClick = this.handleCardClick.bind(this)
+    this.handleCardSelect = this.handleCardSelect.bind(this)
+    this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
+
+    this.state = {
+      cardSelectorAnchorEl: null,
+      cardSelectorIndex: null,
+    }
+  }  
+
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
     count: PropTypes.number,
     disabled: PropTypes.bool,
     index: PropTypes.number,
     label: PropTypes.string,
-    onCardClick: PropTypes.func
+    onCardSelect: PropTypes.func
   }
 
   render() {
@@ -22,6 +36,7 @@ class CardList extends Component {
       <div className={this.props.classes.street}> 
         {this.renderCards()}
         {this.renderSubtitle()}
+        <CardSelector {...this.getCardSelectorProps()} />
       </div>
     ) 
   }
@@ -86,14 +101,43 @@ class CardList extends Component {
     }
   }
 
-  handleCardClick(index, event) {
-    const {
-      onCardClick
-    } = this.props
+  getCardSelectorProps() {
+    const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
 
-    if (onCardClick) {
-      onCardClick(index, event)
+    return {
+      anchorEl: cardSelectorAnchorEl,
+      onClose: this.handleCardSelectorClose,
+      onSelect: this.handleCardSelect,
+      open: !!cardSelectorAnchorEl
     }
+  }
+
+  handleCardClick(index, event) {
+    this.setState({
+      cardSelectorAnchorEl: event.currentTarget,
+      cardSelectorIndex: index
+    })
+  }
+
+  handleCardSelect(card, index) {
+    const onCardSelect = this.props.onCardSelect
+
+    if (onCardSelect) {
+      onCardSelect(card, index)
+    }
+
+    this.closeCardSelector()
+  }
+
+  handleCardSelectorClose() {
+    this.closeCardSelector()
+  }
+
+  closeCardSelector() {
+    this.setState({
+      cardSelectorAnchorEl: null,
+      cardSelectorIndex: null
+    })
   }
 }
 

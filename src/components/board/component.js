@@ -1,6 +1,5 @@
 import classnames from 'classnames'
 import CardInput from 'components/card-input'
-import CardSelector from 'components/card-selector'
 import styles from 'components/board/styles'
 import CardList from 'components/card-list'
 import {inputModes} from 'lib/application-constants'
@@ -16,13 +15,6 @@ class Board extends Component {
 
     this.handleBoardChange = this.handleBoardChange.bind(this)
     this.handleCardSelect = this.handleCardSelect.bind(this)
-    this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
-    this.handleStreetClick = this.handleStreetClick.bind(this)
-
-    this.state = {
-      cardSelectorAnchorEl: null,
-      cardSelectorIndex: null,
-    }
   }
 
   static propTypes = {
@@ -52,7 +44,6 @@ class Board extends Component {
             }
           </Grid>
         </Grid>
-        <CardSelector {...this.getCardSelectorProps()} />
       </div>
     ) 
   }
@@ -60,7 +51,7 @@ class Board extends Component {
   renderCardLists() {
     return (
       <Grid container direction="row">
-        <CardList {...this.getCardListProps('FLOP')} />
+        <CardList {...this.getCardListProps()} />
       </Grid>
     )
   }
@@ -85,18 +76,7 @@ class Board extends Component {
       cards: this.props.cards,
       count: 5,
       label: 'BOARD',
-      onCardClick: (index, event) => this.handleStreetClick(index, event)
-    }
-  }
-
-  getCardSelectorProps() {
-    const cardSelectorAnchorEl = this.state.cardSelectorAnchorEl
-
-    return {
-      anchorEl: cardSelectorAnchorEl,
-      onClose: this.handleCardSelectorClose,
-      onSelect: this.handleCardSelect,
-      open: !!cardSelectorAnchorEl
+      onCardSelect: this.handleCardSelect
     }
   }
 
@@ -120,25 +100,8 @@ class Board extends Component {
       : ''
   }
 
-  handleBoardChange(value) {
-    const setBoard = this.props.actions.setBoard
-
-    if (setBoard) {
-      setBoard({value})
-    }
-  }
-
-  handleStreetClick(index, event) {
-    this.setState({
-      cardSelectorAnchorEl: event.currentTarget,
-      cardSelectorIndex: index
-    })
-  }
-
-  handleCardSelect(card) {
+  handleCardSelect(card, index) {
     const selectBoardCards = this.props.actions.selectBoardCards
-    const index = this.state.cardSelectorIndex
-
 
     if (selectBoardCards) {
       selectBoardCards({
@@ -146,21 +109,14 @@ class Board extends Component {
         index
       })
     }
-
-    this.closeCardSelector()
   }
 
-  handleCardSelectorClose() {
-    this.closeCardSelector()
-  }
+  handleBoardChange(value) {
+    const setBoard = this.props.actions.setBoard
 
-  closeCardSelector() {
-    this.setState({
-      cardSelectorAnchorEl: null,
-      cardSelectorIndex: null,
-      cardSelectorStreet: null
-    })
-
+    if (setBoard) {
+      setBoard({value})
+    }
   }
 }
 
