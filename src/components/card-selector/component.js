@@ -92,7 +92,7 @@ class CardSelector extends Component {
     return {
       card: card, 
       className: this.props.classes.card,
-      disabled: deadCards[card.id],
+      disabled: !!deadCards[card.id],
       key: card.id,
       onClick: () => this.handleCardSelect(card)
     }

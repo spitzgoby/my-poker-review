@@ -4,7 +4,9 @@ import CardSelector from 'components/card-selector'
 import {times} from 'lodash'
 import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
-import React, {Component} from 'react'
+import React, {
+  Component,
+} from 'react'
 import injectSheet from 'react-jss'
 
 class CardList extends Component {
@@ -96,6 +98,7 @@ class CardList extends Component {
       card,
       className: classes.card,
       disabled: disabled || index > cards.length,
+      id: this.getCardId(index),
       key,
       onClick: (event) => this.handleCardClick(index, event)
     }
@@ -119,25 +122,46 @@ class CardList extends Component {
     })
   }
 
-  handleCardSelect(card, index) {
+  handleCardSelect(card) {
+    const index = this.state.cardSelectorIndex
     const onCardSelect = this.props.onCardSelect
 
     if (onCardSelect) {
       onCardSelect(card, index)
     }
 
-    this.closeCardSelector()
+    this.closeCardSelector(index)
   }
 
   handleCardSelectorClose() {
     this.closeCardSelector()
   }
 
-  closeCardSelector() {
+  closeCardSelector(index) {
+    const openIndex = index + 1
+    let callback
+
+    if (index !== undefined && openIndex < this.props.count) {
+      callback = () => this.openCardSelector(openIndex)
+    }
+
     this.setState({
       cardSelectorAnchorEl: null,
       cardSelectorIndex: null
+    }, callback)
+  }
+
+  openCardSelector(index) {
+    const el = document.querySelector(`#${this.getCardId(index)}`)
+
+    this.setState({
+      cardSelectorAnchorEl: el,
+      cardSelectorIndex: index
     })
+  }
+
+  getCardId(index) {
+    return this.props.label + 'card' + index
   }
 }
 

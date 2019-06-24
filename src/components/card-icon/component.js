@@ -21,6 +21,8 @@ class CardIcon extends Component {
     }),
     className: PropTypes.string,
     disabled: PropTypes.bool,
+    id: PropTypes.string,
+    innerRef: PropTypes.object,
     onClick: PropTypes.func,
     variant: PropTypes.oneOf(['outline', 'shadow'])
   }
@@ -56,8 +58,8 @@ class CardIcon extends Component {
   getProps() {
     return {
       className: this.getClass(),
+      id: this.props.id,
       onClick: this.handleClick,
-      ref: this.props.innerRef,
       viewBox: '0 0 84 128',
       x: '0',
       xmlSpace: 'preserve',
@@ -87,4 +89,6 @@ class CardIcon extends Component {
 }
 
 export default injectSheet(styles)(CardIcon)
+
+
 
