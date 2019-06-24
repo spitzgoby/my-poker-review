@@ -50,7 +50,8 @@ export default {
   '@media (hover: hover)': {
     cell: {
       '&:hover': {
-        backgroundColor: (props) => getBackgroundColor(props, true)
+        backgroundColor: (props) => getBackgroundColor(props, true),
+        cursor: (props) => props.disabled ? 'default' : 'pointer'
       }
     }
   },

@@ -76,7 +76,7 @@ export const styles = {
       '&:hover': {
         backgroundColor: (props) => getBackgroundColor(props, true),
         color: (props) => getColor(props, true),
-
+        cursor: 'pointer'
       }
     }
   },
