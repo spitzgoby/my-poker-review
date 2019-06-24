@@ -24,7 +24,6 @@ import {
 import uuid from 'uuid/v4'
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
-export const clearAllSelectedCombos = actionCreator(types.CLEAR_ALL_SELECTED_COMBOS)
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')

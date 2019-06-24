@@ -1,7 +1,7 @@
 import RangeTableHeader from 'components/range-table/header/component'
 import {getMode} from 'modules/application'
 import {
-  clearAllSelectedCombos,
+  clearAll,
   getIsEditing
 } from 'modules/range-builder'
 import {connect} from 'react-redux'
@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 })
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onClearCombos: clearAllSelectedCombos
+    onClearCombos: clearAll
   }, dispatch)
 })
 

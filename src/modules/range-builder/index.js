@@ -21,7 +21,6 @@ export const RangeBuilderReducer = rangeBuilderReducer
 export * from 'modules/range-builder/actions'
 
 export const addRange = fromRangeBuilder.addRange
-export const clearAllSelectedCombos = fromRangeBuilder.clearAllSelectedCombos
 export const clearSelectedCombosFromRange = fromRangeBuilder.clearSelectedCombosFromRange
 export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
 export const deleteRange = fromRangeBuilder.deleteRange
