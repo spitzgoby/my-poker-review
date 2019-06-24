@@ -4,6 +4,7 @@ import {
   setInputMode
 } from 'modules/application'
 import {
+  clearBoard,
   getBoard,
   getBoardCards,
   selectBoardCards,
@@ -21,6 +22,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
+    clearBoard,
     selectBoardCards,
     setBoard,
     setInputMode

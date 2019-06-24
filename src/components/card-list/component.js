@@ -1,12 +1,13 @@
-import styles from 'components/card-list/styles'
-import CardIcon from 'components/card-icon'
 import CardSelector from 'components/card-selector'
+import CardIcon from 'components/card-icon'
+import styles from 'components/card-list/styles'
 import {times} from 'lodash'
+import Fade from '@material-ui/core/Fade'
+import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
+import ClearIcon from '@material-ui/icons/Clear'
 import PropTypes from 'prop-types'
-import React, {
-  Component,
-} from 'react'
+import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
 class CardList extends Component {
@@ -17,6 +18,7 @@ class CardList extends Component {
     this.handleCardClick = this.handleCardClick.bind(this)
     this.handleCardSelect = this.handleCardSelect.bind(this)
     this.handleCardSelectorClose = this.handleCardSelectorClose.bind(this)
+    this.handleClear = this.handleClear.bind(this)
 
     this.state = {
       cardSelectorAnchorEl: null,
@@ -30,13 +32,15 @@ class CardList extends Component {
     disabled: PropTypes.bool,
     index: PropTypes.number,
     label: PropTypes.string,
-    onCardSelect: PropTypes.func
+    onCardSelect: PropTypes.func,
+    onClear: PropTypes.func
   }
 
   render() {
     return (
-      <div className={this.props.classes.street}> 
+      <div> 
         {this.renderCards()}
+        {this.renderClearButton()}
         {this.renderSubtitle()}
         <CardSelector {...this.getCardSelectorProps()} />
       </div>
@@ -44,13 +48,10 @@ class CardList extends Component {
   }
 
   renderCards() {
-    const {
-      classes,
-      count
-    } = this.props
+    const count = this.props.count
 
     return (
-      <span className={classes.cards}>{
+      <span>{
         times(count, (index) => {
           return this.renderCard(index) 
         }) 
@@ -70,6 +71,16 @@ class CardList extends Component {
     }
 
     return <CardIcon {...cardProps} />
+  }
+
+  renderClearButton() {
+    return (
+      <Fade in={this.props.cards.length > 0}>
+        <IconButton onClick={this.handleClear}>
+          <ClearIcon />
+        </IconButton>
+      </Fade>
+    )
   }
 
   renderSubtitle() {
@@ -131,6 +142,14 @@ class CardList extends Component {
     }
 
     this.closeCardSelector(index)
+  }
+
+  handleClear() {
+    const onClear = this.props.onClear
+
+    if (onClear) {
+      onClear()
+    }
   }
 
   handleCardSelectorClose() {

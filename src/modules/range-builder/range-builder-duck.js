@@ -111,6 +111,24 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.CLEAR_BOARD:
+      nextState = {
+        ...state,
+        board: '',
+        boardCards: [],
+        deadCards: updateDeadCards([], state.handCards) 
+      }
+      break
+
+    case types.CLEAR_HAND:
+      nextState = {
+        ...state,
+        deadCards: updateDeadCards(state.boardCards, []),
+        hand: '',
+        handCards: []
+      }
+      break
+
     case types.CLEAR_SELECTED_COMBOS_FROM_RANGE:
       nextState = {
         ...state,

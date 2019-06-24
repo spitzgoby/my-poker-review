@@ -15,10 +15,12 @@ class Board extends Component {
 
     this.handleBoardChange = this.handleBoardChange.bind(this)
     this.handleCardSelect = this.handleCardSelect.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   static propTypes = {
     actions: PropTypes.shape({
+      clearBoard: PropTypes.func,
       selectBoardCards: PropTypes.func,
       setBoard: PropTypes.func,
       setInputMode: PropTypes.func
@@ -76,7 +78,8 @@ class Board extends Component {
       cards: this.props.cards,
       count: 5,
       label: 'BOARD',
-      onCardSelect: this.handleCardSelect
+      onCardSelect: this.handleCardSelect,
+      onClear: this.handleClear
     }
   }
 
@@ -109,6 +112,14 @@ class Board extends Component {
         index
       })
     }
+  }
+
+  handleClear() {
+    const clearBoard = this.props.actions.clearBoard
+
+    if (clearBoard) {
+      clearBoard()
+    }    
   }
 
   handleBoardChange(value) {

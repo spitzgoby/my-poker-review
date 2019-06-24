@@ -1,6 +1,7 @@
 import Hand from 'components/hand/component'
 import {getInputMode} from 'modules/application'
 import {
+  clearHand,
   getHand,
   getHandCards,
   selectHandCards,
@@ -18,6 +19,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
+    clearHand,
     selectHandCards,
     setHand
   }, dispatch)

@@ -14,10 +14,12 @@ class Hand extends Component {
 
     this.handleCardInputChange = this.handleCardInputChange.bind(this)
     this.handleCardSelect = this.handleCardSelect.bind(this)
+    this.handleClear = this.handleClear.bind(this)
   }
 
   static propTypes = {
     actions: PropTypes.shape({
+      clearHand: PropTypes.func,
       setHand: PropTypes.func
     }).isRequired,
     hand: PropTypes.string,
@@ -47,21 +49,22 @@ class Hand extends Component {
     ) 
   }
 
+  getCardListProps() {
+    return {
+      cards: this.props.handCards,
+      count: 2,
+      label: 'HAND',
+      onCardSelect: this.handleCardSelect,
+      onClear: this.handleClear
+    }
+  }
+
   getCardInputProps() {
     return {
       label: 'Hand',
       maxLength: 4,
       onChange: this.handleCardInputChange,
       value: this.props.hand
-    }
-  }
-
-  getCardListProps() {
-    return {
-      cards: this.props.handCards,
-      count: 2,
-      label: 'HAND',
-      onCardSelect: this.handleCardSelect
     }
   }
 
@@ -76,14 +79,6 @@ class Hand extends Component {
       : classes.text
   }
 
-  handleCardInputChange(value) {
-    const setHand = this.props.actions.setHand
-
-    if (setHand) {
-      setHand(value)
-    }
-  }
-
   handleCardSelect(card, index) {
     const selectHandCards = this.props.actions.selectHandCards
 
@@ -92,6 +87,22 @@ class Hand extends Component {
         card,
         index
       })
+    }
+  }
+
+  handleClear() {
+    const clearHand = this.props.actions.clearHand
+
+    if (clearHand) {
+      clearHand()
+    }
+  }
+
+  handleCardInputChange(value) {
+    const setHand = this.props.actions.setHand
+
+    if (setHand) {
+      setHand(value)
     }
   }
 }

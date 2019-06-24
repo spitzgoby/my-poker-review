@@ -1,4 +1,6 @@
 export * from './clear-all'
+export * from './clear-board'
+export * from './clear-hand'
 export * from './export-ranges'
 export * from './import-ranges'
 export * from './select-board-cards'

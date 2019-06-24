@@ -22,7 +22,6 @@ class CardIcon extends Component {
     className: PropTypes.string,
     disabled: PropTypes.bool,
     id: PropTypes.string,
-    innerRef: PropTypes.object,
     onClick: PropTypes.func,
     variant: PropTypes.oneOf(['outline', 'shadow'])
   }
