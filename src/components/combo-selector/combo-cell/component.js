@@ -19,6 +19,7 @@ class ComboCell extends Component {
       cards: PropTypes.array,
       id: PropTypes.string
     }),
+    disabled: PropTypes.bool,
     selected: PropTypes.bool,
     selectedColor: PropTypes.string 
   }
@@ -40,8 +41,14 @@ class ComboCell extends Component {
   }
 
   getCardIconProps(index) {
+    const {
+      combo,
+      disabled
+    } = this.props
+
     return {
-      card: this.props.combo.cards[index],
+      card: combo.cards[index],
+      disabled,
       size: 'sm',
       variant: 'outline'
     }

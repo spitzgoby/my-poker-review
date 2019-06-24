@@ -36,9 +36,7 @@ class CardSelector extends Component {
       text: PropTypes.string,
       type: PropTypes.string
     }),
-    deadCards: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string
-    })),
+    deadCards: PropTypes.object,
     onClose: PropTypes.func,
     transformOrigin: PropTypes.shape({
       horizontal: PropTypes.string,
@@ -123,8 +121,13 @@ class CardSelector extends Component {
   }
 
   getComboCellProps(combo, rows, row, col) {
+    const deadCards = this.props.deadCards
+    const comboCellContainsDeadCard =
+      !!deadCards[combo.cards[0].id] || !!deadCards[combo.cards[1].id]
+
     return {
       combo,
+      disabled: comboCellContainsDeadCard,
       key: combo.id,
       lastColumn: col === rows[col] - 1,
       lastRow: row === rows.length - 1

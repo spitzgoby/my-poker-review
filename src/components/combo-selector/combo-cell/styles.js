@@ -4,23 +4,27 @@ import {
 } from 'styles/colors'
 
 const getBackgroundColor = (props, hover) => {
-  let color
+  const {
+    color,
+    disabled,
+    selected,
+    selectedColor
+  } = props
+  let backgroundColor
 
-  if (props.combo.id === 'Ac2c') {
-    console.log(props)
-  }
-
-  if (hover) {
-    color = props.selected
-      ? rangeColors['dark' + props.selectedColor]
-      : rangeColors[props.selectedColor]
+  if (disabled) {
+    backgroundColor = themeColors.neutralGray
+  } else if (hover) {
+    backgroundColor = selected
+      ? rangeColors['dark' + selectedColor]
+      : rangeColors[selectedColor]
   } else {
-    color = props.selected
-      ? rangeColors[props.color]
+    backgroundColor = selected
+      ? rangeColors[color]
       : 'white'
   }
 
-  return color
+  return backgroundColor
 }
 
 const getBorderWidth = (props) => {
