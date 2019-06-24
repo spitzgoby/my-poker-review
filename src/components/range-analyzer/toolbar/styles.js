@@ -2,6 +2,10 @@ import {themeColors} from 'styles/colors'
 import {gutterWidth} from 'styles/layout'
 
 export default {
+  button: {
+    color: themeColors.secondary
+  },
+
   snackbar: {
     backgroundColor: themeColors.primary,
     color: themeColors.lightTextColor

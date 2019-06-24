@@ -91,7 +91,7 @@ class RangeTableHeader extends Component {
     const editing = this.props.editing
 
     return {
-      color: editing ? themeColors.error : themeColors.darkText,
+      color: editing ? themeColors.error : themeColors.secondary,
       editing: editing,
       onClear: this.handleClearCombosButtonClick,
       onDelete: this.handleDeleteAllClick 

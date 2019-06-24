@@ -136,7 +136,7 @@ class RangeAnalyzerToolbar extends Component {
 
     return (
       <Tooltip title={title}>
-        <IconButton onClick={this.handleEditButtonClick}>
+        <IconButton {...this.getEditButtonProps()}>
           { editing
             ? <ClearIcon />
             : <EditIcon />
@@ -148,6 +148,7 @@ class RangeAnalyzerToolbar extends Component {
 
   getCopyButtonProps() {
     return {
+      className: this.props.classes.button,
       onClick: this.handleCopyButtonClick
     }
   }
@@ -181,7 +182,7 @@ class RangeAnalyzerToolbar extends Component {
 
   getImportExportButtonProps() {
     return {
-      'aria-label': 'Download',
+      className: this.props.classes.button,
       onClick: this.handleImportExportButtonClick
     }
   }
@@ -194,8 +195,15 @@ class RangeAnalyzerToolbar extends Component {
 
   getAddButtonProps() {
     return {
-      'aria-label': 'Add',
+      className: this.props.classes.button,
       onClick: this.handleAddButtonClick
+    }
+  }
+
+  getEditButtonProps() {
+    return {
+      className: this.props.classes.button,
+      onClick: this.handleEditButtonClick
     }
   }
 
