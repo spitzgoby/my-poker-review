@@ -58,7 +58,6 @@ const initialState = {
   editing: false,
   hand: '',
   handCards: [],
-  playerHand: '',
   rangeList,
   ranges,
   selecting: true,
@@ -243,13 +242,6 @@ export default (state = initialState, action = {}) => {
       }
       break
 
-    case types.SET_PLAYER_HAND:
-      nextState = {
-        ...state,
-        playerHand: action.payload.value
-      }
-      break
-
     case types.SET_RANGE_NAME:
       nextState = {
         ...state,
@@ -299,7 +291,6 @@ export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getR
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting
 export const getIsSelectingSuits = (state) => state.selectingSuits
-export const getPlayerHand = (state) => state.playerHand
 export const getRangeColors = (state) => state.colors
 export const getRangeById = (state, id) => state.ranges[id]
 export const getRangeList = (state) => state.rangeList

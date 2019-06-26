@@ -73,8 +73,6 @@ export const getIsSelecting = (state) =>
   fromRangeBuilder.getIsSelecting(getRangeBuilderState(state))
 export const getIsSelectingSuits = (state) =>
   fromRangeBuilder.getIsSelectingSuits(getRangeBuilderState(state))
-export const getPlayerHand = (state) => 
-  fromRangeBuilder.getPlayerHand(getRangeBuilderState(state))
 export const getRangeById = (state, id) =>
   fromRangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeColors = (state) =>
