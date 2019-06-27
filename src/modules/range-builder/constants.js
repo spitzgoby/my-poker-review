@@ -1,6 +1,7 @@
 export const types = {
   ADD_RANGE: '@my-poker-review/range-builder/ADD_RANGE',
-  CALCULATE_EQUITY: '@my-poker-review/range-builder/CALCULATE_EQUITY',
+  CALCULATE_EQUITY_INIT: '@my-poker-review/range-builder/CALCULATE_EQUITY_INIT',
+  CALCULATE_EQUITY_SUCCESS: '@my-poker-review/range-builder/CALCULATE_EQUITY_SUCCESS',
   CLEAR_ALL: '@my-poker-review/range-builder/CLEAR_ALL',
   CLEAR_ALL_SELECTED_COMBOS: '@my-poker-review/range-builder/CLEAR_ALL_SELECTED_COMBOS',
   CLEAR_BOARD: '@my-poker-review/range-builder/CLEAR_BOARD',

@@ -115,10 +115,16 @@ class RangeAnalyzerRow extends Component {
   }
 
   getEquityCellProps() {
+    const { 
+      equity = {},
+      pending
+    } = this.props
+
     return {
       ...this.getDefaultCellProps(),
+      pending,
       type: 'ratio',
-      value: this.props.equity.win
+      value: equity.win
     }
   }
 

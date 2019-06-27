@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import {ApplicationReducer} from 'modules/application'
 import {
+  EquityReducer,
   ExportReducer,
   ImportReducer,
   RangeBuilderReducer,
@@ -8,6 +9,7 @@ import {
 
 export default combineReducers({
   Application: ApplicationReducer,
+  Equity: EquityReducer,
   Export: ExportReducer,
   Import: ImportReducer, 
   RangeBuilder: RangeBuilderReducer

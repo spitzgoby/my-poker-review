@@ -1,5 +1,6 @@
 import RangeRowCell from 'components/range-row/cell'
 import styles from 'components/range-row/analysis-cell/styles'
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Fade from '@material-ui/core/Fade'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
@@ -9,6 +10,7 @@ class RangeAnalysisCell extends Component {
 
   static propTypes = {
     editing: PropTypes.bool,
+    pending: PropTypes.bool,
     range: PropTypes.shape({
       color: PropTypes.string
     }),
@@ -20,16 +22,23 @@ class RangeAnalysisCell extends Component {
   render() {
     const {
       classes,
-      editing
+      pending,
     } = this.props
 
     return (
       <RangeRowCell className={classes.cell} align="right"> 
-        <Fade in={!editing}>
-          {this.renderAnalysis()}
-        </Fade>
+        {pending
+          ? this.renderProgress()
+          : this.renderAnalysis()
+        }
       </RangeRowCell>
     ) 
+  }
+
+  renderProgress() {
+    return (
+      <CircularProgress color="inherit" size={32} />
+    )
   }
 
   renderAnalysis() {
