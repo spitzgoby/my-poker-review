@@ -168,6 +168,7 @@ module.exports = function(webpackEnv) {
               .replace(/\\/g, '/')
         : isEnvDevelopment &&
           (info => path.resolve(info.absoluteResourcePath).replace(/\\/g, '/')),
+      globalObject: 'this'
     },
     optimization: {
       minimize: isEnvProduction,
@@ -327,6 +328,14 @@ module.exports = function(webpackEnv) {
                 limit: 10000,
                 name: 'static/media/[name].[hash:8].[ext]',
               },
+            },
+            {
+              test: /\.worker\.js$/,
+              include: paths.appSrc,
+              use: [
+                {loader: 'worker-loader'},
+                {loader: 'babel-loader'}
+              ]
             },
             // Process application JS with Babel.
             // The preset includes JSX, Flow, TypeScript, and some ESnext features.

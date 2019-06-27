@@ -1,4 +1,3 @@
-import {calculateEquity} from 'util/equity-calculator'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
@@ -24,7 +23,6 @@ export const addRange = fromRangeBuilder.addRange
 export const clearSelectedCombosFromRange = fromRangeBuilder.clearSelectedCombosFromRange
 export const clearSelectedComboGroupIds = fromRangeBuilder.clearSelectedComboGroupIds
 export const deleteRange = fromRangeBuilder.deleteRange
-export const selectCombos = fromRangeBuilder.selectCombos
 export const selectRange = fromRangeBuilder.selectRange
 export const setBoard = fromRangeBuilder.setBoard
 export const setEditing = fromRangeBuilder.setEditing
@@ -34,14 +32,14 @@ export const setRangeName = fromRangeBuilder.setRangeName
 /*--------*
  * EXPORT *
  *--------*/
-const getExportState = (state) => state.Export
+export const getExportState = (state) => state.Export
 export const getExportFileName = (state) => fromExport.getExportFileName(getExportState(state))
 export const getIsExportDialogOpen = (state) => fromExport.getIsExportDialogOpen(getExportState(state))
 
 /*--------*
  * IMPORT *
  *--------*/
-const getImportState = (state) => state.Import
+export const getImportState = (state) => state.Import
 export const getImportFile = (state) => fromImport.getImportFile(getImportState(state))
 export const getIsImportDialogOpen = (state) => fromImport.getIsImportDialogOpen(getImportState(state))
 export const getIsImporting = (state) => fromImport.getIsImporting(getImportState(state))
@@ -50,7 +48,7 @@ export const getIsImporting = (state) => fromImport.getIsImporting(getImportStat
  * RANGES *
  *--------*/
 
-const getRangeBuilderState = (state) => state.RangeBuilder
+export const getRangeBuilderState = (state) => state.RangeBuilder
 export const getBoard = (state) => 
   fromRangeBuilder.getBoard(getRangeBuilderState(state))
 export const getBoardCards = (state) =>
@@ -134,5 +132,5 @@ export const makeGetEquityForRange = () => createSelector(
   getBoardCards,
   getHandCards,
   getRangeById,
-  (board, hand, range) => calculateEquity(board, hand, range)
+  (board, hand, range) => ({win: 0, lose: 0, tie: 0})//calculateEquity(board, hand, range)
 )

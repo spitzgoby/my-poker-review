@@ -12,8 +12,7 @@ import {
   updateDeadCards,
   updateHandCards,
   updateRangesByClearingAllSelectedCombos,
-  updateRangesByDeletingRange,
-  updateRangesBySelectingCombos,
+  updateRangesByDeletingRange
 } from 'modules/range-builder/reducers/ranges/utilities'
 import {actionCreator} from 'redux-action-creator'
 import {rangeColorList} from 'styles/colors/range-colors'
@@ -27,7 +26,6 @@ export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
 export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')
-export const selectCombos = actionCreator(types.SELECT_COMBOS, 'combos', 'select')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
 export const setEditing = actionCreator(types.SET_EDITING)
@@ -180,7 +178,7 @@ export default (state = initialState, action = {}) => {
     case types.SELECT_COMBOS:
       nextState = {
         ...state,
-        ranges: updateRangesBySelectingCombos(state, action)
+        ranges: action.payload
       }
       break
 

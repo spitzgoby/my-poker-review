@@ -1,13 +1,7 @@
 import {combos} from 'lib/combos'
-import {
-  difference, 
-  forEach, 
-  reduce,
-  without
-} from 'lodash'
+import {reduce} from 'lodash'
 import {types} from 'modules/range-builder/constants'
 import {actionCreator} from 'redux-action-creator'
-import {groupComboIds} from 'util/group-combos'
 import uuid from 'uuid/v4'
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
@@ -118,47 +112,6 @@ export const updateRangesByDeletingRange = (state, action) => {
     if (range.id !== action.payload.id) {
       acc[range.id] = range
     }
-
-    return acc
-  }, {})
-}
-
-export const updateRangeBySelectingCombos = (range, combos, select, selected) => {
-  const selectedCombos = range.selectedCombos
-  let newSelectedCombos = {...selectedCombos}
-  let newSelectedCombosMap = groupComboIds(combos)
-
-  forEach(newSelectedCombosMap, (selectedCombosList, comboGroupId) => {
-    const selectedComboGroup = selectedCombos[comboGroupId] || []
-    const diff = difference(selectedCombosList, selectedComboGroup) 
-
-    if (!select || !selected) {
-      newSelectedCombos[comboGroupId] = without(selectedComboGroup, ...selectedCombosList)
-    } else {
-      newSelectedCombos[comboGroupId] = selectedComboGroup.concat(diff)
-    }
-  })
-
-  return {
-    ...range,
-    selectedCombos: newSelectedCombos
-  }
-}
-
-export const updateRangesBySelectingCombos = (state, action) => {
-  const {
-    payload: {
-      combos,
-      select
-    }
-  } = action
-
-  return reduce(state.ranges, (acc, range) => {
-    acc[range.id] = updateRangeBySelectingCombos(
-      range, 
-      combos, 
-      select,
-      range.id === state.selectedRangeId)
 
     return acc
   }, {})

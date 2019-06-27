@@ -2,28 +2,32 @@ import {
   flatMap,
   intersection
 } from 'lodash'
-import pec from 'pec'
+import EquityWorker from 'util/equity.worker.js'
 
 export const calculateEquity = (board, hand, range) => {
-  let results = {
-    lose: null,
-    tie: null,
-    win: null
-  }
-  const boardText = board.map((card) => card.text)
-  const handText = hand.map((card) => card.text)
-  const deadText = handText.concat(boardText)
-  const rangeText = flatMap(range.selectedCombos, (comboGroup) =>
-    filterComboGroup(comboGroup, deadText)
-  )
+  return new Promise((resolve, reject) => {
+    const boardText = board.map((card) => card.text)
+    const handText = hand.map((card) => card.text)
+    const deadText = handText.concat(boardText)
+    const rangeText = flatMap(range.selectedCombos, (comboGroup) =>
+      filterComboGroup(comboGroup, deadText)
+    )
 
-  if (rangeText.length > 0 && handText.length === 2) {
-    const pecResults = pec.raceRangeForBoard(handText, rangeText, 10000, true, boardText)
-
-    results = convertResultsToRatios(pecResults)
-  }
-
-  return results
+    if (rangeText.length > 0 && handText.length === 2) {
+      const equityWorker = new EquityWorker()
+      
+      equityWorker.onmessage = (event) => {
+        resolve(convertResultsToRatios(event.data))
+      }
+      equityWorker.postMessage({
+        board: boardText,
+        hand: handText,
+        range: rangeText
+      })
+    } else {
+      resolve({win: null, lose: null, tie: null})
+    }
+  })
 }
 
 const filterComboGroup = (comboGroup, deadCards) => {
@@ -39,11 +43,15 @@ const filterComboGroup = (comboGroup, deadCards) => {
 }
 
 const convertResultsToRatios = (results) => {
-  const {win, loose, tie} = results
-  const count = win + loose + tie
+  const {
+    loose: lose,
+    tie,
+    win
+  } = results
+  const count = win + lose + tie
 
   return {
-    lose: loose / count,
+    lose: lose / count,
     tie: tie / count,
     win: win / count
   }

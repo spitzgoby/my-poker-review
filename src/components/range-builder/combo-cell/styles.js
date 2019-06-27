@@ -29,10 +29,6 @@ const getBackgroundColor = (props, hover = false) => {
       : comboCellColors[comboGroup.type]
   }
 
-  if (selected && hover) {
-    console.log(backgroundColor)
-  }
-
   return backgroundColor
 }
 
