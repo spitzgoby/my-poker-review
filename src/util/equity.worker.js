@@ -9,5 +9,5 @@ self.addEventListener('message', (event) => {
   } = event.data
 
   // eslint-disable-next-line
-  self.postMessage(pec.raceRangeForBoard(hand, range, 10000, true, board))
+  self.postMessage(pec.raceRangeForBoard(hand, range, 1E6, true, board))
 })

@@ -6,6 +6,8 @@ import {
 } from 'lodash'
 import {
   calculateEquity,
+} from 'modules/equity'
+import {
   getRangeBuilderState
 } from 'modules/range-builder'
 import {types} from 'modules/range-builder/constants'

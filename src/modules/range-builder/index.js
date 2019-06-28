@@ -1,4 +1,3 @@
-import equityReducer, * as fromEquity from 'modules/range-builder/reducers/equity'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
@@ -10,7 +9,6 @@ import {rangeFromCombos} from 'util/range-output-builder'
  * REDUCER *
  *---------*/ 
 
-export const EquityReducer = equityReducer
 export const ExportReducer = exportReducer
 export const ImportReducer = importReducer
 export const RangeBuilderReducer = rangeBuilderReducer
@@ -30,15 +28,6 @@ export const setBoard = fromRangeBuilder.setBoard
 export const setEditing = fromRangeBuilder.setEditing
 export const setPlayerHand = fromRangeBuilder.setPlayerHand
 export const setRangeName = fromRangeBuilder.setRangeName
-
-/*--------*
- * EQUITY *
- *--------*/
-export const getEquityState = (state) => state.Equity
-export const getEquityForRange = (state, rangeId) => 
-  fromEquity.getEquityForRange(getEquityState(state), rangeId)
-export const getIsEquityPendingForRange = (state, rangeId) => 
-  fromEquity.getIsEquityPendingForRange(getEquityState(state), rangeId)
 
 /*--------*
  * EXPORT *

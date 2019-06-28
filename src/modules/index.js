@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux'
 import {ApplicationReducer} from 'modules/application'
 import {
-  EquityReducer,
+  EquityReducer
+} from 'modules/equity'
+import {
   ExportReducer,
   ImportReducer,
   RangeBuilderReducer,

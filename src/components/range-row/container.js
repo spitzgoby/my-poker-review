@@ -1,10 +1,12 @@
 import RangeAnalyzerRow from 'components/range-row/component'
 import {getMode} from 'modules/application'
 import {
+  getEquityForRange,
+  getIsEquityPendingForRange
+} from 'modules/equity'
+import {
   clearSelectedCombosFromRange,
   deleteRange,
-  getEquityForRange,
-  getIsEquityPendingForRange,
   getIsRangeSelected,
   getRangeAnalysisForRange,
   getRangeById,
