@@ -1,5 +1,9 @@
-import {forEach} from 'lodash'
-import {types} from 'modules/range-builder/constants'
+import {types} from 'modules/equity/constants'
+import {
+  getBoardCards,
+  getHandCards,
+  getRangeById
+} from 'modules/range-builder'
 import {calculateEquity as calculate} from 'util/equity-calculator'
 
 const calculateEquityInit = (payload) => ({
@@ -12,17 +16,18 @@ const calculateEquitySuccess = (payload) => ({
   payload
 })
 
-export const calculateEquity = (board, hand, ranges) => (dispatch) => {
-  forEach(ranges, (range) => {
-    const rangeId = range.id
+export const calculateEquity = (rangeId) => (dispatch, getState) => {
+  const state = getState()
+  const board = getBoardCards(state)
+  const hand = getHandCards(state)
+  const range = getRangeById(state, rangeId)
 
-    dispatch(calculateEquityInit({rangeId}))
+  dispatch(calculateEquityInit({rangeId}))
 
-    calculate(board, hand, range).then((results) => {
-      dispatch(calculateEquitySuccess({
-        rangeId, 
-        results
-      }))
-    })
+  calculate(board, hand, range).then((results) => {
+    dispatch(calculateEquitySuccess({
+      rangeId, 
+      results
+    }))
   })
 }

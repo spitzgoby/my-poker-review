@@ -1,4 +1,4 @@
-import {types} from 'modules/range-builder/constants'
+import {types} from 'modules/equity/constants'
 
 const initialState = {
   equities: {},

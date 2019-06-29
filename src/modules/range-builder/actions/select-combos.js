@@ -60,6 +60,4 @@ export const selectCombos = (payload) => (dispatch, getState) => {
     type: types.SELECT_COMBOS,
     payload: ranges
   })
-
-  dispatch(calculateEquity(rangeBuilderState.boardCards, rangeBuilderState.handCards, ranges))
 }

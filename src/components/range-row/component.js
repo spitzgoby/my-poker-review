@@ -1,5 +1,6 @@
 import RangeAnalysisCell from 'components/range-row/analysis-cell'
 import RangeEditCell from 'components/range-row/edit-cell'
+import RangeEquityCell from 'components/range-row/equity-cell'
 import RangeNameCell from 'components/range-row/name-cell'
 import RangeRowCell from 'components/range-row/cell'
 import {styles} from 'components/range-row/styles'
@@ -64,7 +65,7 @@ class RangeAnalyzerRow extends Component {
             {this.props.rangeOutput}
           </RangeRowCell>
         </Hidden>
-        <RangeAnalysisCell {...this.getEquityCellProps()} />
+        <RangeEquityCell {...this.getEquityCellProps()} />
         <RangeEditCell {...this.getEditCellProps()} />
       </Fragment>
     )
@@ -116,15 +117,13 @@ class RangeAnalyzerRow extends Component {
 
   getEquityCellProps() {
     const { 
-      equity = {},
-      pending
+      pending,
+      range
     } = this.props
 
     return {
       ...this.getDefaultCellProps(),
-      pending,
-      type: 'ratio',
-      value: equity.win
+      pending
     }
   }
 

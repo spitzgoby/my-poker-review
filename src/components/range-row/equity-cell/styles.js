@@ -14,4 +14,9 @@ export default {
   button: {
     color: (props) => getColor(props)
   },
+
+  text: {
+    fontSize: '1rem',
+    fontWeight: 600
+  }
 }
