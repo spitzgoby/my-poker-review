@@ -20,9 +20,13 @@ const getBackgroundColor = (props, hover = false) => {
   } = props
 
   if (hover) {
-    backgroundColor = selected
-      ? rangeColors['dark' + selectedColor]
-      : rangeColors[selectedColor]
+    backgroundColor = selectedColor 
+      ? selected
+        ? rangeColors['dark' + selectedColor]
+        : rangeColors[selectedColor]
+      : color
+        ? rangeColors[color]
+        : comboCellColors[comboGroup.type]
   } else {
     backgroundColor = selected 
       ? rangeColors[color]
@@ -39,9 +43,19 @@ const getBorderWidth = (props) => {
 }
 
 const getColor = (props, hover = false) => {
-  return props.color || hover
-    ? themeColors.lightText
-    : themeColors.darkText
+  let color
+
+  if (hover) {
+    color = props.color || props.selectedColor
+      ? themeColors.lightText
+      : themeColors.darkText
+  } else {
+    color = props.color
+      ? themeColors.lightText
+      : themeColors.darkText
+  }
+
+  return color
 }
 
 export const styles = {
@@ -72,7 +86,7 @@ export const styles = {
       '&:hover': {
         backgroundColor: (props) => getBackgroundColor(props, true),
         color: (props) => getColor(props, true),
-        cursor: 'pointer'
+        cursor: (props) => props.selectedColor ? 'pointer' : 'default'
       }
     }
   },
