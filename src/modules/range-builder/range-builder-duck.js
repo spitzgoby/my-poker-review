@@ -24,7 +24,6 @@ import uuid from 'uuid/v4'
 
 export const addRange = actionCreator(types.ADD_RANGE, 'color')
 export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
-export const clearSelectedComboGroupIds = actionCreator(types.CLEAR_SELECTED_COMBO_GROUP_IDS)
 export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')
 export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
 export const setBoard = actionCreator(types.SET_BOARD, 'value')
@@ -135,13 +134,6 @@ export default (state = initialState, action = {}) => {
             selectedCombos: {}
           }
         }
-      }
-      break
-
-    case types.CLEAR_SELECTED_COMBO_GROUP_IDS:
-      nextState = {
-        ...state,
-        selectedComboIds: []
       }
       break
 
