@@ -18,6 +18,7 @@ class EquityCell extends Component {
     actions: PropTypes.shape({
       calculateEquity: PropTypes.func
     }).isRequired,
+    calculable: PropTypes.bool,
     equity: PropTypes.shape({
       lose: PropTypes.number,
       tie: PropTypes.number,
@@ -75,25 +76,31 @@ class EquityCell extends Component {
 
   renderButton() {
     return (
-      <Tooltip {...this.getTooltipProps()}>
-        <Button {...this.getCalculateButtonProps()}>
-          Calculate
-        </Button>
+      <Tooltip title={this.getTooltipTitle()}>
+        <div className={this.props.classes.wrapper}>
+          <Button {...this.getCalculateButtonProps()}>
+            Calculate
+          </Button>
+        </div>
       </Tooltip>
     )
   }
 
   getCalculateButtonProps() {
+    const {
+      calculable,
+      classes
+    } = this.props
+
     return {
-      className: this.props.classes.button,
+      className: classes.button,
+      disabled: !calculable,
       onClick: this.handleCalculateButtonClick
     }
   }
 
-  getTooltipProps() {
-    return {
-      title: `Calculate hand equity against ${this.props.range.name}`
-    }
+  getTooltipTitle() {
+    return `Calculate hand equity against ${this.props.range.name}`
   }
 
   handleCalculateButtonClick(event) {

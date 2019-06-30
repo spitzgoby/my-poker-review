@@ -1,3 +1,4 @@
+import {forEach} from 'lodash'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
@@ -130,9 +131,22 @@ export const getSelectedRangeOutput = createSelector(
   }
 )
 
-export const makeGetEquityForRange = () => createSelector(
-  getBoardCards,
-  getHandCards,
+export const makeGetCanEquityBeCalculatedForRange = () => createSelector(
   getRangeById,
-  (board, hand, range) => ({win: 0, lose: 0, tie: 0})//calculateEquity(board, hand, range)
+  getHandCards,
+  (range, handCards) => {
+    let equityCalculable = false
+
+    if (handCards.length === 2) {
+      forEach(range.selectedCombos, (combos) => {
+        equityCalculable = combos.length > 0
+
+        return !equityCalculable
+      })
+    }
+
+    return equityCalculable
+  }
 )
+
+

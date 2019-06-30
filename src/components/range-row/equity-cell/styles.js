@@ -18,5 +18,9 @@ export default {
   text: {
     fontSize: '1rem',
     fontWeight: 600
+  },
+
+  wrapper: {
+    display: 'inline-block'
   }
 }
