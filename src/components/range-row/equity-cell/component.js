@@ -2,6 +2,7 @@ import RangeRowCell from 'components/range-row/cell'
 import styles from 'components/range-row/equity-cell/styles'
 import Button from '@material-ui/core/Button'
 import CircularProgress from '@material-ui/core/CircularProgress'
+import Tooltip from '@material-ui/core/Tooltip'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -73,15 +74,25 @@ class EquityCell extends Component {
   }
 
   renderButton() {
-    return <Button {...this.getCalculateButtonProps()}>
-      Calculate
-    </Button>
+    return (
+      <Tooltip {...this.getTooltipProps()}>
+        <Button {...this.getCalculateButtonProps()}>
+          Calculate
+        </Button>
+      </Tooltip>
+    )
   }
 
   getCalculateButtonProps() {
     return {
       className: this.props.classes.button,
       onClick: this.handleCalculateButtonClick
+    }
+  }
+
+  getTooltipProps() {
+    return {
+      title: `Calculate hand equity against ${this.props.range.name}`
     }
   }
 
