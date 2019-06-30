@@ -5,7 +5,7 @@ import {
   themeColors
 } from 'styles/colors'
 
-const darkPrimary = Color(themeColors.primary).darken(.10).string()
+const lightSecondary = Color(themeColors.secondary).lighten(.25).string()
 
 const getColor = (props, hover) => {
   const {
@@ -23,8 +23,8 @@ const getColor = (props, hover) => {
       : cardColors[suit]
   } else {
     color = hover
-      ? darkPrimary
-      : themeColors.primary
+      ? lightSecondary
+      : themeColors.secondary
   }
 
   return color

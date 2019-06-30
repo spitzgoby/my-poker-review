@@ -34,7 +34,7 @@ class RangeTableHeader extends Component {
             ? this.renderEquityCells()
             : this.renderRangeCells() 
           }
-          <RangeEditCell onClear={this.handleClearCombosButtonClick}/>
+          <RangeEditCell {...this.getEditCellProps()} />
         </TableRow>              
       </TableHead>
     ) 
