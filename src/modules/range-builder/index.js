@@ -88,6 +88,9 @@ export const getSelectedRange = (state) =>
   fromRangeBuilder.getSelectedRange(getRangeBuilderState(state))
 export const getSelectedRangeColor = (state) => 
   fromRangeBuilder.getSelectedRangeColor(getRangeBuilderState(state))
+export const getSelectedRangeId = (state) =>
+  fromRangeBuilder.getSelectedRangeId(getRangeBuilderState(state))
+
 
 /*-----------------*
  * COMBO SELECTORS *

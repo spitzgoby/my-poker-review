@@ -169,10 +169,11 @@ class ComboCell extends Component {
   openCardSelector(event) {
     const {
       comboGroup,
-      onOpenCardSelector
+      onOpenCardSelector,
+      selectedRangeId
     } = this.props
 
-    if (onOpenCardSelector) {
+    if (onOpenCardSelector && selectedRangeId) {
       onOpenCardSelector(event, comboGroup)
     }
   }

@@ -5,6 +5,7 @@ import {
   makeGetIsComboGroupSelected,
   getIsSelecting,
   getIsSelectingSuits,
+  getSelectedRangeId,
   makeGetRangeColorForComboGroup,
   selectCombos,
   setSelecting
@@ -16,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     color: makeGetRangeColorForComboGroup()(state, comboGroupId),
     selected: makeGetIsComboGroupSelected()(state, comboGroupId),
+    selectedRangeId: getSelectedRangeId(state),
     selecting: getIsSelecting(state),
     selectingSuits: getIsSelectingSuits(state)
   }
