@@ -20,7 +20,7 @@ const filterSelectedCombos = (comboGroups, deadCards) => {
   }, {})
 }
 
-const filterRanges = (ranges, deadCards) => {
+export const filterRanges = (ranges, deadCards) => {
   let filteredRanges = ranges
   let deadCardsList = map(deadCards)
   let deadCardsRegex

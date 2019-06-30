@@ -6,7 +6,10 @@ import exportReducer, * as fromExport from 'modules/range-builder/reducers/expor
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 import {createSelector} from 'reselect'
-import {analyzeRanges} from 'util/range-analyzer'
+import {
+  analyzeRanges,
+  filterRanges
+} from 'util/range-analyzer'
 import {rangeFromCombos} from 'util/range-output-builder'
 
 /*---------*
@@ -155,9 +158,12 @@ export const makeGetCanEquityBeCalculatedForRange = () => createSelector(
 )
 
 export const makeGetRangesComboGroupSelection = (comboGroupId) => createSelector(
-  getRanges,
-  (ranges) => {
-    return reduce(ranges, (acc, range) => {
+  getRangeList,
+  getDeadCards,
+  (rangeList, deadCards) => {
+    const filteredRangeList = filterRanges(rangeList, deadCards)
+
+    return reduce(filteredRangeList, (acc, range) => {
       acc[range.id] = range.selectedCombos[comboGroupId] || []
 
       return acc
