@@ -3,7 +3,7 @@ import {
   exportRanges,
   getExportFileName,
   getIsExportDialogOpen,
-  getRanges,
+  getRangeList,
   setExportDialogOpen,
   setExportFileName
 } from 'modules/range-builder'
@@ -13,7 +13,7 @@ import {bindActionCreators} from 'redux'
 const mapStateToProps = (state) => ({
   fileName: getExportFileName(state),
   open: getIsExportDialogOpen(state),
-  rangeList: getRanges(state)
+  rangeList: getRangeList(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

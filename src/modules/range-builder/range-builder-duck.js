@@ -2,7 +2,7 @@ import {find} from 'lodash'
 import {types} from 'modules/range-builder/constants'
 import {
   createRange, 
-  rangeList,
+  rangeIdList,
   ranges 
 } from 'modules/range-builder/ranges'
 import {
@@ -55,7 +55,7 @@ const initialState = {
   editing: false,
   hand: '',
   handCards: [],
-  rangeList,
+  rangeIdList,
   ranges,
   selecting: true,
   selectingSuits: false,
@@ -78,7 +78,7 @@ export default (state = initialState, action = {}) => {
       nextState = {
         ...state,
         addRangeMenuOpen: false,
-        rangeList: state.rangeList.concat([rangeId]),
+        rangeIdList: state.rangeIdList.concat([rangeId]),
         ranges: {
           ...state.ranges,
           [rangeId]: range
@@ -140,7 +140,7 @@ export default (state = initialState, action = {}) => {
     case types.DELETE_RANGE: 
       nextState = {
         ...state,
-        rangeList: state.rangeList.filter(rangeId => rangeId !== action.payload.id),
+        rangeIdList: state.rangeIdList.filter(rangeId => rangeId !== action.payload.id),
         ranges: updateRangesByDeletingRange(state, action) 
       }
       break
@@ -277,21 +277,22 @@ export const getDeadCards = (state) => state.deadCards
 export const getHand = (state) => state.hand
 export const getHandCards = (state) => state.handCards
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
-export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRanges(state), id)
+export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRangeList(state), id)
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting
 export const getIsSelectingSuits = (state) => state.selectingSuits
 export const getRangeColors = (state) => state.colors
 export const getRangeById = (state, id) => state.ranges[id]
-export const getRangeList = (state) => state.rangeList
-export const getRanges = (state) => state.rangeList.map((id) => state.ranges[id])
+export const getRangeIdList = (state) => state.rangeIdList
+export const getRangeList = (state) => state.rangeIdList.map((id) => state.ranges[id])
+export const getRanges = (state) => state.ranges
 export const getRangeColorForCombo = (state, id) => {
   const range = findRangeContainingCombo(getRanges(state), id)
 
   return range ? range.color : ''
 }
 export const getRangeForCombo = (state, id) => findRangeContainingCombo(getRanges(state), id)
-export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
+export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRangeList(state), id)
 export const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
 export const getSelectedRangeId = (state) => state.selectedRangeId

@@ -11,7 +11,9 @@ class RangeTable extends Component {
 
   static propTypes = {
     editing: PropTypes.bool,
-    rangeList: PropTypes.arrayOf(PropTypes.string)
+    rangeList: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.string
+    }))
   }
 
   render() {
@@ -26,17 +28,17 @@ class RangeTable extends Component {
   }
 
   renderRangeRows() {
-    return this.props.rangeList.map(rangeId => (
-      <RangeRow {...this.getRangeRowProps(rangeId)} />
+    return this.props.rangeList.map(range => (
+      <RangeRow {...this.getRangeRowProps(range)} />
     ))
   }
 
-  getRangeRowProps(rangeId) {
+  getRangeRowProps(range) {
     return {
       editing: this.props.editing,
-      key: rangeId,
+      key: range.id,
       mode: 'ranges',
-      rangeId
+      range
     }
   }
 

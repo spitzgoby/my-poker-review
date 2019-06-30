@@ -14,12 +14,7 @@ import 'typeface-roboto'
 class Home extends Component {
 
   static propTypes = {
-    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES]),
-    ranges: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      color: PropTypes.string,
-      selectedComboIds: PropTypes.arrayOf(PropTypes.string)
-    })).isRequired
+    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES])
   }
 
   render() {

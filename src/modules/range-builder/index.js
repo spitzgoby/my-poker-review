@@ -1,4 +1,7 @@
-import {forEach} from 'lodash'
+import {
+  forEach,
+  reduce
+} from 'lodash'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
@@ -81,6 +84,8 @@ export const getRangeForCombo = (state, comboId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state))
 export const getRangeForComboGroup = (state, comboGroupId) =>
   fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
+export const getRangeIdList = (state) =>
+  fromRangeBuilder.getRangeIdList(getRangeBuilderState(state))
 export const getRangeList = (state) => 
   fromRangeBuilder.getRangeList(getRangeBuilderState(state))
 export const getRanges = (state) =>
@@ -111,8 +116,8 @@ export const makeGetRangeColorForComboGroup = () => createSelector(
 
 export const getRangesAnalysis = createSelector(
   getDeadCards,
-  getRanges,
-  (deadCards, ranges) => analyzeRanges(ranges, deadCards)
+  getRangeList,
+  (deadCards, rangeList) => analyzeRanges(rangeList, deadCards)
 )
 
 export const getRangeAnalysisForRange = (state, id) => 
@@ -149,4 +154,13 @@ export const makeGetCanEquityBeCalculatedForRange = () => createSelector(
   }
 )
 
+export const makeGetRangesComboGroupSelection = (comboGroupId) => createSelector(
+  getRanges,
+  (ranges) => {
+    return reduce(ranges, (acc, range) => {
+      acc[range.id] = range.selectedCombos[comboGroupId] || []
 
+      return acc
+    }, {})
+  }
+)

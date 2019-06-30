@@ -35,4 +35,4 @@ const buildRanges = (rangeInfo) => {
 }
 
 export const ranges = buildRanges(rangeInfo)
-export const rangeList = rangeInfo.map((info) => info.id)
+export const rangeIdList = rangeInfo.map((info) => info.id)

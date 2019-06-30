@@ -5,19 +5,21 @@ import {
   deleteRange,
   getIsRangeSelected,
   getRangeAnalysisForRange,
-  getRangeById,
   selectRange,
   setRangeName
 } from 'modules/range-builder'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
-const mapStateToProps = (state, ownProps) => ({
-  mode: getMode(state),
-  range: getRangeById(state, ownProps.rangeId),
-  rangeAnalysis: getRangeAnalysisForRange(state, ownProps.rangeId),
-  selected: getIsRangeSelected(state, ownProps.rangeId)
-})
+const mapStateToProps = (state, ownProps) => {
+  const rangeId = ownProps.range.id
+
+  return {
+    mode: getMode(state),
+    rangeAnalysis: getRangeAnalysisForRange(state, rangeId),
+    selected: getIsRangeSelected(state, rangeId)
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
