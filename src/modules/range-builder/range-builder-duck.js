@@ -287,7 +287,7 @@ export const getRangeIdList = (state) => state.rangeIdList
 export const getRangeList = (state) => state.rangeIdList.map((id) => state.ranges[id])
 export const getRanges = (state) => state.ranges
 export const getRangeColorForCombo = (state, id) => {
-  const range = findRangeContainingCombo(getRanges(state), id)
+  const range = findRangeContainingCombo(getRangeList(state), id)
 
   return range ? range.color : ''
 }
