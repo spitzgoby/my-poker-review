@@ -2,7 +2,7 @@ import Color from 'color'
 
 const DARK_COLOR_PREFIX = 'dark'
 const generateColor = (colorInfo) => {
-  const color = Color(colorInfo.rgb)
+  const color = Color(colorInfo.rgb).lighten(.20)
   const darkenAmount = 0.10
 
   return {

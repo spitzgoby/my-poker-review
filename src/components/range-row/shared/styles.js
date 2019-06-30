@@ -20,12 +20,12 @@ export const getColor = (range, selected, hover) => {
 
   if (hover) {
     color = selected
-      ? themeColors.lightText
+      ? themeColors.darkText
       : getRangeColor(range, true)
   } else {
     color = selected
-      ? themeColors.lightText
-      : getRangeColor(range, false)
+      ? themeColors.darkText
+      : getRangeColor(range, true)
   }
 
   return color
