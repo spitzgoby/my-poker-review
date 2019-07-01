@@ -1,26 +1,23 @@
 import {generateColors} from 'styles/colors/generate-colors'
 
 export const rangeColorList = [{
-  name: 'black',
-  rgb: [0, 15, 8]
-},{
   name: 'blue',
-  rgb: [53, 148, 204]
+  rgb: [143, 196, 227]
 },{
   name: 'cyan',
-  rgb: [46, 176, 169]
+  rgb: [104, 216, 210]
 },{
   name: 'green',
-  rgb: [163, 179, 41]
+  rgb: [205, 219, 98]
 },{
   name: 'orange',
-  rgb: [246, 145, 43]
+  rgb: [248, 174, 98]
 },{
   name: 'purple',
-  rgb: [119, 104, 174]
+  rgb: [191, 183, 216]
 },{
   name: 'red',
-  rgb: [209, 44, 47]
+  rgb: [223, 104, 107]
 },{
   name: 'yellow',
   rgb: [252, 191, 52]

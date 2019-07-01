@@ -8,6 +8,30 @@ const rangeInfo = [{
   id: uuid(),
   name: 'Villain',
   color: 'blue'
+},{
+  id: uuid(),
+  name: 'Cyan',
+  color: 'cyan'
+},{
+  id: uuid(),
+  name: 'Green',
+  color: 'green'
+},{
+  id: uuid(),
+  name: 'Orange',
+  color: 'orange'
+},{
+  id: uuid(),
+  name: 'Purple',
+  color: 'purple'
+},{
+  id: uuid(),
+  name: 'Yellow',
+  color: 'yellow'
+},{
+  id: uuid(),
+  name: 'Red',
+  color: 'red',
 }]
 
 /*------------------*
