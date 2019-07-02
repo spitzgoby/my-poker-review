@@ -83,9 +83,11 @@ class RangeAnalyzerToolbar extends Component {
   renderCopyButton() {
     return (
       <Tooltip title="Copy selected range">
-        <IconButton {...this.getCopyButtonProps()}>
-          <FileCopyIcon />
-        </IconButton>
+        <div className={this.props.classes.wrapper}>
+          <IconButton {...this.getCopyButtonProps()}>
+            <FileCopyIcon />
+          </IconButton>
+        </div>
       </Tooltip>
     )
   }
@@ -149,6 +151,7 @@ class RangeAnalyzerToolbar extends Component {
   getCopyButtonProps() {
     return {
       className: this.props.classes.button,
+      disabled: !this.props.selectedRangeOutput,
       onClick: this.handleCopyButtonClick
     }
   }

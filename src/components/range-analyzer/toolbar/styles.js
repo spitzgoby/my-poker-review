@@ -18,5 +18,9 @@ export default {
 
   title: {
     paddingTop: '12px'
+  },
+
+  wrapper: {
+    display: 'inline-block'
   }
 }
