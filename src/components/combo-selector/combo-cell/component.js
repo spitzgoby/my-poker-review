@@ -60,10 +60,11 @@ class ComboCell extends Component {
         onSelect
       },
       combo,
+      disabled,
       selected
     } = this.props
 
-    if (onSelect) {
+    if (!disabled && onSelect) {
       onSelect({
         combos: [combo],
         select: !selected

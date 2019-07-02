@@ -75,11 +75,12 @@ const calculateRangeColorGradient = (props) => {
 const getBackground = (props, hover = false) => {
   let backgroundColor
   const {
-    color,
     comboGroup,
+    range,
     selected,
     selectedColor
   } = props
+  const color = range ? range.color : ''
 
   if (hover) {
     backgroundColor = selectedColor 

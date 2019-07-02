@@ -4,6 +4,10 @@ import {
 } from 'lodash'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
+import {
+  findRangeContainingCombo,
+  findRangeContainingComboGroup,
+} from 'modules/range-builder/reducers/ranges/utilities'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 import {createSelector} from 'reselect'
 import {
@@ -69,8 +73,6 @@ export const getIsAddRangeMenuOpen = (state) =>
   fromRangeBuilder.getIsAddRangeMenuOpen(getRangeBuilderState(state))
 export const getIsEditing = (state) =>
   fromRangeBuilder.getIsEditing(getRangeBuilderState(state))
-export const getIsComboSelected = (state, id) =>
-  fromRangeBuilder.getIsComboSelected(getRangeBuilderState(state), id)
 export const getIsRangeSelected = (state, id) => 
   fromRangeBuilder.getIsRangeSelected(getRangeBuilderState(state), id)
 export const getIsSelecting = (state) =>
@@ -81,16 +83,8 @@ export const getRangeById = (state, id) =>
   fromRangeBuilder.getRangeById(getRangeBuilderState(state), id)
 export const getRangeColors = (state) =>
   fromRangeBuilder.getRangeColors(getRangeBuilderState(state))
-export const getRangeColorForCombo = (state, comboId) =>
-  fromRangeBuilder.getRangeColorForCombo(getRangeBuilderState(state), comboId)
-export const getRangeForCombo = (state, comboId) =>
-  fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state))
-export const getRangeForComboGroup = (state, comboGroupId) =>
-  fromRangeBuilder.getRangeForComboGroup(getRangeBuilderState(state), comboGroupId)
 export const getRangeIdList = (state) =>
   fromRangeBuilder.getRangeIdList(getRangeBuilderState(state))
-export const getRangeList = (state) => 
-  fromRangeBuilder.getRangeList(getRangeBuilderState(state))
 export const getRanges = (state) =>
   fromRangeBuilder.getRanges(getRangeBuilderState(state))
 export const getSelectedRange = (state) =>
@@ -105,16 +99,40 @@ export const getSelectedRangeId = (state) =>
  * COMBO SELECTORS *
  *-----------------*/
 
-export const makeGetIsComboGroupSelected = () => createSelector(
-  getRangeForComboGroup,
-  (range) => !!range
+export const getRangeList = createSelector(
+  getRangeIdList,
+  getRanges,
+  (rangeIdList, ranges) => rangeIdList.map((rangeId) => ranges[rangeId])
 )
 
-export const makeGetRangeColorForComboGroup = () => createSelector(
-  getRangeForComboGroup,
-  (range) => range 
-    ? range.color 
-    : ''
+export const makeGetIsComboSelected = (comboId) => createSelector(
+  getRangeList,
+  (rangeList) => !!findRangeContainingCombo(rangeList, comboId)
+)
+
+export const makeGetRangeForCombo = (comboId) => createSelector(
+  getRangeList,
+  (rangeList) => findRangeContainingCombo(rangeList, comboId)
+)
+
+export const makeGetRangeForComboGroup = (comboGroupId) => createSelector(
+  getRangeList,
+  (rangeList) => findRangeContainingComboGroup(rangeList, comboGroupId)
+)
+
+export const getRangeColorForCombo = (comboId) => createSelector(
+  getRangeList,
+  (rangeList) => {
+    const range = findRangeContainingCombo(rangeList, comboId)
+
+    return range ? range.color : ''
+  }
+)
+
+
+export const makeGetIsComboGroupSelected = (comboGroupId) => createSelector(
+  getRangeList,
+  (rangeList) => !!findRangeContainingComboGroup(rangeList, comboGroupId)
 )
 
 export const getRangesAnalysis = createSelector(

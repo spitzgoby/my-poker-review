@@ -5,11 +5,12 @@ import {
 
 const getBackgroundColor = (props, hover) => {
   const {
-    color,
     disabled,
+    range,
     selected,
     selectedColor
   } = props
+  const color = range ? range.color : ''
   let backgroundColor
 
   if (disabled) {
