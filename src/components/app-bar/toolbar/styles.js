@@ -11,10 +11,6 @@ export default {
     color: lightText
   },
 
-  thumb: {
-    color: lightText
-  },
-
   snackbar: {
     backgroundColor: primary,
     color: lightText
