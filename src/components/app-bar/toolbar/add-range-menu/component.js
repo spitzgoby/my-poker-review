@@ -1,4 +1,4 @@
-import ColorBlock from 'components/range-analyzer/color-block'
+import ColorBlock from 'components/app-bar/toolbar/color-block'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Tooltip from '@material-ui/core/Tooltip'

@@ -1,4 +1,4 @@
-import AddRangeMenu from 'components/range-analyzer/toolbar/add-range-menu/component'
+import AddRangeMenu from 'components/app-bar/toolbar/add-range-menu/component'
 import {
   addRange,
   getIsAddRangeMenuOpen,

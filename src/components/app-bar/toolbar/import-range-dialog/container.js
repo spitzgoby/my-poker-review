@@ -1,4 +1,4 @@
-import ImportRangeDialog from 'components/range-analyzer/toolbar/import-range-dialog/import-range-dialog-component'
+import ImportRangeDialog from 'components/app-bar/toolbar/import-range-dialog/component'
 import {
   getImportFile,
   getIsImportDialogOpen,

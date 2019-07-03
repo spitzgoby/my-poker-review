@@ -1,4 +1,4 @@
-import Component from 'components/range-analyzer/toolbar/export-range-dialog/component'
+import Component from 'components/app-bar/toolbar/export-range-dialog/component'
 import {
   exportRanges,
   getExportFileName,

@@ -1,8 +1,8 @@
 import Clipboard from 'util/clipboard'
-import AddRangeMenu from 'components/range-analyzer/toolbar/add-range-menu'
-import ExportRangeDialog from 'components/range-analyzer/toolbar/export-range-dialog'
-import ImportRangeDialog from 'components/range-analyzer/toolbar/import-range-dialog'
-import styles from 'components/range-analyzer/toolbar/styles'
+import AddRangeMenu from 'components/app-bar/toolbar/add-range-menu'
+import ExportRangeDialog from 'components/app-bar/toolbar/export-range-dialog'
+import ImportRangeDialog from 'components/app-bar/toolbar/import-range-dialog'
+import styles from 'components/app-bar/toolbar/styles'
 import PropTypes from 'prop-types'
 import AddIcon from '@material-ui/icons/Add'
 import Grid from '@material-ui/core/Grid'
@@ -61,7 +61,7 @@ class RangeAnalyzerToolbar extends Component {
         <Grid justify="space-between" container>
           <Grid item>
             <Typography className={classes.title} variant="h5">
-              Ranges
+              My Poker Review
             </Typography>
           </Grid>
           <Grid item>

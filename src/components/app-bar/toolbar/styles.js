@@ -1,14 +1,19 @@
 import {themeColors} from 'styles/colors'
 import {gutterWidth} from 'styles/layout'
 
+const {
+  lightText,
+  primary
+} = themeColors
+
 export default {
   button: {
-    color: themeColors.secondary
+    color: lightText
   },
 
   snackbar: {
-    backgroundColor: themeColors.primary,
-    color: themeColors.lightTextColor
+    backgroundColor: primary,
+    color: lightText
   },
 
   toolbar: {
@@ -17,6 +22,7 @@ export default {
   },
 
   title: {
+    color: lightText,
     paddingTop: '12px'
   },
 

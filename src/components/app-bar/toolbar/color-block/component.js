@@ -1,4 +1,4 @@
-import styles from 'components/range-analyzer/color-block/styles.js'
+import styles from 'components/app-bar/toolbar/color-block/styles.js'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'

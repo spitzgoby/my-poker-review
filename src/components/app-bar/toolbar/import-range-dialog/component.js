@@ -1,13 +1,13 @@
+import Dropzone from 'components/dropzone'
+import styles from 'components/app-bar/toolbar/import-range-dialog/styles'
 import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import Dropzone from 'components/dropzone'
-import injectSheet from 'react-jss'
 import PropTypes from 'prop-types'
+import injectSheet from 'react-jss'
 import React, {Component} from 'react'
-import styles from 'components/range-analyzer/toolbar/import-range-dialog/import-range-dialog-styles'
 
 class ImportRangeDialog extends Component {
 
