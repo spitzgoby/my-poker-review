@@ -3,6 +3,7 @@ import AddRangeMenu from 'components/app-bar/toolbar/add-range-menu'
 import ExportRangeDialog from 'components/app-bar/toolbar/export-range-dialog'
 import ImportRangeDialog from 'components/app-bar/toolbar/import-range-dialog'
 import styles from 'components/app-bar/toolbar/styles'
+import {modes} from 'lib/application-constants'
 import PropTypes from 'prop-types'
 import AddIcon from '@material-ui/icons/Add'
 import Grid from '@material-ui/core/Grid'
@@ -10,15 +11,19 @@ import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Snackbar from '@material-ui/core/Snackbar'
+import Switch from '@material-ui/core/Switch'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import BallotIcon from '@material-ui/icons/Ballot'
 import ClearIcon from '@material-ui/icons/Clear'
 import EditIcon from '@material-ui/icons/Edit'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
+import PieChartIcon from '@material-ui/icons/PieChart'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
+import {themeColors} from 'styles/colors'
 
 class RangeAnalyzerToolbar extends Component {
 
@@ -33,6 +38,7 @@ class RangeAnalyzerToolbar extends Component {
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
     this.handleImportMenuItemClick = this.handleImportMenuItemClick.bind(this)
+    this.handleModeSwitchChange = this.handleModeSwitchChange.bind(this)
 
     this.state = {
       addAnchorEl: null,
@@ -65,6 +71,7 @@ class RangeAnalyzerToolbar extends Component {
             </Typography>
           </Grid>
           <Grid item>
+            {this.renderModeSwitch()}
             {this.renderCopyButton()}
             {this.renderCopySnackbar()}
             {this.renderImportExportMenu()}
@@ -78,6 +85,28 @@ class RangeAnalyzerToolbar extends Component {
         </Grid>
       </Toolbar>
     ) 
+  }
+
+  renderModeSwitch() {
+    return (
+      <Tooltip title={this.renderModeTitle()}>
+        <Switch {...this.getModeSwitchProps()} />
+      </Tooltip>
+    )
+  }
+
+  renderModeTitle() {
+    const isEquityMode = this.props.mode === modes.EQUITY
+    const modeName = isEquityMode ? 'Equity Mode' : 'Ranges Mode'
+    const otherModeName = isEquityMode ? 'Ranges Mode' : 'Equity Mode'
+
+    return (
+      <div>
+        <b>{modeName}</b>
+        <br />
+        Click to switch to {otherModeName}
+      </div>
+    )
   }
 
   renderCopyButton() {
@@ -148,6 +177,16 @@ class RangeAnalyzerToolbar extends Component {
     )
   }
 
+  getModeSwitchProps() {
+    return {
+      checkedIcon: <BallotIcon />,
+      color: 'default',
+      icon: <PieChartIcon />,
+      onChange: this.handleModeSwitchChange
+    }
+  }
+
+
   getCopyButtonProps() {
     return {
       className: this.props.classes.button,
@@ -207,6 +246,22 @@ class RangeAnalyzerToolbar extends Component {
     return {
       className: this.props.classes.button,
       onClick: this.handleEditButtonClick
+    }
+  }
+
+  handleModeSwitchChange(event) {
+    const checked = event.target.checked
+    const setMode = this.props.actions.setMode
+    let mode
+
+    if (checked) {
+      mode = modes.RANGES
+    } else {
+      mode = modes.EQUITY
+    }
+
+    if (setMode) {
+      setMode(mode)
     }
   }
 
@@ -273,7 +328,6 @@ class RangeAnalyzerToolbar extends Component {
       onEdit()
     }
   }
-
 }
 
 export default injectSheet(styles)(RangeAnalyzerToolbar)
