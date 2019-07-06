@@ -23,7 +23,6 @@ import ImportExportIcon from '@material-ui/icons/ImportExport'
 import PieChartIcon from '@material-ui/icons/PieChart'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
-import {themeColors} from 'styles/colors'
 
 class RangeAnalyzerToolbar extends Component {
 

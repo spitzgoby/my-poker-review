@@ -3,7 +3,6 @@ import ComboCell from 'components/range-builder/combo-cell/component'
 import {connect} from 'react-redux'
 import {
   makeGetIsComboGroupSelected,
-  makeGetRangeForComboGroup,
   makeGetRangesComboGroupSelection,
   getIsSelecting,
   getIsSelectingSuits,
@@ -17,7 +16,6 @@ const mapStateToProps = (state, ownProps) => {
   const comboGroupId = ownProps.comboGroup.id
 
   return {
-    color: makeGetRangeForComboGroup(comboGroupId)(state),
     ranges: getRanges(state),
     rangesComboGroupSelection: makeGetRangesComboGroupSelection(comboGroupId)(state),
     selected: makeGetIsComboGroupSelected(comboGroupId)(state),

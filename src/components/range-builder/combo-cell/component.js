@@ -27,7 +27,6 @@ class ComboCell extends Component {
       onChangeSelecting: PropTypes.func,
       onSelect: PropTypes.func
     }).isRequired,
-    color: PropTypes.string,
     comboGroup: PropTypes.shape({
       id: PropTypes.string.isRequired,
       text: PropTypes.string,
@@ -35,6 +34,7 @@ class ComboCell extends Component {
     }).isRequired,
     lastColumn: PropTypes.bool,
     onOpenCardSelector: PropTypes.func,
+    range: PropTypes.object,
     selected: PropTypes.bool,
     selecting: PropTypes.bool,
     selectingSuits: PropTypes.bool
