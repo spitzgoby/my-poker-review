@@ -15,7 +15,11 @@ export default {
     color: (props) => getColor(props)
   },
 
-  text: {
+  light: {
+    fontSize: '1rem',
+  },
+
+  strong: {
     fontSize: '1rem',
     fontWeight: 600
   },

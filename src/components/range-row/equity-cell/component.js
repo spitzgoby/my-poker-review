@@ -61,10 +61,14 @@ class EquityCell extends Component {
       classes,
       equity 
     } = this.props
-    const result = (equity.win * 100).toFixed(0) + '%'
+    const winResult = (equity.win * 100).toFixed(1) + '%'
+    const tieResult = (equity.tie * 100).toFixed(1) + '%'
 
     return (
-      <span className={classes.text}>{result}</span>
+      <span>
+        <span className={classes.strong}>{winResult}</span>
+        <span className={classes.light}>({tieResult})</span>
+      </span>
     )
   }
 

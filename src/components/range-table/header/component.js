@@ -1,5 +1,6 @@
 import RangeEditCell from 'components/range-row/edit-cell'
 import RangeRowCell from 'components/range-row/cell'
+import styles from 'components/range-table/header/styles'
 import {modes} from 'lib/application-constants'
 import Fade from '@material-ui/core/Fade'
 import Hidden from '@material-ui/core/Hidden'
@@ -7,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import PropTypes from 'prop-types'
 import React, {Component, Fragment} from 'react'
+import injectSheet from 'react-jss'
 import {themeColors} from 'styles/colors'
 
 class RangeTableHeader extends Component {
@@ -41,20 +43,18 @@ class RangeTableHeader extends Component {
   }
 
   renderEquityCells() {
-    const editing = this.props.editing
+    const {
+      classes,
+      editing
+    } = this.props
 
     return (
       <Fragment>
-        <Hidden smDown>
-          <RangeRowCell>
-            <Fade in={!this.props.editing}>
-              <span>Text</span>
-            </Fade>
-          </RangeRowCell>
-        </Hidden>
         <RangeRowCell align="right">
           <Fade in={!editing}>
-            <span>Equity</span>
+            <span className={classes.strong}>
+              <b>Equity</b> (Tie)
+            </span>
           </Fade>
         </RangeRowCell>
       </Fragment>
@@ -107,4 +107,4 @@ class RangeTableHeader extends Component {
   }
 }
 
-export default (RangeTableHeader)
+export default injectSheet(styles)(RangeTableHeader)
