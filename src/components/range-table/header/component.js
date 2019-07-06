@@ -1,3 +1,4 @@
+import DeleteAllDialog from 'components/range-table/header/delete-all-dialog'
 import RangeEditCell from 'components/range-row/edit-cell'
 import RangeRowCell from 'components/range-row/cell'
 import styles from 'components/range-table/header/styles'
@@ -17,6 +18,7 @@ class RangeTableHeader extends Component {
     super(props)
 
     this.handleClearCombosButtonClick = this.handleClearCombosButtonClick.bind(this)
+    this.handleDeleteAllClick = this.handleDeleteAllClick.bind(this)
   }
 
   static propTypes = {
@@ -37,6 +39,7 @@ class RangeTableHeader extends Component {
             : this.renderRangeCells() 
           }
           <RangeEditCell {...this.getEditCellProps()} />
+          <DeleteAllDialog />
         </TableRow>              
       </TableHead>
     ) 
@@ -103,6 +106,14 @@ class RangeTableHeader extends Component {
 
     if (onClearCombos) {
       onClearCombos()
+    }
+  }
+
+  handleDeleteAllClick() {
+    const setDeleteAllDialogOpen = this.props.actions.setDeleteAllDialogOpen
+
+    if (setDeleteAllDialogOpen) {
+      setDeleteAllDialogOpen(true)
     }
   }
 }

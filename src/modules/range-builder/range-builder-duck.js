@@ -50,6 +50,7 @@ const initialState = {
   boardCards: [],
   colors: rangeColorList,
   deadCards: {},
+  deleteAllDialogOpen: false,
   editing: false,
   hand: '',
   handCards: [],
@@ -135,6 +136,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.DELETE_ALL_RANGES: 
+      nextState = {
+        ...state,
+        ranges: {}
+      }
+      break
+
     case types.DELETE_RANGE: 
       nextState = {
         ...state,
@@ -210,6 +218,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_DELETE_ALL_DIALOG_OPEN:
+      nextState = {
+        ...state,
+        deleteAllDialogOpen: action.payload
+      }
+      break
+
     case types.SET_EDITING:
       nextState = {
         ...state,
@@ -274,6 +289,7 @@ export const getDeadCards = (state) => state.deadCards
 export const getHand = (state) => state.hand
 export const getHandCards = (state) => state.handCards
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
+export const getIsDeleteAllDialogOpen = (state) => state.deleteAllDialogOpen
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting
 export const getIsSelectingSuits = (state) => state.selectingSuits

@@ -1,22 +1,22 @@
-import RangeTableHeader from 'components/range-table/header/component'
-import {getMode} from 'modules/application'
+import DeleteAllDialog from 'components/range-table/header/delete-all-dialog/component'
 import {
-  clearAll,
-  getIsEditing,
+  deleteAllRanges,
+  getIsDeleteAllDialogOpen,
   setDeleteAllDialogOpen
 } from 'modules/range-builder'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
+
 const mapStateToProps = (state) => ({
-  editing: getIsEditing(state),
-  mode: getMode(state)
+  open: getIsDeleteAllDialogOpen(state)
 })
+
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onClearCombos: clearAll,
+    deleteAllRanges,
     setDeleteAllDialogOpen
   }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(RangeTableHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(DeleteAllDialog)

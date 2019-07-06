@@ -12,6 +12,7 @@ const getColor = (props) => {
 export default {
   ...cell,
   button: {
-    color: (props) => getColor(props)
+    color: (props) => getColor(props),
+    padding: 0
   },
 }

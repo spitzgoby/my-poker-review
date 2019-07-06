@@ -71,6 +71,8 @@ export const getHandCards = (state) =>
   fromRangeBuilder.getHandCards(getRangeBuilderState(state))
 export const getIsAddRangeMenuOpen = (state) =>
   fromRangeBuilder.getIsAddRangeMenuOpen(getRangeBuilderState(state))
+export const getIsDeleteAllDialogOpen = (state) =>
+  fromRangeBuilder.getIsDeleteAllDialogOpen(getRangeBuilderState(state))
 export const getIsEditing = (state) =>
   fromRangeBuilder.getIsEditing(getRangeBuilderState(state))
 export const getIsRangeSelected = (state, id) => 
