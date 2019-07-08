@@ -4,6 +4,7 @@ import Hand from 'components/hand'
 import RangeTable from 'components/range-table'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+import Typography from '@material-ui/core/Typography'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
@@ -19,9 +20,23 @@ class EquityAnalyzer extends Component {
             <Board />
           </Grid>
         </Grid>
-        <RangeTable />
+        {
+          this.props.rangeIdList.length > 0
+            ? <RangeTable />
+            : this.renderRangesMessage()
+        }
       </Paper>
     ) 
+  }
+
+  renderRangesMessage() {
+    return (
+      <div className={this.props.classes.rangemessage}>
+        <Typography>
+          No ranges available
+        </Typography>
+      </div>
+    )
   }
 }
 

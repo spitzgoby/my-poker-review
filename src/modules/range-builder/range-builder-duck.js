@@ -141,7 +141,8 @@ export default (state = initialState, action = {}) => {
         ...state,
         editing: false,
         ranges: {},
-        rangeIdList: []
+        rangeIdList: [],
+        selectedRangeId: ''
       }
       break
 

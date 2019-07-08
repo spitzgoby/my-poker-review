@@ -1,3 +1,3 @@
-import EquityAnalyzer from './component'
+import EquityAnalyzer from './container'
 
 export default EquityAnalyzer
