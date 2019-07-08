@@ -139,7 +139,9 @@ export default (state = initialState, action = {}) => {
     case types.DELETE_ALL_RANGES: 
       nextState = {
         ...state,
-        ranges: {}
+        editing: false,
+        ranges: {},
+        rangeIdList: []
       }
       break
 

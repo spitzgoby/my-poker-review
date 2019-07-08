@@ -1,5 +1,10 @@
 import styles from 'components/range-table/header/delete-all-dialog/styles'
+import Button from '@material-ui/core/Button'
 import Dialog from '@material-ui/core/Dialog'
+import DialogActions from '@material-ui/core/DialogActions'
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogContentText from '@material-ui/core/DialogContentText'
+import DialogTitle from '@material-ui/core/DialogTitle'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -24,7 +29,22 @@ class DeleteAllDialog extends Component {
   render() {
     return (
       <Dialog open={this.props.open} onClose={this.handleClose}> 
-        Delete All Dialog
+        <DialogTitle>
+          Are you sure?
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            This will delete all of your current ranges and cannot be undone.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions> 
+          <Button color="secondary" onClick={this.handleCancelClick}>
+            Cancel
+          </Button>
+          <Button color="secondary" onClick={this.handleDeleteClick}>
+            Confirm
+          </Button>
+        </DialogActions>
       </Dialog>
     ) 
   }
