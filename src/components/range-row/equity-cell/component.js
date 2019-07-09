@@ -40,6 +40,7 @@ class EquityCell extends Component {
 
   renderContent() {
     const {
+      editing,
       equity,
       pending
     } = this.props
@@ -49,7 +50,7 @@ class EquityCell extends Component {
       component = this.renderProgress()
     } else if (equity && equity.win) {
       component = this.renderValue()
-    } else {
+    } else if (!editing) {
       component = this.renderButton()
     }
 

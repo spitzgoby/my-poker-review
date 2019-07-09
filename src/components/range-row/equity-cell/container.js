@@ -4,7 +4,10 @@ import {
   getEquityForRange,
   getIsEquityPendingForRange,
 } from 'modules/equity'
-import {makeGetCanEquityBeCalculatedForRange} from 'modules/range-builder'
+import {
+  getIsEditing,
+  makeGetCanEquityBeCalculatedForRange
+} from 'modules/range-builder'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
@@ -13,6 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     calculable: makeGetCanEquityBeCalculatedForRange()(state, rangeId),
+    editing: getIsEditing(state),
     equity: getEquityForRange(state, rangeId),
     pending: getIsEquityPendingForRange(state, rangeId)
   }
