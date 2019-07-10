@@ -188,6 +188,7 @@ class RangeAnalyzerToolbar extends Component {
 
   getModeSwitchProps() {
     return {
+      checked: this.props.mode === modes.RANGES,
       checkedIcon: <BallotIcon />,
       color: 'default',
       icon: <PieChartIcon />,
