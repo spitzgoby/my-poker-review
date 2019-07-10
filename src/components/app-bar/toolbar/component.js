@@ -48,25 +48,35 @@ class RangeAnalyzerToolbar extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       onAddRange: PropTypes.func,
+      onEdit: PropTypes.func,
+      onOpenAddRangeMenu: PropTypes.func,
       onOpenExportDialog: PropTypes.func,
       onOpenImportDialog: PropTypes.func
     }).isRequired,
     colors: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string
     })).isRequired,
+    mode: PropTypes.string,
     ranges: PropTypes.arrayOf(PropTypes.object),
     selectedRangeOutput: PropTypes.string
   }
 
   render() {
-    const classes = this.props.classes
+    const {
+      classes,
+      mode
+    } = this.props
 
     return (
       <Toolbar className={classes.toolbar}>
         <Grid justify="space-between" container>
           <Grid item>
             <Typography className={classes.title} variant="h5">
-              My Poker Review
+              {
+                mode === modes.EQUITY
+                  ? 'Equity Mode'
+                  : 'Ranges Mode'
+              }
             </Typography>
           </Grid>
           <Grid item>
@@ -198,7 +208,7 @@ class RangeAnalyzerToolbar extends Component {
     return {
       anchorOrigin: {
         horizontal: 'right',
-        vertical: 'bottom'
+        vertical: 'top'
       },
       autoHideDuration: 2000,
       ContentProps: {

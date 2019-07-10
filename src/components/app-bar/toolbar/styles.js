@@ -2,8 +2,7 @@ import {themeColors} from 'styles/colors'
 import {gutterWidth} from 'styles/layout'
 
 const {
-  lightText,
-  primary
+  lightText
 } = themeColors
 
 export default {
@@ -12,7 +11,6 @@ export default {
   },
 
   snackbar: {
-    backgroundColor: primary,
     color: lightText
   },
 

@@ -7,7 +7,6 @@ import {
   addRange,
   getIsEditing,
   getRangeColors,
-  getRangeList,
   getSelectedRangeOutput,
   setAddRangeMenuOpen,
   setEditing,
@@ -21,7 +20,6 @@ const mapStateToProps = (state) => ({
   colors: getRangeColors(state),
   editing: getIsEditing(state),
   mode: getMode(state),
-  rangeList: getRangeList(state),
   selectedRangeOutput: getSelectedRangeOutput(state)
 })
 
