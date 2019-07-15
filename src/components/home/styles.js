@@ -6,17 +6,14 @@ export const styles = {
   },
 
   analyzergrid: {
-    display: 'inline-block'
+    display: 'inline-block',
+    marginTop: 0
   },
 
   '@media (max-width: 1280px)':{
     rangebuilder: {
       marginRight: gutterWidth
     }
-  },
-
-  subtitle: {
-    padding: gutterWidth
   }
 }
 
