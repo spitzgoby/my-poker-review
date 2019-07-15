@@ -3,7 +3,10 @@ import AddRangeMenu from 'components/app-bar/toolbar/add-range-menu'
 import ExportRangeDialog from 'components/app-bar/toolbar/export-range-dialog'
 import ImportRangeDialog from 'components/app-bar/toolbar/import-range-dialog'
 import styles from 'components/app-bar/toolbar/styles'
-import {modes} from 'lib/application-constants'
+import {
+  inputModes,
+  modes
+} from 'lib/application-constants'
 import PropTypes from 'prop-types'
 import AddIcon from '@material-ui/icons/Add'
 import Grid from '@material-ui/core/Grid'
@@ -20,6 +23,8 @@ import ClearIcon from '@material-ui/icons/Clear'
 import EditIcon from '@material-ui/icons/Edit'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
+import KeyboardIcon from '@material-ui/icons/Keyboard'
+import MouseIcon from '@material-ui/icons/Mouse'
 import PieChartIcon from '@material-ui/icons/PieChart'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -37,6 +42,7 @@ class RangeAnalyzerToolbar extends Component {
     this.handleImportExportButtonClick = this.handleImportExportButtonClick.bind(this)
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
     this.handleImportMenuItemClick = this.handleImportMenuItemClick.bind(this)
+    this.handleInputModeSwitchChange = this.handleInputModeSwitchChange.bind(this)
     this.handleModeSwitchChange = this.handleModeSwitchChange.bind(this)
 
     this.state = {
@@ -56,7 +62,8 @@ class RangeAnalyzerToolbar extends Component {
     colors: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string
     })).isRequired,
-    mode: PropTypes.string,
+    inputMode: PropTypes.oneOf([inputModes.CARD, inputModes.TEXT]),
+    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES]),
     ranges: PropTypes.arrayOf(PropTypes.object),
     selectedRangeOutput: PropTypes.string
   }
@@ -81,6 +88,7 @@ class RangeAnalyzerToolbar extends Component {
           </Grid>
           <Grid item>
             {this.renderModeSwitch()}
+            {this.renderInputModeSwitch()}
             {this.renderCopyButton()}
             {this.renderCopySnackbar()}
             {this.renderImportExportMenu()}
@@ -104,10 +112,32 @@ class RangeAnalyzerToolbar extends Component {
     )
   }
 
+  renderInputModeSwitch() {
+    return (
+      <Tooltip title={this.renderInputModeTitle()}>
+        <Switch {...this.getInputModeSwitchProps()} />
+      </Tooltip>
+    )
+  }
+
   renderModeTitle() {
     const isEquityMode = this.props.mode === modes.EQUITY
     const modeName = isEquityMode ? 'Equity Mode' : 'Ranges Mode'
     const otherModeName = isEquityMode ? 'Ranges Mode' : 'Equity Mode'
+
+    return (
+      <div>
+        <b>{modeName}</b>
+        <br />
+        Click to switch to {otherModeName}
+      </div>
+    )
+  }
+
+  renderInputModeTitle() {
+    const isTextMode = this.props.inputMode === inputModes.TEXT
+    const modeName = isTextMode ? 'Type Cards' : 'Select Cards' 
+    const otherModeName = isTextMode ? 'select cards' : 'text input' 
 
     return (
       <div>
@@ -196,6 +226,15 @@ class RangeAnalyzerToolbar extends Component {
     }
   }
 
+  getInputModeSwitchProps() {
+    return {
+      checked: this.props.inputMode === inputModes.TEXT,
+      checkedIcon: <KeyboardIcon />,
+      color: 'default',
+      icon: <MouseIcon />,
+      onChange: this.handleInputModeSwitchChange
+    }
+  }
 
   getCopyButtonProps() {
     return {
@@ -261,17 +300,24 @@ class RangeAnalyzerToolbar extends Component {
 
   handleModeSwitchChange(event) {
     const checked = event.target.checked
+    const mode = checked
+      ? modes.RANGES
+      : modes.EQUITY
     const setMode = this.props.actions.setMode
-    let mode
-
-    if (checked) {
-      mode = modes.RANGES
-    } else {
-      mode = modes.EQUITY
-    }
 
     if (setMode) {
       setMode(mode)
+    }
+  }
+
+  handleInputModeSwitchChange(event) {
+    const inputMode = event.target.checked
+      ? inputModes.TEXT
+      : inputModes.CARD
+    const setInputMode = this.props.actions.setInputMode
+
+    if (setInputMode) {
+      setInputMode(inputMode)
     }
   }
 
