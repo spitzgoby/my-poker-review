@@ -2,6 +2,7 @@ import AppBar from 'components/app-bar'
 import {styles} from 'components/home/styles'
 import EquityAnalzyer from 'components/equity-analyzer'
 import RangeBuilder from 'components/range-builder'
+import RangeCompositionChart from 'components/range-composition-chart'
 import {modes} from 'lib/application-constants'
 import Grid from '@material-ui/core/Grid'
 import PropTypes from 'prop-types'
@@ -26,6 +27,9 @@ class Home extends Component {
           <Grid className={classes.analyzergrid} container direction="column" spacing={16} item xs={12} lg={7}>
             <Grid item>
               <EquityAnalzyer />
+            </Grid>
+            <Grid item>
+              <RangeCompositionChart />
             </Grid>
           </Grid>
           <Grid item xs={12} lg={5} className={classes.rangebuilder}>
