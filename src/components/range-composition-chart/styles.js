@@ -1,1 +1,5 @@
-export default {}
+export default {
+  chart: {
+    width: '100%'
+  }
+}
