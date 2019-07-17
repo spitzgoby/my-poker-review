@@ -7385,6 +7385,11 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
+phe@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/phe/-/phe-0.6.0.tgz#8ca7b9911dbdf880d4b8ffe7f0314b8ccc6ebee8"
+  integrity sha1-jKe5kR29+IDUuP/n8DFLjMxuvug=
+
 phe@~0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/phe/-/phe-0.4.1.tgz#a53ec6f0adbabcf767328ecb5ed2ca8d2b52633a"

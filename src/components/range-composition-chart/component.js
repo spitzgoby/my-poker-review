@@ -2,34 +2,9 @@ import styles from 'components/range-composition-chart/styles'
 import * as d3 from 'd3'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
+import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
-
-const data = [{
-  name: 'Quads',
-  value: 0.01
-}, {
-  name: 'Full House',
-  value: 0.2
-}, {
-  name: 'Flush',
-  value: 0.4
-}, { 
-  name: 'Straight',
-  value: 0.17
-}, {
-  name: 'Trips',
-  value: 0.147
-}, {
-  name: 'Two Pair',
-  value: 0.75
-}, {
-  name: 'Pair',
-  value: 0.25
-}, {
-  name: 'Overcards',
-  value: 0.13
-}]
 
 class RangeCompositionChart extends Component {
 
@@ -39,12 +14,27 @@ class RangeCompositionChart extends Component {
     this.setChartContainerRef = this.setChartContainerRef.bind(this)
   }
 
+  static propTypes = {
+    rangeComposition: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string,
+      value: PropTypes.number
+    }))
+  }
+
+  static defaultProps = {
+    rangeComposition: []
+  }
+
   componentDidMount() {
+    const {
+      classes,
+      rangeComposition
+    } = this.props
     const margin = {
       top: 16,
       right: 16,
       bottom: 16,
-      left: 64
+      left: 80
     }
     const rect = this.chartContainerRef.getBoundingClientRect()
     const height = 400 - (margin.top + margin.bottom)
@@ -53,7 +43,7 @@ class RangeCompositionChart extends Component {
       .domain([0, 1])
       .range([0, width])
     const y = d3.scaleBand()
-      .domain(data.map((d) => d.name))
+      .domain(rangeComposition.map((d) => d.name))
       .range([0, height])  
 
     this.chart = d3.select(this.chartContainerRef).append('svg')
@@ -62,9 +52,9 @@ class RangeCompositionChart extends Component {
       .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    this.chart.selectAll('.bar').data(data)
+    this.chart.selectAll('.bar').data(rangeComposition)
       .enter().append('rect')
-      .attr('class', this.props.classes.bar)
+      .attr('class', classes.bar)
       .attr('y', (d) => y(d.name) + 13)
       .attr('width', (d) => x(d.value))
 
@@ -81,6 +71,10 @@ class RangeCompositionChart extends Component {
         <div className={this.props.classes.chart} ref={this.setChartContainerRef} />
       </Paper>
     ) 
+  }
+
+  drawChart() {
+
   }
 
   setChartContainerRef(node) {

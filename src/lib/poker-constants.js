@@ -2,16 +2,13 @@ export const CARD_REGEX = /[A,a,K,k,Q,q,J,j,T,t,2-9][C,c,D,d,H,h,S,s]/g
 export const HANDS = [
   'Straight Flush',
   'Quads', 
-  'Boat',
+  'Full House',
   'Flush',
   'Straight',
   'Trips', 
   'Two Pair', 
   'Pair', 
-  'High Card', 
-  'Flush Draw',
-  'OESD',
-  'Combo Draw'
+  'High Card'
 ]
 export const OFFSUIT_HANDS = [
   ['c','d'],

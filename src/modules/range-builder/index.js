@@ -10,6 +10,7 @@ import {
 } from 'modules/range-builder/reducers/ranges/utilities'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
 import {createSelector} from 'reselect'
+import {calculateRangeComposition} from 'util/hand-strength-calculator'
 import {
   analyzeRanges,
   filterRanges
@@ -188,5 +189,19 @@ export const makeGetRangesComboGroupSelection = (comboGroupId) => createSelector
 
       return acc
     }, {})
+  }
+)
+
+export const getSelectedRangeComposition = createSelector(
+  getBoard,
+  getSelectedRange,
+  (board, range) => {
+    let strengths
+
+    if (board.length >= 6) {
+      strengths = calculateRangeComposition(board, range)
+    }
+
+    return strengths
   }
 )
