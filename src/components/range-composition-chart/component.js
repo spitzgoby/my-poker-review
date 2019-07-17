@@ -5,8 +5,31 @@ import Typography from '@material-ui/core/Typography'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
-const handStrengths = ['Quads', 'Full House', 'Flush', 'Straight', 'Trips', 'Two Pair', 'Pair', 'Overcards']
-const data = [0.01, 0.2, 0.4, 0.17, 0.147, 0.75, 0.25, 0.13]
+const data = [{
+  name: 'Quads',
+  value: 0.01
+}, {
+  name: 'Full House',
+  value: 0.2
+}, {
+  name: 'Flush',
+  value: 0.4
+}, { 
+  name: 'Straight',
+  value: 0.17
+}, {
+  name: 'Trips',
+  value: 0.147
+}, {
+  name: 'Two Pair',
+  value: 0.75
+}, {
+  name: 'Pair',
+  value: 0.25
+}, {
+  name: 'Overcards',
+  value: 0.13
+}]
 
 class RangeCompositionChart extends Component {
 
@@ -30,7 +53,7 @@ class RangeCompositionChart extends Component {
       .domain([0, 1])
       .range([0, width])
     const y = d3.scaleBand()
-      .domain(handStrengths)
+      .domain(data.map((d) => d.name))
       .range([0, height])  
 
     this.chart = d3.select(this.chartContainerRef).append('svg')
@@ -38,6 +61,12 @@ class RangeCompositionChart extends Component {
       .attr('height', height + margin.top + margin.bottom)
       .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
+
+    this.chart.selectAll('.bar').data(data)
+      .enter().append('rect')
+      .attr('class', this.props.classes.bar)
+      .attr('y', (d) => y(d.name) + 13)
+      .attr('width', (d) => x(d.value))
 
     this.chart.append('g')
       .call(d3.axisLeft(y).tickSize(0))
