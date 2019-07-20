@@ -1,3 +1,5 @@
+import {rangeColors} from 'styles/colors'
+
 export default {
   root: {
     display: 'inline-block',
@@ -6,6 +8,10 @@ export default {
 
   title: {
     margin: '16px'
+  },
+
+  rangename: {
+    color: (props) => rangeColors[props.selectedRange.color]
   },
 
   chart: {

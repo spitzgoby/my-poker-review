@@ -38,12 +38,15 @@ class RangeCompositionChart extends Component {
   }
 
   render() {
-    const classes = this.props.classes
+    const {
+      classes,  
+      selectedRange
+    } = this.props
 
     return (
       <Paper className={classes.root}> 
         <Typography className={classes.title} variant="h6">
-          Range Composition
+          Range Composition <span className={classes.rangename}>{selectedRange.name}</span>
         </Typography>
         <div className={classes.chart} ref={this.setChartContainerRef} />
       </Paper>
