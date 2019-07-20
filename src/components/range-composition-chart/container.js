@@ -1,11 +1,15 @@
 import RangeComp from 'components/range-composition-chart/component'
-import {getSelectedRangeComposition} from 'modules/range-builder'
+import {
+  getSelectedRange,
+  getSelectedRangeComposition
+} from 'modules/range-builder'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
 
 
 const mapStateToProps = (state) => ({
-  rangeComposition: getSelectedRangeComposition(state)
+  rangeComposition: getSelectedRangeComposition(state),
+  selectedRange: getSelectedRange(state)
 })
 
 const mapDispatchToProps = (dispatch) => ({

@@ -31,13 +31,13 @@ class RangeCompositionChart extends Component {
       rangeComposition
     } = this.props
     const margin = {
-      top: 16,
+      top: 0,
       right: 16,
       bottom: 16,
-      left: 80
+      left: 120
     }
     const rect = this.chartContainerRef.getBoundingClientRect()
-    const height = 400 - (margin.top + margin.bottom)
+    const height = 360 - (margin.top + margin.bottom)
     const width = rect.width - (margin.left + margin.right)
     const x = d3.scaleLinear()
       .domain([0, 1])
@@ -54,21 +54,30 @@ class RangeCompositionChart extends Component {
 
     this.chart.selectAll('.bar').data(rangeComposition)
       .enter().append('rect')
-      .attr('class', classes.bar)
-      .attr('y', (d) => y(d.name) + 13)
-      .attr('width', (d) => x(d.value))
+        .attr('class', classes.bar)
+        .attr('y', (d) => y(d.name) + 10)
+        .attr('width', (d) => x(d.value))
+    this.chart.selectAll('.bar-labels').data(rangeComposition)
+      .enter().append('text')
+        .text((d) => `${(100 * d.value).toFixed(1)}%`)
+        .attr('x', (d) => x(d.value) + 4)
+        .attr('y', (d) => y(d.name) + 25)
 
     this.chart.append('g')
+      .attr('class', classes.axis)
       .call(d3.axisLeft(y).tickSize(0))
+      .select('.domain').remove() 
   }
 
   render() {
+    const classes = this.props.classes
+
     return (
-      <Paper> 
-        <Typography variant="h6">
+      <Paper className={classes.root}> 
+        <Typography className={classes.title} variant="h6">
           Range Composition
         </Typography>
-        <div className={this.props.classes.chart} ref={this.setChartContainerRef} />
+        <div className={classes.chart} ref={this.setChartContainerRef} />
       </Paper>
     ) 
   }
