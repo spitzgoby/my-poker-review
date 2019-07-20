@@ -1,7 +1,9 @@
 import RangeAnalyzerToolbar from 'components/app-bar/toolbar/component'
 import {
   getInputMode,
+  getIsCompositionChartOpen,
   getMode,
+  setCompositionChartOpen,
   setInputMode,
   setMode
 } from 'modules/application'
@@ -20,6 +22,7 @@ import {connect} from 'react-redux'
 
 const mapStateToProps = (state) => ({
   colors: getRangeColors(state),
+  compositionChartOpen: getIsCompositionChartOpen(state),
   editing: getIsEditing(state),
   inputMode: getInputMode(state),
   mode: getMode(state),
@@ -33,6 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
     onOpenAddRangeMenu: setAddRangeMenuOpen,
     onOpenExportDialog: setExportDialogOpen,
     onOpenImportDialog: setImportDialogOpen,
+    setCompositionChartOpen,
     setInputMode,
     setMode
   }, dispatch)

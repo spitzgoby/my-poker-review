@@ -8,7 +8,7 @@ import {
   modes
 } from 'lib/application-constants'
 import PropTypes from 'prop-types'
-import AddIcon from '@material-ui/icons/Add'
+import Fade from '@material-ui/core/Fade'
 import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
@@ -18,8 +18,11 @@ import Switch from '@material-ui/core/Switch'
 import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import AddIcon from '@material-ui/icons/Add'
 import BallotIcon from '@material-ui/icons/Ballot'
 import ClearIcon from '@material-ui/icons/Clear'
+import DashboardIcon from '@material-ui/icons/Dashboard'
+import DoneIcon from '@material-ui/icons/Done'
 import EditIcon from '@material-ui/icons/Edit'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
@@ -35,6 +38,7 @@ class RangeAnalyzerToolbar extends Component {
     super(props)
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
+    this.handleCompositionChartItemClick = this.handleCompositionChartItemClick.bind(this)
     this.handleCopyButtonClick = this.handleCopyButtonClick.bind(this)
     this.handleCopySnackbarClose = this.handleCopySnackbarClose.bind(this)
     this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
@@ -44,10 +48,13 @@ class RangeAnalyzerToolbar extends Component {
     this.handleImportMenuItemClick = this.handleImportMenuItemClick.bind(this)
     this.handleInputModeSwitchChange = this.handleInputModeSwitchChange.bind(this)
     this.handleModeSwitchChange = this.handleModeSwitchChange.bind(this)
+    this.handleViewsButtonClick = this.handleViewsButtonClick.bind(this)
+    this.handleViewsMenuClose = this.handleViewsMenuClose.bind(this)
 
     this.state = {
       addAnchorEl: null,
-      importExportAnchorEl: null
+      importExportAnchorEl: null,
+      viewsAnchorEl: null
     }
   }
 
@@ -62,6 +69,7 @@ class RangeAnalyzerToolbar extends Component {
     colors: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string
     })).isRequired,
+    compositionChartOpen: PropTypes.bool,
     inputMode: PropTypes.oneOf([inputModes.CARD, inputModes.TEXT]),
     mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES]),
     ranges: PropTypes.arrayOf(PropTypes.object),
@@ -98,6 +106,8 @@ class RangeAnalyzerToolbar extends Component {
             <AddRangeMenu anchorEl={this.state.addAnchorEl} />
             {this.renderAddButton()}
             {this.renderEditButton()}
+            {this.renderViewsMenu()}
+            {this.renderViewsButton()}
           </Grid>
         </Grid>
       </Toolbar>
@@ -216,6 +226,29 @@ class RangeAnalyzerToolbar extends Component {
     )
   }
 
+  renderViewsMenu() {
+    return (
+      <Menu {...this.getViewsMenuProps()}>
+        <MenuItem onClick={this.handleCompositionChartItemClick}>
+          <Fade in={this.props.compositionChartOpen}>
+            <DoneIcon />
+          </Fade>
+          Range Composition Chart
+        </MenuItem>
+      </Menu>
+    )
+  }
+
+  renderViewsButton() {
+    return (
+      <Tooltip title="Open/Close views">
+        <IconButton {...this.getViewsButtonProps()}>
+          <DashboardIcon />
+        </IconButton>
+      </Tooltip>
+    )
+  }
+
   getModeSwitchProps() {
     return {
       checked: this.props.mode === modes.RANGES,
@@ -295,6 +328,23 @@ class RangeAnalyzerToolbar extends Component {
     return {
       className: this.props.classes.button,
       onClick: this.handleEditButtonClick
+    }
+  }
+
+  getViewsMenuProps() {
+    const viewsAnchorEl = this.state.viewsAnchorEl
+
+    return {
+      anchorEl: viewsAnchorEl,
+      onClose: this.handleViewsMenuClose,
+      open: !!viewsAnchorEl
+    }
+  }
+
+  getViewsButtonProps() {
+    return {
+      className: this.props.classes.button,
+      onClick: this.handleViewsButtonClick
     }
   }
 
@@ -382,6 +432,39 @@ class RangeAnalyzerToolbar extends Component {
 
     if (onEdit) {
       onEdit()
+    }
+  }
+
+  handleViewsMenuClose() {
+    this.setState({
+      viewsAnchorEl: null
+    })
+  }
+
+  handleCompositionChartItemClick() {
+    const {
+      actions: {
+        setCompositionChartOpen 
+      },
+      compositionChartOpen
+    } = this.props
+
+    if (setCompositionChartOpen) {
+      setCompositionChartOpen(!compositionChartOpen)
+    }
+  }
+
+  handleViewsButtonClick(event) {
+    const onOpenViewsMenu = this.props.actions.onOpenViewsMenu
+
+    if (!this.state.viewsAnchorEl) {
+      this.setState({
+        viewsAnchorEl: event.currentTarget
+      })
+    }
+
+    if (onOpenViewsMenu) {
+      onOpenViewsMenu()
     }
   }
 }
