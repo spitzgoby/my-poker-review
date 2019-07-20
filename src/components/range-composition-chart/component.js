@@ -5,6 +5,7 @@ import Typography from '@material-ui/core/Typography'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
+import {rangeColors} from 'styles/colors'
 
 class RangeCompositionChart extends Component {
 
@@ -26,10 +27,7 @@ class RangeCompositionChart extends Component {
   }
 
   componentDidMount() {
-    const {
-      classes,
-      rangeComposition
-    } = this.props
+    const classes = this.props.classes
     const margin = {
       top: 0,
       right: 16,
@@ -39,11 +37,11 @@ class RangeCompositionChart extends Component {
     const rect = this.chartContainerRef.getBoundingClientRect()
     const height = 360 - (margin.top + margin.bottom)
     const width = rect.width - (margin.left + margin.right)
-    const x = d3.scaleLinear()
+    this.x = d3.scaleLinear()
       .domain([0, 1])
       .range([0, width])
-    const y = d3.scaleBand()
-      .domain(rangeComposition.map((d) => d.name))
+    this.y = d3.scaleBand()
+      .domain(this.props.rangeComposition.map((d) => d.name))
       .range([0, height])  
 
     this.chart = d3.select(this.chartContainerRef).append('svg')
@@ -52,21 +50,16 @@ class RangeCompositionChart extends Component {
       .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    this.chart.selectAll('.bar').data(rangeComposition)
-      .enter().append('rect')
-        .attr('class', classes.bar)
-        .attr('y', (d) => y(d.name) + 10)
-        .attr('width', (d) => x(d.value))
-    this.chart.selectAll('.bar-labels').data(rangeComposition)
-      .enter().append('text')
-        .text((d) => `${(100 * d.value).toFixed(1)}%`)
-        .attr('x', (d) => x(d.value) + 4)
-        .attr('y', (d) => y(d.name) + 25)
+    this.drawChart()
 
     this.chart.append('g')
       .attr('class', classes.axis)
-      .call(d3.axisLeft(y).tickSize(0))
+      .call(d3.axisLeft(this.y).tickSize(0))
       .select('.domain').remove() 
+  }
+
+  componentDidUpdate() {
+    this.drawChart()
   }
 
   render() {
@@ -83,7 +76,36 @@ class RangeCompositionChart extends Component {
   }
 
   drawChart() {
+    const {
+      rangeComposition,
+      selectedRange
+    } = this.props
+    const {x, y} = this
+    const bars = this.chart.selectAll('.bar').data(rangeComposition)
+    const labels = this.chart.selectAll('.bar-label').data(rangeComposition)
 
+    bars.enter().append('rect')
+        .attr('class', 'bar')
+        .attr('x', 4)
+        .attr('y', (d) => y(d.name) + 10)
+        .attr('height', 20)
+        .attr('width', (d) => x(d.value))
+        .attr('fill', rangeColors[selectedRange.color])
+    bars.exit().remove()
+    bars.transition().duration(200)
+        .attr('width', (d) => x(d.value))
+        .attr('fill', rangeColors[selectedRange.color])
+
+    labels.enter().append('text')
+        .attr('class', 'bar-label')
+        .text((d) => `${(100 * d.value).toFixed(1)}%`)
+        .attr('x', (d) => x(d.value) + 4)
+        .attr('y', (d) => y(d.name) + 25)
+    labels.exit().remove()
+    labels.transition()
+        .duration(200)
+        .text((d) => `${(100 * d.value).toFixed(1)}%`)
+        .attr('x', (d) => x(d.value) + 4)
   }
 
   setChartContainerRef(node) {

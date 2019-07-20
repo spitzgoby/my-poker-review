@@ -19,7 +19,11 @@ const convertToCardArray = (cardString) => {
 
 export const calculateRangeComposition = (board, range) => {
   const rangeStrengths = calculateRangeStrengths(board, range)
-  const total = reduce(rangeStrengths, (sum, strength) => sum + strength.length, 0)
+  let total = reduce(rangeStrengths, (sum, strength) => sum + strength.length, 0)
+
+  if (total === 0) {
+    total = 1
+  }
 
   return rankDescription.map((description) => ({
     name: description,

@@ -198,6 +198,8 @@ export const getSelectedRangeComposition = createSelector(
   (board, range) => {
     let strengths
 
+    console.log('recalculating')
+
     if (board.length >= 6) {
       strengths = calculateRangeComposition(board, range)
     }

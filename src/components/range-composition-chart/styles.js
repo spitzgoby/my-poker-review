@@ -18,16 +18,6 @@ export default {
     width: '100%'
   },
 
-  bar: {
-    fill: props => getColor(props, false),
-    height: 20,
-    x: 4,
-
-    '&:hover': {
-      stroke: 'black'
-    }
-  },
-
   axis: {
     fontFamily: 'Roboto',
     fontSize: '16px'
