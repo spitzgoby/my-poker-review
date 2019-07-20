@@ -25,10 +25,15 @@ export const calculateRangeComposition = (board, range) => {
     total = 1
   }
 
-  return rankDescription.map((description) => ({
-    name: description,
-    value: rangeStrengths[description].length / total
-  }))
+  return rankDescription.map((description) => {
+    const combos = rangeStrengths[description]
+
+    return {
+      combos,
+      name: description,
+      value: combos.length / total
+    }
+  })
 }
 
 export const calculateRangeStrengths = (board, range) => {

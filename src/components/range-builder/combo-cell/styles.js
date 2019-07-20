@@ -122,6 +122,11 @@ export const styles = {
 
     '&.firstdragged': {
       background: (props) => getBackground(props, false)
+    },
+
+    '&.highlighted': {
+      background: 'black',
+      color: 'white'
     }
   },
 

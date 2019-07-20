@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {
   makeGetIsComboGroupSelected,
   makeGetRangesComboGroupSelection,
+  getHighlightedComboGroups,
   getIsSelecting,
   getIsSelectingSuits,
   getRanges,
@@ -16,6 +17,7 @@ const mapStateToProps = (state, ownProps) => {
   const comboGroupId = ownProps.comboGroup.id
 
   return {
+    highlightedComboGroups: getHighlightedComboGroups(state),
     ranges: getRanges(state),
     rangesComboGroupSelection: makeGetRangesComboGroupSelection(comboGroupId)(state),
     selected: makeGetIsComboGroupSelected(comboGroupId)(state),

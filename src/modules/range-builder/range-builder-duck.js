@@ -9,6 +9,7 @@ import {
   updateBoardCards,
   updateDeadCards,
   updateHandCards,
+  updateHighlightedComboGroups,
   updateRangesByClearingAllSelectedCombos,
   updateRangesByDeletingRange
 } from 'modules/range-builder/reducers/ranges/utilities'
@@ -54,6 +55,7 @@ const initialState = {
   editing: false,
   hand: '',
   handCards: [],
+  highlightedComboGroups: [],
   rangeIdList,
   ranges,
   selecting: true,
@@ -248,6 +250,14 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_HIGHLIGHTED_COMBOS:
+      nextState = {
+        ...state,
+        highlightedCombos: action.payload,
+        highlightedComboGroups: updateHighlightedComboGroups(state, action)
+      }
+      break
+
     case types.SET_RANGE_NAME:
       nextState = {
         ...state,
@@ -291,6 +301,7 @@ export const getBoardCards = (state) => state.boardCards
 export const getDeadCards = (state) => state.deadCards
 export const getHand = (state) => state.hand
 export const getHandCards = (state) => state.handCards
+export const getHighlightedComboGroups = (state) => state.highlightedComboGroups
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
 export const getIsDeleteAllDialogOpen = (state) => state.deleteAllDialogOpen
 export const getIsEditing = (state) => state.editing

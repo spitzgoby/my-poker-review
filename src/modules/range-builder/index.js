@@ -70,6 +70,8 @@ export const getHand = (state) =>
   fromRangeBuilder.getHand(getRangeBuilderState(state))
 export const getHandCards = (state) =>
   fromRangeBuilder.getHandCards(getRangeBuilderState(state))
+export const getHighlightedComboGroups = (state) =>
+  fromRangeBuilder.getHighlightedComboGroups(getRangeBuilderState(state))
 export const getIsAddRangeMenuOpen = (state) =>
   fromRangeBuilder.getIsAddRangeMenuOpen(getRangeBuilderState(state))
 export const getIsDeleteAllDialogOpen = (state) =>
@@ -197,8 +199,6 @@ export const getSelectedRangeComposition = createSelector(
   getSelectedRange,
   (board, range) => {
     let strengths
-
-    console.log('recalculating')
 
     if (board.length >= 6) {
       strengths = calculateRangeComposition(board, range)

@@ -12,6 +12,8 @@ class RangeCompositionChart extends Component {
   constructor(props) {
     super(props)
 
+    this.handleBarMouseOver = this.handleBarMouseOver.bind(this)
+    this.handleBarMouseOut = this.handleBarMouseOut.bind(this)
     this.setChartContainerRef = this.setChartContainerRef.bind(this)
   }
 
@@ -27,6 +29,28 @@ class RangeCompositionChart extends Component {
   }
 
   componentDidMount() {
+    this.drawChart()
+    this.updateChart()
+  }
+
+  componentDidUpdate() {
+    this.updateChart()
+  }
+
+  render() {
+    const classes = this.props.classes
+
+    return (
+      <Paper className={classes.root}> 
+        <Typography className={classes.title} variant="h6">
+          Range Composition
+        </Typography>
+        <div className={classes.chart} ref={this.setChartContainerRef} />
+      </Paper>
+    ) 
+  }
+
+  drawChart() {
     const classes = this.props.classes
     const margin = {
       top: 0,
@@ -50,32 +74,13 @@ class RangeCompositionChart extends Component {
       .append('g')
         .attr('transform', `translate(${margin.left}, ${margin.top})`)
 
-    this.drawChart()
-
     this.chart.append('g')
       .attr('class', classes.axis)
       .call(d3.axisLeft(this.y).tickSize(0))
       .select('.domain').remove() 
   }
 
-  componentDidUpdate() {
-    this.drawChart()
-  }
-
-  render() {
-    const classes = this.props.classes
-
-    return (
-      <Paper className={classes.root}> 
-        <Typography className={classes.title} variant="h6">
-          Range Composition
-        </Typography>
-        <div className={classes.chart} ref={this.setChartContainerRef} />
-      </Paper>
-    ) 
-  }
-
-  drawChart() {
+  updateChart() {
     const {
       rangeComposition,
       selectedRange
@@ -91,6 +96,8 @@ class RangeCompositionChart extends Component {
         .attr('height', 20)
         .attr('width', (d) => x(d.value))
         .attr('fill', rangeColors[selectedRange.color])
+        .on('mouseout', this.handleBarMouseOut)
+        .on('mouseover', this.handleBarMouseOver)
     bars.exit().remove()
     bars.transition().duration(200)
         .attr('width', (d) => x(d.value))
@@ -99,17 +106,40 @@ class RangeCompositionChart extends Component {
     labels.enter().append('text')
         .attr('class', 'bar-label')
         .text((d) => `${(100 * d.value).toFixed(1)}%`)
-        .attr('x', (d) => x(d.value) + 4)
+        .attr('x', (d) => x(d.value) + 6)
         .attr('y', (d) => y(d.name) + 25)
     labels.exit().remove()
     labels.transition()
         .duration(200)
         .text((d) => `${(100 * d.value).toFixed(1)}%`)
-        .attr('x', (d) => x(d.value) + 4)
+        .attr('x', (d) => x(d.value) + 6)
+  }
+
+  handleBarMouseOver(datum, index) {
+    this.highlightBar(index, 'black')
+    setTimeout(() => this.highlightCombos(datum.combos), 0)
+  }
+
+  handleBarMouseOut(datum, index) {
+    this.highlightBar(index, '')
+    setTimeout(() => this.highlightCombos([]), 0)
   }
 
   setChartContainerRef(node) {
     this.chartContainerRef = node
+  }
+
+  highlightBar(index, stroke) {
+    d3.selectAll('.bar').filter((d, i) => i === index)
+      .attr('stroke', stroke)
+  }
+
+  highlightCombos(combos) {
+    const setHighlightedCombos = this.props.actions.setHighlightedCombos
+
+    if (setHighlightedCombos) {
+      setHighlightedCombos(combos)
+    }
   }
 }
 

@@ -32,6 +32,7 @@ class ComboCell extends Component {
       text: PropTypes.string,
       type: PropTypes.string
     }).isRequired,
+    highlightedCombos: PropTypes.arrayOf(PropTypes.string),
     lastColumn: PropTypes.bool,
     onOpenCardSelector: PropTypes.func,
     range: PropTypes.object,
@@ -67,7 +68,8 @@ class ComboCell extends Component {
   getClass() {
     const classes = {
       [this.props.classes.combocell]: true,
-      firstdragged: this.state.firstDragged
+      firstdragged: this.state.firstDragged,
+      highlighted: this.isHighlighted()
     }
 
     return classnames(classes)
@@ -160,6 +162,15 @@ class ComboCell extends Component {
 
   handleSelectorButtonMouseDown(event) {
     event.stopPropagation()
+  }
+
+  isHighlighted() {
+    const {
+      comboGroup,
+      highlightedComboGroups
+    } = this.props
+
+    return highlightedComboGroups[comboGroup.id]
   }
 
   setSelectableRef(node) {

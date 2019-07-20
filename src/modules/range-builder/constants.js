@@ -24,6 +24,7 @@ export const types = {
   SET_EXPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_EXPORT_DIALOG_OPEN',
   SET_EXPORT_FILE_NAME: '@my-poker-review/range-builder/SET_EXPORT_FILE_NAME',
   SET_HAND: '@my-poker-review/range-builder/SET_HAND',
+  SET_HIGHLIGHTED_COMBOS: '@my-poker-review/range-builder/SET_HIGHLIGHTED_COMBOS',
   SET_IMPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_IMPORT_DIALOG_OPEN',
   SET_IMPORT_FILE: '@my-poker-review/range-builder/SET_IMPORT_FILE',
   SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME',

@@ -1,9 +1,3 @@
-import {rangeColors} from 'styles/colors'
-
-const getColor = (props) => {
-  return rangeColors[props.selectedRange.color]
-}
-
 export default {
   root: {
     display: 'inline-block',

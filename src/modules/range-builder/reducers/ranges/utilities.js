@@ -94,6 +94,18 @@ export const updateHandCards = (state, action) => {
   return handCards
 }
 
+export const updateHighlightedComboGroups = (state, action) => {
+  return action.payload.reduce((acc, comboId) => {
+    const comboGroupId = combos[comboId].comboGroupId
+
+    if (!acc[comboGroupId]) {
+      acc[comboGroupId] = true
+    }
+
+    return acc
+  }, {})
+}
+
 export const ranges = buildRanges(rangeInfo)
 
 export const updateRangesByClearingAllSelectedCombos = (state) => {
