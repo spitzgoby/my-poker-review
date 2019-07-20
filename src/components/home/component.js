@@ -14,11 +14,15 @@ import 'typeface-roboto'
 class Home extends Component {
 
   static propTypes = {
+    compositionChartOpen: PropTypes.bool, 
     mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES])
   }
 
   render() {
-    const classes = this.props.classes
+    const {
+      classes,
+      compositionChartOpen
+    } = this.props
 
     return (
       <div className={classes.root}>
@@ -28,9 +32,12 @@ class Home extends Component {
             <Grid item>
               <EquityAnalzyer />
             </Grid>
-            <Grid item>
-              <RangeCompositionChart />
-            </Grid>
+            { compositionChartOpen 
+                ? (<Grid item>
+                    <RangeCompositionChart />
+                  </Grid>)
+                : null
+            }
           </Grid>
           <Grid item xs={12} lg={5} className={classes.rangebuilder}>
               <RangeBuilder />

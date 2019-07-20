@@ -1,7 +1,12 @@
 import styles from 'components/range-composition-chart/styles'
 import * as d3 from 'd3'
+import Grid from '@material-ui/core/Grid'
+import IconButton from '@material-ui/core/IconButton'
 import Paper from '@material-ui/core/Paper'
+import Toolbar from '@material-ui/core/Toolbar'
+import Tooltip from '@material-ui/core/Tooltip'
 import Typography from '@material-ui/core/Typography'
+import CloseIcon from '@material-ui/icons/Close'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -14,6 +19,7 @@ class RangeCompositionChart extends Component {
 
     this.handleBarMouseOver = this.handleBarMouseOver.bind(this)
     this.handleBarMouseOut = this.handleBarMouseOut.bind(this)
+    this.handleCloseButtonClick = this.handleCloseButtonClick.bind(this)
     this.setChartContainerRef = this.setChartContainerRef.bind(this)
   }
 
@@ -44,14 +50,39 @@ class RangeCompositionChart extends Component {
     } = this.props
 
     return (
-      <Paper className={classes.root}> 
-        <Typography className={classes.title} variant="h6">
-          Range Composition <span className={classes.rangename}>{selectedRange.name}</span>
-        </Typography>
+      <Paper> 
+        <Toolbar>
+          <Grid justify="space-between" container>
+            <Grid item>
+              <Typography className={classes.title} variant="h6">
+                Range Composition <span className={classes.rangename}>{selectedRange.name}</span>
+              </Typography>
+            </Grid>
+            <Grid item>
+              {this.renderCloseButton()} 
+            </Grid>
+          </Grid>
+        </Toolbar>
         <div className={classes.chart} ref={this.setChartContainerRef} />
       </Paper>
     ) 
   }
+
+  renderCloseButton() {
+    return (
+      <Tooltip title="Close the Range Composition Chart">
+        <IconButton {...this.getCloseButtonProps()}>
+          <CloseIcon />
+        </IconButton>
+      </Tooltip>
+    ) 
+  }
+
+  getCloseButtonProps() {
+    return {
+      onClick: this.handleCloseButtonClick
+    }
+  } 
 
   drawChart() {
     const classes = this.props.classes
@@ -59,7 +90,7 @@ class RangeCompositionChart extends Component {
       top: 0,
       right: 16,
       bottom: 16,
-      left: 120
+      left: 204 
     }
     const rect = this.chartContainerRef.getBoundingClientRect()
     const height = 360 - (margin.top + margin.bottom)
@@ -126,6 +157,14 @@ class RangeCompositionChart extends Component {
   handleBarMouseOut(datum, index) {
     this.highlightBar(index, '')
     setTimeout(() => this.highlightCombos([]), 0)
+  }
+
+  handleCloseButtonClick() {
+    const setCompositionChartOpen = this.props.actions.setCompositionChartOpen
+
+    if (setCompositionChartOpen) {
+      setCompositionChartOpen(false)
+    }
   }
 
   setChartContainerRef(node) {

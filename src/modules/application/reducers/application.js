@@ -5,18 +5,19 @@ import {
 import {types} from 'modules/application/constants'
 
 const initialState = {
-  mode: modes.EQUITY,
-  inputMode: inputModes.CARD
+  compositionChartOpen: true,
+  inputMode: inputModes.CARD,
+  mode: modes.EQUITY
 }
 
 export default (state = initialState, action = {}) => {
   let nextState
 
   switch(action.type) {
-    case types.SET_MODE:
+    case types.SET_COMPOSITION_CHART_OPEN:
       nextState = {
         ...state,
-        mode: action.payload
+        compositionChartOpen: action.payload
       }
       break
 
@@ -24,6 +25,13 @@ export default (state = initialState, action = {}) => {
       nextState = {
         ...state,
         inputMode: action.payload
+      }
+      break
+
+    case types.SET_MODE:
+      nextState = {
+        ...state,
+        mode: action.payload
       }
       break
 
@@ -35,4 +43,5 @@ export default (state = initialState, action = {}) => {
 }
 
 export const getInputMode = (state) => state.inputMode
+export const getIsCompositionChartOpen = (state) => state.compositionChartOpen
 export const getMode = (state) => state.mode

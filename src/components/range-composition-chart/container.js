@@ -1,4 +1,5 @@
 import RangeComp from 'components/range-composition-chart/component'
+import {setCompositionChartOpen} from 'modules/application'
 import {
   getSelectedRange,
   getSelectedRangeComposition,
@@ -15,6 +16,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
+    setCompositionChartOpen,
     setHighlightedCombos
   }, dispatch)
 })

@@ -1,8 +1,12 @@
 import {connect} from 'react-redux'
 import Home from 'components/home/component'
-import {getMode} from 'modules/application'
+import {
+  getIsCompositionChartOpen,
+  getMode
+} from 'modules/application'
 
 const mapStateToProps = (state) => ({
+  compositionChartOpen: getIsCompositionChartOpen(state),
   mode: getMode(state)
 })
 
