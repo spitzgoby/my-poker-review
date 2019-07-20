@@ -41,14 +41,16 @@ export const calculateRangeStrengths = (board, range) => {
     acc[rank] = []
 
     return acc
-  },{}) 
+  }, {}) 
 
   return flatMap(range.selectedCombos).reduce((acc, combo) => {
-    const boardArray = convertToCardArray(board)
-    const comboArray = convertToCardArray(combo)
-    const strength = calculateHandStrength([...comboArray, ...boardArray])
+    if (board.length >= 6 && combo) {
+      const boardArray = convertToCardArray(board)
+      const comboArray = convertToCardArray(combo)
+      const strength = calculateHandStrength([...comboArray, ...boardArray])
 
-    acc[strength] = acc[strength].concat(combo)
+      acc[strength] = acc[strength].concat(combo)
+    }
 
     return acc
   }, rangeStrengths)

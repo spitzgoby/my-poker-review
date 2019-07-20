@@ -197,13 +197,5 @@ export const makeGetRangesComboGroupSelection = (comboGroupId) => createSelector
 export const getSelectedRangeComposition = createSelector(
   getBoard,
   getSelectedRange,
-  (board, range) => {
-    let strengths
-
-    if (board.length >= 6) {
-      strengths = calculateRangeComposition(board, range)
-    }
-
-    return strengths
-  }
+  (board, range) => calculateRangeComposition(board, range)
 )
