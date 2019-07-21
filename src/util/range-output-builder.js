@@ -38,7 +38,7 @@ export const rangeFromCombos = (selectedCombos = {}) => {
   })
   .filter((group) => group.length && group[0])
   .map(simplifyCombinedGroup)
-  .join(',')
+  .join(', ')
 }
 
 const combineGroup = (combinableGroup, selectedCombos) => {
