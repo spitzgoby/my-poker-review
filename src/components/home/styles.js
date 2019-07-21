@@ -11,8 +11,13 @@ export const styles = {
   },
 
   '@media (max-width: 1280px)':{
+    analyzergrid: {
+      order: 2
+    },
+
     rangebuilder: {
-      marginRight: gutterWidth
+      marginRight: gutterWidth,
+      order: 1
     }
   }
 }
