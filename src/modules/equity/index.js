@@ -1,10 +1,12 @@
 import equityReducer, * as fromEquity from 'modules/equity/reducers/equity'
+import equityStorageConfig from 'modules/equity/reducers/storage-config'
+import {persistReducer} from 'redux-persist'
 
 /*---------*
  * REDUCER *
  *---------*/
 
-export const EquityReducer = equityReducer
+export const EquityReducer = persistReducer(equityStorageConfig, equityReducer)
 
 /*---------*
  * ACTIONS *

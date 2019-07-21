@@ -3,12 +3,16 @@ import {
   reduce
 } from 'lodash'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
+import exportStorageConfig from 'modules/range-builder/reducers/export/storage-config'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
+import importStorageConfig from 'modules/range-builder/reducers/import/storage-config'
 import {
   findRangeContainingCombo,
   findRangeContainingComboGroup,
 } from 'modules/range-builder/reducers/ranges/utilities'
-import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/range-builder-duck'
+import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/reducers/ranges'
+import rangeBuilderStorageConfig from 'modules/range-builder/reducers/ranges/storage-config'
+import {persistReducer} from 'redux-persist'
 import {createSelector} from 'reselect'
 import {calculateRangeComposition} from 'util/hand-strength-calculator'
 import {
@@ -21,9 +25,9 @@ import {rangeFromCombos} from 'util/range-output-builder'
  * REDUCER *
  *---------*/ 
 
-export const ExportReducer = exportReducer
-export const ImportReducer = importReducer
-export const RangeBuilderReducer = rangeBuilderReducer
+export const ExportReducer = persistReducer(exportStorageConfig, exportReducer)
+export const ImportReducer = persistReducer(importStorageConfig, importReducer)
+export const RangeBuilderReducer = persistReducer(rangeBuilderStorageConfig, rangeBuilderReducer)
 
 /*---------*
  * ACTIONS *

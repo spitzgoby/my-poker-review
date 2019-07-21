@@ -1,13 +1,45 @@
-import {STREETS} from 'lib/poker-constants'
-import {
-  find,
-  map, 
-} from 'lodash'
+import {find} from 'lodash'
 import {types} from 'modules/range-builder/constants'
-import {createRange, ranges} from 'modules/range-builder/ranges'
+import {
+  createRange, 
+  rangeIdList,
+  ranges 
+} from 'modules/range-builder/ranges'
+import {
+  updateBoardCards,
+  updateDeadCards,
+  updateHandCards,
+  updateHighlightedComboGroups,
+  updateRangesByClearingAllSelectedCombos,
+  updateRangesByDeletingRange
+} from 'modules/range-builder/reducers/ranges/utilities'
+import {actionCreator} from 'redux-action-creator'
 import {rangeColorList} from 'styles/colors/range-colors'
-import {cardify} from 'util/card-parser'
+import {
+  cardify,
+  stringify
+} from 'util/card-parser'
 import uuid from 'uuid/v4'
+
+export const addRange = actionCreator(types.ADD_RANGE, 'color')
+export const clearSelectedCombosFromRange = actionCreator(types.CLEAR_SELECTED_COMBOS_FROM_RANGE, 'id')
+export const deleteRange = actionCreator(types.DELETE_RANGE, 'id')
+export const selectRange = actionCreator(types.SELECT_RANGE, 'id')
+export const setBoard = actionCreator(types.SET_BOARD, 'value')
+export const setEditing = actionCreator(types.SET_EDITING)
+export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
+export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
+
+const updateSelectedRangeId = (state, action) => {
+  const newSelectedRangeId = action.payload.id
+  let selectedRangeId = ''
+
+  if (state.selectedRangeId !== newSelectedRangeId) {
+    selectedRangeId = newSelectedRangeId
+  }
+
+  return selectedRangeId
+}
 
 /*---------*
  * REDUCER *
@@ -18,29 +50,39 @@ const initialState = {
   board: '',
   boardCards: [],
   colors: rangeColorList,
+  deadCards: {},
+  deleteAllDialogOpen: false,
   editing: false,
-  playerHand: '',
+  hand: '',
+  handCards: [],
+  highlightedComboGroups: [],
+  rangeIdList,
   ranges,
   selecting: true,
-  selectedRangeId: find(ranges, { 'name': 'Bet' }).id
+  selectingSuits: false,
+  selectedRangeId: find(ranges, { 'name': 'Villain' }).id
 }
 
 export default (state = initialState, action = {}) => {
-  let nextState;
+  let boardCards
+  let handCards
+  let nextState
 
   switch(action.type) {
     case types.ADD_RANGE:
       const rangeId = uuid()
+      const range = createRange({
+        color: action.payload.color,
+        name: action.payload.color
+      }, rangeId)
 
       nextState = {
         ...state,
         addRangeMenuOpen: false,
+        rangeIdList: state.rangeIdList.concat([rangeId]),
         ranges: {
           ...state.ranges,
-          [rangeId]: createRange({
-            color: action.payload.color,
-            name: action.payload.color,
-          }, rangeId)
+          [rangeId]: range
         },
         selectedRangeId: rangeId
       }
@@ -51,6 +93,9 @@ export default (state = initialState, action = {}) => {
         ...state,
         board: '',
         boardCards: [],
+        deadCards: {},
+        hand: '',
+        handCards: [],
         ranges: updateRangesByClearingAllSelectedCombos(state)
       }
       break
@@ -59,6 +104,24 @@ export default (state = initialState, action = {}) => {
       nextState = {
         ...state,
         ranges: updateRangesByClearingAllSelectedCombos(state)
+      }
+      break
+
+    case types.CLEAR_BOARD:
+      nextState = {
+        ...state,
+        board: '',
+        boardCards: [],
+        deadCards: updateDeadCards([], state.handCards) 
+      }
+      break
+
+    case types.CLEAR_HAND:
+      nextState = {
+        ...state,
+        deadCards: updateDeadCards(state.boardCards, []),
+        hand: '',
+        handCards: []
       }
       break
 
@@ -75,16 +138,20 @@ export default (state = initialState, action = {}) => {
       }
       break
 
-    case types.CLEAR_SELECTED_COMBO_GROUP_IDS:
+    case types.DELETE_ALL_RANGES: 
       nextState = {
         ...state,
-        selectedComboIds: []
+        editing: false,
+        ranges: {},
+        rangeIdList: [],
+        selectedRangeId: ''
       }
       break
 
     case types.DELETE_RANGE: 
       nextState = {
         ...state,
+        rangeIdList: state.rangeIdList.filter(rangeId => rangeId !== action.payload.id),
         ranges: updateRangesByDeletingRange(state, action) 
       }
       break
@@ -100,10 +167,32 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SELECT_BOARD_CARDS:
+      boardCards = updateBoardCards(state, action)
+
+      nextState = {
+        ...state,
+        board: stringify(boardCards),
+        boardCards,
+        deadCards: updateDeadCards(boardCards, state.handCards)
+      }
+      break
+
     case types.SELECT_COMBOS:
       nextState = {
         ...state,
-        ranges: updateRangesBySelectingCombos(state, action)
+        ranges: action.payload
+      }
+      break
+
+    case types.SELECT_HAND_CARDS:
+      handCards = updateHandCards(state, action)
+
+      nextState = {
+        ...state,
+        deadCards: updateDeadCards(state.boardCards, handCards),
+        hand: stringify(handCards),
+        handCards: handCards
       }
       break
 
@@ -122,10 +211,22 @@ export default (state = initialState, action = {}) => {
       break
 
     case types.SET_BOARD:
+      boardCards = cardify(action.payload.value)
+        .filter((card) => !find(state.handCards, 
+          (handCard) => handCard.id === card.id))
+
       nextState = {
         ...state,
         board: action.payload.value,
-        boardCards: parseCardInput(action.payload.value)
+        boardCards,
+        deadCards: updateDeadCards(boardCards, state.handCards)
+      }
+      break
+
+    case types.SET_DELETE_ALL_DIALOG_OPEN:
+      nextState = {
+        ...state,
+        deleteAllDialogOpen: action.payload
       }
       break
 
@@ -136,10 +237,24 @@ export default (state = initialState, action = {}) => {
       }
       break
 
-    case types.SET_PLAYER_HAND:
+    case types.SET_HAND:
+      handCards = cardify(action.payload)
+        .filter((card) => !find(state.boardCards, 
+          (boardCard) => boardCard.id === card.id))
+
       nextState = {
         ...state,
-        playerHand: action.payload.value
+        deadCards: updateDeadCards(state.boardCards, handCards),
+        hand: action.payload,
+        handCards
+      }
+      break
+
+    case types.SET_HIGHLIGHTED_COMBOS:
+      nextState = {
+        ...state,
+        highlightedCombos: action.payload,
+        highlightedComboGroups: updateHighlightedComboGroups(state, action)
       }
       break
 
@@ -163,6 +278,13 @@ export default (state = initialState, action = {}) => {
       }
       break
 
+    case types.SET_SELECTING_SUITS:
+      nextState = {
+        ...state,
+        selectingSuits: !state.selectingSuits
+      }
+      break
+
     default:
       nextState = state
   }
@@ -174,21 +296,22 @@ export default (state = initialState, action = {}) => {
  * SELECTORS *
  *-----------*/
 
-const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
-
 export const getBoard = (state) => state.board
 export const getBoardCards = (state) => state.boardCards
+export const getDeadCards = (state) => state.deadCards
+export const getHand = (state) => state.hand
+export const getHandCards = (state) => state.handCards
+export const getHighlightedComboGroups = (state) => state.highlightedComboGroups
 export const getIsAddRangeMenuOpen = (state) => state.addRangeMenuOpen
-export const getIsComboGroupSelected = (state, id) => !!getRangeForComboGroup(state, id)
-export const getIsComboSelected = (state, id) => !!findRangeContainingCombo(getRanges(state), id)
+export const getIsDeleteAllDialogOpen = (state) => state.deleteAllDialogOpen
 export const getIsEditing = (state) => state.editing
 export const getIsSelecting = (state) => state.selecting
-export const getPlayerHand = (state) => state.playerHand
+export const getIsSelectingSuits = (state) => state.selectingSuits
 export const getRangeColors = (state) => state.colors
-export const getRanges = (state) => map(state.ranges, (range) => range)
 export const getRangeById = (state, id) => state.ranges[id]
-export const getRangeForCombo = (state, id) => findRangeContainingCombo(getRanges(state), id)
-export const getRangeForComboGroup = (state, id) => findRangeContainingComboGroup(getRanges(state), id)
+export const getRangeIdList = (state) => state.rangeIdList
+export const getRanges = (state) => state.ranges
+export const getSelectedRange = (state) => state.ranges[getSelectedRangeId(state)] || {}
 export const getSelectedRangeColor = (state) => getSelectedRange(state).color
 export const getSelectedRangeId = (state) => state.selectedRangeId
 export const getIsRangeSelected = (state, id) => getSelectedRangeId(state) === id

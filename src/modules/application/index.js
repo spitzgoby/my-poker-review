@@ -1,6 +1,8 @@
 import applicationReducer, * as fromApplication from 'modules/application/reducers/application'
+import applicationStorageConfig from 'modules/application/reducers/storage-config'
+import {persistReducer} from 'redux-persist'
 
-export const ApplicationReducer = applicationReducer
+export const ApplicationReducer = persistReducer(applicationStorageConfig, applicationReducer)
 
 export * from 'modules/application/actions'
 
