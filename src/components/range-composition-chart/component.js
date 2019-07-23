@@ -55,8 +55,6 @@ class RangeCompositionChart extends Component {
           </Grid>
         </Toolbar>
         {this.renderChart()}
-
-        <div className={classes.chart} ref={this.setChartContainerRef} />
       </Paper>
     ) 
   }
@@ -74,11 +72,12 @@ class RangeCompositionChart extends Component {
   renderChart() {
     return (
       <List>
-        {this.props.rangeComposition.map((hand) => <Bar hand={hand} />)}
+        {this.props.rangeComposition.map((hand) => 
+          <Bar hand={hand} key={hand.name} />
+        )}
       </List>
     )
   }
-
 
   getCloseButtonProps() {
     return {

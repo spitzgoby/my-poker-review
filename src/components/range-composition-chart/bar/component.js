@@ -1,4 +1,5 @@
 import styles from 'components/range-composition-chart/bar/styles'
+import Checkbox from '@material-ui/core/Checkbox'
 import ListItem from '@material-ui/core/ListItem'
 import Tooltip from '@material-ui/core/Tooltip'
 import PropTypes from 'prop-types'
@@ -32,6 +33,7 @@ class RangeCompositionChartBar extends Component {
 
     return (
       <ListItem {...this.getProps()}> 
+        <Checkbox className={classes.checkbox} />
         <div className={classes.name}>
           {hand.name}
         </div>
