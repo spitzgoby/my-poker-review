@@ -48,7 +48,7 @@ class RangeCompositionChart extends Component {
           <Grid justify="space-between" container>
             <Grid item>
               <Typography className={classes.title} variant="h6">
-                Range Composition 
+                Range Composition &nbsp;
                 <span className={classes.rangename}>
                   {selectedRange.name}
                 </span>
