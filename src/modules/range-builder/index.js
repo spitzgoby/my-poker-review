@@ -2,6 +2,8 @@ import {
   forEach,
   reduce
 } from 'lodash'
+import compositionReducer, * as fromComposition from 'modules/range-builder/reducers/composition'
+import compositionStorageConfig from 'modules/range-builder/reducers/composition/storage-config'
 import exportReducer, * as fromExport from 'modules/range-builder/reducers/export'
 import exportStorageConfig from 'modules/range-builder/reducers/export/storage-config'
 import importReducer, * as fromImport from 'modules/range-builder/reducers/import'
@@ -25,6 +27,7 @@ import {rangeFromCombos} from 'util/range-output-builder'
  * REDUCER *
  *---------*/ 
 
+export const CompositionReducer = persistReducer(compositionStorageConfig, compositionReducer)
 export const ExportReducer = persistReducer(exportStorageConfig, exportReducer)
 export const ImportReducer = persistReducer(importStorageConfig, importReducer)
 export const RangeBuilderReducer = persistReducer(rangeBuilderStorageConfig, rangeBuilderReducer)
@@ -43,6 +46,13 @@ export const setBoard = fromRangeBuilder.setBoard
 export const setEditing = fromRangeBuilder.setEditing
 export const setPlayerHand = fromRangeBuilder.setPlayerHand
 export const setRangeName = fromRangeBuilder.setRangeName
+
+/*-------------*
+ * COMPOSITION *
+ *-------------*/
+
+export const getCompositionState = (state) => state.Composition
+export const getCompositionFilters = (state) => fromComposition.getFilters(getCompositionState(state))
 
 /*--------*
  * EXPORT *

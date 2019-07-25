@@ -17,14 +17,19 @@ class RangeCompositionChart extends Component {
   constructor(props) {
     super(props)
 
+    this.handleBarChange = this.handleBarChange.bind(this)
     this.handleCloseButtonClick = this.handleCloseButtonClick.bind(this)
   }
 
   static propTypes = {
+    compositionFilters: PropTypes.object,
     rangeComposition: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       value: PropTypes.number
-    }))
+    })),
+    selectedRange: PropTypes.shape({
+      name: PropTypes.string
+    })
   }
 
   static defaultProps = {
@@ -73,7 +78,7 @@ class RangeCompositionChart extends Component {
     return (
       <List>
         {this.props.rangeComposition.map((hand) => 
-          <Bar hand={hand} key={hand.name} />
+          <Bar {...this.getBarProps(hand)} />
         )}
       </List>
     )
@@ -85,11 +90,28 @@ class RangeCompositionChart extends Component {
     }
   } 
 
+  getBarProps(hand) {
+    return {
+      checked: this.props.compositionFilters[hand.name],
+      hand: hand, 
+      key: hand.name,
+      onChange: this.handleBarChange
+    }
+  }
+
   handleCloseButtonClick() {
     const setCompositionChartOpen = this.props.actions.setCompositionChartOpen
 
     if (setCompositionChartOpen) {
       setCompositionChartOpen(false)
+    }
+  }
+
+  handleBarChange(name, checked) {
+    const setCompositionFilter = this.props.actions.setCompositionFilter
+
+    if (setCompositionFilter) {
+      setCompositionFilter(name, checked)
     }
   }
 }

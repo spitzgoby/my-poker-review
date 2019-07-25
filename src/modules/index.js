@@ -4,6 +4,7 @@ import {
   EquityReducer
 } from 'modules/equity'
 import {
+  CompositionReducer,
   ExportReducer,
   ImportReducer,
   RangeBuilderReducer,
@@ -11,6 +12,7 @@ import {
 
 export default combineReducers({
   Application: ApplicationReducer,
+  Composition: CompositionReducer,
   Equity: EquityReducer,
   Export: ExportReducer,
   Import: ImportReducer, 
