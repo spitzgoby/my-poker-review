@@ -25,12 +25,14 @@ class RangeCompositionChartBar extends Component {
       name: PropTypes.string,
       value: PropTypes.number
     }),
+    combosMode: PropTypes.bool,
     onChange: PropTypes.func
   }
 
   render() {
     const {
       classes,
+      combosMode,
       hand
     } = this.props
 
@@ -41,10 +43,14 @@ class RangeCompositionChartBar extends Component {
           {hand.name}
         </div>
         <div className={classes.rectContainer}>
-          <Tooltip title={`${hand.combos.length} combos`}>
+          <Tooltip title={combosMode ? this.getRatioValue() : this.getCombosValue()}>
             <div className={classes.rect} />
           </Tooltip>
-          <span className={classes.value}>{`${(hand.value * 100).toFixed(1)}%`}</span>
+          <span className={classes.value}>{
+            combosMode 
+              ? this.getCombosValue() 
+              : this.getRatioValue()}
+          </span>
         </div>
       </ListItem>
     ) 
@@ -90,10 +96,24 @@ class RangeCompositionChartBar extends Component {
     }
   }
 
-  highlightCombos(combos) {
-    const setHighlightedCombos = this.props.actions.setHighlightedCombos
+  getCombosValue() {
+    return `${this.props.hand.combos.length} combos`
+  }
 
-    if (setHighlightedCombos) {
+  getRatioValue() {
+    return `${(this.props.hand.value * 100).toFixed(1)}%`
+  }
+
+  highlightCombos(combos) {
+    const {
+      actions: {
+        setHighlightedCombos
+      },
+      hand
+    } = this.props
+
+
+    if (setHighlightedCombos && hand.combos.length > 0) {
       setHighlightedCombos(combos)
     }
   }
