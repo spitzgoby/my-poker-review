@@ -9,15 +9,12 @@ import {
 } from 'lib/application-constants'
 import PropTypes from 'prop-types'
 import Fade from '@material-ui/core/Fade'
-import Grid from '@material-ui/core/Grid'
 import IconButton from '@material-ui/core/IconButton'
 import Menu from '@material-ui/core/Menu'
 import MenuItem from '@material-ui/core/MenuItem'
 import Snackbar from '@material-ui/core/Snackbar'
 import Switch from '@material-ui/core/Switch'
-import Toolbar from '@material-ui/core/Toolbar'
 import Tooltip from '@material-ui/core/Tooltip'
-import Typography from '@material-ui/core/Typography'
 import AddIcon from '@material-ui/icons/Add'
 import BallotIcon from '@material-ui/icons/Ballot'
 import ClearIcon from '@material-ui/icons/Clear'
@@ -29,7 +26,10 @@ import ImportExportIcon from '@material-ui/icons/ImportExport'
 import KeyboardIcon from '@material-ui/icons/Keyboard'
 import MouseIcon from '@material-ui/icons/Mouse'
 import PieChartIcon from '@material-ui/icons/PieChart'
-import React, {Component} from 'react'
+import React, {
+  Component, 
+  Fragment
+} from 'react'
 import injectSheet from 'react-jss'
 
 class RangeAnalyzerToolbar extends Component {
@@ -77,40 +77,22 @@ class RangeAnalyzerToolbar extends Component {
   }
 
   render() {
-    const {
-      classes,
-      mode
-    } = this.props
-
     return (
-      <Toolbar className={classes.toolbar}>
-        <Grid justify="space-between" container>
-          <Grid item>
-            <Typography className={classes.title} variant="h5">
-              {
-                mode === modes.EQUITY
-                  ? 'Equity Mode'
-                  : 'Ranges Mode'
-              }
-            </Typography>
-          </Grid>
-          <Grid item>
-            {this.renderModeSwitch()}
-            {this.renderInputModeSwitch()}
-            {this.renderCopyButton()}
-            {this.renderCopySnackbar()}
-            {this.renderImportExportMenu()}
-            {this.renderImportExportButton()}
-            <ImportRangeDialog />
-            <ExportRangeDialog />
-            <AddRangeMenu anchorEl={this.state.addAnchorEl} />
-            {this.renderAddButton()}
-            {this.renderEditButton()}
-            {this.renderViewsMenu()}
-            {this.renderViewsButton()}
-          </Grid>
-        </Grid>
-      </Toolbar>
+      <Fragment>
+        {this.renderModeSwitch()}
+        {this.renderInputModeSwitch()}
+        {this.renderCopyButton()}
+        {this.renderCopySnackbar()}
+        {this.renderImportExportMenu()}
+        {this.renderImportExportButton()}
+        <ImportRangeDialog />
+        <ExportRangeDialog />
+        <AddRangeMenu anchorEl={this.state.addAnchorEl} />
+        {this.renderAddButton()}
+        {this.renderEditButton()}
+        {this.renderViewsMenu()}
+        {this.renderViewsButton()}
+      </Fragment>
     ) 
   }
 
