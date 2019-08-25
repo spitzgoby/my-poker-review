@@ -48,7 +48,7 @@ class EquityCell extends Component {
 
     if (pending) {
       component = this.renderProgress()
-    } else if (equity && equity.win) {
+    } else if (this.isEquityCalculated(equity)) {
       component = this.renderValue()
     } else if (!editing) {
       component = this.renderButton()
@@ -116,6 +116,10 @@ class EquityCell extends Component {
     if (calculateEquity) {
       calculateEquity(this.props.range.id)
     }
+  }
+
+  isEquityCalculated(equity) {
+    return equity && !isNaN(parseInt(equity.win))
   }
 }
 
