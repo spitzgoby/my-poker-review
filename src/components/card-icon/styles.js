@@ -54,10 +54,15 @@ export default {
     borderRadius: '4px',
     boxShadow: (props) => props.variant === 'shadow' ? boxShadow : 'none',
     fill: (props) => getColor(props, false),
-    height: (props) => '48px',
+    height: '48px',
     stroke: (props) => getColor(props, false),
-    width: (props) => '36px',
-    transition: transitionTimes.default
+    width: '36px',
+    transition: transitionTimes.default,
+
+    '@media (max-width: 600px)': {
+      height: '36px',
+      width: '27px'
+    }
   },
 
   '@media (hover: hover)': {
