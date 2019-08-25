@@ -8,7 +8,6 @@ import {
   setMode
 } from 'modules/application'
 import {
-  addRange,
   getIsEditing,
   getRangeColors,
   getSelectedRangeOutput,
@@ -31,7 +30,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    onAddRange: addRange,
     onEdit: setEditing,
     onOpenAddRangeMenu: setAddRangeMenuOpen,
     onOpenExportDialog: setExportDialogOpen,

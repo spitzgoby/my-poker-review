@@ -47,11 +47,9 @@ class Menu extends Component {
     return (
       <Fragment> 
         <Actions />
-        <ListItem>
-          <ListSubheader>
-            Mode
-          </ListSubheader>
-        </ListItem>
+        <ListSubheader>
+          Mode
+        </ListSubheader>
         <ListItem {...this.getEquityListItemProps()} >
           <ListItemIcon>
             <PieChartIcon />
@@ -71,11 +69,9 @@ class Menu extends Component {
   renderInputTypeSubMenu() {
     return (
       <Fragment>
-        <ListItem>
-          <ListSubheader>
-            Hand and Board Input
-          </ListSubheader>
-        </ListItem>
+        <ListSubheader>
+          Hand and Board Input
+        </ListSubheader>
         <ListItem {...this.getCardInputListItemProps()}>
           <ListItemText>Card</ListItemText>
         </ListItem>

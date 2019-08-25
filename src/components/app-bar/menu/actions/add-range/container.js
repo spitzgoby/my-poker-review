@@ -1,9 +1,7 @@
-import Actions from 'components/app-bar/menu/actions/component'
+import AddRange from 'components/app-bar/menu/actions/add-range/component'
 import {addRange} from 'modules/range-builder'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-
-const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
@@ -11,4 +9,4 @@ const mapDispatchToProps = (dispatch) => ({
   }, dispatch)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Actions)
+export default connect(null, mapDispatchToProps)(AddRange)

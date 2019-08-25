@@ -60,7 +60,6 @@ class RangeAnalyzerToolbar extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({
-      onAddRange: PropTypes.func,
       onEdit: PropTypes.func,
       onOpenAddRangeMenu: PropTypes.func,
       onOpenExportDialog: PropTypes.func,
