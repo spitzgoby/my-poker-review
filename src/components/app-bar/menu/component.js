@@ -1,3 +1,4 @@
+import Actions from 'components/app-bar/menu/actions'
 import styles from 'components/app-bar/menu/styles'
 import {
   inputModes,
@@ -7,6 +8,7 @@ import Drawer from '@material-ui/core/Drawer'
 import List from '@material-ui/core/List'
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
+import ListSubheader from '@material-ui/core/ListSubheader'
 import ListItemText from '@material-ui/core/ListItemText'
 import BallotIcon from '@material-ui/icons/Ballot'
 import PieChartIcon from '@material-ui/icons/PieChart'
@@ -28,10 +30,9 @@ class Menu extends Component {
     } = this.props
 
     return (
-      <Drawer open={open} onClose={onClose}> 
+      <Drawer anchor="right" open={open} onClose={onClose}> 
         <List>
           {this.renderModeSubMenu()}
-          {this.renderDeckSubMenu()}
           {this.renderInputTypeSubMenu()}
         </List>
       </Drawer>
@@ -45,10 +46,11 @@ class Menu extends Component {
 
     return (
       <Fragment> 
+        <Actions />
         <ListItem>
-          <ListItemText>
+          <ListSubheader>
             Mode
-          </ListItemText>
+          </ListSubheader>
         </ListItem>
         <ListItem {...this.getEquityListItemProps()} >
           <ListItemIcon>
@@ -66,33 +68,13 @@ class Menu extends Component {
     )
   }
 
-  renderDeckSubMenu() {
-    const classes = this.props.classes
-
-    return (
-      <Fragment>
-        <ListItem>
-          <ListItemText>
-            Deck
-          </ListItemText>
-        </ListItem>
-        <ListItem disabled className={classes.nested} button>
-          <ListItemText>2 Color</ListItemText>
-        </ListItem>
-        <ListItem disabled divider className={classes.nested} selected button>
-          <ListItemText>4 Color</ListItemText>
-        </ListItem>
-      </Fragment>
-    )
-  }
-
   renderInputTypeSubMenu() {
     return (
       <Fragment>
         <ListItem>
-          <ListItemText>
+          <ListSubheader>
             Hand and Board Input
-          </ListItemText>
+          </ListSubheader>
         </ListItem>
         <ListItem {...this.getCardInputListItemProps()}>
           <ListItemText>Card</ListItemText>
@@ -105,60 +87,36 @@ class Menu extends Component {
   }
 
   getEquityListItemProps() {
-    const {
-      classes,
-      mode
-    } = this.props
-
     return {
       button: true,
-      className: classes.nested, 
       onClick: () => this.handleModeClick(modes.EQUITY),
-      selected: mode === modes.EQUITY 
+      selected: this.props.mode === modes.EQUITY 
     }
   }
 
   getRangesListItemsProps() {
-    const {
-      classes,
-      mode
-    } = this.props
-
     return {
       button: true,
-      className: classes.nested,
       divider: true,
       onClick: () => this.handleModeClick(modes.RANGES),
-      selected: mode === modes.RANGES
+      selected: this.props.mode === modes.RANGES
     }
   }
 
   getCardInputListItemProps() {
-    const {
-      classes,
-      inputMode
-    } = this.props
-
     return {
       button: true,
-      className: classes.nested,
       onClick: () => this.handleCardInputModeClick(inputModes.CARD),
-      selected: inputMode === inputModes.CARD
+      selected: this.props.inputMode === inputModes.CARD
     }
   }
 
   getTextInputListItemProps() {
-    const {
-      classes,
-      inputMode
-    } = this.props
-
     return {
       button: true,
-      className: classes.nested,
       divider: true,
       onClick: () => this.handleCardInputModeClick(inputModes.TEXT),
-      selected: inputMode === inputModes.TEXT
+      selected: this.props.inputMode === inputModes.TEXT
     }
   }
 
