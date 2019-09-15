@@ -1,4 +1,5 @@
 import Actions from 'components/app-bar/menu/actions/component'
+import {setAppMenuOpen} from 'modules/application'
 import {
   addRange,
   getIsEditing,
@@ -12,10 +13,13 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators({
-    addRange,
-    setEditing
-  }, dispatch)
+  actions: {
+    ...bindActionCreators({
+      addRange,
+      setAppMenuOpen,
+      setEditing
+    }, dispatch),
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Actions)

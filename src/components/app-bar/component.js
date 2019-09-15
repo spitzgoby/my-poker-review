@@ -9,6 +9,7 @@ import IconButton from '@material-ui/core/IconButton'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import MenuIcon from '@material-ui/icons/Menu'
+import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
@@ -25,10 +26,18 @@ class Appbar extends Component {
     }
   }
 
+  static propTypes = {
+    actions: PropTypes.shape({
+      setAppMenuOpen: PropTypes.func
+    }).isRequired,
+    mode: PropTypes.string,
+    open: PropTypes.bool
+  }
+
   render() {
     const {
       classes,
-      mode
+      mode,
     } = this.props
 
     return (
@@ -69,15 +78,19 @@ class Appbar extends Component {
   }
 
   handleMenuButtonClick() {
-    this.setState({
-      menuOpen: true
-    })
+    const setAppMenuOpen = this.props.actions.setAppMenuOpen
+
+    if (setAppMenuOpen) {
+      setAppMenuOpen(true)
+    }
   }
 
   handleMenuClose() {
-    this.setState({
-      menuOpen: false
-    })
+    const setAppMenuOpen = this.props.actions.setAppMenuOpen
+
+    if (setAppMenuOpen) {
+      setAppMenuOpen(false)
+    }
   }
 }
 

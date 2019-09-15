@@ -5,6 +5,7 @@ import {
 import {types} from 'modules/application/constants'
 
 const initialState = {
+  appMenuOpen: false,
   compositionChartOpen: true,
   inputMode: inputModes.CARD,
   mode: modes.EQUITY
@@ -14,6 +15,13 @@ export default (state = initialState, action = {}) => {
   let nextState
 
   switch(action.type) {
+    case types.SET_APP_MENU_OPEN:
+      nextState = {
+        ...state,
+        appMenuOpen: action.payload
+      }
+      break
+
     case types.SET_COMPOSITION_CHART_OPEN:
       nextState = {
         ...state,
@@ -43,5 +51,6 @@ export default (state = initialState, action = {}) => {
 }
 
 export const getInputMode = (state) => state.inputMode
+export const getIsAppMenuOpen = (state) => state.appMenuOpen
 export const getIsCompositionChartOpen = (state) => state.compositionChartOpen
 export const getMode = (state) => state.mode

@@ -32,6 +32,7 @@ class Actions extends Component {
   static propTypes = {
     actions: PropTypes.shape({
       addRange: PropTypes.func,
+      setAppMenuOpen: PropTypes.func,
       setEditing: PropTypes.func
     }).isRequired,
     editing: PropTypes.bool
@@ -131,10 +132,17 @@ class Actions extends Component {
   }
 
   handleEditButtonClick() {
-    const setEditing = this.props.actions.setEditing
+    const {
+      setAppMenuOpen,
+      setEditing 
+    } = this.props.actions
 
     if (setEditing) {
       setEditing()
+    }
+
+    if (setAppMenuOpen) {
+      setAppMenuOpen(false)
     }
   }
 }
