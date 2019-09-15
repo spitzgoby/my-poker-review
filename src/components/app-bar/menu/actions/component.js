@@ -5,6 +5,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListSubheader from '@material-ui/core/ListSubheader'
 import ListItemText from '@material-ui/core/ListItemText'
 import AddIcon from '@material-ui/icons/Add'
+import CancelIcon from '@material-ui/icons/Cancel'
 import EditIcon from '@material-ui/icons/Edit'
 import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
@@ -21,6 +22,7 @@ class Actions extends Component {
     super(props)
 
     this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
+    this.handleEditButtonClick = this.handleEditButtonClick.bind(this)
 
     this.state = {
       addRangeAnchorEl: null
@@ -29,8 +31,10 @@ class Actions extends Component {
 
   static propTypes = {
     actions: PropTypes.shape({
-      setAddRangeMenuOpen: PropTypes.func
-    }).isRequired
+      addRange: PropTypes.func,
+      setEditing: PropTypes.func
+    }).isRequired,
+    editing: PropTypes.bool
   }
 
   render() {
@@ -51,11 +55,12 @@ class Actions extends Component {
           </ListItemIcon>
           <ListItemText>Add Range</ListItemText>
         </ListItem>
-        <ListItem>
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          <ListItemText>Edit Ranges</ListItemText>
+        <ListItem {...this.getEditButtonProps()}>
+          {
+            this.props.editing
+              ? this.renderStopEditingRangesMenuItem()
+              : this.renderEditRangesMenuItem()
+          }
         </ListItem>
         <ListItem>
           <ListItemIcon>
@@ -73,6 +78,28 @@ class Actions extends Component {
     )
   }
 
+  renderEditRangesMenuItem() {
+    return (
+      <Fragment>
+        <ListItemIcon>
+          <EditIcon />
+        </ListItemIcon>
+        <ListItemText>Edit Ranges</ListItemText>
+      </Fragment>
+    )
+  }
+
+  renderStopEditingRangesMenuItem() {
+    return (
+      <Fragment>
+        <ListItemIcon>
+          <CancelIcon />
+        </ListItemIcon>
+        <ListItemText>Stop Editing</ListItemText>
+      </Fragment>
+    )
+  }
+
   renderAddRangeSubMenu() {
     return <AddRange />
   } 
@@ -81,6 +108,13 @@ class Actions extends Component {
     return {
       button: true,
       onClick: this.handleAddButtonClick
+    }
+  }
+
+  getEditButtonProps() {
+    return {
+      button: true,
+      onClick: this.handleEditButtonClick
     }
   }
 
@@ -94,6 +128,14 @@ class Actions extends Component {
     this.setState({
       addRangeMenuOpen:false
     })
+  }
+
+  handleEditButtonClick() {
+    const setEditing = this.props.actions.setEditing
+
+    if (setEditing) {
+      setEditing()
+    }
   }
 }
 
