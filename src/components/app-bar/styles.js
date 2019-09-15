@@ -14,5 +14,11 @@ export default {
   title: {
     color: lightText,
     paddingTop: '12px'
+  },
+
+  cancelediting: {
+    bottom: '16px',
+    position: 'fixed',
+    right: '16px'
   }
 }
