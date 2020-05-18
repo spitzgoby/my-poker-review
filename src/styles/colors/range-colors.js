@@ -23,6 +23,6 @@ export const rangeColorList = [{
   rgb: [252, 191, 52]
 }]
 
-export const rangeColorNames = ['blue', 'red', 'yellow', 'green', 'purple', 'black']
+export const rangeColorNames = ['blue', 'cyan', 'green', 'orange', 'purple', 'red', 'yellow']
 
 export const rangeColors = generateColors(rangeColorList)

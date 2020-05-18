@@ -97,11 +97,11 @@ class ExportRangeDialog extends Component {
         onExport
       },
       fileName,
-      ranges
+      rangeList
     } = this.props
 
     if (onExport) {
-      onExport({ranges, fileName})
+      onExport({rangeList, fileName})
     }
   }
 }

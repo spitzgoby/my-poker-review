@@ -4,7 +4,7 @@ import {exportRanges as exportRangesToFile} from 'util/range-file-converter'
 export const exportRanges = (payload) => {
   let action
   const fileWasExported = exportRangesToFile(
-    payload.ranges,
+    payload.rangeList,
     payload.fileName
   )
 

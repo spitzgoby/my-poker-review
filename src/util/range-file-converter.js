@@ -15,7 +15,6 @@ const fileNameWithExtensionRegex = /^[\w,\s-]+\.[A-Za-z]+$/
 const addFileExtension = (fileName) => {
   let result
 
-  console.log('fileName: ', fileName)
   if (!fileName) {
     fileName = 'ranges'
   }
@@ -69,7 +68,7 @@ const validateRange = (range) => {
 
 const parseAndValidateRangeImport = (text) => {
   let result = {
-    isvalidFile: false,
+    isValidFile: false,
   }
   const data = JSON.parse(text)
   const hasRanges = Object.keys(data).length > 0
