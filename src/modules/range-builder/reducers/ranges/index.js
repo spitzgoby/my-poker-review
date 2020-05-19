@@ -163,6 +163,7 @@ export default (state = initialState, action = {}) => {
           acc[range.id] = range
           return acc
         }, {}),
+        rangeIdList: action.payload.reduce((acc, range) => acc.concat(range.id), []),
         selectedRangeId: action.payload[0].id
       }
       break
