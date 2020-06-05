@@ -6,9 +6,9 @@ import {types} from 'modules/application/constants'
 
 const initialState = {
   appMenuOpen: false,
-  compositionChartOpen: true,
+  compositionChartOpen: false,
   inputMode: inputModes.CARD,
-  mode: modes.EQUITY
+  mode: modes.RANGES
 }
 
 export default (state = initialState, action = {}) => {
