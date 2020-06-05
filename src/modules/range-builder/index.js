@@ -14,6 +14,8 @@ import {
 } from 'modules/range-builder/reducers/ranges/utilities'
 import rangeBuilderReducer, * as fromRangeBuilder from 'modules/range-builder/reducers/ranges'
 import rangeBuilderStorageConfig from 'modules/range-builder/reducers/ranges/storage-config'
+import defaultRangesReducer, * as fromDefaultRanges from './reducers/default-ranges'
+import defaultRangesStorageConfig from './reducers/default-ranges/storage-config'
 import {persistReducer} from 'redux-persist'
 import {createSelector} from 'reselect'
 import {calculateRangeComposition} from 'util/hand-strength-calculator'
@@ -31,6 +33,7 @@ export const CompositionReducer = persistReducer(compositionStorageConfig, compo
 export const ExportReducer = persistReducer(exportStorageConfig, exportReducer)
 export const ImportReducer = persistReducer(importStorageConfig, importReducer)
 export const RangeBuilderReducer = persistReducer(rangeBuilderStorageConfig, rangeBuilderReducer)
+export const DefaultRangesReducer = persistReducer(defaultRangesStorageConfig, defaultRangesReducer)
 
 /*---------*
  * ACTIONS *
@@ -68,6 +71,14 @@ export const getImportState = (state) => state.Import
 export const getImportFile = (state) => fromImport.getImportFile(getImportState(state))
 export const getIsImportDialogOpen = (state) => fromImport.getIsImportDialogOpen(getImportState(state))
 export const getIsImporting = (state) => fromImport.getIsImporting(getImportState(state))
+
+/*----------------*
+ * DEFAULT RANGES *
+ *----------------*/
+export const getDefaultRangesState = (state) => state.DefaultRanges
+export const getIsSelectRangeDialogOpen = (state) => 
+  fromDefaultRanges.getIsSelectRangeDialogOpen(getDefaultRangesState(state))
+
 
 /*--------*
  * RANGES *

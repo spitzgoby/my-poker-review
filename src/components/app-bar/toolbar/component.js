@@ -2,6 +2,7 @@ import Clipboard from 'util/clipboard'
 import AddRangeMenu from 'components/app-bar/toolbar/add-range-menu'
 import ExportRangeDialog from 'components/app-bar/toolbar/export-range-dialog'
 import ImportRangeDialog from 'components/app-bar/toolbar/import-range-dialog'
+import DefaultRangesDialog from './default-ranges-dialog'
 import styles from 'components/app-bar/toolbar/styles'
 import {
   inputModes,
@@ -48,6 +49,7 @@ class RangeAnalyzerToolbar extends Component {
     this.handleImportMenuItemClick = this.handleImportMenuItemClick.bind(this)
     this.handleInputModeSwitchChange = this.handleInputModeSwitchChange.bind(this)
     this.handleModeSwitchChange = this.handleModeSwitchChange.bind(this)
+    this.handleSelectDefaultRangeItemClick = this.handleSelectDefaultRangeItemClick.bind(this)
     this.handleViewsButtonClick = this.handleViewsButtonClick.bind(this)
     this.handleViewsMenuClose = this.handleViewsMenuClose.bind(this)
 
@@ -84,6 +86,7 @@ class RangeAnalyzerToolbar extends Component {
         {this.renderCopySnackbar()}
         {this.renderImportExportMenu()}
         {this.renderImportExportButton()}
+        <DefaultRangesDialog />
         <ImportRangeDialog />
         <ExportRangeDialog />
         <AddRangeMenu anchorEl={this.state.addAnchorEl} />
@@ -166,6 +169,9 @@ class RangeAnalyzerToolbar extends Component {
         </MenuItem>
         <MenuItem onClick={this.handleExportMenuItemClick}>
           Export the current range to a file
+        </MenuItem>
+        <MenuItem onClick={this.handleSelectDefaultRangeItemClick}>
+          Use a pre-defined range
         </MenuItem>
       </Menu>
     )
@@ -370,6 +376,14 @@ class RangeAnalyzerToolbar extends Component {
     this.setState({
       importExportAnchorEl: null
     })
+  }
+
+  handleSelectDefaultRangeItemClick() {
+    const onOpenSelectRangeDialog = this.props.actions.onOpenSelectRangeDialog
+
+    if (onOpenSelectRangeDialog) {
+      onOpenSelectRangeDialog()
+    }
   }
 
   handleImportMenuItemClick() {

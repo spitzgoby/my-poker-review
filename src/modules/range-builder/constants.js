@@ -29,6 +29,7 @@ export const types = {
   SET_IMPORT_DIALOG_OPEN: '@my-poker-review/range-builder/SET_IMPORT_DIALOG_OPEN',
   SET_IMPORT_FILE: '@my-poker-review/range-builder/SET_IMPORT_FILE',
   SET_RANGE_NAME: '@my-poker-review/range-builder/SET_RANGE_NAME',
+  SET_SELECT_RANGE_DIALOG_OPEN: '@my-poker-review/range-builder/SET_SELECT_RANGE_DIALOG_OPEN',
   SET_SELECTING: '@my-poker-review/range-builder/SET_SELECTING',
   SET_SELECTING_SUITS: '@my-poker-review/range-builder/SET_SELECTING_SUITS'
 }

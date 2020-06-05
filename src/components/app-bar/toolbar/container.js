@@ -14,7 +14,8 @@ import {
   setAddRangeMenuOpen,
   setEditing,
   setExportDialogOpen,
-  setImportDialogOpen
+  setImportDialogOpen,
+  setSelectRangeDialogOpen
 } from 'modules/range-builder'
 import {bindActionCreators} from 'redux'
 import {connect} from 'react-redux'
@@ -34,6 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
     onOpenAddRangeMenu: setAddRangeMenuOpen,
     onOpenExportDialog: setExportDialogOpen,
     onOpenImportDialog: setImportDialogOpen,
+    onOpenSelectRangeDialog: setSelectRangeDialogOpen,
     setCompositionChartOpen,
     setInputMode,
     setMode
