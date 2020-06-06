@@ -19,13 +19,28 @@ const DefaultRangesDialog = (props) => {
         }
     }
 
+    const handleSelectRangeClick = (defaultRange) => {
+        const {
+            setSelectRangeDialogOpen,
+            setRanges 
+        } = props.actions
+
+        if (setRanges) {
+            setRanges([...defaultRange.range])
+        }
+
+        if (setSelectRangeDialogOpen) {
+            setSelectRangeDialogOpen()
+        }
+    }
+
     const getProps = () => ({
         onClose: handleClose,
         open: props.open   
     })
 
     const renderDefaultRange = (defaultRange) => (
-        <ListItem>
+        <ListItem button onClick={() => handleSelectRangeClick(defaultRange)}>
             {defaultRange.name}
         </ListItem>
     )

@@ -5,9 +5,9 @@ const importRangesInit = () => ({
   type: types.IMPORT_RANGES_INIT
 })
 
-const importRangesSuccess = (payload) => ({
+const importRangesSuccess = (ranges) => ({
   type: types.IMPORT_RANGES_SUCCESS,
-  payload 
+  payload: { ranges } 
 })
 
 const importRangesFailure = (payload) => ({

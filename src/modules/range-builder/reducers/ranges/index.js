@@ -30,6 +30,26 @@ export const setEditing = actionCreator(types.SET_EDITING)
 export const setPlayerHand = actionCreator(types.SET_PLAYER_HAND, 'value')
 export const setRangeName = actionCreator(types.SET_RANGE_NAME, 'id', 'name')
 
+const getFirstRangeId = (ranges) => {
+  const rangeCount = ranges.length
+  let rangeId = ''
+
+  if (rangeCount > 0) {
+    rangeId = ranges[0].id
+  } 
+
+  return rangeId
+}
+
+const convertRangeListToState = (ranges) => ({
+  ranges: ranges.reduce((acc, range) => {
+    acc[range.id] = range
+    return acc
+  }, {}),
+  rangeIdList: ranges.reduce((acc, range) => acc.concat(range.id), []),
+  selectedRangeId: getFirstRangeId(ranges)
+})
+
 const updateSelectedRangeId = (state, action) => {
   const newSelectedRangeId = action.payload.id
   let selectedRangeId = ''
@@ -159,12 +179,7 @@ export default (state = initialState, action = {}) => {
     case types.IMPORT_RANGES_SUCCESS:
       nextState = {
         ...state,
-        ranges: action.payload.reduce((acc, range) => {
-          acc[range.id] = range
-          return acc
-        }, {}),
-        rangeIdList: action.payload.reduce((acc, range) => acc.concat(range.id), []),
-        selectedRangeId: action.payload[0].id
+        ...convertRangeListToState(action.payload.ranges)
       }
       break
 
@@ -269,6 +284,13 @@ export default (state = initialState, action = {}) => {
             name: action.payload.name
           }
         }
+      }
+      break
+
+    case types.SET_RANGES:
+      nextState = {
+        ...initialState,
+        ...convertRangeListToState(action.payload.ranges)
       }
       break
 
