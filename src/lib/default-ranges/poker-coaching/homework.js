@@ -1,4 +1,4 @@
-export const homework = [
+export default [
     {
         "id": "435f007e-9b80-4de2-b2e0-9127e7fb405f",
         "color": "red",
