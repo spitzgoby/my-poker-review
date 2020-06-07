@@ -57,7 +57,6 @@ const DefaultRangesDialog = (props) => {
 
     const renderDefaultRange = (defaultRange) => (
         <ListItem button key={defaultRange.name} onClick={() => handleSelectRangeClick(defaultRange)}>
-            {console.log(defaultRange)}
             {defaultRange.name}{renderSublistIndicator(defaultRange)}
         </ListItem>
     )
