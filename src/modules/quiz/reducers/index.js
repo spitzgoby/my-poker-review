@@ -33,6 +33,7 @@ export default (state = initialState, action) => {
 }
 
 export const getCurrentQuestion = (state) => state.questions[state.currentQuestionIndex]
+export const getCurrentQuestionIndex = (state) => state.currentQuestionIndex
 export const getQuizLength = (state) => state.quizLength
 export const getShouldUseOutsideCombos = (state) => state.useOutsideCombos
 export const getTotalAnswered = (state) => state.totalAnswered

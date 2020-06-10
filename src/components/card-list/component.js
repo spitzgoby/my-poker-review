@@ -38,12 +38,13 @@ class CardList extends Component {
   }
 
   static defaultProps = {
+    display: 'inherit',
     showCardSelector: true
   }
 
   render() {
     return (
-      <div> 
+      <div className={this.props.classes.cardList}> 
         {this.renderCards()}
         {this.renderClearButton()}
         {this.renderSubtitle()}
