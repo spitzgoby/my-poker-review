@@ -1,5 +1,6 @@
 export const modes = {
   EQUITY: 'equity', 
+  QUIZ: 'quiz',
   RANGES: 'ranges'
 }
 

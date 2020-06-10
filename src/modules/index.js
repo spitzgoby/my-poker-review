@@ -1,15 +1,16 @@
 import {combineReducers} from 'redux'
-import {ApplicationReducer} from 'modules/application'
+import {ApplicationReducer} from './application'
 import {
   EquityReducer
-} from 'modules/equity'
+} from './equity'
 import {
   CompositionReducer,
   DefaultRangesReducer,
   ExportReducer,
   ImportReducer,
   RangeBuilderReducer,
-} from 'modules/range-builder'
+} from './range-builder'
+import { QuizReducer } from './quiz'
 
 export default combineReducers({
   Application: ApplicationReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   Equity: EquityReducer,
   Export: ExportReducer,
   Import: ImportReducer, 
+  Quiz: QuizReducer,
   RangeBuilder: RangeBuilderReducer
 })

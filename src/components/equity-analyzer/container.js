@@ -1,5 +1,11 @@
 import EquityAnalyzer from 'components/equity-analyzer/component'
-import { getMode } from 'modules/application'
+import { 
+  getMode,
+  setMode
+} from 'modules/application'
+import {
+  startQuiz
+} from 'modules/quiz'
 import {
   getRangeIdList,
   setSelectRangeDialogOpen
@@ -14,7 +20,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   actions: bindActionCreators({
-    setSelectRangeDialogOpen
+    setMode,
+    setSelectRangeDialogOpen,
+    startQuiz
   }, dispatch)
 })
 
