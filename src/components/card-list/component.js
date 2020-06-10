@@ -33,7 +33,12 @@ class CardList extends Component {
     index: PropTypes.number,
     label: PropTypes.string,
     onCardSelect: PropTypes.func,
-    onClear: PropTypes.func
+    onClear: PropTypes.func,
+    showCardSelector: PropTypes.bool
+  }
+
+  static defaultProps = {
+    showCardSelector: true
   }
 
   render() {
@@ -42,7 +47,10 @@ class CardList extends Component {
         {this.renderCards()}
         {this.renderClearButton()}
         {this.renderSubtitle()}
-        <CardSelector {...this.getCardSelectorProps()} />
+        { this.props.showCardSelector 
+          ? <CardSelector {...this.getCardSelectorProps()} />
+          : null
+        }
       </div>
     ) 
   }
@@ -74,13 +82,19 @@ class CardList extends Component {
   }
 
   renderClearButton() {
-    return (
-      <Fade in={this.props.cards.length > 0}>
-        <IconButton onClick={this.handleClear}>
-          <ClearIcon />
-        </IconButton>
-      </Fade>
-    )
+    let content = null;
+
+    if (this.props.showCardSelector) {
+      content = (
+        <Fade in={this.props.cards.length > 0}>
+          <IconButton onClick={this.handleClear}>
+            <ClearIcon />
+          </IconButton>
+        </Fade>
+      )
+    }
+
+    return content
   }
 
   renderSubtitle() {
@@ -127,10 +141,12 @@ class CardList extends Component {
   }
 
   handleCardClick(index, event) {
-    this.setState({
-      cardSelectorAnchorEl: event.currentTarget,
-      cardSelectorIndex: index
-    })
+    if (this.props.showCardSelector) {
+      this.setState({
+        cardSelectorAnchorEl: event.currentTarget,
+        cardSelectorIndex: index
+      })
+    }
   }
 
   handleCardSelect(card) {

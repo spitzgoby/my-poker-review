@@ -3,9 +3,10 @@ import {types} from '../constants'
 const DEFAULT_QUIZ_LENGTH = 100
 
 const initialState = {
-    currentQuestion: 0,
+    currentQuestionIndex: 0,
     questions: [],
     quizLength: DEFAULT_QUIZ_LENGTH,
+    useOutsideCombos: true,
     totalAnswered: 0,
     totalCorrect:  0,
     totalMissed: 0
@@ -31,8 +32,9 @@ export default (state = initialState, action) => {
     return newState
 }
 
-export const getCurrentQuestion = (state) => state.currentQuestion
+export const getCurrentQuestion = (state) => state.questions[state.currentQuestionIndex]
 export const getQuizLength = (state) => state.quizLength
+export const getShouldUseOutsideCombos = (state) => state.useOutsideCombos
 export const getTotalAnswered = (state) => state.totalAnswered
 export const getTotalCorrect = (state) => state.totalCorrect
 export const getTotalMissed = (state) => state.totalMissed

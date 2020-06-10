@@ -6,6 +6,7 @@ import styles from 'components/equity-analyzer/styles'
 import RangeTable from 'components/range-table'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
+import Quiz from 'components/equity-analyzer/quiz'
 import Typography from '@material-ui/core/Typography'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -31,7 +32,7 @@ class EquityAnalyzer extends Component {
   }
 
   renderQuizMode() {
-    return <div>Quiz Goes Here</div>
+    return <Quiz />
   }
 
   renderRangesMode() {

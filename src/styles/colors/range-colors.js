@@ -18,6 +18,9 @@ export const rangeColorList = [{
 },{
   name: 'red',
   rgb: [223, 104, 107]
+}, {
+  name: 'white',
+  rgb: [255, 255, 255]
 },{
   name: 'yellow',
   rgb: [252, 191, 52]
