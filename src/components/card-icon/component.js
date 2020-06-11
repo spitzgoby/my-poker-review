@@ -23,6 +23,7 @@ class CardIcon extends Component {
     disabled: PropTypes.bool,
     id: PropTypes.string,
     onClick: PropTypes.func,
+    size: PropTypes.oneOf(['lg', 'md']),
     variant: PropTypes.oneOf(['outline', 'shadow'])
   }
 

@@ -5,11 +5,18 @@ import styles from './styles'
 const Answer = props => {
     const {
         answer,
-        classes
+        classes,
+        onSelectAnswer
     } = props
 
+    const handleClick = () => {
+        if (onSelectAnswer) {
+            onSelectAnswer(answer)
+        }
+    }
+
     return (
-        <div className={classes.answer}>
+        <div className={classes.answer} onClick={handleClick}>
             {answer.name}
         </div>
     )

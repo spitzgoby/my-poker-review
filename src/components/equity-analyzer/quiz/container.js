@@ -1,15 +1,29 @@
 import Quiz from './component'
 import {
+    answerQuestion,
     getCurrentQuestion,
     getCurrentQuestionIndex,
-    getQuizLength
+    getQuizFinished,
+    getQuizLength,
+    getTotalCorrect,
+    getTotalMissed
 } from 'modules/quiz'
 import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state) => ({
     currentQuestion: getCurrentQuestion(state),
     currentQuestionIndex: getCurrentQuestionIndex(state),
-    quizLength: getQuizLength(state)
+    quizFinished: getQuizFinished(state),
+    quizLength: getQuizLength(state),
+    totalCorrect: getTotalCorrect(state),
+    totalMissed: getTotalMissed(state)
 })
 
-export default connect(mapStateToProps)(Quiz)
+const mapDispatchToProps = dispatch => ({
+    actions: bindActionCreators({
+        answerQuestion
+    }, dispatch)
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Quiz)

@@ -28,6 +28,7 @@ class CardList extends Component {
 
   static propTypes = {
     cards: PropTypes.arrayOf(PropTypes.object),
+    cardSize: PropTypes.oneOf(['lg', 'md']),
     count: PropTypes.number,
     disabled: PropTypes.bool,
     index: PropTypes.number,
@@ -116,6 +117,7 @@ class CardList extends Component {
   getCardProps(card, key, index) {
     const {
       cards,
+      cardSize,
       classes,
       disabled
     } = this.props
@@ -126,7 +128,8 @@ class CardList extends Component {
       disabled: disabled || index > cards.length,
       id: this.getCardId(index),
       key,
-      onClick: (event) => this.handleCardClick(index, event)
+      onClick: (event) => this.handleCardClick(index, event),
+      size: cardSize
     }
   }
 

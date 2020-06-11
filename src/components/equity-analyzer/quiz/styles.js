@@ -8,5 +8,12 @@ export default {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+
+    quizInfo: {
+        alignItems: 'flex-end',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
     }
 }

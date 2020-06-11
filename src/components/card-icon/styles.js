@@ -30,19 +30,51 @@ const getColor = (props, hover) => {
   return color
 }
 
-const getCursor = (props) => {
+const getCursor = props => {
   return (isClickable(props))
     ? 'pointer'
     : 'default'
 }
 
-const getHoverBackgroundColor = (props) => {
+const getHoverBackgroundColor = props => {
   return (isClickable(props))
     ? themeColors.neutralGray
     : 'white'
 }
 
-const isClickable = (props) => !props.disabled
+const getHeight = (props, smallScreen) => {
+  let height
+
+  switch (props.size) {
+    case 'lg':
+      height = smallScreen ? '72px' : '96px'
+      break
+
+    default:
+      height = smallScreen ? '36px' : '48px'      
+      break
+  }
+
+  return height
+}
+
+const getWidth = (props, smScreen) => {
+  let width
+
+  switch (props.size) {
+    case 'lg':
+      width = smScreen ? '54px' : '72px'
+      break
+
+    default:
+      width = smScreen ? '27px' : '36px' 
+      break
+  }
+
+  return width
+}
+
+const isClickable = props => !props.disabled
 
 const boxShadow = '0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12);'
 const border = `1px solid ${themeColors.mediumGray}`
@@ -50,18 +82,18 @@ const border = `1px solid ${themeColors.mediumGray}`
 export default {
   icon: {
     backgroundColor: 'white',
-    border: (props) => props.variant === 'outline' ? border : 'none',
+    border: props => props.variant === 'outline' ? border : 'none',
     borderRadius: '4px',
-    boxShadow: (props) => props.variant === 'shadow' ? boxShadow : 'none',
-    fill: (props) => getColor(props, false),
-    height: '48px',
-    stroke: (props) => getColor(props, false),
-    width: '36px',
+    boxShadow: props => props.variant === 'shadow' ? boxShadow : 'none',
+    fill: props => getColor(props, false),
+    height: props => getHeight(props, false),
+    stroke: props => getColor(props, false),
+    width: props => getWidth(props, false),
     transition: transitionTimes.default,
 
     '@media (max-width: 600px)': {
-      height: '36px',
-      width: '27px'
+      height: (props) => getHeight(props, true),
+      width: (props) => getWidth(props, true)
     }
   },
 

@@ -7,38 +7,74 @@ import injectSheet from 'react-jss'
 import styles from './styles'
 
 const Quiz = props => {
-
     const {
+        actions: {
+            answerQuestion
+        },
         classes,
         currentQuestion,
         currentQuestionIndex,
-        quizLength
+        quizFinished,
+        quizLength,
+        totalCorrect,
+        totalMissed
     } = props
 
+    const handleAnswerSelect = answer => {
+        if (answerQuestion) {
+            answerQuestion(answer)
+        }
+    }
+
     const getCardListProps = () => ({
-        count: 2,
         cards: currentQuestion.cards,
+        cardSize: 'lg',
+        count: 2,
         display: 'inline',
         showCardSelector: false
     })
+
+    const getAnswerProps = answer => ({
+        answer,
+        key: answer.id,
+        onSelectAnswer: handleAnswerSelect
+    })
+
+    const renderQuizResults = () => {
+        return (
+            <>
+                <div>You got {totalCorrect} right</div>
+                <div>You got {totalMissed} wrong</div>
+            </>
+        )
+    }
 
     const renderQuestion = () => {
         return (
             <>
                 <div className={classes.quizHeader}>
                     <CardList {...getCardListProps()} />
-                    <Typography display="inline">Answered <strong>{currentQuestionIndex}</strong> of <strong>{quizLength}</strong></Typography>
-                    <Button variant="contained" color="primary">Done</Button>
+                    <div className={classes.quizInfo}>
+                        <Button variant="contained" color="primary">Done</Button>
+                        <div className={classes.spacer}/>
+                        <Typography display="inline">Answered <strong>{currentQuestionIndex}</strong> of <strong>{quizLength}</strong></Typography>
+                    </div>
                 </div>
-                {currentQuestion.answers.map(answer => <Answer answer={answer} key={answer.id} />)}
+                {currentQuestion.answers.map(answer => <Answer {...getAnswerProps(answer)} />)}
             </>
         )
     }
 
+    const renderQuiz = () => {
+        return quizFinished 
+            ? renderQuizResults()
+            : renderQuestion()
+    }
+
     return (
         <div className={classes.quiz}>
-            {currentQuestion 
-                ? renderQuestion() 
+            {currentQuestion || quizFinished
+                ? renderQuiz() 
                 : <Typography>Please Select A Range To Generate A Quiz</Typography>
             }
         </div>
