@@ -15,5 +15,9 @@ export default {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between'
+    },
+
+    doneButton: {
+        marginBottom: '1rem'
     }
 }

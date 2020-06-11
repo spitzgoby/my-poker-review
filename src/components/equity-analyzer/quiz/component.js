@@ -34,6 +34,12 @@ const Quiz = props => {
         showCardSelector: false
     })
 
+    const getDoneButtonProps = () => ({
+        classes: {root: classes.doneButton}, 
+        color:"secondary",
+        variant: "outlined"
+    })
+
     const getAnswerProps = answer => ({
         answer,
         key: answer.id,
@@ -55,8 +61,7 @@ const Quiz = props => {
                 <div className={classes.quizHeader}>
                     <CardList {...getCardListProps()} />
                     <div className={classes.quizInfo}>
-                        <Button variant="contained" color="primary">Done</Button>
-                        <div className={classes.spacer}/>
+                        <Button {...getDoneButtonProps()}>Done</Button>
                         <Typography display="inline">Answered <strong>{currentQuestionIndex}</strong> of <strong>{quizLength}</strong></Typography>
                     </div>
                 </div>
