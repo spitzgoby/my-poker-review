@@ -3,6 +3,7 @@ import ComboSelector from 'components/combo-selector'
 import ComboCell from 'components/range-builder/combo-cell'
 import {styles} from 'components/range-builder/styles'
 import comboGroups from 'lib/combo-groups'
+import {modes} from 'lib/application-constants'
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import {comboRows} from 'modules/range-builder/constants'
@@ -64,6 +65,7 @@ class RangeBuilder extends Component {
     return {
       comboGroup: comboGroups[comboGroupId],
       lastColumn: column === RangeBuilder.lastColumnIndex,
+      mode: this.props.mode,
       onOpenCardSelector: this.handleOpenCardSelector,
       key: comboGroupId,
       selectedColor: this.props.selectedColor
@@ -73,12 +75,14 @@ class RangeBuilder extends Component {
   getSuitSelectorButtonProps() {
     const { 
       classes,
+      mode,
       selectingSuits
     } = this.props
 
     return {
       color: selectingSuits ? 'primary' : 'default',
       className: classes.selectorbutton,
+      disabled: mode === modes.QUIZ,
       onClick: this.handleSuitSelectorClick,
       variant: selectingSuits ? 'contained' : 'text' 
     }

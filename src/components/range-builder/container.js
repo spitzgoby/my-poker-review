@@ -1,3 +1,4 @@
+import {getMode} from 'modules/application'
 import {
   getIsSelectingSuits,
   getSelectedRangeColor,
@@ -8,6 +9,7 @@ import {bindActionCreators} from 'redux'
 import RangeBuilder from 'components/range-builder/component'
 
 const mapStateToProps = (state) => ({
+  mode: getMode(state),
   selectedColor: getSelectedRangeColor(state),
   selectingSuits: getIsSelectingSuits(state)
 })

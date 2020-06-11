@@ -1,5 +1,6 @@
 import classnames from 'classnames'
 import {styles} from 'components/range-builder/combo-cell/styles'
+import {modes} from 'lib/application-constants'
 import PropTypes from 'prop-types'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
@@ -52,15 +53,21 @@ class ComboCell extends Component {
   }
 
   getProps() {
+    const eventHandlers = this.isQuizMode() 
+      ? {}
+      : {
+        onDragEnd: this.handleDragEnd,
+        onDragEnter: this.handleDragEnter,
+        onDragStart: this.handleDragStart,
+        onMouseDown: this.handleMouseDown,
+        onMouseUp: this.handleMouseUp,
+        onTouchEnd: this.handleTouchEnd,
+      }
+
     return {
       className: this.getClass(),
       draggable: true,
-      onDragEnd: this.handleDragEnd,
-      onDragEnter: this.handleDragEnter,
-      onDragStart: this.handleDragStart,
-      onMouseDown: this.handleMouseDown,
-      onMouseUp: this.handleMouseUp,
-      onTouchEnd: this.handleTouchEnd,
+      ...eventHandlers,
       ref: this.setSelectableRef
     } 
   }
@@ -205,6 +212,10 @@ class ComboCell extends Component {
       && x < boundingRect.right
       && y > boundingRect.top
       && y < boundingRect.bottom
+  }
+
+  isQuizMode() {
+    return this.props.mode === modes.QUIZ
   }
 }
 

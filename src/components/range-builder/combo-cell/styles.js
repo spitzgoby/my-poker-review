@@ -1,3 +1,4 @@
+import {modes} from 'lib/application-constants'
 import {types} from 'lib/combos'
 import {
   compact,
@@ -80,7 +81,9 @@ const getBackground = (props, hover = false) => {
     selectedColor
   } = props
 
-  if (hover) {
+  if (props.mode === modes.QUIZ) {
+    backgroundColor = comboCellColors[comboGroup.type]
+  } else if (hover) {
     backgroundColor = selectedColor 
       ? selected
         ? rangeColors['dark' + selectedColor]
@@ -134,7 +137,7 @@ export const styles = {
     combocell: {
       '&:hover': {
         background: (props) => getBackground(props, true),
-        cursor: (props) => props.selectedColor ? 'pointer' : 'default'
+        cursor: (props) => (props.selectedColor && !props.mode === modes.QUIZ) ? 'pointer' : 'default'
       }
     }
   },
