@@ -51,9 +51,9 @@ class Appbar extends Component {
             <Grid item>
               <Typography className={classes.title} variant="h5">
                 {
-                  mode === modes.EQUITY
-                    ? 'Equity Mode'
-                    : 'Ranges Mode'
+                  mode === modes.RANGES
+                    ? 'Ranges Mode'
+                    : 'Quiz Mode'
                 }
               </Typography>
             </Grid>

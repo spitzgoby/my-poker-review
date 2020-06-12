@@ -28,7 +28,7 @@ class Home extends Component {
       <div className={classes.root}>
         <AppBar />
         <Grid container spacing={16}>
-          <Grid classes={{root: classes.analyzergrid}} container direction="column" spacing={16} item xs={12} lg={7}>
+          <Grid classes={{container: classes.analyzergrid}} container direction="column" spacing={16} item xs={12} lg={7}>
             <Grid item>
               <RangeAnalzyer />
             </Grid>

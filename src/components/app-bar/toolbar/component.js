@@ -16,7 +16,6 @@ import Snackbar from '@material-ui/core/Snackbar'
 import Switch from '@material-ui/core/Switch'
 import Tooltip from '@material-ui/core/Tooltip'
 import AddIcon from '@material-ui/icons/Add'
-import BallotIcon from '@material-ui/icons/Ballot'
 import ClearIcon from '@material-ui/icons/Clear'
 import DashboardIcon from '@material-ui/icons/Dashboard'
 import DoneIcon from '@material-ui/icons/Done'
@@ -25,7 +24,6 @@ import FileCopyIcon from '@material-ui/icons/FileCopy'
 import ImportExportIcon from '@material-ui/icons/ImportExport'
 import KeyboardIcon from '@material-ui/icons/Keyboard'
 import MouseIcon from '@material-ui/icons/Mouse'
-import PieChartIcon from '@material-ui/icons/PieChart'
 import React, {
   Component, 
   Fragment
@@ -47,7 +45,6 @@ class RangeAnalyzerToolbar extends Component {
     this.handleImportExportMenuClose = this.handleImportExportMenuClose.bind(this)
     this.handleImportMenuItemClick = this.handleImportMenuItemClick.bind(this)
     this.handleInputModeSwitchChange = this.handleInputModeSwitchChange.bind(this)
-    this.handleModeSwitchChange = this.handleModeSwitchChange.bind(this)
     this.handleViewsButtonClick = this.handleViewsButtonClick.bind(this)
     this.handleViewsMenuClose = this.handleViewsMenuClose.bind(this)
 
@@ -78,7 +75,6 @@ class RangeAnalyzerToolbar extends Component {
   render() {
     return (
       <Fragment>
-        {this.renderModeSwitch()}
         {this.renderInputModeSwitch()}
         {this.renderCopyButton()}
         {this.renderCopySnackbar()}
@@ -95,33 +91,11 @@ class RangeAnalyzerToolbar extends Component {
     ) 
   }
 
-  renderModeSwitch() {
-    return (
-      <Tooltip title={this.renderModeTitle()}>
-        <Switch {...this.getModeSwitchProps()} />
-      </Tooltip>
-    )
-  }
-
   renderInputModeSwitch() {
     return (
       <Tooltip title={this.renderInputModeTitle()}>
         <Switch {...this.getInputModeSwitchProps()} />
       </Tooltip>
-    )
-  }
-
-  renderModeTitle() {
-    const isEquityMode = this.props.mode === modes.EQUITY
-    const modeName = isEquityMode ? 'Equity Mode' : 'Ranges Mode'
-    const otherModeName = isEquityMode ? 'Ranges Mode' : 'Equity Mode'
-
-    return (
-      <div>
-        <b>{modeName}</b>
-        <br />
-        Click to switch to {otherModeName}
-      </div>
     )
   }
 
@@ -230,16 +204,6 @@ class RangeAnalyzerToolbar extends Component {
     )
   }
 
-  getModeSwitchProps() {
-    return {
-      checked: this.props.mode === modes.RANGES,
-      checkedIcon: <BallotIcon />,
-      color: 'default',
-      icon: <PieChartIcon />,
-      onChange: this.handleModeSwitchChange
-    }
-  }
-
   getInputModeSwitchProps() {
     return {
       checked: this.props.inputMode === inputModes.TEXT,
@@ -326,18 +290,6 @@ class RangeAnalyzerToolbar extends Component {
     return {
       className: this.props.classes.button,
       onClick: this.handleViewsButtonClick
-    }
-  }
-
-  handleModeSwitchChange(event) {
-    const checked = event.target.checked
-    const mode = checked
-      ? modes.RANGES
-      : modes.EQUITY
-    const setMode = this.props.actions.setMode
-
-    if (setMode) {
-      setMode(mode)
     }
   }
 

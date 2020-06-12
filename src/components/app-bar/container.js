@@ -1,6 +1,7 @@
 import AppBar from 'components/app-bar/component'
 import {
   getIsAppMenuOpen,
+  getMode,
   setAppMenuOpen
 } from 'modules/application'
 import {
@@ -13,6 +14,7 @@ import {bindActionCreators} from 'redux'
 
 const mapStateToProps = (state) => ({
   editing: getIsEditing(state),
+  mode: getMode(state),
   open: getIsAppMenuOpen(state)  
 })
 
