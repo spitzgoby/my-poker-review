@@ -1,8 +1,9 @@
-import {combos} from 'lib/combos'
+import {comboGroups} from 'lib/combo-groups'
 import {modes} from 'lib/application-constants'
 import {generateQuestion} from 'lib/question'
 import {
     flatMap, 
+    sample,
     sampleSize,
     shuffle
 } from 'lodash'
@@ -37,9 +38,10 @@ const generateQuestions = (rangeList, quizLength, useOutsideCombos) => {
 }
 
 const generateQuestionsFromAllCombos = (rangeList, quizLength) => {
-    const quizCombos = sampleSize(combos, quizLength)
+    const quizComboGroups = sampleSize(comboGroups, quizLength)
 
-    return quizCombos.map(quizCombo => {
+    return quizComboGroups.map(quizComboGroup => {
+        const quizCombo = sample(quizComboGroup.combos)
         const correctRange = findRangeContainingCombo(rangeList, quizCombo.id)
 
         return generateQuestion(quizCombo.id, rangeList, correctRange)
