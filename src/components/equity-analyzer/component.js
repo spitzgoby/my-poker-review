@@ -38,12 +38,14 @@ class EquityAnalyzer extends Component {
   renderRangesMode() {
     return (
       <>
-        <Grid container spacing={16} item>
+        <Grid container spacing={16}>
           <Grid item xs={12} sm={6} xl={4}>
             <Board />
           </Grid>
           <Grid item xs={12} sm={6} xl={4}>
-            <Button {...this.getTakeQuizButtonProps()}>Take Quiz</Button>
+            <div className={this.props.classes.takeQuizButtonContainer}>
+              <Button {...this.getTakeQuizButtonProps()}>Take Quiz</Button>
+            </div>
           </Grid>
         </Grid>
         {

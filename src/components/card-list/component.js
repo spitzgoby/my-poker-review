@@ -39,7 +39,6 @@ class CardList extends Component {
   }
 
   static defaultProps = {
-    display: 'inherit',
     showCardSelector: true
   }
 
