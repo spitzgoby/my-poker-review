@@ -1,5 +1,6 @@
 import Answer from 'components/equity-analyzer/quiz/answer'
 import CardList from 'components/card-list'
+import MissedQuestion from 'components/equity-analyzer/quiz/missed-question'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
@@ -9,20 +10,27 @@ import styles from './styles'
 const Quiz = props => {
     const {
         actions: {
-            answerQuestion
+            answerQuestion,
+            finishQuiz
         },
         classes,
         currentQuestion,
         currentQuestionIndex,
+        missedQuestions,
         quizFinished,
         quizLength,
         totalCorrect,
-        totalMissed
     } = props
 
     const handleAnswerSelect = answer => {
         if (answerQuestion) {
             answerQuestion(answer)
+        }
+    }
+
+    const handleDoneButtonClick = () => {
+        if (finishQuiz) {
+            finishQuiz()
         }
     }
 
@@ -37,6 +45,7 @@ const Quiz = props => {
     const getDoneButtonProps = () => ({
         classes: {root: classes.doneButton}, 
         color:"secondary",
+        onClick: handleDoneButtonClick,
         variant: "outlined"
     })
 
@@ -49,8 +58,11 @@ const Quiz = props => {
     const renderQuizResults = () => {
         return (
             <>
-                <div>You got {totalCorrect} right</div>
-                <div>You got {totalMissed} wrong</div>
+                <Typography variant='h4' display='inline'>
+                    Your Score: {totalCorrect}/{quizLength} 
+                </Typography>
+                <br />
+                {missedQuestions.map(missedQuestion => <MissedQuestion missedQuestion={missedQuestion} />)}
             </>
         )
     }

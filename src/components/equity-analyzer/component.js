@@ -71,9 +71,9 @@ class EquityAnalyzer extends Component {
 
   getTakeQuizButtonProps() {
     return {
-      color: "primary", 
+      color: "secondary", 
       onClick: this.handleQuizButtonClick, 
-      variant: "contained"
+      variant: "outlined"
     }
   }
 

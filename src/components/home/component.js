@@ -15,7 +15,7 @@ class Home extends Component {
 
   static propTypes = {
     compositionChartOpen: PropTypes.bool, 
-    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES])
+    mode: PropTypes.oneOf([modes.EQUITY, modes.QUIZ, modes.RANGES])
   }
 
   render() {

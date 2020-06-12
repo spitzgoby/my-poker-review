@@ -4,6 +4,7 @@ const DEFAULT_QUIZ_LENGTH = 100
 
 const initialState = {
     currentQuestionIndex: 0,
+    missedQuestions: [],
     questions: [],
     quizFinished: false,
     quizLength: DEFAULT_QUIZ_LENGTH,
@@ -13,6 +14,36 @@ const initialState = {
     totalMissed: 0
 }
 
+const getUpdatedQuizTotalsFromAnswer = (state, action) => {
+    const answer = action.payload.answer
+    const answeredCorrectly = answer.correct
+    const {
+        currentQuestionIndex,
+        missedQuestions,
+        questions,
+        quizLength,
+        totalAnswered,
+        totalCorrect,
+        totalMissed
+    } = state
+
+    const updatedMissedQuestions = answeredCorrectly
+        ? missedQuestions
+        : missedQuestions.concat([{
+            answer,
+            question: questions[currentQuestionIndex]
+        }])
+
+    return {
+        currentQuestionIndex: currentQuestionIndex + 1,
+        missedQuestions: updatedMissedQuestions,
+        quizFinished: totalAnswered + 1 === quizLength,
+        totalAnswered: totalAnswered + 1,
+        totalCorrect: answeredCorrectly ? totalCorrect + 1 : totalCorrect,
+        totalMissed: answeredCorrectly ? totalMissed : totalMissed + 1,
+    }
+}
+
 export default (state = initialState, action) => {
     let newState
 
@@ -20,11 +51,14 @@ export default (state = initialState, action) => {
         case types.ANSWER_QUESTION:
             newState = {
                 ...state,
-                currentQuestionIndex: state.currentQuestionIndex + 1,
-                quizFinished: state.totalAnswered + 1 === state.quizLength,
-                totalAnswered: state.totalAnswered + 1,
-                totalCorrect: action.payload.answer.correct ? state.totalCorrect + 1 : state.totalCorrect,
-                totalMissed: action.payload.answer.correct ? state.totalMissed : state.totalMissed + 1,
+                ...getUpdatedQuizTotalsFromAnswer(state, action)
+            }
+            break
+
+        case types.FINISH_QUIZ:
+            newState = {
+                ...state,
+                quizFinished: true
             }
             break
 
@@ -46,6 +80,7 @@ export default (state = initialState, action) => {
 
 export const getCurrentQuestion = (state) => state.questions[state.currentQuestionIndex]
 export const getCurrentQuestionIndex = (state) => state.currentQuestionIndex
+export const getMissedQuestions = (state) => state.missedQuestions
 export const getQuizFinished = (state) => state.quizFinished
 export const getQuizLength = (state) => state.quizLength
 export const getShouldUseOutsideCombos = (state) => state.useOutsideCombos

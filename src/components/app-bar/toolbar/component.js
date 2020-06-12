@@ -70,7 +70,7 @@ class RangeAnalyzerToolbar extends Component {
     })).isRequired,
     compositionChartOpen: PropTypes.bool,
     inputMode: PropTypes.oneOf([inputModes.CARD, inputModes.TEXT]),
-    mode: PropTypes.oneOf([modes.EQUITY, modes.RANGES]),
+    mode: PropTypes.oneOf([modes.EQUITY, modes.QUIZ, modes.RANGES]),
     ranges: PropTypes.arrayOf(PropTypes.object),
     selectedRangeOutput: PropTypes.string
   }

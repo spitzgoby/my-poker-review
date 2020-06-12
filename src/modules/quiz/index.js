@@ -19,6 +19,7 @@ export const QuizReducer = persistReducer(quizStorageConfig, quizReducer)
 const getQuizState = (state) => state.Quiz
 export const getCurrentQuestion = (state) => fromQuiz.getCurrentQuestion(getQuizState(state))
 export const getCurrentQuestionIndex = (state) => fromQuiz.getCurrentQuestionIndex(getQuizState(state))
+export const getMissedQuestions = (state) => fromQuiz.getMissedQuestions(getQuizState(state))
 export const getQuizFinished = (state) => fromQuiz.getQuizFinished(getQuizState(state))
 export const getQuizLength = (state) => fromQuiz.getQuizLength(getQuizState(state))
 export const getShouldUseOutsideCombos = (state) => fromQuiz.getShouldUseOutsideCombos(getQuizState(state))

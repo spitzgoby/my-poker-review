@@ -1,8 +1,10 @@
 import Quiz from './component'
 import {
     answerQuestion,
+    finishQuiz,
     getCurrentQuestion,
     getCurrentQuestionIndex,
+    getMissedQuestions,
     getQuizFinished,
     getQuizLength,
     getTotalCorrect,
@@ -14,6 +16,7 @@ import {bindActionCreators} from 'redux'
 const mapStateToProps = (state) => ({
     currentQuestion: getCurrentQuestion(state),
     currentQuestionIndex: getCurrentQuestionIndex(state),
+    missedQuestions: getMissedQuestions(state),
     quizFinished: getQuizFinished(state),
     quizLength: getQuizLength(state),
     totalCorrect: getTotalCorrect(state),
@@ -22,7 +25,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
-        answerQuestion
+        answerQuestion,
+        finishQuiz
     }, dispatch)
 })
 
