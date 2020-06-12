@@ -2,16 +2,16 @@ import {modes} from 'lib/application-constants'
 import Board from 'components/board'
 import Button from '@material-ui/core/Button'
 import DefaultRangesDialog from './default-ranges-dialog'
-import styles from 'components/equity-analyzer/styles'
+import styles from './styles'
 import RangeTable from 'components/range-table'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
-import Quiz from 'components/equity-analyzer/quiz'
+import Quiz from './quiz'
 import Typography from '@material-ui/core/Typography'
 import React, {Component} from 'react'
 import injectSheet from 'react-jss'
 
-class EquityAnalyzer extends Component {
+class RangeAnalyzer extends Component {
   constructor(props) {
     super(props)
 
@@ -101,4 +101,4 @@ class EquityAnalyzer extends Component {
   }
 }
 
-export default injectSheet(styles)(EquityAnalyzer)
+export default injectSheet(styles)(RangeAnalyzer)

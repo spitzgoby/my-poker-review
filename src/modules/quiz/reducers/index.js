@@ -55,6 +55,12 @@ export default (state = initialState, action) => {
             }
             break
 
+        case types.EXIT_QUIZ:
+            newState = {
+                ...initialState
+            }
+            break
+
         case types.FINISH_QUIZ:
             newState = {
                 ...state,

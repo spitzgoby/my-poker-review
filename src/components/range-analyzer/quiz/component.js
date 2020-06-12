@@ -1,6 +1,6 @@
-import Answer from 'components/equity-analyzer/quiz/answer'
+import Answer from './answer'
 import CardList from 'components/card-list'
-import MissedQuestion from 'components/equity-analyzer/quiz/missed-question'
+import MissedQuestion from './missed-question'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import React from 'react'
@@ -11,7 +11,9 @@ const Quiz = props => {
     const {
         actions: {
             answerQuestion,
-            finishQuiz
+            exitQuiz,
+            finishQuiz,
+            startQuiz
         },
         classes,
         currentQuestion,
@@ -20,18 +22,23 @@ const Quiz = props => {
         quizFinished,
         quizLength,
         totalCorrect,
+        totalMissed
     } = props
 
     const handleAnswerSelect = answer => {
-        if (answerQuestion) {
-            answerQuestion(answer)
-        }
+        answerQuestion && answerQuestion(answer)
     }
 
     const handleDoneButtonClick = () => {
-        if (finishQuiz) {
-            finishQuiz()
-        }
+        finishQuiz && finishQuiz()
+    }
+
+    const handleTakeNewQuizButtonClicked = () => {
+        startQuiz && startQuiz()
+    }
+
+    const handleExitButtonClicked = () => {
+        exitQuiz && exitQuiz()
     }
 
     const getCardListProps = () => ({
@@ -55,14 +62,42 @@ const Quiz = props => {
         onSelectAnswer: handleAnswerSelect
     })
 
+    const quizResultsActionButtonColors = {
+        exit: 'secondary',
+        takeNewQuiz: 'primary'
+    }
+    const quizResultsActionHandlers = {
+        exit: handleExitButtonClicked,
+        takeNewQuiz: handleTakeNewQuizButtonClicked
+    }
+    const getQuizResultsActionButtonProps = (buttonName) => ({
+        classes: {root: classes.quizResultsAction},
+        color: quizResultsActionButtonColors[buttonName],
+        onClick: quizResultsActionHandlers[buttonName],
+        variant: 'outlined'
+    })
+
     const renderQuizResults = () => {
         return (
             <>
-                <Typography variant='h4' display='inline'>
-                    Your Score: {totalCorrect}/{quizLength} 
-                </Typography>
+                <div className={classes.quizResultsHeader}>
+                    <Typography variant="h4">
+                        Your Score: {totalCorrect}/{quizLength} 
+                    </Typography>
+                    <div className={classes.quizResultsActions}>
+                        <Button {...getQuizResultsActionButtonProps('takeNewQuiz')}>
+                            Take New Quiz
+                        </Button>
+                        <Button {...getQuizResultsActionButtonProps('exit')}>
+                            Exit
+                        </Button>
+                    </div>
+                </div>
                 <br />
-                {missedQuestions.map(missedQuestion => <MissedQuestion missedQuestion={missedQuestion} />)}
+                <Typography variant="subtitle1">
+                    You skipped {`${quizLength - (totalCorrect + totalMissed)}/${quizLength}`}
+                </Typography>
+                {missedQuestions.map((missedQuestion, index) => <MissedQuestion key={index} missedQuestion={missedQuestion} />)}
             </>
         )
     }
@@ -77,7 +112,9 @@ const Quiz = props => {
                         <Typography display="inline">Answered <strong>{currentQuestionIndex}</strong> of <strong>{quizLength}</strong></Typography>
                     </div>
                 </div>
-                {currentQuestion.answers.map(answer => <Answer {...getAnswerProps(answer)} />)}
+                <div className={classes.quizAnswers}>
+                    {currentQuestion.answers.map(answer => <Answer {...getAnswerProps(answer)} />)}
+                </div>
             </>
         )
     }

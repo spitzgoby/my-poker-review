@@ -1,6 +1,7 @@
 import Quiz from './component'
 import {
     answerQuestion,
+    exitQuiz,
     finishQuiz,
     getCurrentQuestion,
     getCurrentQuestionIndex,
@@ -8,7 +9,8 @@ import {
     getQuizFinished,
     getQuizLength,
     getTotalCorrect,
-    getTotalMissed
+    getTotalMissed,
+    startQuiz
 } from 'modules/quiz'
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
@@ -26,7 +28,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators({
         answerQuestion,
-        finishQuiz
+        exitQuiz,
+        finishQuiz,
+        startQuiz
     }, dispatch)
 })
 

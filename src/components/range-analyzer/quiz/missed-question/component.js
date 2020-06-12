@@ -1,5 +1,8 @@
+import CardList from 'components/card-list'
 import PropTypes from 'prop-types'
 import React from 'react'
+import injectSheet from 'react-jss'
+import styles from './styles'
 
 const propTypes = {
     missedQuestion: PropTypes.shape({
@@ -15,6 +18,7 @@ const propTypes = {
 
 const MissedQuestion = (props) => {
     const {
+        classes,
         missedQuestion: {
             question: {
                 cards
@@ -24,10 +28,12 @@ const MissedQuestion = (props) => {
 
 
     return (
-        <div>Missed Question: {cards[0].text}{cards[1].text}</div>
+        <div className={classes.missedQuestion}>
+            <CardList cards={cards} count={2} showCardSelector={false} />
+        </div>
     )
 }
 
 MissedQuestion.propTypes = propTypes
 
-export default MissedQuestion
+export default injectSheet(styles)(MissedQuestion)

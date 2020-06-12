@@ -1,6 +1,6 @@
 import AppBar from 'components/app-bar'
 import {styles} from 'components/home/styles'
-import EquityAnalzyer from 'components/equity-analyzer'
+import RangeAnalzyer from 'components/range-analyzer'
 import RangeBuilder from 'components/range-builder'
 import RangeCompositionChart from 'components/range-composition-chart'
 import {modes} from 'lib/application-constants'
@@ -28,9 +28,9 @@ class Home extends Component {
       <div className={classes.root}>
         <AppBar />
         <Grid container spacing={16}>
-          <Grid className={classes.analyzergrid} container direction="column" spacing={16} item xs={12} lg={7}>
+          <Grid classes={{root: classes.analyzergrid}} container direction="column" spacing={16} item xs={12} lg={7}>
             <Grid item>
-              <EquityAnalzyer />
+              <RangeAnalzyer />
             </Grid>
             { compositionChartOpen 
                 ? (<Grid item>

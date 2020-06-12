@@ -9,8 +9,9 @@ const getBackgroundColor = (props, hover) => {
 export default {
     answer: {
         backgroundColor: props => getBackgroundColor(props, false),
-        borderLeft: '1px solid black',
-        marginTop: '1rem',
+        border: '1px solid black',
+        borderRadius: '0.25rem',
+        marginTop: '0.5rem',
         padding: '1rem',
 
         '&:hover': {

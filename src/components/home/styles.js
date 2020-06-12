@@ -1,3 +1,4 @@
+import {modes} from 'lib/application-constants'
 import {gutterWidth} from 'styles/layout'
 
 export const styles = {
@@ -7,7 +8,8 @@ export const styles = {
 
   analyzergrid: {
     display: 'inline-block',
-    marginTop: 0
+    marginTop: 0,
+    paddingTop: (props) => props.mode === modes.QUIZ ? '0px' : 'inherit'
   },
 
   '@media (max-width: 1280px)':{

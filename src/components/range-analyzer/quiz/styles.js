@@ -17,6 +17,20 @@ export default {
         justifyContent: 'space-between'
     },
 
+    quizAnswers: {
+        marginTop: '1rem'
+    },
+
+    quizResultsHeader: {
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
+
+    quizResultsAction: {
+        marginLeft: '1rem'
+    },
+
     doneButton: {
         marginBottom: '1rem'
     }

@@ -1,4 +1,4 @@
-import EquityAnalyzer from 'components/equity-analyzer/component'
+import EquityAnalyzer from './component'
 import { 
   getMode,
   setMode
