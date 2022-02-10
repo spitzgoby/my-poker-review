@@ -51,7 +51,7 @@
     "js-file-download": "^0.4.5",
     "lodash": "^4.17.11",
     "mini-css-extract-plugin": "0.4.3",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "optimize-css-assets-webpack-plugin": "5.0.1",
     "pec": "^0.7.0",
     "phe": "^0.6.0",
